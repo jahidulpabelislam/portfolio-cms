@@ -1,0 +1,51 @@
+/* For all devices */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	text-align: center;
+}
+
+.container {
+	max-width: 100%;
+	padding: 0 15px;
+	margin: auto;
+	transition: all 1s ease-in-out;
+}
+
+section {
+	display: flex;
+	transition: all 1s ease-in-out;
+}
+
+p {
+	margin: 10px 0;
+}
+
+img {
+	vertical-align: middle;
+}
+
+.main-content ul {
+	padding-left: 20px;
+	margin: 10px 0;
+	list-style: inside;
+}
+
+.main-content li {
+	margin: 2px 0;
+}
+
+/* Only for Desktops */
+@media only screen and (min-width: $desktop) {
+	.container {
+		width: 1170px;
+	}
+
+	.main-content li {
+		margin: 5px 0;
+	}
+}

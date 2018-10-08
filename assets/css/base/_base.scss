@@ -1,0 +1,51 @@
+/*
+  Any base css for all pages.
+  Any css for components/templates that will only have 1 line of code if separated.
+*/
+
+/* For all devices */
+body {
+	font: 400 14px 'Cabin', sans-serif;
+	font-family: 'Cabin', sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	color: $dark;
+}
+
+a {
+	font-weight: 700;
+	transition: all .3s ease-in-out;
+	text-decoration: none;
+	color: inherit;
+}
+
+a > img {
+	opacity: .9;
+	transition: all .3s ease-in-out;
+}
+
+a:hover > img {
+	box-shadow: 0 0 10px 0 transparentize($dark, .6);
+	cursor: pointer;
+	opacity: 1;
+}
+
+strong {
+	font-weight: 700;
+}
+
+/* Only for Desktops */
+@media only screen and (min-width: $tablet) {
+	body {
+		font-size: 15px;
+		line-height: 20px;
+	}
+}
+
+/* Only for Desktops */
+@media only screen and (min-width: $desktop) {
+	body {
+		font-size: 16px;
+		line-height: 21px;
+	}
+}

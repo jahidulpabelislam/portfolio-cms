@@ -13,6 +13,7 @@ var scripts = {
 		"assets/js/jpi/stickyFooter.js",
 		"assets/js/jpi/dragNDrop.js",
 		"assets/js/jpi/nav.js",
+		"assets/js/jpi/config.js",
 		"assets/js/third-party/jquery-ui.min.js",
 		"assets/js/third-party/sortable.js",
 	]

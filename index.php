@@ -199,6 +199,7 @@
 			<script src="/assets/js/jpi/stickyFooter.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
+			<script src="/assets/js/jpi/config.js?v=1" type="text/javascript"></script>
 			<!-- The third party script needed for the page for the sorting of pictures -->
 			<script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
 

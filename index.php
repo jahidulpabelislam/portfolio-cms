@@ -182,7 +182,13 @@
 
 		<!-- The loading area -->
 		<section class="js-loading fixed-overlay fixed-overlay--loading"><h1 class="fixed-overlay__text"><i class='fa fa-spinner fa-spin'></i></h1></section>
-
+		
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
+		<script>
+			window.jpi = window.jpi || {};
+			window.jpi.config = window.jpi.config || {};
+			window.jpi.config.jpiAPIEndpoint = "<?php echo JPI_API_ENDPOINT; ?>";
+		</script>
 		<!-- The Scripts -->
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -199,13 +205,14 @@
 			<script src="/assets/js/jpi/stickyFooter.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
-			<script src="/assets/js/jpi/config.js?v=1" type="text/javascript"></script>
 			<!-- The third party script needed for the page for the sorting of pictures -->
 			<script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
 
 			<!-- The third party script needed for the page for the sorting of pictures -->
 			<script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
 		<?php endif; ?>
+		
+		<script src="/assets/js/jpi/config.js?v=1" type="text/javascript"></script>
 
 		<!-- the script for the page -->
 		<script src="/assets/js/jpi/admin.js?v=1" type="text/javascript"></script>

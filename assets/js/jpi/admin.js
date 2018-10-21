@@ -226,7 +226,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 			//Sends a object with necessary data to XHR
 			$http({
-				url: jpi.config.apiEndpoint + "projects",
+				url: jpi.config.jpiAPIEndpoint + "projects",
 				method: "GET",
 				params: {page: $scope.currentPage}
 			}).then(fn.gotProjects, function (result) {
@@ -237,7 +237,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 		getAndEditProject: function (id) {
 			$http({
-				url: jpi.config.apiEndpoint + "projects/" + id,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + id,
 				method: "GET"
 			}).then(function (result) {
 				if (result.data.meta.ok && result.data.rows.length > 0) {
@@ -321,7 +321,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			e.stopPropagation();
 
 			$http({
-				url: jpi.config.apiEndpoint + "logout",
+				url: jpi.config.jpiAPIEndpoint + "logout",
 				method: "GET"
 			}).then(function (result) {
 				if (result.data.meta.status && result.data.meta.status == 200) {
@@ -479,7 +479,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 	$scope.checkAuthStatus = function (successFunc, redirectTo, messageOverride) {
 		$http({
-			url: jpi.config.apiEndpoint + "session",
+			url: jpi.config.jpiAPIEndpoint + "session",
 			method: "GET"
 		}).then(function (result) {
 			if (result.data.meta.status && result.data.meta.status == 200) {
@@ -509,7 +509,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			//add the picture
 			form.append("picture", upload.file);
 
-			$http.post(jpi.config.apiEndpoint + "projects/" + $scope.selectedProject.ID + "/pictures/", form, {
+			$http.post(jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/pictures/", form, {
 				transformRequest: angular.identity,
 				headers: {'Content-Type': undefined, 'Process-Data': false}
 			}).then(function (result) {
@@ -568,7 +568,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 		$scope.checkAuthStatus(function () {
 			$http({
-				url: jpi.config.apiEndpoint + "projects/" + projectImage.ProjectID + "/pictures/" + projectImage.ID,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + projectImage.ProjectID + "/pictures/" + projectImage.ID,
 				method: "DELETE"
 			}).then(fn.deletedProjectImage, function (result) {
 				var message = fn.getFeedback(result, "Error deleting the Project Image.");
@@ -622,7 +622,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			});
 
 			$http({
-				url: jpi.config.apiEndpoint + "projects/" + $scope.selectedProject.ID,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID,
 				method: method,
 				params: {
 					projectName: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
@@ -693,7 +693,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		$scope.selectProjectFeedback = "";
 		if ($scope.selectedProject && $scope.selectedProject.ID) {
 			$http({
-				url: jpi.config.apiEndpoint + "projects/" + $scope.selectedProject.ID,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID,
 				method: "DELETE"
 			}).then(fn.renderProjectDelete, function (result) {
 				fn.showProjectSelectError(fn.getFeedback(result, "Error deleting your project."));
@@ -739,7 +739,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		//else inputs are filled
 		else {
 			$http({
-				url: jpi.config.apiEndpoint + "login",
+				url: jpi.config.jpiAPIEndpoint + "login",
 				method: "POST",
 				params: {username: $scope.username, password: $scope.password}
 			}).then(fn.loggedIn, function (result) {

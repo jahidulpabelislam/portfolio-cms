@@ -239,8 +239,8 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				url: jpi.config.jpiAPIEndpoint + "projects/" + id,
 				method: "GET"
 			}).then(function (result) {
-				if (result.data.meta.ok && result.data.rows.length > 0) {
-					$scope.selectProject(result.data.rows[0]);
+				if (result.data.meta.ok && result.data.row) {
+					$scope.selectProject(result.data.row);
 					fn.setUpEditProject();
 					fn.hideLoading();
 				}
@@ -636,13 +636,13 @@ app.controller('projectsAdminController', function ($scope, $http) {
 					pictures: $scope.selectedProject.Pictures ? angular.toJson($scope.selectedProject.Pictures) : []
 				}
 			}).then(function (result) {
-				result.data.rows[0].Date = new Date(result.data.rows[0].Date);
+				result.data.row.Date = new Date(result.data.row.Date);
 
-				if (typeof  result.data.rows[0].Skills == "string") {
-					result.data.rows[0].Skills = result.data.rows[0].Skills.split(",");
+				if (typeof  result.data.row.Skills == "string") {
+					result.data.row.Skills = result.data.row.Skills.split(",");
 				}
 
-				$scope.selectedProject = result.data.rows[0];
+				$scope.selectedProject = result.data.row;
 
 				if (!wasUpdate) {
 					global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit";

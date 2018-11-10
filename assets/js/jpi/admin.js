@@ -236,7 +236,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 		getAndEditProject: function (id) {
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + id,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + id + "/",
 				method: "GET"
 			}).then(function (result) {
 				if (result.data.meta.ok && result.data.row) {
@@ -379,7 +379,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 					else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit") {
 						$scope.checkAuthStatus(function () {
 							fn.getAndEditProject(parseInt(path[1], 10));
-						}, "project/" + parseInt(path[1], 10) + "/edit");
+						}, "project/" + parseInt(path[1], 10) + "/edit/");
 					}
 				}
 				else {
@@ -430,12 +430,12 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				$scope.checkAuthStatus(function () {
 
 					if (id) {
-						global.url.pathname = "project/" + id + "/edit";
+						global.url.pathname = "project/" + id + "/edit/";
 						history.pushState(null, null, global.url.toString());
 					}
 
 					fn.setUpEditProject();
-				}, "project/" + id + "/edit");
+				}, "project/" + id + "/edit/");
 			});
 
 			window.addEventListener('popstate', function () {
@@ -478,7 +478,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 	$scope.checkAuthStatus = function (successFunc, redirectTo, messageOverride) {
 		$http({
-			url: jpi.config.jpiAPIEndpoint + "session",
+			url: jpi.config.jpiAPIEndpoint + "session/",
 			method: "GET"
 		}).then(function (result) {
 			if (result.data.meta.status && result.data.meta.status == 200) {
@@ -567,7 +567,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 		$scope.checkAuthStatus(function () {
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + projectImage.ProjectID + "/pictures/" + projectImage.ID,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + projectImage.ProjectID + "/pictures/" + projectImage.ID  + "/",
 				method: "DELETE"
 			}).then(fn.deletedProjectImage, function (result) {
 				var message = fn.getFeedback(result, "Error deleting the Project Image.");
@@ -621,7 +621,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			});
 
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/",
 				method: method,
 				params: {
 					projectName: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
@@ -645,7 +645,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				$scope.selectedProject = result.data.row;
 
 				if (!wasUpdate) {
-					global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit";
+					global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit/";
 					history.pushState(null, null, global.url.toString());
 					fn.setUpEditProject();
 				}
@@ -692,7 +692,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		$scope.selectProjectFeedback = "";
 		if ($scope.selectedProject && $scope.selectedProject.ID) {
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID,
+				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/",
 				method: "DELETE"
 			}).then(fn.renderProjectDelete, function (result) {
 				fn.showProjectSelectError(fn.getFeedback(result, "Error deleting your project."));
@@ -738,7 +738,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		//else inputs are filled
 		else {
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "login",
+				url: jpi.config.jpiAPIEndpoint + "login/",
 				method: "POST",
 				params: {username: $scope.username, password: $scope.password}
 			}).then(fn.loggedIn, function (result) {

@@ -139,10 +139,10 @@
 							<option value="purple">Purple</option>
 						</select>
 
-						<ul ui-sortable ng-model="selectedProject.Pictures" class="project__images-container ui-state-default">
-							<li class="project__image-container" ng-repeat="picture in selectedProject.Pictures" id="{{picture.File}}">
-								<img class="project__image" src="{{picture.File}}">
-								<button ng-click="deleteProjectImage(picture)" class="btn btn--red project__image-delete-button" type="button">X</button>
+						<ul ui-sortable ng-model="selectedProject.Images" class="project__images-container ui-state-default">
+							<li class="project__image-container" ng-repeat="image in selectedProject.Images" id="{{image.File}}">
+								<img class="project__image" src="{{image.File}}">
+								<button ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" type="button">X</button>
 							</li>
 						</ul>
 
@@ -155,7 +155,7 @@
 							<div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">
 								<p>{{upload.text}}</p>
 								<img ng-if="upload.ok == true" src="{{upload.image}}">
-								<button ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--blue" type="button"><span class="screen-reader-text">Upload This Picture</span><i class="fa fa-upload"></i></button>
+								<button ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--blue" type="button"><span class="screen-reader-text">Upload This Image</span><i class="fa fa-upload"></i></button>
 							</div>
 						</div>
 					</form>
@@ -205,10 +205,10 @@
 			<script src="/assets/js/jpi/stickyFooter.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
-			<!-- The third party script needed for the page for the sorting of pictures -->
+			<!-- The third party script needed for the page for the sorting of images -->
 			<script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
 
-			<!-- The third party script needed for the page for the sorting of pictures -->
+			<!-- The third party script needed for the page for the sorting of images -->
 			<script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
 		<?php endif; ?>
 		

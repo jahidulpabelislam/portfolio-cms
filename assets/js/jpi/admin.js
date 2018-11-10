@@ -70,12 +70,12 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 				var i = 0, found = false;
 				// Find and remove the image from view
-				for (i = 0; i < $scope.selectedProject.Pictures.length; i++) {
-					if ($scope.selectedProject.Pictures[i]["ID"] === result.data.row.ID) {
-						var pictureToDelete = $scope.selectedProject.Pictures[i];
-						var index = $scope.selectedProject.Pictures.indexOf(pictureToDelete);
+				for (i = 0; i < $scope.selectedProject.Images.length; i++) {
+					if ($scope.selectedProject.Images[i]["ID"] === result.data.row.ID) {
+						var imageToDelete = $scope.selectedProject.Images[i];
+						var index = $scope.selectedProject.Images.indexOf(imageToDelete);
 						if (index > -1) {
-							$scope.selectedProject.Pictures.splice(index, 1);
+							$scope.selectedProject.Images.splice(index, 1);
 						}
 						found = true;
 						break;
@@ -169,7 +169,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				Download: "",
 				Date: "",
 				Colour: "",
-				Pictures: []
+				Images: []
 			};
 		},
 
@@ -505,14 +505,14 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 		$scope.checkAuthStatus(function () {
 			var form = new FormData();
-			//add the picture
-			form.append("picture", upload.file);
+			// Add the image
+			form.append("image", upload.file);
 
-			$http.post(jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/pictures/", form, {
+			$http.post(jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/images/", form, {
 				transformRequest: angular.identity,
 				headers: {'Content-Type': undefined, 'Process-Data': false}
 			}).then(function (result) {
-				$scope.selectedProject.Pictures.push(result.data.row);
+				$scope.selectedProject.Images.push(result.data.row);
 				var index = $scope.uploads.indexOf(upload);
 				if (index > -1) {
 					$scope.uploads.splice(index, 1);
@@ -558,7 +558,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		}
 	};
 
-	//send a request to delete a project image
+	// Send a request to delete a Project Image
 	$scope.deleteProjectImage = function (projectImage) {
 
 		fn.showLoading();
@@ -567,7 +567,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 		$scope.checkAuthStatus(function () {
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + projectImage.ProjectID + "/pictures/" + projectImage.ID  + "/",
+				url: jpi.config.jpiAPIEndpoint + "projects/" + projectImage.ProjectID + "/images/" + projectImage.ID  + "/",
 				method: "DELETE"
 			}).then(fn.deletedProjectImage, function (result) {
 				var message = fn.getFeedback(result, "Error deleting the Project Image.");
@@ -616,8 +616,8 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				wasUpdate = false;
 			}
 
-			$scope.selectedProject.Pictures.forEach(function (picture, i) {
-				picture.Number = i + 1;
+			$scope.selectedProject.Images.forEach(function (image, i) {
+				image.Number = i + 1;
 			});
 
 			$http({
@@ -633,7 +633,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 					Download: $scope.selectedProject.Download ? $scope.selectedProject.Download : "",
 					Date: $scope.selectedProject.Date ? $scope.selectedProject.Date : "",
 					Colour: $scope.selectedProject.Colour ? $scope.selectedProject.Colour : "",
-					Pictures: $scope.selectedProject.Pictures ? angular.toJson($scope.selectedProject.Pictures) : []
+					Images: $scope.selectedProject.Images ? angular.toJson($scope.selectedProject.Images) : []
 				}
 			}).then(function (result) {
 				result.data.row.Date = new Date(result.data.row.Date);

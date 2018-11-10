@@ -512,7 +512,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				transformRequest: angular.identity,
 				headers: {'Content-Type': undefined, 'Process-Data': false}
 			}).then(function (result) {
-				$scope.selectedProject.Pictures.push(result.data.rows[0]);
+				$scope.selectedProject.Pictures.push(result.data.row);
 				var index = $scope.uploads.indexOf(upload);
 				if (index > -1) {
 					$scope.uploads.splice(index, 1);

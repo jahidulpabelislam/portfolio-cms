@@ -624,16 +624,16 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/",
 				method: method,
 				params: {
-					projectName: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
-					skills: $scope.selectedProject.Skills ? $scope.selectedProject.Skills.join(",") : "",
-					longDescription: $scope.selectedProject.LongDescription ? $scope.selectedProject.LongDescription : "",
-					shortDescription: $scope.selectedProject.ShortDescription ? $scope.selectedProject.ShortDescription : "",
-					link: $scope.selectedProject.Link ? $scope.selectedProject.Link : "",
-					github: $scope.selectedProject.GitHub ? $scope.selectedProject.GitHub : "",
-					download: $scope.selectedProject.Download ? $scope.selectedProject.Download : "",
-					date: $scope.selectedProject.Date ? $scope.selectedProject.Date : "",
-					colour: $scope.selectedProject.Colour ? $scope.selectedProject.Colour : "",
-					pictures: $scope.selectedProject.Pictures ? angular.toJson($scope.selectedProject.Pictures) : []
+					Name: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
+					Skills: $scope.selectedProject.Skills ? $scope.selectedProject.Skills.join(",") : "",
+					LongDescription: $scope.selectedProject.LongDescription ? $scope.selectedProject.LongDescription : "",
+					ShortDescription: $scope.selectedProject.ShortDescription ? $scope.selectedProject.ShortDescription : "",
+					Link: $scope.selectedProject.Link ? $scope.selectedProject.Link : "",
+					GitHub: $scope.selectedProject.GitHub ? $scope.selectedProject.GitHub : "",
+					Download: $scope.selectedProject.Download ? $scope.selectedProject.Download : "",
+					Date: $scope.selectedProject.Date ? $scope.selectedProject.Date : "",
+					Colour: $scope.selectedProject.Colour ? $scope.selectedProject.Colour : "",
+					Pictures: $scope.selectedProject.Pictures ? angular.toJson($scope.selectedProject.Pictures) : []
 				}
 			}).then(function (result) {
 				result.data.row.Date = new Date(result.data.row.Date);

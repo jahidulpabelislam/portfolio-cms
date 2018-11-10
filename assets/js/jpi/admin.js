@@ -58,20 +58,20 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			jpi.footer.delayExpand();
 		},
 
-		//render a project image delete
+		// Render a Project Image deletion message to show if it's been deleted or failed
 		deletedProjectImage: function (result) {
 			$scope.hideProjectError();
 
 			var message = "Error deleting the Project Image.";
 			var feedbackClass = "feedback--error";
 
-			//check if the deletion of project image has been processed
-			if (result.data.rows && result.data.rows.id) {
+			// Check if the deletion of project image has been processed
+			if (result.data.row && result.data.row.ID) {
 
 				var i = 0, found = false;
-				//find and remove the image
+				// Find and remove the image from view
 				for (i = 0; i < $scope.selectedProject.Pictures.length; i++) {
-					if ($scope.selectedProject.Pictures[i]["ID"] === result.data.rows.id) {
+					if ($scope.selectedProject.Pictures[i]["ID"] === result.data.row.ID) {
 						var pictureToDelete = $scope.selectedProject.Pictures[i];
 						var index = $scope.selectedProject.Pictures.indexOf(pictureToDelete);
 						if (index > -1) {
@@ -101,9 +101,9 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 			var feedbackClass = "feedback--error";
 			//check if project delete has been processed
-			if (result.data.rows && result.data.rows.projectID) {
+			if (result.data.row && result.data.row.ID) {
 
-				defaultFeedback = "Successfully deleted the Project identified by: " + result.data.rows.projectID + ".";
+				defaultFeedback = "Successfully deleted the Project identified by: " + result.data.row.ID + ".";
 				feedbackClass = "feedback--success";
 				fn.getProjectList(1);
 			}

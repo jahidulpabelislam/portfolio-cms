@@ -22,7 +22,6 @@ app.controller('projectsAdminController', function ($scope, $http) {
 	 */
 	var global = {
 		url: new URL(window.location),
-		baseURL: "admin/",
 		redirectTo: null,
 		titlePostfix: " - JPI Admin"
 	};
@@ -220,7 +219,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			jpi.dnd.stop();
 
 			if (addToHistory !== false) {
-				global.url.pathname = global.baseURL + "projects/" + page + "/";
+				global.url.pathname = "projects/" + page + "/";
 				history.pushState(null, null, global.url.toString());
 			}
 
@@ -269,7 +268,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 					global.redirectTo = "projects/1/";
 				}
 
-				global.url.pathname = global.baseURL + global.redirectTo;
+				global.url.pathname = global.redirectTo;
 				history.pushState(null, null, global.url.toString());
 				fn.loadApp();
 				global.redirectTo = null;
@@ -312,7 +311,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			jpi.footer.delayExpand();
 
 			global.redirectTo = redirectTo;
-			global.url.pathname = global.baseURL + "login/";
+			global.url.pathname = "login/";
 			history.pushState(null, null, global.url.toString());
 		},
 
@@ -360,27 +359,27 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		loadApp: function () {
 			var path = global.url.pathname.substring(1).split('/');
 
-			if (path[1]) {
-				var root = path[1];
+			if (path[0]) {
+				var root = path[0];
 
 				//check what page should be shown
 				if (root === "projects") {
 					var pageNum = 1;
-					if (path[2] && Number.isInteger(parseInt(path[2]))) {
-						pageNum = parseInt(path[2], 10);
+					if (path[1] && Number.isInteger(parseInt(path[1]))) {
+						pageNum = parseInt(path[1], 10);
 					}
 					$scope.checkAuthStatus(function () {
 						fn.getProjectList(pageNum, false);
 					}, "projects/" + pageNum + "/");
 				}
-				else if (root === "project" && path[2]) {
-					if (path[2] === "add") {
+				else if (root === "project" && path[1]) {
+					if (path[1] === "add") {
 						$scope.checkAuthStatus(fn.setUpAddProject, "project/add/");
 					}
-					else if (Number.isInteger(parseInt(path[2])) && path[3] && path[3] === "edit") {
+					else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit") {
 						$scope.checkAuthStatus(function () {
-							fn.getAndEditProject(parseInt(path[2], 10));
-						}, "project/" + parseInt(path[2], 10) + "/edit");
+							fn.getAndEditProject(parseInt(path[1], 10));
+						}, "project/" + parseInt(path[1], 10) + "/edit");
 					}
 				}
 				else {
@@ -416,7 +415,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				e.stopPropagation();
 
 				$scope.checkAuthStatus(function () {
-					global.url.pathname = global.baseURL + "project/add/";
+					global.url.pathname = "project/add/";
 					history.pushState(null, null, global.url.toString());
 					fn.setUpAddProject();
 				}, "project/add/");
@@ -431,7 +430,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				$scope.checkAuthStatus(function () {
 
 					if (id) {
-						global.url.pathname = global.baseURL + "project/" + id + "/edit";
+						global.url.pathname = "project/" + id + "/edit";
 						history.pushState(null, null, global.url.toString());
 					}
 
@@ -646,7 +645,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				$scope.selectedProject = result.data.rows[0];
 
 				if (!wasUpdate) {
-					global.url.pathname = global.baseURL + "project/" + $scope.selectedProject.ID + "/edit";
+					global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit";
 					history.pushState(null, null, global.url.toString());
 					fn.setUpEditProject();
 				}

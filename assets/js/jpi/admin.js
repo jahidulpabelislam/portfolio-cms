@@ -225,7 +225,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 			//Sends a object with necessary data to XHR
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects",
+				url: jpi.config.jpiAPIEndpoint + "projects/",
 				method: "GET",
 				params: {page: $scope.currentPage}
 			}).then(fn.gotProjects, function (result) {
@@ -320,7 +320,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 			e.stopPropagation();
 
 			$http({
-				url: jpi.config.jpiAPIEndpoint + "logout",
+				url: jpi.config.jpiAPIEndpoint + "logout/",
 				method: "GET"
 			}).then(function (result) {
 				if (result.data.meta.status && result.data.meta.status == 200) {

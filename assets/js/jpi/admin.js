@@ -616,10 +616,6 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				wasUpdate = false;
 			}
 
-			$scope.selectedProject.Images.forEach(function (image, i) {
-				image.Number = i + 1;
-			});
-
 			$http({
 				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/",
 				method: method,

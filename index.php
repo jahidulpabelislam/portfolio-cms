@@ -1,3 +1,5 @@
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en" ng-app="projectsAdmin">
 	<head>
@@ -141,7 +143,7 @@
 
 						<ul ui-sortable ng-model="selectedProject.Images" class="project__images-container ui-state-default">
 							<li class="project__image-container" ng-repeat="image in selectedProject.Images" id="{{image.File}}">
-								<img class="project__image" src="{{image.File}}">
+								<img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, '/'); ?>{{image.File}}">
 								<button ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" type="button">X</button>
 							</li>
 						</ul>
@@ -182,12 +184,11 @@
 
 		<!-- The loading area -->
 		<section class="js-loading fixed-overlay fixed-overlay--loading"><h1 class="fixed-overlay__text"><i class='fa fa-spinner fa-spin'></i></h1></section>
-		
-		<?php include $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
+
 		<script>
 			window.jpi = window.jpi || {};
 			window.jpi.config = window.jpi.config || {};
-			window.jpi.config.jpiAPIEndpoint = "<?php echo JPI_API_ENDPOINT; ?>";
+			window.jpi.config.jpiAPIEndpoint = "<?php echo JPI_API_ENDPOINT . JPI_API_VERSION; ?>";
 		</script>
 		<!-- The Scripts -->
 

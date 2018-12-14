@@ -66,7 +66,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			var feedbackClass = "feedback--error";
 
 			// Check if the deletion of project image has been processed
-			if (result.data.row && result.data.row.ID) {
+			if (result && result.data && result.data.row && result.data.row.ID) {
 
 				var i = 0, found = false;
 				// Find and remove the image from view
@@ -101,7 +101,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			var feedbackClass = "feedback--error";
 			//check if project delete has been processed
-			if (result.data.row && result.data.row.ID) {
+			if (result && result.data && result.data.row && result.data.row.ID) {
 
 				defaultFeedback = "Successfully deleted the Project identified by: " + result.data.row.ID + ".";
 				feedbackClass = "feedback--success";
@@ -185,13 +185,13 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			$scope.selectedProject = undefined;
 
 			//check if data doesn't exist check there's no feedback
-			if (result.data.meta.ok && result.data.rows.length <= 0 && !result.data.meta.feedback) {
+			if (result && result.data && result.data.meta.ok && result.data.rows.length <= 0 && !result.data.meta.feedback) {
 
 				//assume there's no error and no projects to show
 				fn.showProjectSelectError("Sorry, no Projects to show.");
 				$scope.projects = [];
 			}
-			else if (result.data.rows.length > 0) {
+			else if (result && result.data && result.data.rows && result.data.rows.length > 0) {
 				$scope.projects = result.data.rows;
 				$scope.pages = [];
 
@@ -239,7 +239,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				url: jpi.config.jpiAPIEndpoint + "projects/" + id + "/",
 				method: "GET"
 			}).then(function (result) {
-				if (result.data.meta.ok && result.data.row) {
+				if (result && result.data && result.data.meta && result.data.meta.ok && result.data.row) {
 					$scope.selectProject(result.data.row);
 					fn.setUpEditProject();
 					fn.hideLoading();
@@ -256,7 +256,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		loggedIn: function (result) {
 
 			//check if data was valid
-			if (result.data.meta.status && result.data.meta.status == 200) {
+			if (result && result.data && result.data.meta && result.data.meta.status && result.data.meta.status == 200) {
 
 				//make the log in/sign up form not visible
 				jQuery(".login").hide();
@@ -323,7 +323,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				url: jpi.config.jpiAPIEndpoint + "logout/",
 				method: "GET"
 			}).then(function (result) {
-				if (result.data.meta.status && result.data.meta.status == 200) {
+				if (result && result.data && result.data.meta && result.data.meta.status && result.data.meta.status == 200) {
 					fn.showLoginForm(result);
 				}
 			});
@@ -481,7 +481,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			url: jpi.config.jpiAPIEndpoint + "session/",
 			method: "GET"
 		}).then(function (result) {
-			if (result.data.meta.status && result.data.meta.status == 200) {
+			if (result && result.data && result.data.meta && result.data.meta.status && result.data.meta.status == 200) {
 				$scope.loggedIn = true;
 				successFunc();
 			}
@@ -634,7 +634,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}).then(function (result) {
 				result.data.row.Date = new Date(result.data.row.Date);
 
-				if (typeof  result.data.row.Skills == "string") {
+				if (typeof result.data.row.Skills == "string") {
 					result.data.row.Skills = result.data.row.Skills.split(",");
 				}
 

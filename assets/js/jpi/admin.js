@@ -1,8 +1,8 @@
-var app = angular.module('projectsAdmin', ['ui.sortable']);
+var app = angular.module("projectsAdmin", ["ui.sortable"]);
 
 app.directive("fileUpload", function () {
 	return {
-		restrict: 'A',
+		restrict: "A",
 		scope: true,
 		link: function ($scope, $element) {
 
@@ -15,7 +15,7 @@ app.directive("fileUpload", function () {
 	};
 });
 
-app.controller('projectsAdminController', function ($scope, $http) {
+app.controller("projectsAdminController", function ($scope, $http) {
 
 	/*
 	 * Any global variables used in multiple places with JS
@@ -353,11 +353,11 @@ app.controller('projectsAdminController', function ($scope, $http) {
 		initialLogin: function () {
 			$scope.checkAuthStatus(function () {
 				fn.getProjectList(1);
-			}, null, '');
+			}, null, "");
 		},
 
 		loadApp: function () {
-			var path = global.url.pathname.substring(1).split('/');
+			var path = global.url.pathname.substring(1).split("/");
 
 			if (path[0]) {
 				var root = path[0];
@@ -438,7 +438,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				}, "project/" + id + "/edit/");
 			});
 
-			window.addEventListener('popstate', function () {
+			window.addEventListener("popstate", function () {
 				fn.showLoading();
 				global.url = new URL(window.location);
 				fn.loadApp();
@@ -462,7 +462,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 			fn.initListeners();
 
-			jQuery('.main-content').css("padding-top", jQuery('nav').height());
+			jQuery(".main-content").css("padding-top", jQuery("nav").height());
 
 			jQuery(".login, .project-view, .project-select").hide();
 
@@ -510,7 +510,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 
 			$http.post(jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/images/", form, {
 				transformRequest: angular.identity,
-				headers: {'Content-Type': undefined, 'Process-Data': false}
+				headers: {"Content-Type": undefined, "Process-Data": false}
 			}).then(function (result) {
 				$scope.selectedProject.Images.push(result.data.row);
 				var index = $scope.uploads.indexOf(upload);
@@ -672,7 +672,7 @@ app.controller('projectsAdminController', function ($scope, $http) {
 				var pos = jQuery("label[for=" + id + "]").offset().top;
 				var navHeight = jQuery(".nav").outerHeight();
 				var feedbackHeight = jQuery(".project__feedback").outerHeight();
-				jQuery('html, body').animate({
+				jQuery("html, body").animate({
 					scrollTop: pos - navHeight - feedbackHeight - 16
 				}, 1000);
 			}, 400);

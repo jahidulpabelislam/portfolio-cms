@@ -23,7 +23,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 	var global = {
 		url: new URL(window.location),
 		redirectTo: null,
-		titlePostfix: " - JPI Admin"
+		titlePostfix: " - JPI Admin",
+		jwtStorageKey: "cmsJwt",
+		jwt: "",
 	};
 
 	/*
@@ -31,9 +33,20 @@ app.controller("projectsAdminController", function ($scope, $http) {
 	 */
 	var fn = {
 
+		getJwtFromStorage: function() {
+			var jwt = localStorage.getItem(global.jwtStorageKey);
+			global.jwt = jwt;
+			return jwt;
+		},
+
+		setJwt: function(jwt) {
+			localStorage.setItem(global.jwtStorageKey, jwt);
+			global.jwt = jwt;
+		},
+
 		getFeedback: function (result, genericFeedback) {
-			if (result && result.data && result.data.meta && result.data.meta.feedback) {
-				return result.data.meta.feedback;
+			if (result && result.meta && result.meta.feedback) {
+				return result.meta.feedback;
 			}
 			else {
 				return genericFeedback;
@@ -51,27 +64,60 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			$scope.selectProjectFeedback = feedback;
 		},
 
-		//set image as failed upload div to display error
+		// Set image as failed upload div to display error
 		renderFailedUpload: function (errorMessage) {
 			$scope.uploads.push({ok: false, text: errorMessage});
 			$scope.$apply();
 			jpi.footer.delayExpand();
 		},
+		
+		sendAjaxResponse: function(result, func) {
+			var response = result && result.data ? result.data : {};
+
+			func(response);
+		},
+
+		doAjaxCall: function(url, method, data, onSuccess, onFail) {
+
+			var fullUrl = jpi.config.jpiAPIEndpoint + url + "/";
+
+			var options = {
+				url: fullUrl,
+				method: method.toUpperCase(),
+				params: data
+			};
+
+			if (url !== "login") {
+				options.headers = {
+					Authorization: "Bearer " + global.jwt
+				};
+			}
+
+			$http(options).then(function(result) {
+				if (onSuccess) {
+					fn.sendAjaxResponse(result, onSuccess)
+				}
+			}, function(result) {
+				if (onFail) {
+					fn.sendAjaxResponse(result, onFail)
+				}
+			});
+		},
 
 		// Render a Project Image deletion message to show if it's been deleted or failed
-		deletedProjectImage: function (result) {
+		onSuccessfulProjectImageDeletion: function(result) {
 			$scope.hideProjectError();
 
 			var message = "Error deleting the Project Image.";
 			var feedbackClass = "feedback--error";
 
 			// Check if the deletion of project image has been processed
-			if (result && result.data && result.data.row && result.data.row.ID) {
+			if (result && result.row && result.row.ID) {
 
 				var i = 0, found = false;
 				// Find and remove the image from view
 				for (i = 0; i < $scope.selectedProject.Images.length; i++) {
-					if ($scope.selectedProject.Images[i]["ID"] === result.data.row.ID) {
+					if ($scope.selectedProject.Images[i]["ID"] === result.row.ID) {
 						var imageToDelete = $scope.selectedProject.Images[i];
 						var index = $scope.selectedProject.Images.indexOf(imageToDelete);
 						if (index > -1) {
@@ -94,16 +140,30 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			fn.hideLoading();
 		},
+		
+		onSuccessfulProjectImageUpload: function(result) {
 
-		renderProjectDelete: function (result) {
+			$scope.selectedProject.Images.push(result.row);
+
+			var index = $scope.uploads.indexOf(upload);
+			if (index > -1) {
+				$scope.uploads.splice(index, 1);
+			}
+
+			var message = "Successfully added a new project image";
+			fn.showProjectError(message, "feedback--success");
+			fn.hideLoading();
+		},
+
+		onSuccessfulProjectDeletion: function(result) {
 			$scope.selectProjectFeedback = "";
 			var defaultFeedback = "Error deleting your project.";
 
 			var feedbackClass = "feedback--error";
-			//check if project delete has been processed
-			if (result && result.data && result.data.row && result.data.row.ID) {
+			// Check the project delete has been processed
+			if (result && result.row && result.row.ID) {
 
-				defaultFeedback = "Successfully deleted the Project identified by: " + result.data.row.ID + ".";
+				defaultFeedback = "Successfully deleted the Project identified by: " + result.row.ID + ".";
 				feedbackClass = "feedback--success";
 				fn.getProjectList(1);
 			}
@@ -112,8 +172,42 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			jpi.footer.delayExpand();
 			fn.hideLoading();
 		},
+		
+		onSuccessfulProjectUpdate: function(result) {
+			var wasUpdate = $scope.selectedProject && $scope.selectedProject.ID;
 
-		setUpProjectForm: function () {
+			result.row.Date = new Date(result.row.Date);
+			
+			if (typeof result.row.Skills == "string") {
+				result.row.Skills = result.row.Skills.split(",");
+			}
+			
+			$scope.selectedProject = result.row;
+			
+			if (!wasUpdate) {
+				global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit/";
+				history.pushState(null, null, global.url.toString());
+				fn.setUpEditProject();
+			}
+			
+			var typeSubmit = (wasUpdate) ? "updated" : "saved";
+			var defaultFeedback = "Successfully " + typeSubmit + " project.";
+			var message = fn.getFeedback(result, defaultFeedback);
+			fn.showProjectError(message, "feedback--success");
+			
+			fn.hideLoading();
+		},
+		
+		onFailedProjectUpdate: function(result) {
+			var typeSubmit = (!$scope.selectedProject.ID) ? "saving" : "updating";
+			var defaultFeedback = "Error  " + typeSubmit + " the project.";
+			
+			var message = fn.getFeedback(result, defaultFeedback);
+			fn.showProjectError(message, "feedback--error");
+			fn.hideLoading();
+		},
+
+		setUpProjectForm: function() {
 			$scope.skillInput = "";
 
 			jQuery(".project-view, .nav").show();
@@ -125,7 +219,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			jpi.footer.delayExpand();
 		},
 
-		setUpEditProject: function () {
+		setUpEditProject: function() {
 
 			$scope.selectProjectFeedback = "";
 
@@ -142,7 +236,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}
 		},
 
-		setUpAddProject: function () {
+		setUpAddProject: function() {
 
 			document.title = "Add New Project" + global.titlePostfix;
 
@@ -152,13 +246,11 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			jQuery(".nav .js-admin-new-project").addClass("active");
 
 			fn.setUpProjectForm();
-
 			fn.initNewProject();
-
 			fn.hideLoading();
 		},
 
-		initNewProject: function () {
+		initNewProject: function() {
 			$scope.selectedProject = {
 				Name: "",
 				Skills: [],
@@ -173,7 +265,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			};
 		},
 
-		gotProjects: function (result) {
+		gotProjects: function(result) {
 			document.title = "Projects (" + $scope.currentPage + ")" + global.titlePostfix;
 			jQuery(".project-view").hide();
 
@@ -184,32 +276,29 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			$scope.selectedProject = undefined;
 
-			//check if data doesn't exist check there's no feedback
-			if (result && result.data && result.data.meta.ok && result.data.rows.length <= 0 && !result.data.meta.feedback) {
+			// Check the data doesn't exist check there's no feedback
+			if (result && result.meta.ok && result.rows.length <= 0 && !result.meta.feedback) {
 
-				//assume there's no error and no projects to show
+				// Assume there's no error and no projects to show
 				fn.showProjectSelectError("Sorry, no Projects to show.");
 				$scope.projects = [];
 			}
-			else if (result && result.data && result.data.rows && result.data.rows.length > 0) {
-				$scope.projects = result.data.rows;
+			else if (result && result.rows && result.rows.length > 0) {
+				$scope.projects = result.rows;
 				$scope.pages = [];
 
-				var pages = Math.ceil(result.data.total_count / 10);
-
+				var pages = Math.ceil(result.total_count / 10);
 				for (var i = 1; i <= pages; i++) {
 					$scope.pages.push(i);
 				}
 			}
 
 			jpi.footer.delayExpand();
-
 			fn.hideLoading();
 		},
 
-		getProjectList: function (page, addToHistory) {
+		getProjectList: function(page, addToHistory) {
 			fn.showLoading();
-
 			$scope.hideProjectError();
 
 			$scope.selectProjectFeedback = "";
@@ -223,42 +312,63 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				history.pushState(null, null, global.url.toString());
 			}
 
-			//Sends a object with necessary data to XHR
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/",
-				method: "GET",
-				params: {page: $scope.currentPage}
-			}).then(fn.gotProjects, function (result) {
-				fn.showProjectSelectError(fn.getFeedback(result, "Error getting projects."));
-				fn.hideLoading();
-			});
-		},
-
-		getAndEditProject: function (id) {
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + id + "/",
-				method: "GET"
-			}).then(function (result) {
-				if (result && result.data && result.data.meta && result.data.meta.ok && result.data.row) {
-					$scope.selectProject(result.data.row);
-					fn.setUpEditProject();
+			// Sends a object with necessary data to XHR
+			fn.doAjaxCall(
+				"projects",
+				"GET",
+				{page: $scope.currentPage},
+				fn.gotProjects,
+				function(result) {
+					fn.showProjectSelectError(fn.getFeedback(result, "Error getting projects."));
 					fn.hideLoading();
 				}
-			}, function (result) {
-				fn.showProjectSelectError(fn.getFeedback(result, "Sorry, no Project found with ID: " + id + "."));
-				jQuery(".project-select, .nav").show();
-				jQuery(".project-select__add-button").hide();
-				fn.hideLoading()
-			});
+			);
+		},
+		
+		onSuccessfulProjectGet: function(result) {
+			if (result && result && result.meta && result.meta.ok && result.row) {
+				$scope.selectProject(result.row);
+				fn.setUpEditProject();
+				fn.hideLoading();
+			}
+		},
+		
+		onFailedProjectGet: function(result) {
+			fn.showProjectSelectError(fn.getFeedback(result, "Sorry, no Project found with ID: " + id + "."));
+			jQuery(".project-select, .nav").show();
+			jQuery(".project-select__add-button").hide();
+			fn.hideLoading();
 		},
 
-		//after user has attempted to log in
-		loggedIn: function (result) {
+		getAndEditProject: function(id) {
+			fn.doAjaxCall(
+				"projects/" + id,
+				"GET",
+				{},
+				fn.onSuccessfulProjectGet,
+				fn.onFailedProjectGet
+			);
+		},
+		
+		onSuccessfulAuthCheck: function(result, successFunc, messageOverride) {
+			if (result && result.meta && result.meta.status && result.meta.status == 200) {
+				$scope.loggedIn = true;
+				successFunc();
+			}
+			else {
+				fn.showLoginForm(result, redirectTo, messageOverride);
+			}
+		},
 
-			//check if data was valid
-			if (result && result.data && result.data.meta && result.data.meta.status && result.data.meta.status == 200) {
+		// After user has attempted to log in
+		loggedIn: function(result) {
 
-				//make the log in/sign up form not visible
+			// Check if data was valid
+			if (result && result.meta && result.meta.status && result.meta.status == 200) {
+
+				fn.setJwt(result.meta.jwt);
+
+				// Make the log in/sign up form not visible
 				jQuery(".login").hide();
 				jQuery(".nav").show();
 
@@ -273,14 +383,24 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				fn.loadApp();
 				global.redirectTo = null;
 			}
-			//check if feedback was provided or generic error message
+			// Check if feedback was provided or generic error message
 			else {
 				$scope.userFormFeedback = fn.getFeedback(result, "Error logging you in.");
 				fn.hideLoading();
 			}
 		},
+		
+		onFailedLogin: function(result) {
+			$scope.userFormFeedback = fn.getFeedback(result, "Error logging you in.");
 
-		showLoginForm: function (result, redirectTo, messageOverride) {
+			if ($scope.userFormFeedback !== "") {
+				jQuery(".login__feedback").removeClass("feedback--success").addClass("feedback--error");
+			}
+
+			fn.hideLoading();
+		},
+
+		showLoginForm: function(result, redirectTo, messageOverride) {
 
 			document.title = "Login" + global.titlePostfix;
 
@@ -296,8 +416,8 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			var success = false;
 
-			if (result && result.data && result.data.meta && result.data.meta.status) {
-				success = result.data.meta.status == 200 || result.data.meta.status == 201;
+			if (result && result.meta && result.meta.status) {
+				success = result.meta.status == 200 || result.meta.status == 201;
 			}
 
 			if (success) {
@@ -315,60 +435,63 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			history.pushState(null, null, global.url.toString());
 		},
 
-		logout: function (e) {
+		logout: function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "logout/",
-				method: "GET"
-			}).then(function (result) {
-				if (result && result.data && result.data.meta && result.data.meta.status && result.data.meta.status == 200) {
-					fn.showLoginForm(result);
+			fn.doAjaxCall(
+				"logout",
+				"DELETE",
+				{},
+				function(result) {
+					if (result && result && result.meta && result.meta.status && result.meta.status == 200) {
+						fn.setJwt("");
+						fn.showLoginForm(result);
+					}
 				}
-			});
+			);
 
 			return false;
 		},
 
-		hideLoading: function () {
+		hideLoading: function() {
 			jQuery(".js-loading").css({
 				opacity: "0"
 			});
 
-			setTimeout(function () {
+			setTimeout(function() {
 				jQuery(".js-loading").css({
 					zIndex: "-10"
 				});
 			}, 1000);
 		},
 
-		showLoading: function () {
+		showLoading: function() {
 			jQuery(".js-loading").css({
 				opacity: "1",
 				zIndex: "10"
 			});
 		},
 
-		initialLogin: function () {
-			$scope.checkAuthStatus(function () {
+		initialLogin: function() {
+			$scope.checkAuthStatus(function() {
 				fn.getProjectList(1);
 			}, null, "");
 		},
 
-		loadApp: function () {
+		loadApp: function() {
 			var path = global.url.pathname.substring(1).split("/");
 
 			if (path[0]) {
 				var root = path[0];
 
-				//check what page should be shown
+				// Check what page should be shown
 				if (root === "projects") {
 					var pageNum = 1;
 					if (path[1] && Number.isInteger(parseInt(path[1]))) {
 						pageNum = parseInt(path[1], 10);
 					}
-					$scope.checkAuthStatus(function () {
+					$scope.checkAuthStatus(function() {
 						fn.getProjectList(pageNum, false);
 					}, "projects/" + pageNum + "/");
 				}
@@ -377,7 +500,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 						$scope.checkAuthStatus(fn.setUpAddProject, "project/add/");
 					}
 					else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit") {
-						$scope.checkAuthStatus(function () {
+						$scope.checkAuthStatus(function() {
 							fn.getAndEditProject(parseInt(path[1], 10));
 						}, "project/" + parseInt(path[1], 10) + "/edit/");
 					}
@@ -391,12 +514,12 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}
 		},
 
-		initListeners: function () {
+		initListeners: function() {
 			jQuery(".admin-page").on("click", ".js-hide-error", $scope.hideProjectError);
 
 			jQuery(".admin-page").on("click", ".js-admin-logout", fn.logout);
 
-			jQuery(".admin-page").on("click", ".js-admin-projects", function (e) {
+			jQuery(".admin-page").on("click", ".js-admin-projects", function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 
@@ -405,29 +528,29 @@ app.controller("projectsAdminController", function ($scope, $http) {
 					page = 1;
 				}
 
-				$scope.checkAuthStatus(function () {
+				$scope.checkAuthStatus(function() {
 					fn.getProjectList(page);
 				}, "projects/" + page + "/");
 			});
 
-			jQuery(".admin-page").on("click", ".js-admin-new-project", function (e) {
+			jQuery(".admin-page").on("click", ".js-admin-new-project", function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 
-				$scope.checkAuthStatus(function () {
+				$scope.checkAuthStatus(function() {
 					global.url.pathname = "project/add/";
 					history.pushState(null, null, global.url.toString());
 					fn.setUpAddProject();
 				}, "project/add/");
 			});
 
-			jQuery(".admin-page").on("click", ".js-admin-edit-project", function (e) {
+			jQuery(".admin-page").on("click", ".js-admin-edit-project", function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 
 				var id = $scope.selectedProject ? $scope.selectedProject.ID : null;
 
-				$scope.checkAuthStatus(function () {
+				$scope.checkAuthStatus(function() {
 
 					if (id) {
 						global.url.pathname = "project/" + id + "/edit/";
@@ -438,14 +561,14 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				}, "project/" + id + "/edit/");
 			});
 
-			window.addEventListener("popstate", function () {
+			window.addEventListener("popstate", function() {
 				fn.showLoading();
 				global.url = new URL(window.location);
 				fn.loadApp();
 			});
 		},
 
-		initVariables: function () {
+		initVariables: function() {
 			$scope.loggedIn = false;
 			$scope.projects = $scope.pages = $scope.uploads = [];
 			$scope.currentPage = 1;
@@ -453,13 +576,11 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			$scope.userFormFeedback = $scope.selectProjectFeedback = $scope.projectFormFeedback = $scope.skillInput = "";
 		},
 
-		init: function () {
+		init: function() {
+			fn.getJwtFromStorage();
 			fn.showLoading();
-
 			fn.initVariables();
-
 			fn.initNewProject();
-
 			fn.initListeners();
 
 			jQuery(".main-content").css("padding-top", jQuery("nav").height());
@@ -475,119 +596,119 @@ app.controller("projectsAdminController", function ($scope, $http) {
 	 * Any functions used in HTML (and JS)
 	 */
 
+	$scope.checkAuthStatus = function(successFunc, redirectTo, messageOverride) {
 
-	$scope.checkAuthStatus = function (successFunc, redirectTo, messageOverride) {
-		$http({
-			url: jpi.config.jpiAPIEndpoint + "session/",
-			method: "GET"
-		}).then(function (result) {
-			if (result && result.data && result.data.meta && result.data.meta.status && result.data.meta.status == 200) {
-				$scope.loggedIn = true;
-				successFunc();
-			}
-			else {
+		fn.doAjaxCall(
+			"session",
+			"GET",
+			{},
+			function(result) {
+				fn.onSuccessfulAuthCheck(result, successFunc, messageOverride);
+			},
+			function(result) {
 				fn.showLoginForm(result, redirectTo, messageOverride);
-			}
-		}, function (result) {
-			fn.showLoginForm(result, redirectTo, messageOverride);
-		});
+			});
 	};
 
-	$scope.hideProjectError = function () {
+	$scope.hideProjectError = function() {
 		jQuery(".project__feedback").addClass("hide");
 	};
 
-	//send a image to API
-	$scope.sendImage = function (upload) {
+	// Send a newly uploaded image to API
+	$scope.sendImage = function(upload) {
 
 		fn.showLoading();
 		$scope.hideProjectError();
 
-		$scope.checkAuthStatus(function () {
+		$scope.checkAuthStatus(function() {
 			var form = new FormData();
 			// Add the image
 			form.append("image", upload.file);
 
-			$http.post(jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/images/", form, {
-				transformRequest: angular.identity,
-				headers: {"Content-Type": undefined, "Process-Data": false}
-			}).then(function (result) {
-				$scope.selectedProject.Images.push(result.data.row);
-				var index = $scope.uploads.indexOf(upload);
-				if (index > -1) {
-					$scope.uploads.splice(index, 1);
+			$http.post(
+				jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/images/",
+				form,
+				{
+					transformRequest: angular.identity,
+					headers: {
+						"Content-Type": undefined,
+						"Process-Data": false,
+						Authorization: "Bearer " + global.jwt
+					}
 				}
-
-				var message = "Successfully added a new project image";
-				fn.showProjectError(message, "feedback--success");
-				fn.hideLoading();
-
-			}, function (result) {
-				var message = fn.getFeedback(result, "Error uploading the Project Image.");
-				fn.showProjectError(message, "feedback--error");
-				fn.hideLoading();
+			).then(function(result) {
+				fn.sendAjaxResponse(result, fn.onSuccessfulProjectImageUpload);
+			}, function(result) {
+				fn.sendAjaxResponse(result,
+					function(result) {
+						var message = fn.getFeedback(result, "Error uploading the Project Image.");
+						fn.showProjectError(message, "feedback--error");
+						fn.hideLoading();
+					}
+				);
 			});
 		});
 	};
 
-	$scope.checkFile = function (file) {
+	$scope.checkFile = function(file) {
 
 		var fileReader;
 
-		//checks if file is a image
+		// Check if file is a image
 		if (file.type.includes("image/")) {
 
-			//gets image
+			// Gets image
 			fileReader = new FileReader();
 
-			fileReader.onload = function (e) {
+			fileReader.onload = function(e) {
 				$scope.uploads.push({ok: true, text: file.name, image: e.target.result, file: file});
 				$scope.$apply();
 				jpi.footer.delayExpand();
 			};
 
-			fileReader.onerror = function () {
+			fileReader.onerror = function() {
 				fn.renderFailedUpload("Error getting " + file.name);
 			};
 
 			fileReader.readAsDataURL(file);
 		}
-		//else it isn't a image so show its failed
+		// Else it isn't a image so show its failed
 		else {
 			fn.renderFailedUpload(file.name + " isn't a image.");
 		}
 	};
 
 	// Send a request to delete a Project Image
-	$scope.deleteProjectImage = function (projectImage) {
+	$scope.deleteProjectImage = function(projectImage) {
 
 		fn.showLoading();
 
 		$scope.hideProjectError();
 
-		$scope.checkAuthStatus(function () {
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + projectImage.ProjectID + "/images/" + projectImage.ID  + "/",
-				method: "DELETE"
-			}).then(fn.deletedProjectImage, function (result) {
+		fn.doAjaxCall(
+			"projects/" + projectImage.ProjectID + "/images/" + projectImage.ID,
+			"DELETE",
+			{},
+			fn.onSuccessfulProjectImageDeletion,
+			function(result) {
 				var message = fn.getFeedback(result, "Error deleting the Project Image.");
 				fn.showProjectError(message, "feedback--error");
 				fn.hideLoading();
-			});
-		});
+			}
+		);
 	};
 
-	$scope.addSkill = function () {
+	$scope.addSkill = function() {
 		$scope.selectedProject.Skills.push($scope.skillInput);
 		$scope.skillInput = "";
 	};
 
-	$scope.deleteSkill = function (skill) {
+	$scope.deleteSkill = function(skill) {
 		var index = $scope.selectedProject.Skills.indexOf(skill);
 		$scope.selectedProject.Skills.splice(index, 1);
 	};
 
-	$scope.submitProject = function () {
+	$scope.submitProject = function() {
 
 		fn.showLoading();
 		$scope.hideProjectError();
@@ -608,92 +729,72 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		}
 
 		if (projectNameValidation && skillsValidation && longDescriptionValidation && shortDescriptionValidation && githubValidation && dateValidation) {
-			var method = "PUT";
-			var wasUpdate = true;
-			if (!$scope.selectedProject.ID) {
-				$scope.selectedProject.ID = "";
-				method = "POST";
-				wasUpdate = false;
-			}
 
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/",
-				method: method,
-				params: {
-					Name: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
-					Skills: $scope.selectedProject.Skills ? $scope.selectedProject.Skills.join(",") : "",
-					LongDescription: $scope.selectedProject.LongDescription ? $scope.selectedProject.LongDescription : "",
-					ShortDescription: $scope.selectedProject.ShortDescription ? $scope.selectedProject.ShortDescription : "",
-					Link: $scope.selectedProject.Link ? $scope.selectedProject.Link : "",
-					GitHub: $scope.selectedProject.GitHub ? $scope.selectedProject.GitHub : "",
-					Download: $scope.selectedProject.Download ? $scope.selectedProject.Download : "",
-					Date: $scope.selectedProject.Date ? $scope.selectedProject.Date : "",
-					Colour: $scope.selectedProject.Colour ? $scope.selectedProject.Colour : "",
-					Images: $scope.selectedProject.Images ? angular.toJson($scope.selectedProject.Images) : []
-				}
-			}).then(function (result) {
-				result.data.row.Date = new Date(result.data.row.Date);
+			var id = $scope.selectedProject.ID ? $scope.selectedProject.ID : "";
+			var method = $scope.selectedProject.ID ? "PUT" : "POST";
+			var data = {
+				Name: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
+				Skills: $scope.selectedProject.Skills ? $scope.selectedProject.Skills.join(",") : "",
+				LongDescription: $scope.selectedProject.LongDescription ? $scope.selectedProject.LongDescription : "",
+				ShortDescription: $scope.selectedProject.ShortDescription ? $scope.selectedProject.ShortDescription : "",
+				Link: $scope.selectedProject.Link ? $scope.selectedProject.Link : "",
+				GitHub: $scope.selectedProject.GitHub ? $scope.selectedProject.GitHub : "",
+				Download: $scope.selectedProject.Download ? $scope.selectedProject.Download : "",
+				Date: $scope.selectedProject.Date ? $scope.selectedProject.Date : "",
+				Colour: $scope.selectedProject.Colour ? $scope.selectedProject.Colour : "",
+				Images: $scope.selectedProject.Images ? angular.toJson($scope.selectedProject.Images) : []
+			};
 
-				if (typeof result.data.row.Skills == "string") {
-					result.data.row.Skills = result.data.row.Skills.split(",");
-				}
-
-				$scope.selectedProject = result.data.row;
-
-				if (!wasUpdate) {
-					global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit/";
-					history.pushState(null, null, global.url.toString());
-					fn.setUpEditProject();
-				}
-
-				var typeSubmit = (wasUpdate) ? "updated" : "saved";
-				var defaultFeedback = "Successfully " + typeSubmit + " project.";
-				var message = fn.getFeedback(result, defaultFeedback);
-				fn.showProjectError(message, "feedback--success");
-
-				fn.hideLoading();
-			}, function (result) {
-				var typeSubmit = (!$scope.selectedProject.ID) ? "saving" : "updating";
-				var defaultFeedback = "Error  " + typeSubmit + " the project.";
-
-				var message = fn.getFeedback(result, defaultFeedback);
-				fn.showProjectError(message, "feedback--error");
-				fn.hideLoading();
-			});
-
+			fn.doAjaxCall(
+				"projects/" + id,
+				method,
+				data,
+				fn.onSuccessfulProjectUpdate,
+				fn.onFailedProjectUpdate
+			);
 		}
 		else {
 			var message = "Fill in Required Inputs Fields.";
 			fn.showProjectError(message, "feedback--error");
 
-			setTimeout(function () {
+			setTimeout(function() {
 				var firstInvalidInput = jQuery(".project__form .invalid").first();
+
 				var id = firstInvalidInput.attr("id");
+
 				var pos = jQuery("label[for=" + id + "]").offset().top;
+
 				var navHeight = jQuery(".nav").outerHeight();
+
 				var feedbackHeight = jQuery(".project__feedback").outerHeight();
+
 				jQuery("html, body").animate({
 					scrollTop: pos - navHeight - feedbackHeight - 16
 				}, 1000);
+
 			}, 400);
 
 			fn.hideLoading();
 		}
 	};
 
-	$scope.deleteProject = function () {
+	$scope.deleteProject = function() {
 
 		fn.showLoading();
 
 		$scope.selectProjectFeedback = "";
 		if ($scope.selectedProject && $scope.selectedProject.ID) {
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/",
-				method: "DELETE"
-			}).then(fn.renderProjectDelete, function (result) {
-				fn.showProjectSelectError(fn.getFeedback(result, "Error deleting your project."));
-				fn.hideLoading();
-			});
+
+			fn.doAjaxCall(
+				"projects/" + $scope.selectedProject.ID,
+				"DELETE",
+				{},
+				fn.onSuccessfulProjectDeletion,
+				function (result) {
+					fn.showProjectSelectError(fn.getFeedback(result, "Error deleting your project."));
+					fn.hideLoading();
+				}
+			);
 		}
 		else {
 			fn.showProjectSelectError("Select A Project To Delete.");
@@ -703,7 +804,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		jpi.footer.delayExpand();
 	};
 
-	$scope.selectProject = function (project) {
+	$scope.selectProject = function(project) {
 		$scope.selectedProject = project;
 
 		if (typeof project.Skills == "string") {
@@ -713,39 +814,29 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		$scope.selectedProject.Date = new Date(project.Date);
 	};
 
-	$scope.logIn = function () {
+	$scope.logIn = function() {
 		fn.showLoading();
 
 		var usernameValid = jpi.helpers.checkInputField(jQuery("#username")[0]),
 			passwordValid = jpi.helpers.checkInputField(jQuery("#password")[0]);
 
-		//checks if inputs both are empty
+		// Check if both inputs are empty
 		if (!usernameValid && !passwordValid) {
 			$scope.userFormFeedback = "Input fields needs to be filled.";
 		}
-		//else checks if username input is empty
+		// Else checks if username input is empty
 		else if (!usernameValid) {
 			$scope.userFormFeedback = "Username field needs to be filled.";
 		}
-		//else checks if password input is empty
+		// Else checks if password input is empty
 		else if (!passwordValid) {
 			$scope.userFormFeedback = "Password field needs to be filled.";
 		}
-		//else inputs are filled
+		// Else both inputs are filled
 		else {
-			$http({
-				url: jpi.config.jpiAPIEndpoint + "login/",
-				method: "POST",
-				params: {username: $scope.username, password: $scope.password}
-			}).then(fn.loggedIn, function (result) {
-				$scope.userFormFeedback = fn.getFeedback(result, "Error logging you in.");
+			var data = {username: $scope.username, password: $scope.password};
 
-				if ($scope.userFormFeedback !== "") {
-					jQuery(".login__feedback").removeClass("feedback--success").addClass("feedback--error");
-				}
-
-				fn.hideLoading();
-			});
+			fn.doAjaxCall("login", "POST", data, fn.loggedIn, fn.onFailedLogin);
 		}
 	};
 

@@ -19,7 +19,7 @@ window.jpi.nav = (function (jQuery) {
 
 		//Custom code to collapse mobile menu when user clicks off it.
 		closeMobileNav: function (event) {
-			if (!jQuery(event.target).closest('.nav').length && jQuery(".nav").hasClass("opened") && jQuery(".nav__mobile-toggle").css("display") !== "none") {
+			if (!jQuery(event.target).closest(".nav").length && jQuery(".nav").hasClass("opened") && jQuery(".nav__mobile-toggle").css("display") !== "none") {
 				jQuery(".nav__mobile-toggle").trigger("click");
 			}
 		},

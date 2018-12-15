@@ -93,7 +93,7 @@ window.jpi.dnd = (function (jQuery) {
 
 			var navHeight = jQuery(".nav").outerHeight();
 			var feedbackHeight = jQuery(".project__feedback").outerHeight();
-			jQuery('html, body').animate({
+			jQuery("html, body").animate({
 				scrollTop: pos - navHeight - feedbackHeight - 16
 			}, 1000);
 		},

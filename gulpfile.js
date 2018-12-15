@@ -4,7 +4,7 @@ var concat = require("gulp-concat");
 var uglify = require("gulp-uglify");
 var cleanCss = require("gulp-clean-css");
 var autoprefixer = require("gulp-autoprefixer");
-var sass = require('gulp-sass');
+var sass = require("gulp-sass");
 
 // Concatenate & Minify JS
 var scripts = {
@@ -51,14 +51,14 @@ stylesheetNames.forEach(function (key) {
 });
 gulp.task("styles", ["styles-main",]);
 
-gulp.task('sass', function () {
-	return gulp.src('assets/css/style.scss')
-            .pipe(sass().on('error', sass.logError))
-			.pipe(gulp.dest('assets/css/'));
+gulp.task("sass", function () {
+	return gulp.src("assets/css/style.scss")
+            .pipe(sass().on("error", sass.logError))
+			.pipe(gulp.dest("assets/css/"));
 });
 // Watch Files For Changes
-gulp.task('watch', function () {
-	gulp.watch('assets/css/**/*.scss', ['sass',]);
+gulp.task("watch", function () {
+	gulp.watch("assets/css/**/*.scss", ["sass",]);
 });
 
 gulp.task("default", ["scripts", "styles",]);

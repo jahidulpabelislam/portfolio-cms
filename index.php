@@ -190,7 +190,6 @@
 			<script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
 
 			<script src="/assets/js/jpi/helpers.js?v=1" type="text/javascript"></script>
-			<script src="/assets/js/jpi/stickyFooter.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
 		<?php endif; ?>

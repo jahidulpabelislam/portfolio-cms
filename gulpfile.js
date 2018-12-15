@@ -14,7 +14,6 @@ var scripts = {
 		"assets/js/third-party/angular.min.js",
 		"assets/js/third-party/sortable.js",
 		"assets/js/jpi/helpers.js",
-		"assets/js/jpi/stickyFooter.js",
 		"assets/js/jpi/dragNDrop.js",
 		"assets/js/jpi/nav.js",
 	]

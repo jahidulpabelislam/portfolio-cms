@@ -41,7 +41,7 @@ blockquote, q {
 
 blockquote:before, blockquote:after,
 q:before, q:after {
-  content: '';
+  content: "";
   content: none; }
 
 table {
@@ -63,7 +63,8 @@ body {
   margin: auto;
   transition: all 1s ease-in-out; }
 
-section {
+section,
+.main-content {
   display: flex;
   transition: all 1s ease-in-out; }
 
@@ -94,8 +95,8 @@ img {
 */
 /* For all devices */
 body {
-  font: 400 14px 'Cabin', sans-serif;
-  font-family: 'Cabin', sans-serif;
+  font: 400 14px "Cabin", sans-serif;
+  font-family: "Cabin", sans-serif;
   font-size: 14px;
   line-height: 18px;
   color: #333; }

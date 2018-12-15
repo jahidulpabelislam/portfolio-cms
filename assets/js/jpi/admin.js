@@ -80,7 +80,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		renderFailedUpload: function (errorMessage) {
 			$scope.uploads.push({ok: false, text: errorMessage});
 			$scope.$apply();
-			jpi.footer.delayExpand();
+			jpi.helpers.delayExpandingSection();
 		},
 
 		sendAjaxResponse: function(response, func) {
@@ -143,7 +143,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			fn.showProjectError(message, feedbackClass);
 
-			jpi.footer.delayExpand();
+			jpi.helpers.delayExpandingSection();
 		},
 		
 		onSuccessfulProjectImageUpload: function(response) {
@@ -172,7 +172,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}
 
 			fn.showProjectSelectError(fn.getFeedback(response, defaultFeedback), feedbackClass);
-			jpi.footer.delayExpand();
+			jpi.helpers.delayExpandingSection();
 		},
 		
 		onSuccessfulProjectUpdate: function(response) {
@@ -208,7 +208,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			jQuery("#projectName, #skill-input, #longDescription, #shortDescription, #github, #date").removeClass("invalid valid");
 
-			jpi.footer.delayExpand();
+			jpi.helpers.delayExpandingSection();
 		},
 
 		setUpEditProject: function() {
@@ -283,7 +283,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				fn.hideLoading();
 			}
 
-			jpi.footer.delayExpand();
+			jpi.helpers.delayExpandingSection();
 		},
 
 		getProjectList: function(page, addToHistory) {
@@ -403,7 +403,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}
 			fn.hideLoading();
 
-			jpi.footer.delayExpand();
+			jpi.helpers.delayExpandingSection();
 
 			global.redirectTo = redirectTo;
 			fn.setURl("login");
@@ -638,7 +638,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fileReader.onload = function(e) {
 				$scope.uploads.push({ok: true, text: file.name, image: e.target.result, file: file});
 				$scope.$apply();
-				jpi.footer.delayExpand();
+				jpi.helpers.delayExpandingSection();
 			};
 
 			fileReader.onerror = function() {
@@ -755,7 +755,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.showProjectSelectError("Select A Project To Delete.");
 		}
 
-		jpi.footer.delayExpand();
+		jpi.helpers.delayExpandingSection();
 	};
 
 	$scope.selectProject = function(project) {

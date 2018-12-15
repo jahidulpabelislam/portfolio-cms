@@ -16,7 +16,8 @@ body {
 	transition: all 1s ease-in-out;
 }
 
-section {
+section,
+.main-content {
 	display: flex;
 	transition: all 1s ease-in-out;
 }

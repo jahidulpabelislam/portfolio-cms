@@ -479,7 +479,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				redirectTo;
 
 			// Check what page should be shown
-			if (root === "projects") {
+			if (root === "projects" && !path[2]) {
 				var pageNum = 1;
 				if (path[1] && Number.isInteger(parseInt(path[1]))) {
 					pageNum = parseInt(path[1], 10);
@@ -490,11 +490,11 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				redirectTo = "projects/" + pageNum + "/";
 			}
 			else if (root === "project" && path[1]) {
-				if (path[1] === "add") {
+				if (path[1] === "add" && !path[2]) {
 					func = fn.setUpAddProject;
 					redirectTo = "project/add/";
 				}
-				else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit") {
+				else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit" && !path[3]) {
 					var id = parseInt(path[1], 10);
 					func = function() {
 						fn.getAndEditProject(id, 10);

@@ -52,7 +52,6 @@
 
 		<main class="main-content">
 			<div class="container">
-
 				<div class="project-select">
 
 					<div class="project-select__form">
@@ -97,15 +96,19 @@
 
 						<label for="longDescription">Long Description <span class="required">*</span></label>
 						<textarea ng-model="selectedProject.LongDescription" name="description" id="longDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+
 						<label for="shortDescription">Short Description <span class="required">*</span></label>
 						<textarea ng-model="selectedProject.ShortDescription" name="description" id="shortDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
 
 						<label for="link">Link</label>
 						<input ng-model="selectedProject.Link" type="text" name="link" id="link" class="input" placeholder="link" tabindex="10">
+
 						<label for="github">GitHub <span class="required">*</span></label>
 						<input ng-model="selectedProject.GitHub" type="url" name="github" id="github" class="input" placeholder="github" tabindex="11" oninput="jpi.helpers.checkInputField(this);" required>
+
 						<label for="download">Download</label>
 						<input ng-model="selectedProject.Download" type="text" name="download" id="download" class="input" placeholder="download" tabindex="12">
+
 						<label for="date">Date <span class="required">*</span></label>
 						<input ng-model="selectedProject.Date" type="date" name="date" id="date" class="input" placeholder="2016-01-30" tabindex="13" oninput="jpi.helpers.checkInputField(this);" required>
 
@@ -147,7 +150,7 @@
 
 		<!-- The drag and drop area -->
 		<section class="js-drop-zone fixed-overlay"><h1 class="fixed-overlay__text">Drag And Drop Image Here To Upload A Slide for Project</h1></section>
-		
+
 		<!-- The login area -->
 		<section class="login">
 			<div class="container">
@@ -172,27 +175,24 @@
 			window.jpi.config = window.jpi.config || {};
 			window.jpi.config.jpiAPIEndpoint = "<?php echo JPI_API_ENDPOINT . JPI_API_VERSION; ?>";
 		</script>
-		
-		<!-- All the JS's needed for the page  -->
-		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" type="text/javascript"></script>
-		
+		<!-- All the JS's needed for the page  -->
 		<?php // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified ?>
 		<?php if (!isset($_GET["debug"])): ?>
 			<!-- Compiled project & libraries js files -->
 			<script src="/assets/js/admin.min.js?v=1" type="text/javascript"></script>
 		<?php else: ?>
 			<!-- All individual js files for site as debug is specified -->
+			<!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
+			<script src="/assets/js/third-party/jquery.min.js?v=1" type="text/javascript"></script>
+			<script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
+			<script src="/assets/js/third-party/angular.min.js?v=1" type="text/javascript"></script>
+			<script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
+
 			<script src="/assets/js/jpi/helpers.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/stickyFooter.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
-			
-			<!-- The third party scripts needed for the page for the sorting of images -->
-			<script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
-			<script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
 		<?php endif; ?>
 
 		<!-- The AngularJS script for the admin page -->

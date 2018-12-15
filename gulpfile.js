@@ -9,12 +9,14 @@ var sass = require("gulp-sass");
 // Concatenate & Minify JS
 var scripts = {
 	admin: [
+		"assets/js/third-party/jquery.min.js",
+		"assets/js/third-party/jquery-ui.min.js",
+		"assets/js/third-party/angular.min.js",
+		"assets/js/third-party/sortable.js",
 		"assets/js/jpi/helpers.js",
 		"assets/js/jpi/stickyFooter.js",
 		"assets/js/jpi/dragNDrop.js",
 		"assets/js/jpi/nav.js",
-		"assets/js/third-party/jquery-ui.min.js",
-		"assets/js/third-party/sortable.js",
 	]
 };
 var scriptNames = Object.keys(scripts);

@@ -44,6 +44,12 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			global.jwt = jwt;
 		},
 
+		setURl: function(url) {
+			url += "/";
+			global.url.pathname = url;
+			history.pushState(null, null, global.url.toString());
+		},
+
 		getFeedback: function (response, genericFeedback) {
 			if (response && response.meta && response.meta.feedback) {
 				return response.meta.feedback;
@@ -56,12 +62,18 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		showProjectError: function (message, classToAdd) {
 			jQuery(".project__feedback").removeClass("feedback--error feedback--success hide").addClass(classToAdd);
 			$scope.projectFormFeedback = message;
+
+			fn.hideLoading();
 		},
 
 		showProjectSelectError: function (feedback, classToAdd) {
-			if (!classToAdd) classToAdd = "feedback--error";
+			if (!classToAdd) {
+				classToAdd = "feedback--error";
+			}
+
 			jQuery(".project-select__feedback").removeClass("feedback--error feedback--success").addClass(classToAdd);
 			$scope.selectProjectFeedback = feedback;
+			fn.hideLoading();
 		},
 
 		// Set image as failed upload div to display error
@@ -70,22 +82,21 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			$scope.$apply();
 			jpi.footer.delayExpand();
 		},
-		
+
 		sendAjaxResponse: function(response, func) {
-			var response = response && response.data ? response.data : {};
+			response = response && response.data ? response.data : {};
 
 			func(response);
 		},
 
 		doAjaxCall: function(url, method, onSuccess, onFail, data) {
+			var fullUrl = jpi.config.jpiAPIEndpoint + url + "/",
 
-			var fullUrl = jpi.config.jpiAPIEndpoint + url + "/";
-
-			var options = {
-				url: fullUrl,
-				method: method.toUpperCase(),
-				params: data ? data : {}
-			};
+				options = {
+					url: fullUrl,
+					method: method.toUpperCase(),
+					params: data ? data : {}
+				};
 
 			if (url !== "login") {
 				options.headers = {
@@ -108,21 +119,17 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		onSuccessfulProjectImageDeletion: function(response) {
 			$scope.hideProjectError();
 
-			var message = "Error deleting the Project Image.";
-			var feedbackClass = "feedback--error";
+			var i = 0, found = false,
+				message = "Error deleting the Project Image.",
+				feedbackClass = "feedback--error";
 
 			// Check if the deletion of project image has been processed
 			if (response && response.row && response.row.ID) {
 
-				var i = 0, found = false;
 				// Find and remove the image from view
 				for (i = 0; i < $scope.selectedProject.Images.length; i++) {
 					if ($scope.selectedProject.Images[i]["ID"] === response.row.ID) {
-						var imageToDelete = $scope.selectedProject.Images[i];
-						var index = $scope.selectedProject.Images.indexOf(imageToDelete);
-						if (index > -1) {
-							$scope.selectedProject.Images.splice(index, 1);
-						}
+						$scope.selectedProject.Images.splice(i, 1);
 						found = true;
 						break;
 					}
@@ -137,12 +144,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.showProjectError(message, feedbackClass);
 
 			jpi.footer.delayExpand();
-
-			fn.hideLoading();
 		},
 		
 		onSuccessfulProjectImageUpload: function(response) {
-
 			$scope.selectedProject.Images.push(response.row);
 
 			var index = $scope.uploads.indexOf(upload);
@@ -152,14 +156,13 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			var message = "Successfully added a new project image";
 			fn.showProjectError(message, "feedback--success");
-			fn.hideLoading();
 		},
 
 		onSuccessfulProjectDeletion: function(response) {
 			$scope.selectProjectFeedback = "";
-			var defaultFeedback = "Error deleting your project.";
+			var defaultFeedback = "Error deleting your project.",
+				feedbackClass = "feedback--error";
 
-			var feedbackClass = "feedback--error";
 			// Check the project delete has been processed
 			if (response && response.row && response.row.ID) {
 
@@ -170,41 +173,30 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 			fn.showProjectSelectError(fn.getFeedback(response, defaultFeedback), feedbackClass);
 			jpi.footer.delayExpand();
-			fn.hideLoading();
 		},
 		
 		onSuccessfulProjectUpdate: function(response) {
-			var wasUpdate = $scope.selectedProject && $scope.selectedProject.ID;
+			var wasUpdate = $scope.selectedProject && $scope.selectedProject.ID,
+				typeSubmit = (wasUpdate) ? "updated" : "saved",
+				defaultFeedback = "Successfully " + typeSubmit + " project.",
+				message = fn.getFeedback(response, defaultFeedback);
 
-			response.row.Date = new Date(response.row.Date);
-			
-			if (typeof response.row.Skills == "string") {
-				response.row.Skills = response.row.Skills.split(",");
-			}
-			
-			$scope.selectedProject = response.row;
-			
+			$scope.selectProject(response.row);
+
 			if (!wasUpdate) {
-				global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit/";
-				history.pushState(null, null, global.url.toString());
+				fn.setURl("project/" + $scope.selectedProject.ID + "/edit");
 				fn.setUpEditProject();
 			}
-			
-			var typeSubmit = (wasUpdate) ? "updated" : "saved";
-			var defaultFeedback = "Successfully " + typeSubmit + " project.";
-			var message = fn.getFeedback(response, defaultFeedback);
+
 			fn.showProjectError(message, "feedback--success");
-			
-			fn.hideLoading();
 		},
-		
+
 		onFailedProjectUpdate: function(response) {
-			var typeSubmit = (!$scope.selectedProject.ID) ? "saving" : "updating";
-			var defaultFeedback = "Error  " + typeSubmit + " the project.";
-			
-			var message = fn.getFeedback(response, defaultFeedback);
+			var typeSubmit = (!$scope.selectedProject.ID) ? "saving" : "updating",
+				defaultFeedback = "Error  " + typeSubmit + " the project.",
+				message = fn.getFeedback(response, defaultFeedback);
+
 			fn.showProjectError(message, "feedback--error");
-			fn.hideLoading();
 		},
 
 		setUpProjectForm: function() {
@@ -220,7 +212,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		},
 
 		setUpEditProject: function() {
-
 			$scope.selectProjectFeedback = "";
 
 			if ($scope.selectedProject && $scope.selectedProject.ID) {
@@ -228,8 +219,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 				jpi.dnd.setUp();
 				fn.setUpProjectForm();
-				$(".project__uploads").sortable();
-				$(".project__uploads").disableSelection();
+				$(".project__uploads").sortable().disableSelection();
 			}
 			else {
 				fn.showProjectSelectError("Select A Project To Update.");
@@ -237,7 +227,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		},
 
 		setUpAddProject: function() {
-
 			document.title = "Add New Project" + global.titlePostfix;
 
 			$scope.selectProjectFeedback = "";
@@ -267,10 +256,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 		gotProjects: function(response) {
 			document.title = "Projects (" + $scope.currentPage + ")" + global.titlePostfix;
+
 			jQuery(".project-view").hide();
-
 			jQuery(".project-select, .nav, .project-select__add-button").show();
-
 			jQuery(".nav .js-admin-projects").addClass("active");
 			jQuery(".nav .js-admin-new-project").removeClass("active");
 
@@ -291,15 +279,15 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				for (var i = 1; i <= pages; i++) {
 					$scope.pages.push(i);
 				}
+
+				fn.hideLoading();
 			}
 
 			jpi.footer.delayExpand();
-			fn.hideLoading();
 		},
 
 		getProjectList: function(page, addToHistory) {
 			fn.showLoading();
-			$scope.hideProjectError();
 
 			$scope.selectProjectFeedback = "";
 
@@ -308,8 +296,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			jpi.dnd.stop();
 
 			if (addToHistory !== false) {
-				global.url.pathname = "projects/" + page + "/";
-				history.pushState(null, null, global.url.toString());
+				fn.setURl("projects/" + page);
 			}
 
 			// Sends a object with necessary data to XHR
@@ -319,12 +306,11 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				fn.gotProjects,
 				function(response) {
 					fn.showProjectSelectError(fn.getFeedback(response, "Error getting projects."));
-					fn.hideLoading();
 				},
 				{page: $scope.currentPage}
 			);
 		},
-		
+
 		onSuccessfulProjectGet: function(response) {
 			if (response && response.meta && response.meta.ok && response.row) {
 				$scope.selectProject(response.row);
@@ -332,18 +318,17 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				fn.hideLoading();
 			}
 		},
-		
+
 		onFailedProjectGet: function(response) {
 			fn.showProjectSelectError(fn.getFeedback(response, "Sorry, no Project found with ID: " + id + "."));
 			jQuery(".project-select, .nav").show();
 			jQuery(".project-select__add-button").hide();
-			fn.hideLoading();
 		},
 
 		getAndEditProject: function(id) {
 			fn.doAjaxCall("projects/" + id, "GET", fn.onSuccessfulProjectGet, fn.onFailedProjectGet);
 		},
-		
+
 		onSuccessfulAuthCheck: function(response, successFunc, messageOverride) {
 			if (response && response.meta && response.meta.status && response.meta.status == 200) {
 				$scope.loggedIn = true;
@@ -356,7 +341,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 		// After user has attempted to log in
 		loggedIn: function(response) {
-
 			// Check if data was valid
 			if (response && response.meta && response.meta.status && response.meta.status == 200) {
 
@@ -369,11 +353,10 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				$scope.loggedIn = true;
 
 				if (!global.redirectTo) {
-					global.redirectTo = "projects/1/";
+					global.redirectTo = "projects/1";
 				}
-
-				global.url.pathname = global.redirectTo;
-				history.pushState(null, null, global.url.toString());
+				
+				fn.setURl(global.redirectTo);
 				fn.loadApp();
 				global.redirectTo = null;
 			}
@@ -383,7 +366,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				fn.hideLoading();
 			}
 		},
-		
+
 		onFailedLogin: function(response) {
 			$scope.userFormFeedback = fn.getFeedback(response, "Error logging you in.");
 
@@ -395,7 +378,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		},
 
 		showLoginForm: function(response, redirectTo, messageOverride) {
-
 			document.title = "Login" + global.titlePostfix;
 
 			jQuery(".project-select, .project-view, .nav").hide();
@@ -409,7 +391,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}
 
 			var success = false;
-
 			if (response && response.meta && response.meta.status) {
 				success = response.meta.status == 200 || response.meta.status == 201;
 			}
@@ -425,8 +406,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			jpi.footer.delayExpand();
 
 			global.redirectTo = redirectTo;
-			global.url.pathname = "login/";
-			history.pushState(null, null, global.url.toString());
+			fn.setURl("login");
 		},
 
 		logout: function(e) {
@@ -464,6 +444,8 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				opacity: "1",
 				zIndex: "10"
 			});
+
+			$scope.hideProjectError();
 		},
 
 		initialLogin: function() {
@@ -487,19 +469,19 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				func = function() {
 					fn.getProjectList(pageNum, false);
 				};
-				redirectTo = "projects/" + pageNum + "/";
+				redirectTo = "projects/" + pageNum;
 			}
 			else if (root === "project" && path[1]) {
 				if (path[1] === "add" && !path[2]) {
 					func = fn.setUpAddProject;
-					redirectTo = "project/add/";
+					redirectTo = "project/add";
 				}
 				else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit" && !path[3]) {
 					var id = parseInt(path[1], 10);
 					func = function() {
 						fn.getAndEditProject(id, 10);
 					};
-					redirectTo = "project/" + id + "/edit/";
+					redirectTo = "project/" + id + "/edit";
 				}
 			}
 
@@ -527,7 +509,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 				$scope.checkAuthStatus(function() {
 					fn.getProjectList(page);
-				}, "projects/" + page + "/");
+				}, "projects/" + page);
 			});
 
 			jQuery(".admin-page").on("click", ".js-admin-new-project", function(e) {
@@ -535,10 +517,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				e.stopPropagation();
 
 				$scope.checkAuthStatus(function() {
-					global.url.pathname = "project/add/";
-					history.pushState(null, null, global.url.toString());
+					fn.setURl("project/add");
 					fn.setUpAddProject();
-				}, "project/add/");
+				}, "project/add");
 			});
 
 			jQuery(".admin-page").on("click", ".js-admin-edit-project", function(e) {
@@ -550,12 +531,11 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				$scope.checkAuthStatus(function() {
 
 					if (id) {
-						global.url.pathname = "project/" + id + "/edit/";
-						history.pushState(null, null, global.url.toString());
+						fn.setURl("project/" + id + "/edit");
 					}
 
 					fn.setUpEditProject();
-				}, "project/" + id + "/edit/");
+				}, "project/" + id + "/edit");
 			});
 
 			window.addEventListener("popstate", function() {
@@ -569,7 +549,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			$scope.loggedIn = false;
 			$scope.projects = $scope.pages = $scope.uploads = [];
 			$scope.currentPage = 1;
-
 			$scope.userFormFeedback = $scope.selectProjectFeedback = $scope.projectFormFeedback = $scope.skillInput = "";
 		},
 
@@ -594,7 +573,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 	 */
 
 	$scope.checkAuthStatus = function(successFunc, redirectTo, messageOverride) {
-
 		fn.doAjaxCall(
 			"session",
 			"GET",
@@ -612,9 +590,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 	// Send a newly uploaded image to API
 	$scope.sendImage = function(upload) {
-
 		fn.showLoading();
-		$scope.hideProjectError();
 
 		$scope.checkAuthStatus(function() {
 			var form = new FormData();
@@ -639,7 +615,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 					function(response) {
 						var message = fn.getFeedback(response, "Error uploading the Project Image.");
 						fn.showProjectError(message, "feedback--error");
-						fn.hideLoading();
 					}
 				);
 			});
@@ -647,7 +622,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 	};
 
 	$scope.checkFile = function(file) {
-
 		var fileReader;
 
 		// Check if file is a image
@@ -676,10 +650,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 	// Send a request to delete a Project Image
 	$scope.deleteProjectImage = function(projectImage) {
-
 		fn.showLoading();
-
-		$scope.hideProjectError();
 
 		fn.doAjaxCall(
 			"projects/" + projectImage.ProjectID + "/images/" + projectImage.ID,
@@ -688,7 +659,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			function(response) {
 				var message = fn.getFeedback(response, "Error deleting the Project Image.");
 				fn.showProjectError(message, "feedback--error");
-				fn.hideLoading();
 			}
 		);
 	};
@@ -704,11 +674,10 @@ app.controller("projectsAdminController", function ($scope, $http) {
 	};
 
 	$scope.submitProject = function() {
-
 		fn.showLoading();
-		$scope.hideProjectError();
 
 		var validDatePattern = /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im,
+
 			projectNameValidation = jpi.helpers.checkInputField(jQuery("#projectName")[0]),
 			longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
 			shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
@@ -725,9 +694,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 
 		if (projectNameValidation && skillsValidation && longDescriptionValidation && shortDescriptionValidation && githubValidation && dateValidation) {
 
-			var id = $scope.selectedProject.ID ? $scope.selectedProject.ID : "";
-			var method = $scope.selectedProject.ID ? "PUT" : "POST";
-			var data = {
+			var id = $scope.selectedProject.ID ? $scope.selectedProject.ID : "",
+				method = $scope.selectedProject.ID ? "PUT" : "POST",
+				data = {
 				Name: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
 				Skills: $scope.selectedProject.Skills ? $scope.selectedProject.Skills.join(",") : "",
 				LongDescription: $scope.selectedProject.LongDescription ? $scope.selectedProject.LongDescription : "",
@@ -747,28 +716,22 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.showProjectError(message, "feedback--error");
 
 			setTimeout(function() {
-				var firstInvalidInput = jQuery(".project__form .invalid").first();
+				var firstInvalidInput = jQuery(".project__form .invalid").first(),
+					id = firstInvalidInput.attr("id"),
 
-				var id = firstInvalidInput.attr("id");
-
-				var pos = jQuery("label[for=" + id + "]").offset().top;
-
-				var navHeight = jQuery(".nav").outerHeight();
-
-				var feedbackHeight = jQuery(".project__feedback").outerHeight();
+					pos = jQuery("label[for=" + id + "]").offset().top,
+					navHeight = jQuery(".nav").outerHeight(),
+					feedbackHeight = jQuery(".project__feedback").outerHeight();
 
 				jQuery("html, body").animate({
 					scrollTop: pos - navHeight - feedbackHeight - 16
 				}, 1000);
 
 			}, 400);
-
-			fn.hideLoading();
 		}
 	};
 
 	$scope.deleteProject = function() {
-
 		fn.showLoading();
 
 		$scope.selectProjectFeedback = "";
@@ -780,26 +743,24 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				fn.onSuccessfulProjectDeletion,
 				function (response) {
 					fn.showProjectSelectError(fn.getFeedback(response, "Error deleting your project."));
-					fn.hideLoading();
 				}
 			);
 		}
 		else {
 			fn.showProjectSelectError("Select A Project To Delete.");
-			fn.hideLoading();
 		}
 
 		jpi.footer.delayExpand();
 	};
 
 	$scope.selectProject = function(project) {
-		$scope.selectedProject = project;
+		project.Date = new Date(project.Date);
 
 		if (typeof project.Skills == "string") {
-			$scope.selectedProject.Skills = project.Skills.split(",");
+			project.Skills = project.Skills.split(",");
 		}
 
-		$scope.selectedProject.Date = new Date(project.Date);
+		$scope.selectedProject = project;
 	};
 
 	$scope.logIn = function() {

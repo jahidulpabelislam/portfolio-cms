@@ -128,7 +128,7 @@
 							</li>
 						</ul>
 
-						<button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="14"><span class="screen-reader-text">{{selectedProject.ID ? 'Update Project' : 'Add Project'}}</span><i class="fa fa-upload"></i></button>
+						<button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="14"><span class="screen-reader-text">{{selectedProject.ID ? "Update Project" : "Add Project"}}</span><i class="fa fa-upload"></i></button>
 
 						<input ng-if="selectedProject.ID" data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="15">
 

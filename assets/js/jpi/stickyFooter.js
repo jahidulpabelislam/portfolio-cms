@@ -4,7 +4,7 @@ window.jpi.footer = (function (jQuery) {
 	"use strict";
 
 	var global = {
-		section: jQuery('.main-content')
+		section: jQuery(".main-content")
 	};
 
 	var fn = {
@@ -15,7 +15,7 @@ window.jpi.footer = (function (jQuery) {
 			global.section.height("auto");
 
 			//calculates the default height of the content
-			var height = jQuery('header').outerHeight(true) + global.section.outerHeight(true) + jQuery('footer').outerHeight(true);
+			var height = jQuery("header").outerHeight(true) + global.section.outerHeight(true) + jQuery("footer").outerHeight(true);
 
 			//checks if default height of content is shorter than screen height
 			if (height < jQuery(window).height()) {

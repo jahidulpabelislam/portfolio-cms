@@ -3,7 +3,7 @@ window.jpi = window.jpi || {};
 window.jpi.helpers = (function (jQuery) {
 
 	"use strict";
-	
+
 	var global = {
 		navSelector: ".nav",
 		contentSelector: ".main-content",
@@ -27,26 +27,6 @@ window.jpi.helpers = (function (jQuery) {
 				input.classList.add("valid");
 				return true;
 			}
-		},
-
-		// Creates a element with attributes appended to parent
-		createElement: function (parent, element, attributes) {
-			var elem = document.createElement(element);
-
-			for (var attribute in attributes) {
-				if (attributes.hasOwnProperty(attribute)) {
-					if (attribute === "innerHTML") {
-						elem[attribute] = attributes[attribute];
-					}
-					else {
-						elem.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-
-			parent.appendChild(elem);
-
-			return elem;
 		},
 
 		// Expands height of content to make it full length
@@ -88,7 +68,6 @@ window.jpi.helpers = (function (jQuery) {
 
 	return {
 		"checkInputField": fn.checkInputField,
-		"createElement": fn.createElement,
 		"delayExpandingSection": fn.delayExpandingSection
 	};
 

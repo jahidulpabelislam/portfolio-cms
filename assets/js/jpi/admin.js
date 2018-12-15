@@ -275,7 +275,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				$scope.projects = response.rows;
 				$scope.pages = [];
 
-				var pages = Math.ceil(response.total_count / 10);
+				var pages = Math.ceil(response.meta.total_count / 10);
 				for (var i = 1; i <= pages; i++) {
 					$scope.pages.push(i);
 				}

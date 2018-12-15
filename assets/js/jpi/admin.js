@@ -77,14 +77,14 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			func(response);
 		},
 
-		doAjaxCall: function(url, method, data, onSuccess, onFail) {
+		doAjaxCall: function(url, method, onSuccess, onFail, data) {
 
 			var fullUrl = jpi.config.jpiAPIEndpoint + url + "/";
 
 			var options = {
 				url: fullUrl,
 				method: method.toUpperCase(),
-				params: data
+				params: data ? data : {}
 			};
 
 			if (url !== "login") {
@@ -316,12 +316,12 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.doAjaxCall(
 				"projects",
 				"GET",
-				{page: $scope.currentPage},
 				fn.gotProjects,
 				function(result) {
 					fn.showProjectSelectError(fn.getFeedback(result, "Error getting projects."));
 					fn.hideLoading();
-				}
+				},
+				{page: $scope.currentPage}
 			);
 		},
 		
@@ -341,13 +341,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		},
 
 		getAndEditProject: function(id) {
-			fn.doAjaxCall(
-				"projects/" + id,
-				"GET",
-				{},
-				fn.onSuccessfulProjectGet,
-				fn.onFailedProjectGet
-			);
+			fn.doAjaxCall("projects/" + id, "GET", fn.onSuccessfulProjectGet, fn.onFailedProjectGet);
 		},
 		
 		onSuccessfulAuthCheck: function(result, successFunc, messageOverride) {
@@ -442,7 +436,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.doAjaxCall(
 				"logout",
 				"DELETE",
-				{},
 				function(result) {
 					if (result && result && result.meta && result.meta.status && result.meta.status == 200) {
 						fn.setJwt("");
@@ -601,7 +594,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		fn.doAjaxCall(
 			"session",
 			"GET",
-			{},
 			function(result) {
 				fn.onSuccessfulAuthCheck(result, successFunc, messageOverride);
 			},
@@ -688,7 +680,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		fn.doAjaxCall(
 			"projects/" + projectImage.ProjectID + "/images/" + projectImage.ID,
 			"DELETE",
-			{},
 			fn.onSuccessfulProjectImageDeletion,
 			function(result) {
 				var message = fn.getFeedback(result, "Error deleting the Project Image.");
@@ -745,13 +736,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				Images: $scope.selectedProject.Images ? angular.toJson($scope.selectedProject.Images) : []
 			};
 
-			fn.doAjaxCall(
-				"projects/" + id,
-				method,
-				data,
-				fn.onSuccessfulProjectUpdate,
-				fn.onFailedProjectUpdate
-			);
+			fn.doAjaxCall("projects/" + id, method, fn.onSuccessfulProjectUpdate, fn.onFailedProjectUpdate, data);
 		}
 		else {
 			var message = "Fill in Required Inputs Fields.";
@@ -788,7 +773,6 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.doAjaxCall(
 				"projects/" + $scope.selectedProject.ID,
 				"DELETE",
-				{},
 				fn.onSuccessfulProjectDeletion,
 				function (result) {
 					fn.showProjectSelectError(fn.getFeedback(result, "Error deleting your project."));
@@ -836,7 +820,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		else {
 			var data = {username: $scope.username, password: $scope.password};
 
-			fn.doAjaxCall("login", "POST", data, fn.loggedIn, fn.onFailedLogin);
+			fn.doAjaxCall("login", "POST", fn.loggedIn, fn.onFailedLogin, data);
 		}
 	};
 

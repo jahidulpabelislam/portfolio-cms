@@ -408,11 +408,8 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			global.redirectTo = redirectTo;
 			fn.setURl("login");
 		},
-
-		logout: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
+		
+		callLogout: function () {
 			fn.doAjaxCall(
 				"logout",
 				"DELETE",
@@ -423,7 +420,12 @@ app.controller("projectsAdminController", function ($scope, $http) {
 					}
 				}
 			);
+		},
 
+		logout: function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			fn.callLogout();
 			return false;
 		},
 
@@ -483,6 +485,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 					};
 					redirectTo = "project/" + id + "/edit";
 				}
+			}
+			else if (root === "logout" && !path[1]) {
+				fn.callLogout();
 			}
 
 			if (func && redirectTo) {

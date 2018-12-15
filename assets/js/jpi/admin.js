@@ -44,9 +44,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			global.jwt = jwt;
 		},
 
-		getFeedback: function (result, genericFeedback) {
-			if (result && result.meta && result.meta.feedback) {
-				return result.meta.feedback;
+		getFeedback: function (response, genericFeedback) {
+			if (response && response.meta && response.meta.feedback) {
+				return response.meta.feedback;
 			}
 			else {
 				return genericFeedback;
@@ -71,8 +71,8 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			jpi.footer.delayExpand();
 		},
 		
-		sendAjaxResponse: function(result, func) {
-			var response = result && result.data ? result.data : {};
+		sendAjaxResponse: function(response, func) {
+			var response = response && response.data ? response.data : {};
 
 			func(response);
 		},
@@ -93,31 +93,31 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				};
 			}
 
-			$http(options).then(function(result) {
+			$http(options).then(function(response) {
 				if (onSuccess) {
-					fn.sendAjaxResponse(result, onSuccess)
+					fn.sendAjaxResponse(response, onSuccess)
 				}
-			}, function(result) {
+			}, function(response) {
 				if (onFail) {
-					fn.sendAjaxResponse(result, onFail)
+					fn.sendAjaxResponse(response, onFail)
 				}
 			});
 		},
 
 		// Render a Project Image deletion message to show if it's been deleted or failed
-		onSuccessfulProjectImageDeletion: function(result) {
+		onSuccessfulProjectImageDeletion: function(response) {
 			$scope.hideProjectError();
 
 			var message = "Error deleting the Project Image.";
 			var feedbackClass = "feedback--error";
 
 			// Check if the deletion of project image has been processed
-			if (result && result.row && result.row.ID) {
+			if (response && response.row && response.row.ID) {
 
 				var i = 0, found = false;
 				// Find and remove the image from view
 				for (i = 0; i < $scope.selectedProject.Images.length; i++) {
-					if ($scope.selectedProject.Images[i]["ID"] === result.row.ID) {
+					if ($scope.selectedProject.Images[i]["ID"] === response.row.ID) {
 						var imageToDelete = $scope.selectedProject.Images[i];
 						var index = $scope.selectedProject.Images.indexOf(imageToDelete);
 						if (index > -1) {
@@ -141,9 +141,9 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.hideLoading();
 		},
 		
-		onSuccessfulProjectImageUpload: function(result) {
+		onSuccessfulProjectImageUpload: function(response) {
 
-			$scope.selectedProject.Images.push(result.row);
+			$scope.selectedProject.Images.push(response.row);
 
 			var index = $scope.uploads.indexOf(upload);
 			if (index > -1) {
@@ -155,34 +155,34 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.hideLoading();
 		},
 
-		onSuccessfulProjectDeletion: function(result) {
+		onSuccessfulProjectDeletion: function(response) {
 			$scope.selectProjectFeedback = "";
 			var defaultFeedback = "Error deleting your project.";
 
 			var feedbackClass = "feedback--error";
 			// Check the project delete has been processed
-			if (result && result.row && result.row.ID) {
+			if (response && response.row && response.row.ID) {
 
-				defaultFeedback = "Successfully deleted the Project identified by: " + result.row.ID + ".";
+				defaultFeedback = "Successfully deleted the Project identified by: " + response.row.ID + ".";
 				feedbackClass = "feedback--success";
 				fn.getProjectList(1);
 			}
 
-			fn.showProjectSelectError(fn.getFeedback(result, defaultFeedback), feedbackClass);
+			fn.showProjectSelectError(fn.getFeedback(response, defaultFeedback), feedbackClass);
 			jpi.footer.delayExpand();
 			fn.hideLoading();
 		},
 		
-		onSuccessfulProjectUpdate: function(result) {
+		onSuccessfulProjectUpdate: function(response) {
 			var wasUpdate = $scope.selectedProject && $scope.selectedProject.ID;
 
-			result.row.Date = new Date(result.row.Date);
+			response.row.Date = new Date(response.row.Date);
 			
-			if (typeof result.row.Skills == "string") {
-				result.row.Skills = result.row.Skills.split(",");
+			if (typeof response.row.Skills == "string") {
+				response.row.Skills = response.row.Skills.split(",");
 			}
 			
-			$scope.selectedProject = result.row;
+			$scope.selectedProject = response.row;
 			
 			if (!wasUpdate) {
 				global.url.pathname = "project/" + $scope.selectedProject.ID + "/edit/";
@@ -192,17 +192,17 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			
 			var typeSubmit = (wasUpdate) ? "updated" : "saved";
 			var defaultFeedback = "Successfully " + typeSubmit + " project.";
-			var message = fn.getFeedback(result, defaultFeedback);
+			var message = fn.getFeedback(response, defaultFeedback);
 			fn.showProjectError(message, "feedback--success");
 			
 			fn.hideLoading();
 		},
 		
-		onFailedProjectUpdate: function(result) {
+		onFailedProjectUpdate: function(response) {
 			var typeSubmit = (!$scope.selectedProject.ID) ? "saving" : "updating";
 			var defaultFeedback = "Error  " + typeSubmit + " the project.";
 			
-			var message = fn.getFeedback(result, defaultFeedback);
+			var message = fn.getFeedback(response, defaultFeedback);
 			fn.showProjectError(message, "feedback--error");
 			fn.hideLoading();
 		},
@@ -265,7 +265,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			};
 		},
 
-		gotProjects: function(result) {
+		gotProjects: function(response) {
 			document.title = "Projects (" + $scope.currentPage + ")" + global.titlePostfix;
 			jQuery(".project-view").hide();
 
@@ -277,17 +277,17 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			$scope.selectedProject = undefined;
 
 			// Check the data doesn't exist check there's no feedback
-			if (result && result.meta.ok && result.rows.length <= 0 && !result.meta.feedback) {
+			if (response && response.meta.ok && response.rows.length <= 0 && !response.meta.feedback) {
 
 				// Assume there's no error and no projects to show
 				fn.showProjectSelectError("Sorry, no Projects to show.");
 				$scope.projects = [];
 			}
-			else if (result && result.rows && result.rows.length > 0) {
-				$scope.projects = result.rows;
+			else if (response && response.rows && response.rows.length > 0) {
+				$scope.projects = response.rows;
 				$scope.pages = [];
 
-				var pages = Math.ceil(result.total_count / 10);
+				var pages = Math.ceil(response.total_count / 10);
 				for (var i = 1; i <= pages; i++) {
 					$scope.pages.push(i);
 				}
@@ -317,24 +317,24 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				"projects",
 				"GET",
 				fn.gotProjects,
-				function(result) {
-					fn.showProjectSelectError(fn.getFeedback(result, "Error getting projects."));
+				function(response) {
+					fn.showProjectSelectError(fn.getFeedback(response, "Error getting projects."));
 					fn.hideLoading();
 				},
 				{page: $scope.currentPage}
 			);
 		},
 		
-		onSuccessfulProjectGet: function(result) {
-			if (result && result && result.meta && result.meta.ok && result.row) {
-				$scope.selectProject(result.row);
+		onSuccessfulProjectGet: function(response) {
+			if (response && response.meta && response.meta.ok && response.row) {
+				$scope.selectProject(response.row);
 				fn.setUpEditProject();
 				fn.hideLoading();
 			}
 		},
 		
-		onFailedProjectGet: function(result) {
-			fn.showProjectSelectError(fn.getFeedback(result, "Sorry, no Project found with ID: " + id + "."));
+		onFailedProjectGet: function(response) {
+			fn.showProjectSelectError(fn.getFeedback(response, "Sorry, no Project found with ID: " + id + "."));
 			jQuery(".project-select, .nav").show();
 			jQuery(".project-select__add-button").hide();
 			fn.hideLoading();
@@ -344,23 +344,23 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.doAjaxCall("projects/" + id, "GET", fn.onSuccessfulProjectGet, fn.onFailedProjectGet);
 		},
 		
-		onSuccessfulAuthCheck: function(result, successFunc, messageOverride) {
-			if (result && result.meta && result.meta.status && result.meta.status == 200) {
+		onSuccessfulAuthCheck: function(response, successFunc, messageOverride) {
+			if (response && response.meta && response.meta.status && response.meta.status == 200) {
 				$scope.loggedIn = true;
 				successFunc();
 			}
 			else {
-				fn.showLoginForm(result, redirectTo, messageOverride);
+				fn.showLoginForm(response, redirectTo, messageOverride);
 			}
 		},
 
 		// After user has attempted to log in
-		loggedIn: function(result) {
+		loggedIn: function(response) {
 
 			// Check if data was valid
-			if (result && result.meta && result.meta.status && result.meta.status == 200) {
+			if (response && response.meta && response.meta.status && response.meta.status == 200) {
 
-				fn.setJwt(result.meta.jwt);
+				fn.setJwt(response.meta.jwt);
 
 				// Make the log in/sign up form not visible
 				jQuery(".login").hide();
@@ -379,13 +379,13 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			}
 			// Check if feedback was provided or generic error message
 			else {
-				$scope.userFormFeedback = fn.getFeedback(result, "Error logging you in.");
+				$scope.userFormFeedback = fn.getFeedback(response, "Error logging you in.");
 				fn.hideLoading();
 			}
 		},
 		
-		onFailedLogin: function(result) {
-			$scope.userFormFeedback = fn.getFeedback(result, "Error logging you in.");
+		onFailedLogin: function(response) {
+			$scope.userFormFeedback = fn.getFeedback(response, "Error logging you in.");
 
 			if ($scope.userFormFeedback !== "") {
 				jQuery(".login__feedback").removeClass("feedback--success").addClass("feedback--error");
@@ -394,7 +394,7 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.hideLoading();
 		},
 
-		showLoginForm: function(result, redirectTo, messageOverride) {
+		showLoginForm: function(response, redirectTo, messageOverride) {
 
 			document.title = "Login" + global.titlePostfix;
 
@@ -405,13 +405,13 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				$scope.userFormFeedback = messageOverride;
 			}
 			else {
-				$scope.userFormFeedback = fn.getFeedback(result, "You need to be logged in!");
+				$scope.userFormFeedback = fn.getFeedback(response, "You need to be logged in!");
 			}
 
 			var success = false;
 
-			if (result && result.meta && result.meta.status) {
-				success = result.meta.status == 200 || result.meta.status == 201;
+			if (response && response.meta && response.meta.status) {
+				success = response.meta.status == 200 || response.meta.status == 201;
 			}
 
 			if (success) {
@@ -436,10 +436,10 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			fn.doAjaxCall(
 				"logout",
 				"DELETE",
-				function(result) {
-					if (result && result && result.meta && result.meta.status && result.meta.status == 200) {
+				function(response) {
+					if (response && response.meta && response.meta.status && response.meta.status == 200) {
 						fn.setJwt("");
-						fn.showLoginForm(result);
+						fn.showLoginForm(response);
 					}
 				}
 			);
@@ -594,11 +594,11 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		fn.doAjaxCall(
 			"session",
 			"GET",
-			function(result) {
-				fn.onSuccessfulAuthCheck(result, successFunc, messageOverride);
+			function(response) {
+				fn.onSuccessfulAuthCheck(response, successFunc, messageOverride);
 			},
-			function(result) {
-				fn.showLoginForm(result, redirectTo, messageOverride);
+			function(response) {
+				fn.showLoginForm(response, redirectTo, messageOverride);
 			});
 	};
 
@@ -628,12 +628,12 @@ app.controller("projectsAdminController", function ($scope, $http) {
 						Authorization: "Bearer " + global.jwt
 					}
 				}
-			).then(function(result) {
-				fn.sendAjaxResponse(result, fn.onSuccessfulProjectImageUpload);
-			}, function(result) {
-				fn.sendAjaxResponse(result,
-					function(result) {
-						var message = fn.getFeedback(result, "Error uploading the Project Image.");
+			).then(function(response) {
+				fn.sendAjaxResponse(response, fn.onSuccessfulProjectImageUpload);
+			}, function(response) {
+				fn.sendAjaxResponse(response,
+					function(response) {
+						var message = fn.getFeedback(response, "Error uploading the Project Image.");
 						fn.showProjectError(message, "feedback--error");
 						fn.hideLoading();
 					}
@@ -681,8 +681,8 @@ app.controller("projectsAdminController", function ($scope, $http) {
 			"projects/" + projectImage.ProjectID + "/images/" + projectImage.ID,
 			"DELETE",
 			fn.onSuccessfulProjectImageDeletion,
-			function(result) {
-				var message = fn.getFeedback(result, "Error deleting the Project Image.");
+			function(response) {
+				var message = fn.getFeedback(response, "Error deleting the Project Image.");
 				fn.showProjectError(message, "feedback--error");
 				fn.hideLoading();
 			}
@@ -774,8 +774,8 @@ app.controller("projectsAdminController", function ($scope, $http) {
 				"projects/" + $scope.selectedProject.ID,
 				"DELETE",
 				fn.onSuccessfulProjectDeletion,
-				function (result) {
-					fn.showProjectSelectError(fn.getFeedback(result, "Error deleting your project."));
+				function (response) {
+					fn.showProjectSelectError(fn.getFeedback(response, "Error deleting your project."));
 					fn.hideLoading();
 				}
 			);

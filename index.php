@@ -38,13 +38,13 @@
 				</div>
 				<div class="nav__links-container">
 					<ul class="nav__links clearfix">
-						<li class="nav-link__item"><a href="/admin/projects/1/" title="Link to Projects Page" class="nav-item__link js-admin-projects"><span class="screen-reader-text">Projects</span><i class="fa fa-list-ul"></i></a></li>
-						<li class="nav-link__item"><a href="/admin/project/new/" title="Link to New Project Form Page" class="nav-item__link js-admin-new-project"><span class="screen-reader-text">Add A Project</span><i class="fa fa-plus"></i></a></li>
+						<li class="nav-link__item"><a href="/projects/1/" title="Link to Projects Page" class="nav-item__link js-admin-projects"><span class="screen-reader-text">Projects</span><i class="fa fa-list-ul"></i></a></li>
+						<li class="nav-link__item"><a href="/project/new/" title="Link to New Project Form Page" class="nav-item__link js-admin-new-project"><span class="screen-reader-text">Add A Project</span><i class="fa fa-plus"></i></a></li>
 					</ul>
 				</div>
 				<div class="nav__links-container nav__links-container--left">
 					<ul class="nav__links clearfix">
-						<li class="nav-link__item"><a href="/admin/logout/" title="Link to Logout Page" class="nav-item__link js-admin-logout"><span class="screen-reader-text">Logoutt</span><i class="fa fa-times-circle"></i></a></li>
+						<li class="nav-link__item"><a href="/logout/" title="Link to Logout Page" class="nav-item__link js-admin-logout"><span class="screen-reader-text">Logoutt</span><i class="fa fa-times-circle"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -64,20 +64,20 @@
 					<p class="feedback feedback--error project-select__feedback" ng-show="selectProjectFeedback">{{selectProjectFeedback}}</p>
 
 					<div>
-						<a href="/admin/project/{{ selectedProject.ID }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.ID" class="btn btn--blue project-select__edit-button js-admin-edit-project" tabindex="3"><span class="screen-reader-text">Edit</span><i class="fa fa-edit"></i></a>
+						<a href="/project/{{ selectedProject.ID }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.ID" class="btn btn--blue project-select__edit-button js-admin-edit-project" tabindex="3"><span class="screen-reader-text">Edit</span><i class="fa fa-edit"></i></a>
 						<button ng-show="projects.length > 0" ng-click="checkAuthStatus(deleteProject)" type="button" value="Delete" class="btn btn--red project-select__delete-button" tabindex="4"><span class="screen-reader-text">Delete</span><i class="fa fa-trash"></i></button>
-						<a href="/admin/project/new/" title="Link to New Project Form Page" class="btn btn--green project-select__add-button js-admin-new-project" tabindex="5"><span class="screen-reader-text">Add A Project</span><i class="fa fa-plus"></i></a>
+						<a href="/project/new/" title="Link to New Project Form Page" class="btn btn--green project-select__add-button js-admin-new-project" tabindex="5"><span class="screen-reader-text">Add A Project</span><i class="fa fa-plus"></i></a>
 					</div>
 
 					<ul class="pagination pagination--admin" ng-show="pages.length > 1">
-						<li ng-repeat="page in pages" class="pagination__item"><a href="/admin/projects/{{ page }}/" title="Link to Projects Page" class="pagination__item-link js-admin-projects" ng-class="{'active': page == currentPage}" data-page="{{ page }}">{{ page }}</a></li>
+						<li ng-repeat="page in pages" class="pagination__item"><a href="/projects/{{ page }}/" title="Link to Projects Page" class="pagination__item-link js-admin-projects" ng-class="{'active': page == currentPage}" data-page="{{ page }}">{{ page }}</a></li>
 					</ul>
 				</div>
 
 				<div class="project-view">
 					<p class="feedback project__feedback hide"><span>{{projectFormFeedback}}</span><button class="project__hide-error" ng-click="hideProjectError()">X</button></p>
 
-					<a href="/admin/projects/" title="Link to Projects Page" class="btn btn--orange project__back-button js-admin-projects" tabindex="6"><span class="screen-reader-text">Back</span><i class="fa fa-arrow-circle-left"></i></a>
+					<a href="/projects/" title="Link to Projects Page" class="btn btn--orange project__back-button js-admin-projects" tabindex="6"><span class="screen-reader-text">Back</span><i class="fa fa-arrow-circle-left"></i></a>
 
 					<form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
 						<label for="projectName">Project Name <span class="required">*</span></label>

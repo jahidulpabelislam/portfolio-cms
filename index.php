@@ -1,36 +1,14 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/config.php'; ?>
+<?php include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en" ng-app="projectsAdmin">
 	<head>
-		<?php
-		$environment = !empty(getenv('APPLICATION_ENV')) ? getenv('APPLICATION_ENV') : "development";
-
-		// Only want Google Analytic for live site
-		if ($environment === "production") {
-			?>
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70803146-2" type="text/javascript"></script>
-			<script type="text/javascript">
-				window.dataLayer = window.dataLayer || [];
-
-				function gtag() {
-					dataLayer.push(arguments);
-				}
-
-				gtag('js', new Date());
-
-				gtag('config', 'UA-70803146-2');
-			</script>
-			<?php
-		}
-		?>
-
 		<meta charset="UTF-8"/>
 		<meta name="author" content="Jahidul Pabel Islam"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>JPI Admin</title>
 
+		<!-- The custom styling for this page -->
 		<?php if (!isset($_GET["debug"])): ?>
 			<link href="/assets/css/main.min.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
 		<?php else: ?>
@@ -41,12 +19,13 @@
 		<link href="https://fonts.googleapis.com/css?family=Cabin|Oswald" rel="stylesheet">
 
 		<?php
-		include $_SERVER['DOCUMENT_ROOT'] . '/partials/favicons.php';
+		include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/favicons.php");
 		?>
 	</head>
 
 	<body ng-controller="projectsAdminController" class="admin-page">
 
+		<!-- The navigation used on site -->
 		<nav class="nav nav--dark">
 			<div class="container nav__container">
 				<div class="nav__header">
@@ -71,7 +50,7 @@
 			</div>
 		</nav>
 
-		<section class="main-content">
+		<main class="main-content">
 			<div class="container">
 
 				<div class="project-select">
@@ -141,9 +120,10 @@
 							<option value="purple">Purple</option>
 						</select>
 
+						<!-- Div containing all the project images -->
 						<ul ui-sortable ng-model="selectedProject.Images" class="project__images-container ui-state-default">
 							<li class="project__image-container" ng-repeat="image in selectedProject.Images" id="{{image.File}}">
-								<img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, '/'); ?>{{image.File}}">
+								<img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{image.File}}">
 								<button ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" type="button">X</button>
 							</li>
 						</ul>
@@ -152,7 +132,7 @@
 
 						<input ng-if="selectedProject.ID" data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="15">
 
-						<!-- Div containing the uploads -->
+						<!-- Div containing the project image uploads -->
 						<div class="project__uploads">
 							<div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">
 								<p>{{upload.text}}</p>
@@ -163,11 +143,12 @@
 					</form>
 				</div>
 			</div>
-		</section>
+		</main>
 
 		<!-- The drag and drop area -->
 		<section class="js-drop-zone fixed-overlay"><h1 class="fixed-overlay__text">Drag And Drop Image Here To Upload A Slide for Project</h1></section>
-
+		
+		<!-- The login area -->
 		<section class="login">
 			<div class="container">
 				<form class="login__form" ng-submit="logIn()">
@@ -185,37 +166,36 @@
 		<!-- The loading area -->
 		<section class="js-loading fixed-overlay fixed-overlay--loading"><h1 class="fixed-overlay__text"><i class='fa fa-spinner fa-spin'></i></h1></section>
 
+		<!-- The API endpoint is configured per environment and stored in a PHP constant, so echo here into global js variable -->
 		<script>
 			window.jpi = window.jpi || {};
 			window.jpi.config = window.jpi.config || {};
 			window.jpi.config.jpiAPIEndpoint = "<?php echo JPI_API_ENDPOINT . JPI_API_VERSION; ?>";
 		</script>
-		<!-- The Scripts -->
-
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		
+		<!-- All the JS's needed for the page  -->
+		<!-- jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" type="text/javascript"></script>
-
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		
+		<?php // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified ?>
 		<?php if (!isset($_GET["debug"])): ?>
-			<!-- the script for the page -->
+			<!-- Compiled project & libraries js files -->
 			<script src="/assets/js/admin.min.js?v=1" type="text/javascript"></script>
 		<?php else: ?>
+			<!-- All individual js files for site as debug is specified -->
 			<script src="/assets/js/jpi/helpers.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/stickyFooter.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
 			<script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
-			<!-- The third party script needed for the page for the sorting of images -->
+			
+			<!-- The third party scripts needed for the page for the sorting of images -->
 			<script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
-
-			<!-- The third party script needed for the page for the sorting of images -->
 			<script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
 		<?php endif; ?>
-		
-		<script src="/assets/js/jpi/config.js?v=1" type="text/javascript"></script>
 
-		<!-- the script for the page -->
+		<!-- The AngularJS script for the admin page -->
 		<script src="/assets/js/jpi/admin.js?v=1" type="text/javascript"></script>
 	</body>
 </html>

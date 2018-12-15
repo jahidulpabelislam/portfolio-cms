@@ -473,34 +473,38 @@ app.controller("projectsAdminController", function ($scope, $http) {
 		},
 
 		loadApp: function() {
-			var path = global.url.pathname.substring(1).split("/");
+			var path = global.url.pathname.substring(1).split("/"),
+				root = path[0] ? path[0] : "",
+				func,
+				redirectTo;
 
-			if (path[0]) {
-				var root = path[0];
+			// Check what page should be shown
+			if (root === "projects") {
+				var pageNum = 1;
+				if (path[1] && Number.isInteger(parseInt(path[1]))) {
+					pageNum = parseInt(path[1], 10);
+				}
+				func = function() {
+					fn.getProjectList(pageNum, false);
+				};
+				redirectTo = "projects/" + pageNum + "/";
+			}
+			else if (root === "project" && path[1]) {
+				if (path[1] === "add") {
+					func = fn.setUpAddProject;
+					redirectTo = "project/add/";
+				}
+				else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit") {
+					var id = parseInt(path[1], 10);
+					func = function() {
+						fn.getAndEditProject(id, 10);
+					};
+					redirectTo = "project/" + id + "/edit/";
+				}
+			}
 
-				// Check what page should be shown
-				if (root === "projects") {
-					var pageNum = 1;
-					if (path[1] && Number.isInteger(parseInt(path[1]))) {
-						pageNum = parseInt(path[1], 10);
-					}
-					$scope.checkAuthStatus(function() {
-						fn.getProjectList(pageNum, false);
-					}, "projects/" + pageNum + "/");
-				}
-				else if (root === "project" && path[1]) {
-					if (path[1] === "add") {
-						$scope.checkAuthStatus(fn.setUpAddProject, "project/add/");
-					}
-					else if (Number.isInteger(parseInt(path[1])) && path[2] && path[2] === "edit") {
-						$scope.checkAuthStatus(function() {
-							fn.getAndEditProject(parseInt(path[1], 10));
-						}, "project/" + parseInt(path[1], 10) + "/edit/");
-					}
-				}
-				else {
-					fn.initialLogin();
-				}
+			if (func && redirectTo) {
+				$scope.checkAuthStatus(func, redirectTo);
 			}
 			else {
 				fn.initialLogin();

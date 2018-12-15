@@ -16,7 +16,6 @@
 		<?php endif; ?>
 
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css">
-		<link href="https://fonts.googleapis.com/css?family=Cabin|Oswald" rel="stylesheet">
 
 		<?php
 		include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/favicons.php");

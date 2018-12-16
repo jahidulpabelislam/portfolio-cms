@@ -113,13 +113,20 @@
 
 						<label for="colour">Colour </label>
 						<select ng-model="selectedProject.Colour" name="colour" id="colour" class="input" tabindex="14">
-							<option value="">Default</option>
-							<option value="blue">Blue</option>
-							<option value="red">Red</option>
-							<option value="orange">Orange</option>
-							<option value="lime-green">Lime green</option>
-							<option value="green">Green</option>
-							<option value="purple">Purple</option>
+							<?php
+							$colourOptions = [
+								"" => "Default",
+								"blue" => "Blue",
+								"red" => "Red",
+								"orange" => "Orange",
+								"lime-green" => "Lime Green",
+								"green" => "Green",
+								"purple" => "Purple",
+							];
+							foreach ($colourOptions as $value => $display) {
+								echo "<option value='$value'>$display</option>";
+							}
+							?>
 						</select>
 
 						<!-- Div containing all the project images -->

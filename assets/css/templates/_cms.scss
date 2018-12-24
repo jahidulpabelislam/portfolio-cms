@@ -1,25 +1,14 @@
 /*
-  ADMIN CSS START
+  CMS CSS START
  */
 /* For all devices */
-.admin-page {
+.cms-page {
 	background-color: $light;
 	margin: auto;
 	text-align: left;
 }
 
-.admin-page .nav {
-	display: none;
-}
-
-.admin-page .nav__links a {
-	padding: 8px 12px;
-	font-size: 28px;
-}
-
-.admin-page .nav__links a:hover {
-	border-bottom-color: transparent;
-}
+.cms-page
 
 .fixed-overlay {
 	z-index: -10;
@@ -99,11 +88,6 @@
 	padding: 5px;
 	display: block;
 	text-align: center;
-}
-
-.pagination--admin.pagination--admin {
-	display: block;
-	list-style: none;
 }
 
 .project-view {
@@ -330,5 +314,5 @@
 }
 
 /*
-    ADMIN CSS END
+    CMS CSS END
 */

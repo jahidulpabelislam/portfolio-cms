@@ -25,27 +25,12 @@ window.jpi.nav = (function(jQuery) {
 			}
 		},
 
-		toggleNavBarColour: function () {
-			var navHeight = jQuery(".nav").height();
-			var scrollPos = jQuery(window).scrollTop() + navHeight;
-			var headerHeight = jQuery(".jumbotron").height();
-
-			if (scrollPos >= headerHeight) {
-				jQuery(".nav").addClass("scrolled");
-			}
-			else {
-				jQuery(".nav").removeClass("scrolled");
-			}
-		},
-
-		initListeners: function () {
+		initListeners: function() {
 			jQuery(".nav__mobile-toggle").on("click", fn.toggleMobileMenu);
 			jQuery(document).on("click", fn.closeMobileNav);
 			jQuery(window).on("orientationchange resize", fn.initDesktopNav);
-			jQuery(window).on("scroll", fn.toggleNavBarColour);
+		},
 
-			fn.toggleNavBarColour();
-		}
 	};
 
 	jQuery(document).on("ready", fn.initListeners);

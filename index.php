@@ -22,10 +22,10 @@
 		?>
 	</head>
 
-	<body ng-controller="portfolioCMSController" class="admin-page">
+	<body ng-controller="portfolioCMSController" class="cms-page">
 
 		<!-- The navigation used on site -->
-		<nav class="nav nav--dark">
+		<nav class="nav">
 			<div class="container nav__container">
 				<div class="nav__header">
 					<button type="button" class="nav__mobile-toggle">

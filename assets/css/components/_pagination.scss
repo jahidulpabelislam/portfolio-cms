@@ -1,7 +1,8 @@
 /* For all devices */
 .pagination.pagination {
-	display: none;
+	display: block;
 	padding: 0;
+	list-style: none;
 }
 
 .pagination__item {

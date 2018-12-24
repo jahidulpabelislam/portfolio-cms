@@ -66,21 +66,7 @@ window.jpi.dnd = (function(jQuery) {
 				fn.readItem(items[i].webkitGetAsEntry());
 			}
 
-			// As the reading of files are async, the upload may not be in DOM yet
-			// So We go to uploads container instead as default
-			// But if there was already items in uploads, we scroll to the bottom of last item
-			var pos = jQuery(".project__uploads").offset().top;
-			if (jQuery(".project__upload").length > 0) {
-				var lastItem = jQuery(".project__upload").last();
-				var topOfLastItem = lastItem.offset().top;
-				pos = topOfLastItem + lastItem.outerHeight();
-			}
-
-			var navHeight = jQuery(".nav").outerHeight();
-			var feedbackHeight = jQuery(".project__feedback").outerHeight();
-			jQuery("html, body").animate({
-				scrollTop: pos - navHeight - feedbackHeight - 16
-			}, 1000);
+			jpi.cms.scrollToUploads();
 		},
 
 		stop: function() {

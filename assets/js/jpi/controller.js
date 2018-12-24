@@ -10,6 +10,7 @@ app.directive("fileUpload", function() {
 				for (var i = 0; i < $element[0].files.length; i++) {
 					$scope.checkFile($element[0].files[i]);
 				}
+				jpi.cms.scrollToUploads();
 			});
 		}
 	};
@@ -61,6 +62,24 @@ app.controller("portfolioCMSController", function($scope, $http) {
 			$scope.uploads.push({ok: false, text: errorMessage});
 			$scope.$apply();
 			jpi.helpers.delayExpandingSection();
+		},
+
+		scrollToUploads: function () {
+			// As the reading of files are async, the upload may not be in DOM yet
+			// So We go to uploads container instead as default
+			// But if there was already items in uploads, we scroll to the bottom of last item
+			var pos = jQuery(".project__uploads").offset().top;
+			if (jQuery(".project__upload").length > 0) {
+				var lastItem = jQuery(".project__upload").last();
+				var topOfLastItem = lastItem.offset().top;
+				pos = topOfLastItem + lastItem.outerHeight();
+			}
+
+			var navHeight = jQuery(".nav").outerHeight();
+			var feedbackHeight = jQuery(".project__feedback").outerHeight();
+			jQuery("html, body").animate({
+				scrollTop: pos - navHeight - feedbackHeight - 16
+			}, 1000);
 		},
 
 		doAJAXCall: function(url, method, onSuccess, onFail, data) {
@@ -788,7 +807,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
 	window.jpi = window.jpi || {};
 	window.jpi.cms = {
 		checkFile: $scope.checkFile,
-		renderFailedUpload: fn.renderFailedUpload
+		renderFailedUpload: fn.renderFailedUpload,
+		scrollToUploads: fn.scrollToUploads
 	};
 
 	jQuery(document).on("ready", fn.init);

@@ -8,7 +8,7 @@ var sass = require("gulp-sass");
 
 // Concatenate & Minify JS
 var scripts = {
-	admin: [
+	main: [
 		"assets/js/third-party/jquery.min.js",
 		"assets/js/third-party/jquery-ui.min.js",
 		"assets/js/third-party/angular.min.js",
@@ -19,15 +19,15 @@ var scripts = {
 	]
 };
 var scriptNames = Object.keys(scripts);
-scriptNames.forEach(function (key, i) {
-	gulp.task("scripts-" + key, function () {
+scriptNames.forEach(function(key, i) {
+	gulp.task("scripts-" + key, function() {
 		return gulp.src(scripts[key])
 	            .pipe(concat(key + ".min.js"))
 				.pipe(uglify())
 				.pipe(gulp.dest("assets/js"));
 	});
 });
-gulp.task("scripts", ["scripts-admin",]);
+gulp.task("scripts", ["scripts-main",]);
 
 // Minify Stylesheets
 var stylesheets = {
@@ -36,8 +36,8 @@ var stylesheets = {
 	]
 };
 var stylesheetNames = Object.keys(stylesheets);
-stylesheetNames.forEach(function (key) {
-	gulp.task("styles-" + key, function () {
+stylesheetNames.forEach(function(key) {
+	gulp.task("styles-" + key, function() {
 		return gulp.src(stylesheets[key])
 	            .pipe(concat(key + ".min.css"))
 			.pipe(autoprefixer({
@@ -52,13 +52,13 @@ stylesheetNames.forEach(function (key) {
 });
 gulp.task("styles", ["styles-main",]);
 
-gulp.task("sass", function () {
+gulp.task("sass", function() {
 	return gulp.src("assets/css/style.scss")
             .pipe(sass().on("error", sass.logError))
 			.pipe(gulp.dest("assets/css/"));
 });
 // Watch Files For Changes
-gulp.task("watch", function () {
+gulp.task("watch", function() {
 	gulp.watch("assets/css/**/*.scss", ["sass",]);
 });
 

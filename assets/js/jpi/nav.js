@@ -1,16 +1,17 @@
 window.jpi = window.jpi || {};
-window.jpi.nav = (function (jQuery) {
+window.jpi.nav = (function(jQuery) {
 
 	"use strict";
 
 	var fn = {
-		toggleMobileMenu: function () {
+
+		toggleMobileMenu: function() {
 			var container = jQuery(".nav__links-container, .nav__social-links-container");
 			jQuery(".nav").toggleClass("opened");
 			container.slideToggle();
 		},
 
-		initDesktopNav: function () {
+		initDesktopNav: function() {
 			if (jQuery(window).width() > 768) {
 				var container = jQuery(".nav__links-container, .nav__social-links-container");
 				container.show();
@@ -18,7 +19,7 @@ window.jpi.nav = (function (jQuery) {
 		},
 
 		// Custom code to collapse mobile menu when user clicks off it.
-		closeMobileNav: function (event) {
+		closeMobileNav: function(event) {
 			if (!jQuery(event.target).closest(".nav").length && jQuery(".nav").hasClass("opened") && jQuery(".nav__mobile-toggle").css("display") !== "none") {
 				jQuery(".nav__mobile-toggle").trigger("click");
 			}

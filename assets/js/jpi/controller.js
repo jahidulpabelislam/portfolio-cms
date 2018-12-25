@@ -270,7 +270,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 			};
 		},
 
-		onSuccessfulProjectsGet: function(response) {
+		setUpProjectsSelect: function () {
 			document.title = "Projects (" + $scope.currentPage + ")" + global.titlePostfix;
 
 			$scope.projects = $scope.pages = [];
@@ -280,6 +280,10 @@ app.controller("portfolioCMSController", function($scope, $http) {
 			jQuery(".projects-select, .nav, .projects-select__add-button").show();
 			jQuery(".nav .js-projects").addClass("active");
 			jQuery(".nav .js-new-project").removeClass("active");
+		},
+
+		onSuccessfulProjectsGet: function(response) {
+			fn.setUpProjectsSelect();
 
 			if (response && response.rows && response.rows.length > 0) {
 				$scope.projects = response.rows;
@@ -317,8 +321,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 				"GET",
 				fn.onSuccessfulProjectsGet,
 				function(response) {
-					$scope.projects = $scope.pages = [];
-					$scope.selectedProject = undefined;
+					fn.setUpProjectsSelect();
 					fn.showProjectSelectError(jpi.helpers.getFeedback(response, "Error getting projects."));
 				},
 				{page: $scope.currentPage}

@@ -6,7 +6,7 @@ window.jpi.nav = (function(jQuery) {
 	var global = {
 		mainSelector: ".nav",
 		itemsSelector: ".nav__links-container",
-		mobileToggleSelector: ".nav__links-container"
+		mobileToggleSelector: ".nav__mobile-toggle"
 	};
 
 	var fn = {
@@ -26,7 +26,7 @@ window.jpi.nav = (function(jQuery) {
 
 		closeMobileNav: function(event) {
 			if (!jQuery(event.target).closest(global.mainSelector).length && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
-				jQuery(".nav__mobile-toggle").trigger("click");
+				jQuery(global.mobileToggleSelector).trigger("click");
 			}
 		},
 

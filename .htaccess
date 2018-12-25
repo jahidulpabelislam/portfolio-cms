@@ -53,7 +53,12 @@ IndexIgnore *
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)$ index.php/$1
+RewriteRule ^(.+)/$ index.php/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(.+)/$
+RewriteRule ^(.*)$ %{REQUEST_URI}/ [R=301,L]
 
 <IfModule mod_headers.c>
     # Cache specified files for 31 days

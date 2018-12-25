@@ -3,30 +3,35 @@ window.jpi.nav = (function(jQuery) {
 
 	"use strict";
 
+	var global = {
+		mainSelector: ".nav",
+		itemsSelector: ".nav__links-container",
+		mobileToggleSelector: ".nav__links-container"
+	};
+
 	var fn = {
 
 		toggleMobileMenu: function() {
-			var container = jQuery(".nav__links-container, .nav__social-links-container");
+			var container = jQuery(global.itemsSelector);
 			jQuery(".nav").toggleClass("opened");
 			container.slideToggle();
 		},
 
 		initDesktopNav: function() {
 			if (jQuery(window).width() > 768) {
-				var container = jQuery(".nav__links-container, .nav__social-links-container");
+				var container = jQuery(global.itemsSelector);
 				container.show();
 			}
 		},
 
-		// Custom code to collapse mobile menu when user clicks off it.
 		closeMobileNav: function(event) {
-			if (!jQuery(event.target).closest(".nav").length && jQuery(".nav").hasClass("opened") && jQuery(".nav__mobile-toggle").css("display") !== "none") {
+			if (!jQuery(event.target).closest(global.mainSelector).length && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
 				jQuery(".nav__mobile-toggle").trigger("click");
 			}
 		},
 
 		initListeners: function() {
-			jQuery(".nav__mobile-toggle").on("click", fn.toggleMobileMenu);
+			jQuery(global.mobileToggleSelector).on("click", fn.toggleMobileMenu);
 			jQuery(document).on("click", fn.closeMobileNav);
 			jQuery(window).on("orientationchange resize", fn.initDesktopNav);
 		},

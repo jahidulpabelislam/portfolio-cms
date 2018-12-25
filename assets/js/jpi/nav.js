@@ -13,7 +13,7 @@ window.jpi.nav = (function(jQuery) {
 
 		toggleMobileMenu: function() {
 			var container = jQuery(global.itemsSelector);
-			jQuery(".nav").toggleClass("opened");
+			jQuery(global.mainSelector).toggleClass("opened");
 			container.slideToggle();
 		},
 
@@ -24,8 +24,8 @@ window.jpi.nav = (function(jQuery) {
 			}
 		},
 
-		closeMobileNav: function(event) {
-			if (!jQuery(event.target).closest(global.mainSelector).length && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
+		closeMobileNav: function(e) {
+			if (jQuery(e.target).closest(global.mainSelector).length == 0 && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
 				jQuery(global.mobileToggleSelector).trigger("click");
 			}
 		},

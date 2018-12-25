@@ -48,7 +48,7 @@ window.jpi.helpers = (function(jQuery) {
 		},
 
 		getInt: function(value, defaultInt) {
-			if (value && Number.isInteger(parseInt(value))) {
+			if (value && !isNaN(value)) {
 				var int = parseInt(value, 10);
 				return int;
 			}
@@ -61,15 +61,15 @@ window.jpi.helpers = (function(jQuery) {
 		 * add invalid class if empty and return false
 		 * or remove invalid class if  not empty and return true
 		 */
-		checkInputField: function(input) {
-			if (input.value.trim() === "") {
-				input.classList.add("invalid");
-				input.classList.remove("valid");
+		checkInputField: function(elem) {
+			if (elem.value.trim() === "") {
+				elem.classList.add("invalid");
+				elem.classList.remove("valid");
 				return false;
 			}
 			else {
-				input.classList.remove("invalid");
-				input.classList.add("valid");
+				elem.classList.remove("invalid");
+				elem.classList.add("valid");
 				return true;
 			}
 		},

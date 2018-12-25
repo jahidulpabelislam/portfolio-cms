@@ -33,7 +33,7 @@
 				<?php
 				include_once(ROOT . "/partials/projects-select.php");
 
-				include_once(ROOT . "/partials/project-form.php");
+				include_once(ROOT . "/partials/project-view.php");
 				?>
 			</div>
 		</main>

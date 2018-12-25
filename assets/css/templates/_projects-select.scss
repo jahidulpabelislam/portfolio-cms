@@ -1,28 +1,28 @@
-.project-select {
+.projects-select {
 	display: none;
 	text-align: center;
 }
 
-.project-select__add-button.project-select__add-button {
+.projects-select__add-button.projects-select__add-button {
 	margin-top: 10px;
 }
 
-.project-select__edit-button {
+.projects-select__edit-button {
 	margin-top: 10px;
 }
 
-.project-select__delete-button {
+.projects-select__delete-button {
 	margin-top: 10px;
 }
 
-.project-select__option label,
-.project-select__option input {
+.projects-select__option label,
+.projects-select__option input {
 	cursor: pointer;
 	vertical-align: middle;
 	margin: 5px;
 }
 
-.project-select__feedback {
+.projects-select__feedback {
 	padding: 5px;
 	display: block;
 	text-align: center;

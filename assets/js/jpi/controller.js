@@ -52,7 +52,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 				classToAdd = "feedback--error";
 			}
 
-			jQuery(".project-select__feedback").removeClass("feedback--error feedback--success").addClass(classToAdd);
+			jQuery(".projects-select__feedback").removeClass("feedback--error feedback--success").addClass(classToAdd);
 			$scope.selectProjectFeedback = feedback;
 			fn.hideLoading();
 		},
@@ -226,7 +226,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 			$scope.selectProjectFeedback = $scope.skillInput = "";
 
 			jQuery(".project-view, .nav").show();
-			jQuery(".project-select").hide();
+			jQuery(".projects-select").hide();
 			jQuery("#projectName, #skill-input, #longDescription, #shortDescription, #github, #date").removeClass("invalid valid");
 
 			jpi.helpers.delayExpandingSection();
@@ -241,7 +241,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 				$(".project__uploads").sortable().disableSelection();
 			}
 			else {
-				fn.showProjectSelectError("Select A Project To Update.");
+				fn.showProjectSelectError("Select A Project To Edit.");
 			}
 		},
 
@@ -277,7 +277,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 			$scope.selectedProject = undefined;
 
 			jQuery(".project-view").hide();
-			jQuery(".project-select, .nav, .project-select__add-button").show();
+			jQuery(".projects-select, .nav, .projects-select__add-button").show();
 			jQuery(".nav .js-projects").addClass("active");
 			jQuery(".nav .js-new-project").removeClass("active");
 
@@ -338,8 +338,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
 		onFailedProjectGet: function(response, id) {
 			fn.showProjectSelectError(jpi.helpers.getFeedback(response, "Sorry, no Project found with ID: " + id + "."));
-			jQuery(".project-select, .nav").show();
-			jQuery(".project-select__add-button").hide();
+			jQuery(".projects-select, .nav").show();
+			jQuery(".projects-select__add-button").hide();
 		},
 
 		getAndEditProject: function(id) {
@@ -404,7 +404,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 		showLoginForm: function(response, redirectTo, messageOverride) {
 			document.title = "Login" + global.titlePostfix;
 
-			jQuery(".project-select, .project-view, .nav").hide();
+			jQuery(".projects-select, .project-view, .nav").hide();
 			jQuery(".login").css("display", "flex");
 
 			if (typeof messageOverride != "undefined") {
@@ -587,7 +587,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
 			jQuery(".main-content").css("padding-top", jQuery("nav").height());
 
-			jQuery(".login, .project-view, .project-select").hide();
+			jQuery(".login, .project-view, .projects-select").hide();
 
 			fn.loadApp();
 		}

@@ -405,7 +405,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 			document.title = "Login" + global.titlePostfix;
 
 			jQuery(".project-select, .project-view, .nav").hide();
-			jQuery(".login").show();
+			jQuery(".login").css("display", "flex");
 
 			if (typeof messageOverride != "undefined") {
 				$scope.userFormFeedback = messageOverride;

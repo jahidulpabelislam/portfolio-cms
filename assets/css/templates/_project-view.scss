@@ -1,95 +1,3 @@
-/*
-  CMS CSS START
- */
-/* For all devices */
-.cms-page {
-	background-color: $light;
-	margin: auto;
-	text-align: left;
-}
-
-.cms-page
-
-.fixed-overlay {
-	z-index: -10;
-	opacity: 0;
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	top: 0;
-	background: transparentize($dark, .4);
-	font-size: 50px;
-	line-height: 60px;
-	transition: opacity 1s ease-in-out,
-				z-index 0s ease-in-out;
-	text-align: center;
-	padding: 50px;
-}
-
-.fixed-overlay--loading {
-	z-index: 10;
-	opacity: 1;
-}
-
-.fixed-overlay__text {
-	margin: auto;
-	color: white;
-}
-
-.login {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-}
-
-.login__form {
-	width: 100%;
-	max-width: 330px;
-	margin: auto;
-}
-
-.login__feedback {
-	padding: 5px;
-	display: block;
-	text-align: center;
-	margin: 5px;
-}
-
-.project-select {
-	display: none;
-	text-align: center;
-}
-
-.project-select__add-button.project-select__add-button {
-	margin-top: 10px;
-}
-
-.project-select__edit-button {
-	margin-top: 10px;
-}
-
-.project-select__delete-button {
-	margin-top: 10px;
-}
-
-.project-select__option label,
-.project-select__option input {
-	cursor: pointer;
-	vertical-align: middle;
-	margin: 5px;
-}
-
-.project-select__feedback {
-	padding: 5px;
-	display: block;
-	text-align: center;
-}
-
 .project-view {
 	display: none;
 }
@@ -154,8 +62,8 @@
 	max-height: 50px;
 	width: auto;
 	transition: opacity 0.2s ease-in-out,
-				padding 0.2s ease-in-out 0.2s,
-				max-height 0.2s ease-in-out 0.2s;
+	padding 0.2s ease-in-out 0.2s,
+	max-height 0.2s ease-in-out 0.2s;
 }
 
 .project__feedback.hide {
@@ -312,7 +220,3 @@
 		padding: 10px 12px;
 	}
 }
-
-/*
-    CMS CSS END
-*/

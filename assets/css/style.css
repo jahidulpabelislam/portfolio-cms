@@ -82,7 +82,8 @@ table {
   box-sizing: border-box; }
 
 body {
-  text-align: center; }
+  margin: auto;
+  text-align: left; }
 
 .container {
   max-width: 100%;
@@ -90,7 +91,6 @@ body {
   margin: auto;
   transition: all 1s ease-in-out; }
 
-section,
 .main-content {
   display: flex;
   transition: all 1s ease-in-out; }
@@ -126,6 +126,7 @@ body {
   font-family: "Cabin", sans-serif;
   font-size: 14px;
   line-height: 18px;
+  background-color: #f5f5f5;
   color: #333; }
 
 a {
@@ -133,15 +134,6 @@ a {
   transition: all .3s ease-in-out;
   text-decoration: none;
   color: inherit; }
-
-a > img {
-  opacity: .9;
-  transition: all .3s ease-in-out; }
-
-a:hover > img {
-  box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.4);
-  cursor: pointer;
-  opacity: 1; }
 
 strong {
   font-weight: 700; }
@@ -197,6 +189,30 @@ strong {
 /*
   Any css for many templates and/or components.
 */
+.fixed-overlay {
+  display: flex;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: -10;
+  padding: 50px;
+  background: rgba(51, 51, 51, 0.6);
+  text-align: center;
+  font-size: 50px;
+  line-height: 60px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out, z-index 0s ease-in-out; }
+
+.fixed-overlay--loading {
+  z-index: 10;
+  opacity: 1; }
+
+.fixed-overlay__text {
+  margin: auto;
+  color: white; }
+
 /* For all devices */
 button,
 [type=button],
@@ -527,39 +543,6 @@ label {
   background-color: #333;
   border-color: #2e2e2e; }
 
-/*
-  CMS CSS START
- */
-/* For all devices */
-.cms-page {
-  background-color: #f5f5f5;
-  margin: auto;
-  text-align: left; }
-
-.cms-page
-.fixed-overlay {
-  z-index: -10;
-  opacity: 0;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  top: 0;
-  background: rgba(51, 51, 51, 0.6);
-  font-size: 50px;
-  line-height: 60px;
-  transition: opacity 1s ease-in-out, z-index 0s ease-in-out;
-  text-align: center;
-  padding: 50px; }
-
-.fixed-overlay--loading {
-  z-index: 10;
-  opacity: 1; }
-
-.fixed-overlay__text {
-  margin: auto;
-  color: white; }
-
 .login {
   display: none;
   position: fixed;
@@ -801,7 +784,3 @@ label {
     margin-right: 0; }
   .project__skill-add-button {
     padding: 10px 12px; } }
-
-/*
-    CMS CSS END
-*/

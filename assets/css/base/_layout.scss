@@ -6,7 +6,8 @@
 }
 
 body {
-	text-align: center;
+	margin: auto;
+	text-align: left;
 }
 
 .container {
@@ -16,7 +17,6 @@ body {
 	transition: all 1s ease-in-out;
 }
 
-section,
 .main-content {
 	display: flex;
 	transition: all 1s ease-in-out;

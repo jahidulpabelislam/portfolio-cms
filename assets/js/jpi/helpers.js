@@ -5,7 +5,6 @@ window.jpi.helpers = (function(jQuery) {
 	"use strict";
 
 	var global = {
-		navSelector: ".nav",
 		contentSelector: ".main-content",
 		jwtStorageKey: "cmsJwt",
 		jwt: "",
@@ -16,7 +15,7 @@ window.jpi.helpers = (function(jQuery) {
 		getJwt: function() {
 			var jwt = global.jwt;
 
-			if (jwt.trim() === "") {
+			if (!jwt || jwt.trim() === "") {
 				jwt = fn.getJwtFromStorage();
 			}
 

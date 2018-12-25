@@ -1,3 +1,9 @@
+<?php
+if (!defined("ROOT")) {
+	die();
+}
+?>
+
 <!-- The navigation used on site -->
 <nav class="nav">
 	<div class="container nav__container">

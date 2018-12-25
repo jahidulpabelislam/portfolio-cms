@@ -18,29 +18,27 @@
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css">
 
 		<?php
-		include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/favicons.php");
+		include_once(ROOT . "/partials/favicons.php");
 		?>
 	</head>
 
 	<body ng-controller="portfolioCMSController" class="cms-page">
 
 		<?php
-		include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/nav.php");
+		include_once(ROOT . "/partials/nav.php");
 		?>
 
 		<main class="main-content">
 			<div class="container">
 				<?php
-				include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/projects-select.php");
+				include_once(ROOT . "/partials/projects-select.php");
 
-				include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/project-form.php");
+				include_once(ROOT . "/partials/project-form.php");
 				?>
 			</div>
 		</main>
 
-		<?php
-		include_once($_SERVER["DOCUMENT_ROOT"] . "/partials/login.php");
-		?>
+		<?php include_once(ROOT . "/partials/login.php"); ?>
 
 		<!-- The drag and drop area -->
 		<div class="js-drop-zone fixed-overlay"><h1 class="fixed-overlay__text">Drag And Drop Image Here To Upload A Slide for Project</h1></div>
@@ -52,7 +50,7 @@
 		<script>
 			window.jpi = window.jpi || {};
 			window.jpi.config = window.jpi.config || {};
-			window.jpi.config.jpiAPIEndpoint = "<?php echo JPI_API_ENDPOINT . JPI_API_VERSION; ?>";
+			window.jpi.config.jpiAPIEndpoint = "<?php echo trim(JPI_API_ENDPOINT, "/") .  "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>";
 		</script>
 
 		<!-- All the JS's needed for the page  -->

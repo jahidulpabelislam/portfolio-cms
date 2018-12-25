@@ -1,3 +1,9 @@
+<?php
+if (!defined("ROOT")) {
+	die();
+}
+?>
+
 <div class="project-select">
 
 	<div class="project-select__form">

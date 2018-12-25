@@ -1,3 +1,9 @@
+<?php
+if (!defined("ROOT")) {
+	die();
+}
+?>
+
 <div class="project-view">
 	<p class="feedback project__feedback hide"><span>{{ projectFormFeedback }}</span><button class="project__hide-error" ng-click="hideProjectError()">X</button></p>
 

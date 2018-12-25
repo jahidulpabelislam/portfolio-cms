@@ -1,3 +1,9 @@
+<?php
+if (!defined("ROOT")) {
+	die();
+}
+?>
+
 <!-- The login area -->
 <div class="login">
 	<div class="container">

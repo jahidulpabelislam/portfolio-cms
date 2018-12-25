@@ -8,8 +8,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>JPI Portfolio CMS</title>
 
+		<?php $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0")); ?>
 		<!-- The custom styling for this page -->
-		<?php if (!isset($_GET["debug"])): ?>
+		<?php if (!$isDebug): ?>
 			<link href="/assets/css/main.min.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
 		<?php else: ?>
 			<link href="/assets/css/style.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
@@ -55,7 +56,7 @@
 
 		<!-- All the JS's needed for the page  -->
 		<?php // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified ?>
-		<?php if (!isset($_GET["debug"])): ?>
+		<?php if (!$isDebug): ?>
 			<!-- Compiled project & libraries js files -->
 			<script src="/assets/js/main.min.js?v=1" type="text/javascript"></script>
 		<?php else: ?>

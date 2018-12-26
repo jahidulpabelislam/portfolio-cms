@@ -1,43 +1,43 @@
 window.jpi = window.jpi || {};
 window.jpi.nav = (function(jQuery) {
 
-	"use strict";
+    "use strict";
 
-	var global = {
-		mainSelector: ".nav",
-		itemsSelector: ".nav__links-container",
-		mobileToggleSelector: ".nav__mobile-toggle"
-	};
+    var global = {
+        mainSelector: ".nav",
+        itemsSelector: ".nav__links-container",
+        mobileToggleSelector: ".nav__mobile-toggle"
+    };
 
-	var fn = {
+    var fn = {
 
-		toggleMobileMenu: function() {
-			var container = jQuery(global.itemsSelector);
-			jQuery(global.mainSelector).toggleClass("opened");
-			container.slideToggle();
-		},
+        toggleMobileMenu: function() {
+            var container = jQuery(global.itemsSelector);
+            jQuery(global.mainSelector).toggleClass("opened");
+            container.slideToggle();
+        },
 
-		initDesktopNav: function() {
-			if (jQuery(window).width() > 768) {
-				var container = jQuery(global.itemsSelector);
-				container.show();
-			}
-		},
+        initDesktopNav: function() {
+            if (jQuery(window).width() > 768) {
+                var container = jQuery(global.itemsSelector);
+                container.show();
+            }
+        },
 
-		closeMobileNav: function(e) {
-			if (jQuery(e.target).closest(global.mainSelector).length == 0 && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
-				jQuery(global.mobileToggleSelector).trigger("click");
-			}
-		},
+        closeMobileNav: function(e) {
+            if (jQuery(e.target).closest(global.mainSelector).length === 0 && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
+                jQuery(global.mobileToggleSelector).trigger("click");
+            }
+        },
 
-		initListeners: function() {
-			jQuery(global.mobileToggleSelector).on("click", fn.toggleMobileMenu);
-			jQuery(document).on("click", fn.closeMobileNav);
-			jQuery(window).on("orientationchange resize", fn.initDesktopNav);
-		},
+        initListeners: function() {
+            jQuery(global.mobileToggleSelector).on("click", fn.toggleMobileMenu);
+            jQuery(document).on("click", fn.closeMobileNav);
+            jQuery(window).on("orientationchange resize", fn.initDesktopNav);
+        },
 
-	};
+    };
 
-	jQuery(document).on("ready", fn.initListeners);
+    jQuery(document).on("ready", fn.initListeners);
 
 }(jQuery));

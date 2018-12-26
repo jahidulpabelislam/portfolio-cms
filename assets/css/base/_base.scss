@@ -5,37 +5,37 @@
 
 /* For all devices */
 body {
-	font: 400 14px "Cabin", sans-serif;
-	font-family: "Cabin", sans-serif;
-	font-size: 14px;
-	line-height: 18px;
-	background-color: $light;
-	color: $dark;
+    font: 400 14px "Cabin", sans-serif;
+    font-family: "Cabin", sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    background-color: $light;
+    color: $dark;
 }
 
 a {
-	font-weight: 700;
-	transition: all .3s ease-in-out;
-	text-decoration: none;
-	color: inherit;
+    font-weight: 700;
+    transition: all .3s ease-in-out;
+    text-decoration: none;
+    color: inherit;
 }
 
 strong {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 /* Only for Desktops */
 @media only screen and (min-width: $tablet) {
-	body {
-		font-size: 15px;
-		line-height: 20px;
-	}
+    body {
+        font-size: 15px;
+        line-height: 20px;
+    }
 }
 
 /* Only for Desktops */
 @media only screen and (min-width: $desktop) {
-	body {
-		font-size: 16px;
-		line-height: 21px;
-	}
+    body {
+        font-size: 16px;
+        line-height: 21px;
+    }
 }

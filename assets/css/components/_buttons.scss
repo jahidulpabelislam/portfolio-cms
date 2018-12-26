@@ -2,48 +2,48 @@
 button,
 [type=button],
 [type=submit] {
-	border: 0;
-	background-color: transparent;
-	cursor: pointer;
-	-webkit-appearance: none;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
 }
 
 .btn {
-	font: inherit;
-	margin: 5px;
-	width: auto;
-	padding: 6px 12px;
-	border-radius: 2px;
-	color: white;
-	background-color: $dark;
+    font: inherit;
+    margin: 5px;
+    width: auto;
+    padding: 6px 12px;
+    border-radius: 2px;
+    color: white;
+    background-color: $dark;
 }
 
 .btn:hover,
 .btn:focus {
-	background-color: darken($dark, 5%);
+    background-color: darken($dark, 5%);
 }
 
 .btn:disabled {
-	cursor: not-allowed;
-	filter: alpha(opacity=65);
-	opacity: .65;
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    opacity: .65;
 }
 
 @each $color, $colors in $colors {
-	.btn--#{$color} {
-		background-color: map-get($colors, main);
-	}
+    .btn--#{$color} {
+        background-color: map-get($colors, main);
+    }
 
-	.btn--#{$color}:hover,
-	.btn--#{$color}:focus {
-		background-color: map-get($colors, hover);
-	}
+    .btn--#{$color}:hover,
+    .btn--#{$color}:focus {
+        background-color: map-get($colors, hover);
+    }
 }
 
 .btn--clear {
-	background-color: transparent;
-	border-color: transparent;
-	color: white;
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
 }
 
 .btn--clear:hover,
@@ -51,22 +51,22 @@ button,
 .btn--clear:active,
 .btn--clear:active:hover,
 .btn--clear:active:focus {
-	background-color: transparent;
-	color: darken(white, 20%);
+    background-color: transparent;
+    color: darken(white, 20%);
 }
 
 a.btn {
-	margin: 5px;
-	transition: none;
-	font-weight: 700;
-	text-decoration: none;
-	display: inline-block;
+    margin: 5px;
+    transition: none;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
 }
 
 /* Only for Desktops */
 @media only screen and (min-width: $desktop) {
-	.btn {
-		margin: 7px;
-		padding: 9px 14px;
-	}
+    .btn {
+        margin: 7px;
+        padding: 9px 14px;
+    }
 }

@@ -23,7 +23,7 @@ if (!defined("ROOT")) {
                 </div>
                 <div class="nav__links-container nav__links-container--left">
                     <ul class="nav__links clearfix">
-                        <li class="nav-link__item"><a href="/logout/" title="Link to Logout Page" class="nav-item__link js-logout"><span class="screen-reader-text">Logoutt</span><i class="fa fa-times-circle"></i></a></li>
+                        <li class="nav-link__item"><a href="/logout/" title="Link to Logout Page" class="nav-item__link js-logout"><span class="screen-reader-text">Logout</span><i class="fa fa-times-circle"></i></a></li>
                     </ul>
                 </div>
             </div>

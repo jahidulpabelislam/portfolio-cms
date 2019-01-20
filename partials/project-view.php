@@ -13,12 +13,12 @@ if (!defined("ROOT")) {
 
                     <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
                         <label for="projectName">Project Name <span class="required">*</span></label>
-                        <input ng-model="selectedProject.Name" type="text" name="projectName" id="projectName" class="input" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required>
+                        <input ng-model="selectedProject.name" type="text" name="projectName" id="projectName" class="input" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required>
 
                         <label for="skill-input">Skills <span class="required">*</span></label>
 
-                        <div ng-model="selectedProject.Skills" ui-sortable class="ui-state-default">
-                            <p ng-repeat="skill in selectedProject.Skills" class="project__skill project__skill--{{ selectedProject.Colour }}">{{ skill }}
+                        <div ng-model="selectedProject.skills" ui-sortable class="ui-state-default">
+                            <p ng-repeat="skill in selectedProject.skills" class="project__skill project__skill--{{ selectedProject.colour }}">{{ skill }}
                                 <button class="btn project__skill-delete-button" ng-click="deleteSkill(skill)" type="button">x</button>
                             </p>
                         </div>
@@ -30,25 +30,25 @@ if (!defined("ROOT")) {
                         </div>
 
                         <label for="longDescription">Long Description <span class="required">*</span></label>
-                        <textarea ng-model="selectedProject.LongDescription" name="description" id="longDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+                        <textarea ng-model="selectedProject.long_description" name="description" id="longDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
 
                         <label for="shortDescription">Short Description <span class="required">*</span></label>
-                        <textarea ng-model="selectedProject.ShortDescription" name="description" id="shortDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+                        <textarea ng-model="selectedProject.short_description" name="description" id="shortDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
 
                         <label for="link">Link</label>
-                        <input ng-model="selectedProject.Link" type="text" name="link" id="link" class="input" placeholder="link" tabindex="10">
+                        <input ng-model="selectedProject.link" type="text" name="link" id="link" class="input" placeholder="link" tabindex="10">
 
                         <label for="github">GitHub <span class="required">*</span></label>
-                        <input ng-model="selectedProject.GitHub" type="url" name="github" id="github" class="input" placeholder="github" tabindex="11" oninput="jpi.helpers.checkInputField(this);" required>
+                        <input ng-model="selectedProject.github" type="url" name="github" id="github" class="input" placeholder="github" tabindex="11" oninput="jpi.helpers.checkInputField(this);" required>
 
                         <label for="download">Download</label>
-                        <input ng-model="selectedProject.Download" type="text" name="download" id="download" class="input" placeholder="download" tabindex="12">
+                        <input ng-model="selectedProject.download" type="text" name="download" id="download" class="input" placeholder="download" tabindex="12">
 
                         <label for="date">Date <span class="required">*</span></label>
-                        <input ng-model="selectedProject.Date" type="date" name="date" id="date" class="input" placeholder="2016-01-30" tabindex="13" oninput="jpi.helpers.checkInputField(this);" required>
+                        <input ng-model="selectedProject.date" type="date" name="date" id="date" class="input" placeholder="2016-01-30" tabindex="13" oninput="jpi.helpers.checkInputField(this);" required>
 
                         <label for="colour">Colour </label>
-                        <select ng-model="selectedProject.Colour" name="colour" id="colour" class="input" tabindex="14">
+                        <select ng-model="selectedProject.colour" name="colour" id="colour" class="input" tabindex="14">
                             <?php
                             $colourOptions = [
                                 ""           => "Default",
@@ -66,16 +66,16 @@ if (!defined("ROOT")) {
                         </select>
 
                         <!-- Div containing all the project images -->
-                        <ul ui-sortable ng-model="selectedProject.Images" class="project__images-container ui-state-default">
-                            <li class="project__image-container" ng-repeat="image in selectedProject.Images" id="{{ image.File }}">
-                                <img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{ image.File }}">
+                        <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">
+                            <li class="project__image-container" ng-repeat="image in selectedProject.images" id="{{ image.file }}">
+                                <img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{ image.file }}">
                                 <button ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" type="button">X</button>
                             </li>
                         </ul>
 
-                        <button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="14"><span class="screen-reader-text">{{ selectedProject.ID ? "Update Project" : "Add Project" }}</span><i class="fa fa-upload"></i></button>
+                        <button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="14"><span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span><i class="fa fa-upload"></i></button>
 
-                        <input ng-if="selectedProject.ID" data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="15">
+                        <input ng-if="selectedProject.id" data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="15">
 
                         <!-- Div containing the project image uploads -->
                         <div class="project__uploads">

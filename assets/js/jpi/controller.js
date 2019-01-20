@@ -119,12 +119,12 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 feedbackClass = "feedback--error";
 
             // Check if the deletion of project image has been processed
-            if (response && response.row && response.row.ID) {
+            if (response && response.row && response.row.id) {
 
                 // Find and remove the image from view
-                for (i = 0; i < $scope.selectedProject.Images.length; i++) {
-                    if ($scope.selectedProject.Images[i]["ID"] === response.row.ID) {
-                        $scope.selectedProject.Images.splice(i, 1);
+                for (i = 0; i < $scope.selectedProject.images.length; i++) {
+                    if ($scope.selectedProject.images[i]["id"] === response.row.id) {
+                        $scope.selectedProject.images.splice(i, 1);
                         found = true;
                         break;
                     }
@@ -141,7 +141,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         onSuccessfulProjectImageUpload: function(response, upload) {
-            $scope.selectedProject.Images.push(response.row);
+            $scope.selectedProject.images.push(response.row);
 
             var index = $scope.uploads.indexOf(upload);
             if (index > -1) {
@@ -158,9 +158,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 feedbackClass = "feedback--error";
 
             // Check the project delete has been processed
-            if (response && response.row && response.row.ID) {
+            if (response && response.row && response.row.id) {
 
-                defaultFeedback = "Successfully deleted the Project identified by: " + response.row.ID + ".";
+                defaultFeedback = "Successfully deleted the Project identified by: " + response.row.id + ".";
                 feedbackClass = "feedback--success";
                 fn.getProjects(1);
             }
@@ -172,7 +172,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         onSuccessfulProjectSave: function(response) {
             if (response && response.row) {
 
-                var wasUpdate = $scope.selectedProject && $scope.selectedProject.ID,
+                var wasUpdate = $scope.selectedProject && $scope.selectedProject.id,
                     typeSubmit = (wasUpdate) ? "updated" : "inserted",
                     defaultFeedback = "Successfully " + typeSubmit + " project.",
                     message = jpi.helpers.getFeedback(response, defaultFeedback);
@@ -180,7 +180,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 $scope.selectProject(response.row);
 
                 if (!wasUpdate) {
-                    fn.setURl("project/" + $scope.selectedProject.ID + "/edit");
+                    fn.setURl("project/" + $scope.selectedProject.id + "/edit");
                     fn.setUpEditProject();
                 }
 
@@ -192,7 +192,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         onFailedProjectSave: function(response) {
-            var typeSubmit = (!$scope.selectedProject.ID) ? "inserting" : "updating",
+            var typeSubmit = (!$scope.selectedProject.id) ? "inserting" : "updating",
                 defaultFeedback = "Error  " + typeSubmit + " the project.",
                 message = jpi.helpers.getFeedback(response, defaultFeedback);
 
@@ -207,7 +207,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
                 dateValidation = jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val()),
-                skillsValidation = $scope.selectedProject.Skills.length > 0;
+                skillsValidation = $scope.selectedProject.skills.length > 0;
 
             if (!skillsValidation) {
                 jQuery(".project__skill-input").addClass("invalid").removeClass("valid");
@@ -233,8 +233,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         setUpEditProject: function() {
-            if ($scope.selectedProject && $scope.selectedProject.ID) {
-                document.title = "Edit Project (" + $scope.selectedProject.ID + ")" + global.titlePostfix;
+            if ($scope.selectedProject && $scope.selectedProject.id) {
+                document.title = "Edit Project (" + $scope.selectedProject.id + ")" + global.titlePostfix;
 
                 jpi.dnd.setUp();
                 fn.setUpProjectForm();
@@ -257,16 +257,16 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         initNewProject: function() {
             $scope.selectedProject = {
-                Name: "",
-                Skills: [],
-                LongDescription: "",
-                ShortDescription: "",
-                Link: "",
-                GitHub: "",
-                Download: "",
-                Date: "",
-                Colour: "",
-                Images: []
+                name: "",
+                skills: [],
+                long_description: "",
+                short_description: "",
+                link: "",
+                github: "",
+                download: "",
+                date: "",
+                colour: "",
+                images: []
             };
         },
 
@@ -557,7 +557,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                var id = $scope.selectedProject ? $scope.selectedProject.ID : null;
+                var id = $scope.selectedProject ? $scope.selectedProject.id : null;
 
                 if (id) {
                     $scope.checkAuthStatus(function() {
@@ -630,7 +630,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             form.append("image", upload.file);
 
             $http.post(
-                jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.ID + "/images/",
+                jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.id + "/images/",
                 form,
                 {
                     transformRequest: angular.identity,
@@ -682,7 +682,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         fn.showLoading();
 
         fn.doAJAXCall(
-            "projects/" + projectImage.ProjectID + "/images/" + projectImage.ID,
+            "projects/" + projectImage.ProjectID + "/images/" + projectImage.id,
             "DELETE",
             fn.onSuccessfulProjectImageDeletion,
             function(response) {
@@ -693,13 +693,13 @@ app.controller("portfolioCMSController", function($scope, $http) {
     };
 
     $scope.addSkill = function() {
-        $scope.selectedProject.Skills.push($scope.skillInput);
+        $scope.selectedProject.skills.push($scope.skillInput);
         $scope.skillInput = "";
     };
 
     $scope.deleteSkill = function(skill) {
-        var index = $scope.selectedProject.Skills.indexOf(skill);
-        $scope.selectedProject.Skills.splice(index, 1);
+        var index = $scope.selectedProject.skills.indexOf(skill);
+        $scope.selectedProject.skills.splice(index, 1);
     };
 
     $scope.submitProject = function() {
@@ -708,19 +708,19 @@ app.controller("portfolioCMSController", function($scope, $http) {
         var isFormValid = fn.validateProjectForm();
         if (isFormValid) {
 
-            var id = $scope.selectedProject.ID ? $scope.selectedProject.ID : "",
-                method = $scope.selectedProject.ID ? "PUT" : "POST",
+            var id = $scope.selectedProject.id ? $scope.selectedProject.id : "",
+                method = $scope.selectedProject.id ? "PUT" : "POST",
                 data = {
-                    Name: $scope.selectedProject.Name ? $scope.selectedProject.Name : "",
-                    Skills: $scope.selectedProject.Skills ? $scope.selectedProject.Skills.join(",") : "",
-                    LongDescription: $scope.selectedProject.LongDescription ? $scope.selectedProject.LongDescription : "",
-                    ShortDescription: $scope.selectedProject.ShortDescription ? $scope.selectedProject.ShortDescription : "",
-                    Link: $scope.selectedProject.Link ? $scope.selectedProject.Link : "",
-                    GitHub: $scope.selectedProject.GitHub ? $scope.selectedProject.GitHub : "",
-                    Download: $scope.selectedProject.Download ? $scope.selectedProject.Download : "",
-                    Date: $scope.selectedProject.Date ? $scope.selectedProject.Date : "",
-                    Colour: $scope.selectedProject.Colour ? $scope.selectedProject.Colour : "",
-                    Images: $scope.selectedProject.Images ? angular.toJson($scope.selectedProject.Images) : []
+                    name: $scope.selectedProject.name ? $scope.selectedProject.name : "",
+                    skills: $scope.selectedProject.skills ? $scope.selectedProject.skills.join(",") : "",
+                    long_description: $scope.selectedProject.long_description ? $scope.selectedProject.long_description : "",
+                    short_description: $scope.selectedProject.short_description ? $scope.selectedProject.short_description : "",
+                    link: $scope.selectedProject.link ? $scope.selectedProject.link : "",
+                    github: $scope.selectedProject.github ? $scope.selectedProject.github : "",
+                    download: $scope.selectedProject.download ? $scope.selectedProject.download : "",
+                    date: $scope.selectedProject.date ? $scope.selectedProject.date : "",
+                    colour: $scope.selectedProject.colour ? $scope.selectedProject.colour : "",
+                    images: $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : []
                 };
 
             fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);
@@ -749,10 +749,10 @@ app.controller("portfolioCMSController", function($scope, $http) {
         fn.showLoading();
 
         $scope.selectProjectFeedback = "";
-        if ($scope.selectedProject && $scope.selectedProject.ID) {
+        if ($scope.selectedProject && $scope.selectedProject.id) {
 
             fn.doAJAXCall(
-                "projects/" + $scope.selectedProject.ID,
+                "projects/" + $scope.selectedProject.id,
                 "DELETE",
                 fn.onSuccessfulProjectDeletion,
                 function(response) {
@@ -769,10 +769,10 @@ app.controller("portfolioCMSController", function($scope, $http) {
     };
 
     $scope.selectProject = function(project) {
-        project.Date = new Date(project.Date);
+        project.date = new Date(project.date);
 
-        if (typeof project.Skills == "string") {
-            project.Skills = project.Skills.split(",");
+        if (typeof project.skills == "string") {
+            project.skills = project.skills.split(",");
         }
 
         $scope.selectedProject = project;

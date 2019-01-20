@@ -19,15 +19,18 @@ var scripts = {
     ]
 };
 var scriptNames = Object.keys(scripts);
-scriptNames.forEach(function(key, i) {
-    gulp.task("scripts-" + key, function() {
+var scriptTasks = [];
+scriptNames.forEach(function(key) {
+    var scriptTask = "scripts-" + key;
+    scriptTasks.push(scriptTask);
+    gulp.task(scriptTask, function() {
         return gulp.src(scripts[key])
                 .pipe(concat(key + ".min.js"))
                 .pipe(uglify())
                 .pipe(gulp.dest("assets/js"));
     });
 });
-gulp.task("scripts", ["scripts-main",]);
+gulp.task("scripts", scriptTasks);
 
 // Minify Stylesheets
 var stylesheets = {
@@ -36,8 +39,11 @@ var stylesheets = {
     ]
 };
 var stylesheetNames = Object.keys(stylesheets);
+var stylesheetTasks = [];
 stylesheetNames.forEach(function(key) {
-    gulp.task("styles-" + key, function() {
+    var stylesheetTask = "styles-" + key;
+    stylesheetTasks.push(stylesheetTask);
+    gulp.task(stylesheetTask, function() {
         return gulp.src(stylesheets[key])
                 .pipe(concat(key + ".min.css"))
                 .pipe(autoprefixer({
@@ -50,7 +56,7 @@ stylesheetNames.forEach(function(key) {
                 .pipe(gulp.dest("assets/css"));
     });
 });
-gulp.task("styles", ["styles-main",]);
+gulp.task("styles", stylesheetTasks);
 
 gulp.task("sass", function() {
     return gulp.src("assets/css/style.scss")

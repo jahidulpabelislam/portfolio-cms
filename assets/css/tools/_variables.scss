@@ -1,52 +1,52 @@
-$primary-color: #0375b4;
-$error: #e52525;
+$primary-color: #0375B4;
+$error: #E52525;
 $success: green;
-$light: #f5f5f5;
-$light-grey: #eee;
+$light: #F5F5F5;
+$light-grey: #EEEEEE;
 $grey: gray;
-$dark: #333;
+$dark: #333333;
 
-$email: #0f7c10;
+$email: #0F7C10;
 $github: #E52525;
-$linkedin: #007bb5;
-$facebook: #3b5998;
-$twitter: #55acee;
-$instagram-purple: #8a3ab9;
-$instagram-orange: #fbad50;
-$snapchat: #fffc00;
+$linkedin: #007BB5;
+$facebook: #3B5998;
+$twitter: #55ACEE;
+$instagram-purple: #8A3AB9;
+$instagram-orange: #FBAD50;
+$snapchat: #FFFC00;
 
 $desktop: 1200px;
 $tablet: 768px;
 
 $colors: (
     blue:(
-        main: #0375b4,
+        main: #0375B4,
         hover: #035691,
-        dark: #03427d
+        dark: #03427D
     ),
     red:(
-        main: #e52525,
-        hover: #c32424,
-        dark: #af2323
+        main: #E52525,
+        hover: #C32424,
+        dark: #AF2323
     ),
     orange:(
-        main: #e1a02f,
-        hover: #d2922e,
-        dark: #c88c2e
+        main: #E1A02F,
+        hover: #D2922E,
+        dark: #C88C2E
     ),
     lime-green: (
-        main: #b5c82f,
-        hover: #a6b930,
-        dark: #91a42f
+        main: #B5C82F,
+        hover: #A6B930,
+        dark: #91A42F
     ),
     green:(
-        main: #5cb85c,
-        hover: #54a754,
-        dark: #4b944b
+        main: #5CB85C,
+        hover: #54A754,
+        dark: #4B944B
     ),
     purple: (
-        main: #80379b,
-        hover: #62357d,
-        dark: #4e3469
+        main: #80379B,
+        hover: #62357D,
+        dark: #4E3469
     )
 );

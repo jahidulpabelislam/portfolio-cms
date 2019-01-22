@@ -35,7 +35,7 @@ gulp.task("scripts", scriptTasks);
 // Minify Stylesheets
 var stylesheets = {
     main: [
-        "assets/css/style.css",
+        "assets/css/main.css",
     ]
 };
 var stylesheetNames = Object.keys(stylesheets);
@@ -59,7 +59,7 @@ stylesheetNames.forEach(function(key) {
 gulp.task("styles", stylesheetTasks);
 
 gulp.task("sass", function() {
-    return gulp.src("assets/css/style.scss")
+    return gulp.src("assets/css/main.scss")
             .pipe(sass().on("error", sass.logError))
             .pipe(gulp.dest("assets/css/"));
 });

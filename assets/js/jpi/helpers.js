@@ -7,7 +7,7 @@ window.jpi.helpers = (function(jQuery) {
     var global = {
         contentSelector: ".main-content",
         jwtStorageKey: "cmsJwt",
-        jwt: "",
+        jwt: ""
     };
 
     var fn = {
@@ -76,7 +76,6 @@ window.jpi.helpers = (function(jQuery) {
 
         // Expands height of content to make it full length
         expandSection: function() {
-
             var contentElem = jQuery(global.contentSelector);
 
             // Makes content default height to work out if content is too small or big
@@ -87,9 +86,8 @@ window.jpi.helpers = (function(jQuery) {
 
             // Checks if default height of content is shorter than screen height
             if (height < jQuery(window).height()) {
-
                 // Section is extended to fill the difference
-                contentElem.height((jQuery(window).height() - height) + contentElem.height());
+                contentElem.height(jQuery(window).height() - height + contentElem.height());
             }
         },
 
@@ -112,13 +110,13 @@ window.jpi.helpers = (function(jQuery) {
     jQuery(document).on("ready", fn.initListeners);
 
     return {
-        "getJwt": fn.getJwt,
-        "setJwt": fn.setJwt,
-        "getFeedback": fn.getFeedback,
-        "getAJAXResponse": fn.getAJAXResponse,
-        "getInt": fn.getInt,
-        "checkInputField": fn.checkInputField,
-        "delayExpandingSection": fn.delayExpandingSection
+        getJwt: fn.getJwt,
+        setJwt: fn.setJwt,
+        getFeedback: fn.getFeedback,
+        getAJAXResponse: fn.getAJAXResponse,
+        getInt: fn.getInt,
+        checkInputField: fn.checkInputField,
+        delayExpandingSection: fn.delayExpandingSection
     };
 
-}(jQuery));
+})(jQuery);

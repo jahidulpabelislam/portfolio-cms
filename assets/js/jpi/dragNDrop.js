@@ -13,13 +13,11 @@ window.jpi.dnd = (function(jQuery) {
             var directoryReader, i;
 
             if (item.isFile) {
-
                 item.file(function(file) {
                     jpi.cms.checkFile(file);
                 });
             }
             else if (item.isDirectory) {
-
                 // Get folder content
                 directoryReader = item.createReader();
                 directoryReader.readEntries(function(entries) {
@@ -28,7 +26,6 @@ window.jpi.dnd = (function(jQuery) {
                         fn.readItem(entries[i]);
                     }
                 });
-
             }
             // Else drop of item has failed therefore show its failed
             else {
@@ -82,8 +79,8 @@ window.jpi.dnd = (function(jQuery) {
     };
 
     return {
-        "setUp": fn.setUp,
-        "stop": fn.stop
+        setUp: fn.setUp,
+        stop: fn.stop
     };
 
-}(jQuery));
+})(jQuery);

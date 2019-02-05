@@ -4,39 +4,39 @@
     padding: 6px 12px;
     margin: 5px auto;
     width: 100%;
-    border: solid #E0E0E0 1px;
+    border: solid #e0e0e0 1px;
     border-radius: 2px;
-    color: $dark;
+    color: $dark-colour;
     outline: none;
     background: white;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .input::placeholder {
-    color: $grey;
+    color: $grey-colour;
 }
 
 .input:focus {
-    box-shadow: 0 0 8px $primary-color;
-    border-color: $primary-color;
+    box-shadow: 0 0 8px $primary-colour;
+    border-color: $primary-colour;
 }
 
 .input.invalid {
-    border-color: $error;
+    border-color: $error-colour;
 }
 
 .input:focus.invalid {
-    border-color: $error;
-    box-shadow: 0 0 8px transparentize($error, .4);
+    border-color: $error-colour;
+    box-shadow: 0 0 8px transparentize($error-colour, 0.4);
 }
 
 .input.valid {
-    border-color: $success;
+    border-color: $success-colour;
 }
 
 .input:focus.valid {
-    border-color: $success;
-    box-shadow: 0 0 8px transparentize($success, .4);
+    border-color: $success-colour;
+    box-shadow: 0 0 8px transparentize($success-colour, 0.4);
 }
 
 .styled-checkbox .input {
@@ -57,13 +57,13 @@
     left: 0;
     top: 0;
     background: white;
-    border: 2px solid $grey;
-    transition: all .3s ease-in-out;
+    border: 2px solid $grey-colour;
+    transition: all 0.3s ease-in-out;
 }
 
 .input:checked + .styled-checkbox__pseudo:before {
-    background-color: $primary-color;
-    border-color: $primary-color;
+    background-color: $primary-colour;
+    border-color: $primary-colour;
     content: "\2714";
     font-size: 16px;
     line-height: 1;

@@ -1,52 +1,45 @@
-$primary-color: #0375B4;
-$error: #E52525;
-$success: green;
-$light: #F5F5F5;
-$light-grey: #EEEEEE;
-$grey: gray;
-$dark: #333333;
+$primary-colour: #0375b4;
 
-$email: #0F7C10;
-$github: #E52525;
-$linkedin: #007BB5;
-$facebook: #3B5998;
-$twitter: #55ACEE;
-$instagram-purple: #8A3AB9;
-$instagram-orange: #FBAD50;
-$snapchat: #FFFC00;
+$error-colour: #e52525;
+$success-colour: green;
+
+$light-colour: #f5f5f5;
+$light-grey-colour: #eeeeee;
+$grey-colour: gray;
+$dark-colour: #333333;
 
 $desktop: 1200px;
 $tablet: 768px;
 
-$colors: (
-    blue:(
-        main: #0375B4,
+$colour-schemes: (
+    blue: (
+        main: #0375b4,
         hover: #035691,
-        dark: #03427D
+        dark: #03427d
     ),
-    red:(
-        main: #E52525,
-        hover: #C32424,
-        dark: #AF2323
+    red: (
+        main: #e52525,
+        hover: #c32424,
+        dark: #af2323
     ),
-    orange:(
-        main: #E1A02F,
-        hover: #D2922E,
-        dark: #C88C2E
+    orange: (
+        main: #e1a02f,
+        hover: #d2922e,
+        dark: #c88c2e
     ),
     lime-green: (
-        main: #B5C82F,
-        hover: #A6B930,
-        dark: #91A42F
+        main: #b5c82f,
+        hover: #a6b930,
+        dark: #91a42f
     ),
-    green:(
-        main: #5CB85C,
-        hover: #54A754,
-        dark: #4B944B
+    green: (
+        main: #5cb85c,
+        hover: #54a754,
+        dark: #4b944b
     ),
     purple: (
-        main: #80379B,
-        hover: #62357D,
-        dark: #4E3469
+        main: #80379b,
+        hover: #62357d,
+        dark: #4e3469
     )
 );

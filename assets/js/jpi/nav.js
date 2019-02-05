@@ -25,7 +25,11 @@ window.jpi.nav = (function(jQuery) {
         },
 
         closeMobileNav: function(e) {
-            if (jQuery(e.target).closest(global.mainSelector).length === 0 && jQuery(global.mainSelector).hasClass("opened") && jQuery(global.mobileToggleSelector).css("display") !== "none") {
+            if (
+                !jQuery(e.target).closest(global.mainSelector).length &&
+                jQuery(global.mainSelector).hasClass("opened") &&
+                jQuery(global.mobileToggleSelector).css("display") !== "none"
+            ) {
                 jQuery(global.mobileToggleSelector).trigger("click");
             }
         },
@@ -34,10 +38,10 @@ window.jpi.nav = (function(jQuery) {
             jQuery(global.mobileToggleSelector).on("click", fn.toggleMobileMenu);
             jQuery(document).on("click", fn.closeMobileNav);
             jQuery(window).on("orientationchange resize", fn.initDesktopNav);
-        },
+        }
 
     };
 
     jQuery(document).on("ready", fn.initListeners);
 
-}(jQuery));
+})(jQuery);

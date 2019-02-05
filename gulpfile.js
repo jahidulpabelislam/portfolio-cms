@@ -15,7 +15,7 @@ var scripts = {
         "assets/js/third-party/sortable.js",
         "assets/js/jpi/helpers.js",
         "assets/js/jpi/dragNDrop.js",
-        "assets/js/jpi/nav.js",
+        "assets/js/jpi/nav.js"
     ]
 };
 var scriptNames = Object.keys(scripts);
@@ -35,7 +35,7 @@ gulp.task("scripts", scriptTasks);
 // Minify Stylesheets
 var stylesheets = {
     main: [
-        "assets/css/main.css",
+        "assets/css/main.css"
     ]
 };
 var stylesheetNames = Object.keys(stylesheets);
@@ -46,13 +46,17 @@ stylesheetNames.forEach(function(key) {
     gulp.task(stylesheetTask, function() {
         return gulp.src(stylesheets[key])
                 .pipe(concat(key + ".min.css"))
-                .pipe(autoprefixer({
-                    browsers: ["> 0.5%", "ie 8-11"],
-                    remove: false
-                }))
-                .pipe(cleanCss({
-                    compatibility: "ie8"
-                }))
+                .pipe(
+                    autoprefixer({
+                        browsers: ["> 0.5%", "ie 8-11"],
+                        remove: false
+                    })
+                )
+                .pipe(
+                    cleanCss({
+                        compatibility: "ie8"
+                    })
+                )
                 .pipe(gulp.dest("assets/css"));
     });
 });
@@ -65,7 +69,7 @@ gulp.task("sass", function() {
 });
 // Watch Files For Changes
 gulp.task("watch", function() {
-    gulp.watch("assets/css/**/*.scss", ["sass",]);
+    gulp.watch("assets/css/**/*.scss", ["sass"]);
 });
 
-gulp.task("default", ["scripts", "styles",]);
+gulp.task("default", ["scripts", "styles"]);

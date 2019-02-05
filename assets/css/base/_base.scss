@@ -9,13 +9,13 @@ body {
     font-family: "Cabin", sans-serif;
     font-size: 14px;
     line-height: 18px;
-    background-color: $light;
-    color: $dark;
+    background-color: $light-colour;
+    color: $dark-colour;
 }
 
 a {
     font-weight: 700;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     text-decoration: none;
     color: inherit;
 }

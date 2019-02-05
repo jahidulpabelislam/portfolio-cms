@@ -1,7 +1,7 @@
 /* For all devices */
 button,
-[type=button],
-[type=submit] {
+[type="button"],
+[type="submit"] {
     border: 0;
     background-color: transparent;
     cursor: pointer;
@@ -15,28 +15,28 @@ button,
     padding: 6px 12px;
     border-radius: 2px;
     color: white;
-    background-color: $dark;
+    background-color: $dark-colour;
 }
 
 .btn:hover,
 .btn:focus {
-    background-color: darken($dark, 5%);
+    background-color: darken($dark-colour, 5%);
 }
 
 .btn:disabled {
     cursor: not-allowed;
     filter: alpha(opacity=65);
-    opacity: .65;
+    opacity: 0.65;
 }
 
-@each $color, $colors in $colors {
-    .btn--#{$color} {
-        background-color: map-get($colors, main);
+@each $colour, $colours in $colour-schemes {
+    .btn--#{$colour} {
+        background-color: map-get($colours, main);
     }
 
-    .btn--#{$color}:hover,
-    .btn--#{$color}:focus {
-        background-color: map-get($colors, hover);
+    .btn--#{$colour}:hover,
+    .btn--#{$colour}:focus {
+        background-color: map-get($colours, hover);
     }
 }
 

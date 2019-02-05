@@ -4,12 +4,12 @@
     padding: 6px 12px;
     margin: 5px auto;
     width: 100%;
-    border: solid #E0E0E0 1px;
+    border: solid #e0e0e0 1px;
     border-radius: 2px;
     color: $dark;
     outline: none;
     background: white;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .input::placeholder {
@@ -27,7 +27,7 @@
 
 .input:focus.invalid {
     border-color: $error;
-    box-shadow: 0 0 8px transparentize($error, .4);
+    box-shadow: 0 0 8px transparentize($error, 0.4);
 }
 
 .input.valid {
@@ -36,7 +36,7 @@
 
 .input:focus.valid {
     border-color: $success;
-    box-shadow: 0 0 8px transparentize($success, .4);
+    box-shadow: 0 0 8px transparentize($success, 0.4);
 }
 
 .styled-checkbox .input {
@@ -58,7 +58,7 @@
     top: 0;
     background: white;
     border: 2px solid $grey;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .input:checked + .styled-checkbox__pseudo:before {

@@ -1,7 +1,7 @@
 /* For all devices */
 button,
-[type=button],
-[type=submit] {
+[type="button"],
+[type="submit"] {
     border: 0;
     background-color: transparent;
     cursor: pointer;
@@ -26,7 +26,7 @@ button,
 .btn:disabled {
     cursor: not-allowed;
     filter: alpha(opacity=65);
-    opacity: .65;
+    opacity: 0.65;
 }
 
 @each $color, $colors in $colors {

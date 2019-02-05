@@ -25,9 +25,9 @@ scriptNames.forEach(function(key) {
     scriptTasks.push(scriptTask);
     gulp.task(scriptTask, function() {
         return gulp.src(scripts[key])
-            .pipe(concat(key + ".min.js"))
-            .pipe(uglify())
-            .pipe(gulp.dest("assets/js"));
+                .pipe(concat(key + ".min.js"))
+                .pipe(uglify())
+                .pipe(gulp.dest("assets/js"));
     });
 });
 gulp.task("scripts", scriptTasks);
@@ -45,27 +45,27 @@ stylesheetNames.forEach(function(key) {
     stylesheetTasks.push(stylesheetTask);
     gulp.task(stylesheetTask, function() {
         return gulp.src(stylesheets[key])
-            .pipe(concat(key + ".min.css"))
-            .pipe(
-                autoprefixer({
-                    browsers: ["> 0.5%", "ie 8-11"],
-                    remove: false
-                })
-            )
-            .pipe(
-                cleanCss({
-                    compatibility: "ie8"
-                })
-            )
-            .pipe(gulp.dest("assets/css"));
+                .pipe(concat(key + ".min.css"))
+                .pipe(
+                    autoprefixer({
+                        browsers: ["> 0.5%", "ie 8-11"],
+                        remove: false
+                    })
+                )
+                .pipe(
+                    cleanCss({
+                        compatibility: "ie8"
+                    })
+                )
+                .pipe(gulp.dest("assets/css"));
     });
 });
 gulp.task("styles", stylesheetTasks);
 
 gulp.task("sass", function() {
     return gulp.src("assets/css/main.scss")
-        .pipe(sass().on("error", sass.logError))
-        .pipe(gulp.dest("assets/css/"));
+            .pipe(sass().on("error", sass.logError))
+            .pipe(gulp.dest("assets/css/"));
 });
 // Watch Files For Changes
 gulp.task("watch", function() {

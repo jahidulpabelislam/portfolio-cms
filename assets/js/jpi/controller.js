@@ -42,8 +42,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
             clearTimeout(global.projectErrorTimer);
 
             jQuery(".project__feedback")
-                .removeClass("feedback--error feedback--success hide")
-                .addClass(classToAdd);
+                    .removeClass("feedback--error feedback--success hide")
+                    .addClass(classToAdd);
 
             $scope.projectFormFeedback = message;
             fn.hideLoading();
@@ -55,8 +55,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
             }
 
             jQuery(".projects-select__feedback")
-                .removeClass("feedback--error feedback--success")
-                .addClass(classToAdd);
+                    .removeClass("feedback--error feedback--success")
+                    .addClass(classToAdd);
 
             $scope.selectProjectFeedback = feedback;
             fn.hideLoading();
@@ -645,26 +645,29 @@ app.controller("portfolioCMSController", function($scope, $http) {
             var form = new FormData();
             form.append("image", upload.file);
 
-            $http
-                .post(jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.id + "/images/", form, {
+            $http.post(
+                jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.id + "/images/",
+                form,
+                {
                     transformRequest: angular.identity,
                     headers: {
                         "Content-Type": undefined,
                         "Process-Data": false,
                         Authorization: "Bearer " + jpi.helpers.getJwt()
                     }
-                })
-                .then(
-                    function(response) {
-                        response = jpi.helpers.getAJAXResponse(response);
-                        fn.onSuccessfulProjectImageUpload(response, upload);
-                    },
-                    function(response) {
-                        response = jpi.helpers.getAJAXResponse(response);
-                        var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
-                        fn.showProjectError(message, "feedback--error");
-                    }
-                );
+                }
+            )
+            .then(
+                function(response) {
+                    response = jpi.helpers.getAJAXResponse(response);
+                    fn.onSuccessfulProjectImageUpload(response, upload);
+                },
+                function(response) {
+                    response = jpi.helpers.getAJAXResponse(response);
+                    var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
+                    fn.showProjectError(message, "feedback--error");
+                }
+            );
         });
     };
 

@@ -15,7 +15,7 @@ var scripts = {
         "assets/js/third-party/sortable.js",
         "assets/js/jpi/helpers.js",
         "assets/js/jpi/dragNDrop.js",
-        "assets/js/jpi/nav.js",
+        "assets/js/jpi/nav.js"
     ]
 };
 var scriptNames = Object.keys(scripts);
@@ -25,9 +25,9 @@ scriptNames.forEach(function(key) {
     scriptTasks.push(scriptTask);
     gulp.task(scriptTask, function() {
         return gulp.src(scripts[key])
-                .pipe(concat(key + ".min.js"))
-                .pipe(uglify())
-                .pipe(gulp.dest("assets/js"));
+            .pipe(concat(key + ".min.js"))
+            .pipe(uglify())
+            .pipe(gulp.dest("assets/js"));
     });
 });
 gulp.task("scripts", scriptTasks);
@@ -35,7 +35,7 @@ gulp.task("scripts", scriptTasks);
 // Minify Stylesheets
 var stylesheets = {
     main: [
-        "assets/css/main.css",
+        "assets/css/main.css"
     ]
 };
 var stylesheetNames = Object.keys(stylesheets);
@@ -45,27 +45,31 @@ stylesheetNames.forEach(function(key) {
     stylesheetTasks.push(stylesheetTask);
     gulp.task(stylesheetTask, function() {
         return gulp.src(stylesheets[key])
-                .pipe(concat(key + ".min.css"))
-                .pipe(autoprefixer({
+            .pipe(concat(key + ".min.css"))
+            .pipe(
+                autoprefixer({
                     browsers: ["> 0.5%", "ie 8-11"],
                     remove: false
-                }))
-                .pipe(cleanCss({
+                })
+            )
+            .pipe(
+                cleanCss({
                     compatibility: "ie8"
-                }))
-                .pipe(gulp.dest("assets/css"));
+                })
+            )
+            .pipe(gulp.dest("assets/css"));
     });
 });
 gulp.task("styles", stylesheetTasks);
 
 gulp.task("sass", function() {
     return gulp.src("assets/css/main.scss")
-            .pipe(sass().on("error", sass.logError))
-            .pipe(gulp.dest("assets/css/"));
+        .pipe(sass().on("error", sass.logError))
+        .pipe(gulp.dest("assets/css/"));
 });
 // Watch Files For Changes
 gulp.task("watch", function() {
-    gulp.watch("assets/css/**/*.scss", ["sass",]);
+    gulp.watch("assets/css/**/*.scss", ["sass"]);
 });
 
-gulp.task("default", ["scripts", "styles",]);
+gulp.task("default", ["scripts", "styles"]);

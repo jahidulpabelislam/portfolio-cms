@@ -15,12 +15,12 @@ button,
     padding: 6px 12px;
     border-radius: 2px;
     color: white;
-    background-color: $dark;
+    background-color: $dark-colour;
 }
 
 .btn:hover,
 .btn:focus {
-    background-color: darken($dark, 5%);
+    background-color: darken($dark-colour, 5%);
 }
 
 .btn:disabled {

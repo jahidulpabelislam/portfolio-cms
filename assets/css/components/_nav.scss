@@ -8,7 +8,7 @@
     top: 0;
     transition: all 0.7s ease-in-out;
     background-color: white;
-    box-shadow: 0 0 10px 0 $dark;
+    box-shadow: 0 0 10px 0 $dark-colour;
 }
 
 .nav__header {
@@ -30,7 +30,7 @@
     display: block;
     width: 18px;
     height: 2px;
-    background-color: $dark;
+    background-color: $dark-colour;
     transition: all 0.7s ease-in-out;
     position: relative;
 }
@@ -79,7 +79,7 @@
 }
 
 .nav__links {
-    border-top: $light-grey 1px solid;
+    border-top: $light-grey-colour 1px solid;
 }
 
 .nav__links-container--left .nav__links {
@@ -90,7 +90,7 @@
     display: block;
     padding: 9px 12px;
     font-size: 28px;
-    color: $dark;
+    color: $dark-colour;
     text-align: center;
 }
 

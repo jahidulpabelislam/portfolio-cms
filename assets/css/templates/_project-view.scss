@@ -31,7 +31,7 @@
 }
 
 .project__upload--success {
-    border-color: $primary-color;
+    border-color: $primary-colour;
 }
 
 .project__upload--success img {
@@ -42,8 +42,8 @@
 }
 
 .project__upload--failed {
-    border-color: darken($error, 5%);
-    color: $error;
+    border-color: darken($error-colour, 5%);
+    color: $error-colour;
 }
 
 .project__feedback {
@@ -71,13 +71,13 @@
 }
 
 .project__feedback.feedback--error {
-    border-color: $error;
-    background: $error;
+    border-color: $error-colour;
+    background: $error-colour;
 }
 
 .project__feedback.feedback--success {
-    border-color: $success;
-    background: $success;
+    border-color: $success-colour;
+    background: $success-colour;
 }
 
 .project__hide-error {
@@ -120,7 +120,7 @@
     width: 30px;
     padding: 0;
     border-radius: 50%;
-    box-shadow: 0 0 10px 0 transparentize($dark, 0.81);
+    box-shadow: 0 0 10px 0 transparentize($dark-colour, 0.81);
 }
 
 .project__skill-input-container {
@@ -144,13 +144,13 @@
 
 .project__skill {
     position: relative;
-    border: 1px solid darken($dark, 5%);
+    border: 1px solid darken($dark-colour, 5%);
     border-radius: 5px;
     padding: 2px 4px;
     display: inline-block;
     margin: 2px;
     transition: all 0.4s ease-in-out;
-    background-color: $dark;
+    background-color: $dark-colour;
     color: white;
     cursor: pointer;
 }

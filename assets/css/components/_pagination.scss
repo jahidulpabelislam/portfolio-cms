@@ -14,18 +14,18 @@
     margin: 6px 4px;
     cursor: pointer;
     padding: 6px 12px;
-    background-color: $primary-color;
-    border: 1px solid darken($primary-color, 5%);
+    background-color: $primary-colour;
+    border: 1px solid darken($primary-colour, 5%);
     color: white;
 }
 
 .pagination__item-link:hover {
-    background-color: darken($primary-color, 5%);
-    border-color: darken($primary-color, 15%);
+    background-color: darken($primary-colour, 5%);
+    border-color: darken($primary-colour, 15%);
 }
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-    background-color: $dark;
-    border-color: darken($dark, 2%);
+    background-color: $dark-colour;
+    border-color: darken($dark-colour, 2%);
 }

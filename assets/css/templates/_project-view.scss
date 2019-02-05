@@ -155,10 +155,10 @@
     cursor: pointer;
 }
 
-@each $color, $colors in $colors {
-    .project__skill--#{$color} {
-        background-color: map-get($colors, main);
-        border-color: map-get($colors, hover);
+@each $colour, $colours in $colour-schemes {
+    .project__skill--#{$colour} {
+        background-color: map-get($colours, main);
+        border-color: map-get($colours, hover);
     }
 }
 

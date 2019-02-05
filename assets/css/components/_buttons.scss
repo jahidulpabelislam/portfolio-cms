@@ -29,14 +29,14 @@ button,
     opacity: 0.65;
 }
 
-@each $color, $colors in $colors {
-    .btn--#{$color} {
-        background-color: map-get($colors, main);
+@each $colour, $colours in $colour-schemes {
+    .btn--#{$colour} {
+        background-color: map-get($colours, main);
     }
 
-    .btn--#{$color}:hover,
-    .btn--#{$color}:focus {
-        background-color: map-get($colors, hover);
+    .btn--#{$colour}:hover,
+    .btn--#{$colour}:focus {
+        background-color: map-get($colours, hover);
     }
 }
 

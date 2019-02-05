@@ -26,7 +26,7 @@ window.jpi.nav = (function(jQuery) {
 
         closeMobileNav: function(e) {
             if (
-                jQuery(e.target).closest(global.mainSelector).length === 0 &&
+                !jQuery(e.target).closest(global.mainSelector).length &&
                 jQuery(global.mainSelector).hasClass("opened") &&
                 jQuery(global.mobileToggleSelector).css("display") !== "none"
             ) {

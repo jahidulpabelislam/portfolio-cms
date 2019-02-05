@@ -74,7 +74,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             // So We go to uploads container instead as default
             // But if there was already items in uploads, we scroll to the bottom of last item
             var pos = jQuery(".project__uploads").offset().top;
-            if (jQuery(".project__upload").length > 0) {
+            if (jQuery(".project__upload").length) {
                 var lastItem = jQuery(".project__upload").last();
                 var topOfLastItem = lastItem.offset().top;
                 pos = topOfLastItem + lastItem.outerHeight();
@@ -214,7 +214,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
                 dateValidation = jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val()),
-                skillsValidation = $scope.selectedProject.skills.length > 0;
+                skillsValidation = $scope.selectedProject.skills.length;
 
             if (!skillsValidation) {
                 jQuery(".project__skill-input").addClass("invalid").removeClass("valid");
@@ -298,7 +298,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         onSuccessfulProjectsGet: function(response) {
             fn.setUpProjectsSelect();
 
-            if (response && response.rows && response.rows.length > 0) {
+            if (response && response.rows && response.rows.length) {
                 $scope.projects = response.rows;
 
                 var pages = Math.ceil(response.meta.total_count / 10);

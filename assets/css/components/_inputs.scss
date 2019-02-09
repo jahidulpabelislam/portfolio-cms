@@ -39,16 +39,23 @@
     box-shadow: 0 0 8px transparentize($success-colour, 0.4);
 }
 
-.styled-checkbox .input {
+.styled-checkbox {
+    position: relative;
+    padding-left: 32px;
+    margin: 5px 0;
+    padding-top: 2px;
+}
+
+.styled-checkbox .checkbox {
     display: none;
 }
 
-.styled-checkbox__pseudo {
-    position: relative;
-    margin-left: 20px;
+.styled-checkbox__label {
+    margin: 0;
+    cursor: pointer;
 }
 
-.styled-checkbox__pseudo:before {
+.styled-checkbox__pseudo {
     content: "\00a0";
     display: block;
     width: 22px;
@@ -61,18 +68,44 @@
     transition: all 0.3s ease-in-out;
 }
 
-.styled-checkbox:hover .styled-checkbox__pseudo:before {
+.styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
     border-color: $primary-colour;
 }
 
-.input:checked + .styled-checkbox__pseudo:before {
+.styled-checkbox .checkbox:checked + .styled-checkbox__pseudo {
     background-color: $primary-colour;
     border-color: $primary-colour;
+}
+
+.styled-checkbox__pseudo:after {
+    display: none;
     content: "\2714";
-    font-size: 16px;
-    line-height: 1;
     color: white;
-    padding: 1px 2px;
+    font-size: 22px;
+    line-height: 20px;
+}
+
+.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
+    display: block;
+}
+
+/* Only for Tablets & Desktops */
+@media only screen and (min-width: $tablet) {
+
+    .styled-checkbox {
+        margin: 8px 0;
+        padding-top: 4px;
+    }
+
+    .styled-checkbox__pseudo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .styled-checkbox__pseudo:after {
+        font-size: 28px;
+        line-height: 27px;
+    }
 }
 
 /* Only for Desktops */

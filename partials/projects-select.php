@@ -8,8 +8,8 @@ if (!defined("ROOT")) {
 
                     <div class="projects-select__form">
                         <div ng-repeat="project in projects" class="projects-select__option styled-checkbox">
-                            <label ng-click="selectProject(project)" for="{{ project.id }}">
-                                <input type="radio" id="{{ project.id }}" name="project" value="{{ project.id }}" class="input">
+                            <label ng-click="selectProject(project)" for="{{ project.id }}" class="styled-checkbox__label">
+                                <input type="radio" id="{{ project.id }}" name="project" value="{{ project.id }}" class="input checkbox">
                                 {{project.name}}<span class="styled-checkbox__pseudo js-styled-checkout"></span>
                             </label>
                         </div>

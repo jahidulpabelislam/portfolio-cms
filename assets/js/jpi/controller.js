@@ -42,8 +42,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
             clearTimeout(global.projectErrorTimer);
 
             jQuery(".project__feedback")
-                    .removeClass("feedback--error feedback--success hide")
-                    .addClass(classToAdd);
+                .removeClass("feedback--error feedback--success hide")
+                .addClass(classToAdd);
 
             $scope.projectFormFeedback = message;
             fn.hideLoading();
@@ -55,8 +55,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
             }
 
             jQuery(".projects-select__feedback")
-                    .removeClass("feedback--error feedback--success")
-                    .addClass(classToAdd);
+                .removeClass("feedback--error feedback--success")
+                .addClass(classToAdd);
 
             $scope.selectProjectFeedback = feedback;
             fn.hideLoading();
@@ -213,7 +213,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
-                dateValidation = jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val()),
+                dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) &&
+                                 validDatePattern.test(jQuery("#date").val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
             if (!skillsValidation) {
@@ -653,21 +654,21 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     headers: {
                         "Content-Type": undefined,
                         "Process-Data": false,
-                        Authorization: "Bearer " + jpi.helpers.getJwt()
+                        "Authorization": "Bearer " + jpi.helpers.getJwt()
                     }
                 }
-            )
-            .then(
-                function(response) {
-                    response = jpi.helpers.getAJAXResponse(response);
-                    fn.onSuccessfulProjectImageUpload(response, upload);
-                },
-                function(response) {
-                    response = jpi.helpers.getAJAXResponse(response);
-                    var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
-                    fn.showProjectError(message, "feedback--error");
-                }
-            );
+                )
+                 .then(
+                     function(response) {
+                         response = jpi.helpers.getAJAXResponse(response);
+                         fn.onSuccessfulProjectImageUpload(response, upload);
+                     },
+                     function(response) {
+                         response = jpi.helpers.getAJAXResponse(response);
+                         var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
+                         fn.showProjectError(message, "feedback--error");
+                     }
+                 );
         });
     };
 

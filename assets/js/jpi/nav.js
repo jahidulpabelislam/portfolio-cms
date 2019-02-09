@@ -35,7 +35,8 @@ window.jpi.nav = (function(jQuery) {
         },
 
         initListeners: function() {
-            jQuery(global.mobileToggleSelector).on("click", fn.toggleMobileMenu);
+
+            jQuery("body").on("click", global.mobileToggleSelector, fn.toggleMobileMenu);
             jQuery(document).on("click", fn.closeMobileNav);
             jQuery(window).on("orientationchange resize", fn.initDesktopNav);
         }

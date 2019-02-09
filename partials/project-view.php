@@ -9,7 +9,10 @@ if (!defined("ROOT")) {
                         <button class="project__hide-error" ng-click="hideProjectError()">X</button>
                     </p>
 
-                    <a href="/projects/" title="Link to Projects Page" class="btn btn--orange project__back-button js-projects" tabindex="6"><span class="screen-reader-text">Back</span><i class="fa fa-arrow-circle-left"></i></a>
+                    <a href="/projects/" title="Link to Projects Page" class="btn btn--orange project__back-button js-projects" tabindex="6">
+                        <span class="screen-reader-text">Back</span>
+                        <i class="fa fa-arrow-circle-left"></i>
+                    </a>
 
                     <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
                         <label for="projectName">Project Name <span class="required">*</span></label>
@@ -26,7 +29,10 @@ if (!defined("ROOT")) {
                         <div class="project__skill-input-container">
                             <label for="skill-input" class="screen-reader-text">Add skills for project.</label>
                             <input type="text" class="input project__skill-input" id="skill-input" placeholder="HTML5" ng-model="skillInput">
-                            <button class="btn btn--green project__skill-add-button" type="button" id="skill-add" ng-click="addSkill()" type="button"><span class="screen-reader-text">Add</span><i class="fa fa-plus"></i></button>
+                            <button class="btn btn--green project__skill-add-button" type="button" id="skill-add" ng-click="addSkill()" type="button">
+                                <span class="screen-reader-text">Add</span>
+                                <i class="fa fa-plus"></i>
+                            </button>
                         </div>
 
                         <label for="longDescription">Long Description <span class="required">*</span></label>
@@ -51,13 +57,13 @@ if (!defined("ROOT")) {
                         <select ng-model="selectedProject.colour" name="colour" id="colour" class="input" tabindex="14">
                             <?php
                             $colourOptions = [
-                                ""           => "Default",
-                                "blue"       => "Blue",
-                                "red"        => "Red",
-                                "orange"     => "Orange",
+                                "" => "Default",
+                                "blue" => "Blue",
+                                "red" => "Red",
+                                "orange" => "Orange",
                                 "lime-green" => "Lime Green",
-                                "green"      => "Green",
-                                "purple"     => "Purple",
+                                "green" => "Green",
+                                "purple" => "Purple",
                             ];
                             foreach ($colourOptions as $value => $display) {
                                 echo "<option value='$value'>$display</option>";
@@ -73,7 +79,10 @@ if (!defined("ROOT")) {
                             </li>
                         </ul>
 
-                        <button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="14"><span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span><i class="fa fa-upload"></i></button>
+                        <button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="14">
+                            <span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span>
+                            <i class="fa fa-upload"></i>
+                        </button>
 
                         <input ng-if="selectedProject.id" data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="15">
 
@@ -82,7 +91,10 @@ if (!defined("ROOT")) {
                             <div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">
                                 <p>{{ upload.text }}</p>
                                 <img ng-if="upload.ok == true" src="{{ upload.image }}">
-                                <button ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--blue" type="button"><span class="screen-reader-text">Upload This Image</span><i class="fa fa-upload"></i></button>
+                                <button ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--blue" type="button">
+                                    <span class="screen-reader-text">Upload This Image</span>
+                                    <i class="fa fa-upload"></i>
+                                </button>
                             </div>
                         </div>
                     </form>

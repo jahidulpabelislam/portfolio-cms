@@ -361,6 +361,9 @@ a.btn {
   border: 2px solid gray;
   transition: all 0.3s ease-in-out; }
 
+.styled-checkbox:hover .styled-checkbox__pseudo:before {
+  border-color: #0375b4; }
+
 .input:checked + .styled-checkbox__pseudo:before {
   background-color: #0375b4;
   border-color: #0375b4;

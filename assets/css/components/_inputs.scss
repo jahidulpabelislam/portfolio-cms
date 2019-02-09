@@ -61,6 +61,10 @@
     transition: all 0.3s ease-in-out;
 }
 
+.styled-checkbox:hover .styled-checkbox__pseudo:before {
+    border-color: $primary-colour;
+}
+
 .input:checked + .styled-checkbox__pseudo:before {
     background-color: $primary-colour;
     border-color: $primary-colour;

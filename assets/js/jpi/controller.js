@@ -412,6 +412,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         onFailedLogIn: function(response) {
+            $scope.isLoggedIn = false;
+
             $scope.userFormFeedback = jpi.helpers.getFeedback(response, "Error logging you in.");
 
             if ($scope.userFormFeedback !== "") {
@@ -422,6 +424,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         showLoginForm: function(response, redirectTo, messageOverride) {
+            $scope.isLoggedIn = false;
+
             document.title = "Login" + global.titlePostfix;
 
             jQuery(".projects-select, .project-view, .nav").hide();

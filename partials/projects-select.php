@@ -4,7 +4,7 @@ if (!defined("ROOT")) {
 }
 ?>
 
-                <div class="projects-select">
+                <div class="projects-select" ng-if="isLoggedIn">
 
                     <div class="projects-select__form">
                         <div ng-repeat="project in projects" class="projects-select__option styled-checkbox">

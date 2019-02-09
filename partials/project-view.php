@@ -4,7 +4,7 @@ if (!defined("ROOT")) {
 }
 ?>
 
-                <div class="project-view">
+                <div class="project-view" ng-if="isLoggedIn">
                     <p class="feedback project__feedback hide"><span>{{ projectFormFeedback }}</span>
                         <button class="project__hide-error" ng-click="hideProjectError()">X</button>
                     </p>

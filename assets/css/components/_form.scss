@@ -16,6 +16,96 @@ label {
     font-weight: 700;
 }
 
+.input {
+    font: inherit;
+    padding: 6px 12px;
+    margin: 5px auto;
+    width: 100%;
+    border: solid #e0e0e0 1px;
+    border-radius: 2px;
+    color: $dark-colour;
+    outline: none;
+    background: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.input::placeholder {
+    color: $grey-colour;
+}
+
+.input:focus {
+    box-shadow: 0 0 8px $primary-colour;
+    border-color: $primary-colour;
+}
+
+.input.invalid {
+    border-color: $error-colour;
+}
+
+.input:focus.invalid {
+    border-color: $error-colour;
+    box-shadow: 0 0 8px transparentize($error-colour, 0.4);
+}
+
+.input.valid {
+    border-color: $success-colour;
+}
+
+.input:focus.valid {
+    border-color: $success-colour;
+    box-shadow: 0 0 8px transparentize($success-colour, 0.4);
+}
+
+.styled-checkbox {
+    position: relative;
+    padding-left: 32px;
+    margin: 5px 0;
+    padding-top: 2px;
+}
+
+.styled-checkbox .checkbox {
+    display: none;
+}
+
+.styled-checkbox__label {
+    margin: 0;
+    cursor: pointer;
+}
+
+.styled-checkbox__pseudo {
+    content: "\00a0";
+    display: block;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white;
+    border: 2px solid $grey-colour;
+    transition: all 0.3s ease-in-out;
+}
+
+.styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
+    border-color: $primary-colour;
+}
+
+.styled-checkbox .checkbox:checked + .styled-checkbox__pseudo {
+    background-color: $primary-colour;
+    border-color: $primary-colour;
+}
+
+.styled-checkbox__pseudo:after {
+    display: none;
+    content: "\2714";
+    color: white;
+    font-size: 22px;
+    line-height: 20px;
+}
+
+.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
+    display: block;
+}
+
 .feedback {
     font-weight: 700;
     margin: 0;
@@ -29,4 +119,29 @@ label {
 
 .feedback--error {
     color: $error-colour;
+}
+
+/* Only for Tablets & Desktops */
+@media only screen and (min-width: $tablet) {
+    .styled-checkbox {
+        margin: 8px 0;
+        padding-top: 4px;
+    }
+
+    .styled-checkbox__pseudo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .styled-checkbox__pseudo:after {
+        font-size: 28px;
+        line-height: 27px;
+    }
+}
+
+/* Only for Desktops */
+@media only screen and (min-width: $desktop) {
+    .input {
+        padding: 9px 14px;
+    }
 }

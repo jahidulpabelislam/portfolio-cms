@@ -9,7 +9,7 @@
  */
 .clearfix:before,
 .clearfix:after {
-    content: " "; /* 1 */
+    content: "\00a0"; /* 1 */
     display: table; /* 2 */
 }
 

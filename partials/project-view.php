@@ -66,7 +66,7 @@ if (!defined("ROOT")) {
                                 "purple" => "Purple",
                             ];
                             foreach ($colourOptions as $value => $display) {
-                                echo "<option value='$value'>$display</option>";
+                                echo "<option value='{$value}'>{$display}</option>";
                             }
                             ?>
                         </select>

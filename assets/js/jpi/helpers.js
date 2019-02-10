@@ -7,7 +7,7 @@ window.jpi.helpers = (function(jQuery) {
     var global = {
         contentSelector: ".main-content",
         jwtStorageKey: "cmsJwt",
-        jwt: ""
+        jwt: "",
     };
 
     var fn = {
@@ -104,7 +104,7 @@ window.jpi.helpers = (function(jQuery) {
 
         initListeners: function() {
             jQuery(window).on("load orientationchange resize", fn.expandSection);
-        }
+        },
     };
 
     jQuery(document).on("ready", fn.initListeners);
@@ -116,7 +116,7 @@ window.jpi.helpers = (function(jQuery) {
         getAJAXResponse: fn.getAJAXResponse,
         getInt: fn.getInt,
         checkInputField: fn.checkInputField,
-        delayExpandingSection: fn.delayExpandingSection
+        delayExpandingSection: fn.delayExpandingSection,
     };
 
 })(jQuery);

@@ -11,7 +11,7 @@ app.directive("fileUpload", function() {
                 }
                 jpi.cms.scrollToUploads();
             });
-        }
+        },
     };
 });
 
@@ -24,7 +24,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         redirectTo: null,
         titlePostfix: " - JPI Portfolio CMS",
         loadingDisplayTimer: null,
-        projectErrorTimer: null
+        projectErrorTimer: null,
     };
 
     /*
@@ -84,7 +84,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             var feedbackHeight = jQuery(".project__feedback").outerHeight();
             jQuery("html, body").animate(
                 {
-                    scrollTop: pos - navHeight - feedbackHeight - 16
+                    scrollTop: pos - navHeight - feedbackHeight - 16,
                 },
                 1000
             );
@@ -95,12 +95,12 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 options = {
                     url: fullUrl,
                     method: method.toUpperCase(),
-                    params: data ? data : {}
+                    params: data ? data : {},
                 };
 
             if (url !== "login") {
                 options.headers = {
-                    Authorization: "Bearer " + jpi.helpers.getJwt()
+                    Authorization: "Bearer " + jpi.helpers.getJwt(),
                 };
             }
 
@@ -214,14 +214,18 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
                 dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) &&
-                                 validDatePattern.test(jQuery("#date").val())),
+                                  validDatePattern.test(jQuery("#date").val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
             if (!skillsValidation) {
-                jQuery(".project__skill-input").addClass("invalid").removeClass("valid");
+                jQuery(".project__skill-input")
+                    .addClass("invalid")
+                    .removeClass("valid");
             }
             else {
-                jQuery(".project__skill-input").addClass("valid").removeClass("invalid");
+                jQuery(".project__skill-input")
+                    .addClass("valid")
+                    .removeClass("invalid");
             }
 
             return (
@@ -254,7 +258,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
                 jpi.dnd.setUp();
                 fn.setUpProjectForm();
-                $(".project__uploads").sortable().disableSelection();
+                $(".project__uploads")
+                    .sortable()
+                    .disableSelection();
             }
             else {
                 fn.showProjectSelectError("Select A Project To Edit.");
@@ -282,7 +288,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 download: "",
                 date: "",
                 colour: "",
-                images: []
+                images: [],
             };
         },
 
@@ -421,7 +427,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
             $scope.userFormFeedback = jpi.helpers.getFeedback(response, "Error logging you in.");
 
             if ($scope.userFormFeedback !== "") {
-                jQuery(".login__feedback").removeClass("feedback--success").addClass("feedback--error");
+                jQuery(".login__feedback")
+                    .removeClass("feedback--success")
+                    .addClass("feedback--error");
             }
 
             fn.hideLoading();
@@ -448,10 +456,14 @@ app.controller("portfolioCMSController", function($scope, $http) {
             }
 
             if (success) {
-                jQuery(".login__feedback").removeClass("feedback--error").addClass("feedback--success");
+                jQuery(".login__feedback")
+                    .removeClass("feedback--error")
+                    .addClass("feedback--success");
             }
             else {
-                jQuery(".login__feedback").removeClass("feedback--success").addClass("feedback--error");
+                jQuery(".login__feedback")
+                    .removeClass("feedback--success")
+                    .addClass("feedback--error");
             }
             fn.hideLoading();
 
@@ -479,12 +491,12 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         hideLoading: function() {
             jQuery(".js-loading").css({
-                opacity: "0"
+                opacity: "0",
             });
 
             global.loadingDisplayTimer = setTimeout(function() {
                 jQuery(".js-loading").css({
-                    zIndex: "-10"
+                    zIndex: "-10",
                 });
             }, 1000);
         },
@@ -494,7 +506,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             jQuery(".js-loading").css({
                 opacity: "1",
-                zIndex: "10"
+                zIndex: "10",
             });
 
             $scope.hideProjectError();
@@ -618,7 +630,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             jQuery(".login, .project-view, .projects-select").hide();
 
             fn.loadApp();
-        }
+        },
     };
 
     /*
@@ -662,10 +674,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     headers: {
                         "Content-Type": undefined,
                         "Process-Data": false,
-                        "Authorization": "Bearer " + jpi.helpers.getJwt()
-                    }
-                }
-                )
+                        "Authorization": "Bearer " + jpi.helpers.getJwt(),
+                    },
+                })
                  .then(
                      function(response) {
                          response = jpi.helpers.getAJAXResponse(response);
@@ -747,7 +758,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     download: $scope.selectedProject.download ? $scope.selectedProject.download : "",
                     date: $scope.selectedProject.date ? $scope.selectedProject.date : "",
                     colour: $scope.selectedProject.colour ? $scope.selectedProject.colour : "",
-                    images: $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : []
+                    images: $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : [],
                 };
 
             fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);
@@ -765,7 +776,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
                 jQuery("html, body").animate(
                     {
-                        scrollTop: pos - navHeight - feedbackHeight - 16
+                        scrollTop: pos - navHeight - feedbackHeight - 16,
                     },
                     1000
                 );
@@ -838,7 +849,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
     window.jpi.cms = {
         checkFile: $scope.checkFile,
         renderFailedUpload: fn.renderFailedUpload,
-        scrollToUploads: fn.scrollToUploads
+        scrollToUploads: fn.scrollToUploads,
     };
 
     jQuery(document).on("ready", fn.init);

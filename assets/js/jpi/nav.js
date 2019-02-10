@@ -6,7 +6,7 @@ window.jpi.nav = (function(jQuery) {
     var global = {
         mainSelector: ".nav",
         itemsSelector: ".nav__links-container",
-        mobileToggleSelector: ".nav__mobile-toggle"
+        mobileToggleSelector: ".nav__mobile-toggle",
     };
 
     var fn = {
@@ -35,11 +35,10 @@ window.jpi.nav = (function(jQuery) {
         },
 
         initListeners: function() {
-
             jQuery("body").on("click", global.mobileToggleSelector, fn.toggleMobileMenu);
             jQuery(document).on("click", fn.closeMobileNav);
             jQuery(window).on("orientationchange resize", fn.initDesktopNav);
-        }
+        },
 
     };
 

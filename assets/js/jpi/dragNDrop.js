@@ -4,7 +4,7 @@ window.jpi.dnd = (function(jQuery) {
     "use strict";
 
     var global = {
-        dropZone: jQuery(".js-drop-zone")[0]
+        dropZone: jQuery(".js-drop-zone")[0],
     };
 
     var fn = {
@@ -75,12 +75,12 @@ window.jpi.dnd = (function(jQuery) {
             window.addEventListener("dragover", fn.dragOver);
             window.addEventListener("drop", fn.drop);
             global.dropZone.addEventListener("dragleave", fn.removeDropZone);
-        }
+        },
     };
 
     return {
         setUp: fn.setUp,
-        stop: fn.stop
+        stop: fn.stop,
     };
 
 })(jQuery);

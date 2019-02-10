@@ -15,8 +15,8 @@ var scripts = {
         "assets/js/third-party/sortable.js",
         "assets/js/jpi/helpers.js",
         "assets/js/jpi/dragNDrop.js",
-        "assets/js/jpi/nav.js"
-    ]
+        "assets/js/jpi/nav.js",
+    ],
 };
 var scriptNames = Object.keys(scripts);
 var scriptTasks = [];
@@ -35,8 +35,8 @@ gulp.task("scripts", scriptTasks);
 // Minify Stylesheets
 var stylesheets = {
     main: [
-        "assets/css/main.css"
-    ]
+        "assets/css/main.css",
+    ],
 };
 var stylesheetNames = Object.keys(stylesheets);
 var stylesheetTasks = [];
@@ -49,12 +49,12 @@ stylesheetNames.forEach(function(key) {
                    .pipe(
                        autoprefixer({
                            browsers: ["> 0.5%", "ie 8-11"],
-                           remove: false
+                           remove: false,
                        })
                    )
                    .pipe(
                        cleanCss({
-                           compatibility: "ie8"
+                           compatibility: "ie8",
                        })
                    )
                    .pipe(gulp.dest("assets/css"));

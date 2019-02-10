@@ -54,7 +54,7 @@
         <!-- The loading area -->
         <div class="js-loading fixed-overlay fixed-overlay--loading">
             <h1 class="fixed-overlay__text">
-                <i class='fa fa-spinner fa-spin'></i>
+                <i class="fa fa-spinner fa-spin"></i>
             </h1>
         </div>
 

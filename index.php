@@ -10,11 +10,18 @@
 
         <?php $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0")); ?>
         <!-- The custom styling for this page -->
-        <?php if (!$isDebug): ?>
+        <?php
+        if (!$isDebug) {
+            ?>
             <link href="/assets/css/main.min.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
-        <?php else: ?>
+            <?php
+        }
+        else {
+            ?>
             <link href="/assets/css/main.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
-        <?php endif; ?>
+            <?php
+        }
+        ?>
 
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css">
 
@@ -60,10 +67,15 @@
 
         <!-- All the JS's needed for the page  -->
         <?php // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified ?>
-        <?php if (!$isDebug): ?>
+        <?php
+        if (!$isDebug) {
+            ?>
             <!-- Compiled project & libraries js files -->
             <script src="/assets/js/main.min.js?v=1" type="text/javascript"></script>
-        <?php else: ?>
+        <?php
+        }
+        else {
+        ?>
             <!-- All individual js files for site as debug is specified -->
             <!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
             <script src="/assets/js/third-party/jquery.min.js?v=1" type="text/javascript"></script>
@@ -74,7 +86,9 @@
             <script src="/assets/js/jpi/helpers.js?v=1" type="text/javascript"></script>
             <script src="/assets/js/jpi/dragNDrop.js?v=1" type="text/javascript"></script>
             <script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
-        <?php endif; ?>
+            <?php
+        }
+        ?>
 
         <!-- The AngularJS script for the CMS page -->
         <script src="/assets/js/jpi/controller.js?v=1" type="text/javascript"></script>

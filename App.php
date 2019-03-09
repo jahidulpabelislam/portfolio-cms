@@ -95,6 +95,13 @@ class App {
     public static function echoWithAssetVersion($src, $ver = false, $root = false) {
         echo self::getWithAssetVersion($src, $ver, $root);
     }
+
+    /**
+     * @return bool Whether or not the debug was set by user on page view
+     */
+    public static function isDebug() {
+        return (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0"));
+    }
 }
 
 App::get();

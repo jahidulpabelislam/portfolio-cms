@@ -4,7 +4,7 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
 $app = App::get();
 $app->echoConfig();
 
-$isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0"));
+$isDebug = $app->isDebug();
 ?>
 
 <!DOCTYPE html>
@@ -17,14 +17,14 @@ $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug
 
         <!-- The custom styling for this page -->
         <?php
-        if (!$isDebug) {
+        if ($isDebug) {
             ?>
-            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
+            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
             <?php
         }
         else {
             ?>
-            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
+            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
             <?php
         }
         ?>
@@ -72,16 +72,10 @@ $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug
         </script>
 
         <!-- All the JS's needed for the page  -->
-        <?php // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified ?>
         <?php
-        if (!$isDebug) {
+        // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified
+        if ($isDebug) {
             ?>
-            <!-- Compiled project & libraries js files -->
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/main.min.js"); ?>" type="text/javascript"></script>
-        <?php
-        }
-        else {
-        ?>
             <!-- All individual js files for site as debug is specified -->
             <!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
             <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/jquery.min.js"); ?>" type="text/javascript"></script>
@@ -92,6 +86,12 @@ $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug
             <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
+            <?php
+        }
+        else {
+            ?>
+            <!-- Compiled project & libraries js files -->
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/main.min.js"); ?>" type="text/javascript"></script>
             <?php
         }
         ?>

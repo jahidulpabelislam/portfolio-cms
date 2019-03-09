@@ -19,17 +19,17 @@ $isDebug = $app->isDebug();
         <?php
         if ($isDebug) {
             ?>
-            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
+            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
             <?php
         }
         else {
             ?>
-            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
+            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
             <?php
         }
         ?>
 
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css" />
 
         <?php
         include_once(ROOT . "/partials/favicons.php");

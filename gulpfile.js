@@ -1,13 +1,13 @@
-var gulp = require("gulp");
+const gulp = require("gulp");
 
-var concat = require("gulp-concat");
-var uglify = require("gulp-uglify");
-var cleanCss = require("gulp-clean-css");
-var autoprefixer = require("gulp-autoprefixer");
-var sass = require("gulp-sass");
+const concat = require("gulp-concat");
+const uglify = require("gulp-uglify");
+const cleanCss = require("gulp-clean-css");
+const autoprefixer = require("gulp-autoprefixer");
+const sass = require("gulp-sass");
 
 // Concatenate & Minify JS
-var scripts = {
+const scripts = {
     main: [
         "assets/js/third-party/jquery.min.js",
         "assets/js/third-party/jquery-ui.min.js",
@@ -18,8 +18,8 @@ var scripts = {
         "assets/js/jpi/nav.js",
     ],
 };
-var scriptNames = Object.keys(scripts);
-var scriptTasks = [];
+const scriptNames = Object.keys(scripts);
+let scriptTasks = [];
 scriptNames.forEach(function(key) {
     var scriptTask = "scripts-" + key;
     scriptTasks.push(scriptTask);
@@ -33,13 +33,13 @@ scriptNames.forEach(function(key) {
 gulp.task("scripts", scriptTasks);
 
 // Minify Stylesheets
-var stylesheets = {
+const stylesheets = {
     main: [
         "assets/css/main.css",
     ],
 };
-var stylesheetNames = Object.keys(stylesheets);
-var stylesheetTasks = [];
+const stylesheetNames = Object.keys(stylesheets);
+let stylesheetTasks = [];
 stylesheetNames.forEach(function(key) {
     var stylesheetTask = "styles-" + key;
     stylesheetTasks.push(stylesheetTask);

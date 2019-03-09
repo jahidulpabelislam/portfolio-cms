@@ -1,6 +1,9 @@
-var app = angular.module("portfolioCMS", ["ui.sortable"]);
+;window.app = angular.module("portfolioCMS", ["ui.sortable"]);
 
 app.directive("fileUpload", function() {
+
+    "use strict";
+
     return {
         restrict: "A",
         scope: true,
@@ -16,6 +19,9 @@ app.directive("fileUpload", function() {
 });
 
 app.controller("portfolioCMSController", function($scope, $http) {
+
+    "use strict";
+
     /*
      * Any global variables used in multiple places with JS
      */
@@ -64,15 +70,22 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         // Set image as failed upload div to display error
         renderFailedUpload: function(errorMessage) {
-            $scope.uploads.push({ok: false, text: errorMessage});
+            $scope.uploads.push({
+                ok: false,
+                text: errorMessage,
+            });
             $scope.$apply();
             jpi.helpers.delayExpandingSection();
         },
 
         scrollToUploads: function() {
-            // As the reading of files are async, the upload may not be in DOM yet
-            // So We go to uploads container instead as default
-            // But if there was already items in uploads, we scroll to the bottom of last item
+
+            /*
+             * As the reading of files are async, the upload may not be in DOM yet
+             * So we go to uploads container instead as default
+             * But if there was already items in uploads, we scroll to the bottom of last item
+             */
+
             var pos = jQuery(".project__uploads").offset().top;
             if (jQuery(".project__upload").length) {
                 var lastItem = jQuery(".project__upload").last();
@@ -133,7 +146,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             if (response && response.row && response.row.id) {
                 // Find and remove the image from view
                 for (i = 0; i < $scope.selectedProject.images.length; i++) {
-                    if ($scope.selectedProject.images[i]["id"] === response.row.id) {
+                    if ($scope.selectedProject.images[i].id === response.row.id) {
                         $scope.selectedProject.images.splice(i, 1);
                         found = true;
                         break;
@@ -217,15 +230,15 @@ app.controller("portfolioCMSController", function($scope, $http) {
                                   validDatePattern.test(jQuery("#date").val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
-            if (!skillsValidation) {
-                jQuery(".project__skill-input")
-                    .addClass("invalid")
-                    .removeClass("valid");
-            }
-            else {
+            if (skillsValidation) {
                 jQuery(".project__skill-input")
                     .addClass("valid")
                     .removeClass("invalid");
+            }
+            else {
+                jQuery(".project__skill-input")
+                    .addClass("invalid")
+                    .removeClass("valid");
             }
 
             return (
@@ -258,7 +271,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
                 jpi.dnd.setUp();
                 fn.setUpProjectForm();
-                $(".project__uploads")
+                jQuery(".project__uploads")
                     .sortable()
                     .disableSelection();
             }
@@ -384,7 +397,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             );
         },
 
-        onSuccessfulAuthCheck: function(response, successFunc, messageOverride) {
+        onSuccessfulAuthCheck: function(response, successFunc, redirectTo, messageOverride) {
             if (response && response.meta && response.meta.status && response.meta.status == 200) {
                 $scope.isLoggedIn = true;
                 successFunc();
@@ -443,7 +456,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             jQuery(".projects-select, .project-view, .nav").hide();
             jQuery(".login").css("display", "flex");
 
-            if (typeof messageOverride != "undefined") {
+            if (messageOverride) {
                 $scope.userFormFeedback = messageOverride;
             }
             else {
@@ -642,7 +655,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             "session",
             "GET",
             function(response) {
-                fn.onSuccessfulAuthCheck(response, successFunc, messageOverride);
+                fn.onSuccessfulAuthCheck(response, successFunc, redirectTo, messageOverride);
             },
             function(response) {
                 fn.showLoginForm(response, redirectTo, messageOverride);
@@ -699,7 +712,12 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fileReader = new FileReader();
 
             fileReader.onload = function(e) {
-                $scope.uploads.push({ok: true, text: file.name, image: e.target.result, file: file});
+                $scope.uploads.push({
+                    ok: true,
+                    text: file.name,
+                    image: e.target.result,
+                    file: file,
+                });
                 $scope.$apply();
                 jpi.helpers.delayExpandingSection();
             };
@@ -809,7 +827,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
     $scope.selectProject = function(project) {
         project.date = new Date(project.date);
 
-        if (typeof project.skills == "string") {
+        if (typeof project.skills === "string") {
             project.skills = project.skills.split(",");
         }
 
@@ -822,8 +840,17 @@ app.controller("portfolioCMSController", function($scope, $http) {
         var usernameValid = jpi.helpers.checkInputField(jQuery("#username")[0]),
             passwordValid = jpi.helpers.checkInputField(jQuery("#password")[0]);
 
-        // Check if both inputs are empty
-        if (!usernameValid && !passwordValid) {
+        // All is okay
+        if (usernameValid && passwordValid) {
+            var data = {
+                username: $scope.username,
+                password: $scope.password,
+            };
+
+            fn.doAJAXCall("login", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
+        }
+        // If both inputs are empty
+        else if (!usernameValid && !passwordValid) {
             $scope.userFormFeedback = "Input fields needs to be filled.";
         }
         // Else checks if username input is empty
@@ -833,12 +860,6 @@ app.controller("portfolioCMSController", function($scope, $http) {
         // Else checks if password input is empty
         else if (!passwordValid) {
             $scope.userFormFeedback = "Password field needs to be filled.";
-        }
-        // Else both inputs are filled
-        else {
-            var data = {username: $scope.username, password: $scope.password};
-
-            fn.doAJAXCall("login", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
         }
     };
 
@@ -853,4 +874,5 @@ app.controller("portfolioCMSController", function($scope, $http) {
     };
 
     jQuery(document).on("ready", fn.init);
+
 });

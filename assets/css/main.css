@@ -161,7 +161,7 @@ strong {
  */
 .clearfix:before,
 .clearfix:after {
-  content: "\00a0";
+  content: "";
   /* 1 */
   display: table;
   /* 2 */ }

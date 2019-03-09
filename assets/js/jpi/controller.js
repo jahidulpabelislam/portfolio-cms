@@ -226,8 +226,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
-                dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) &&
-                                  validDatePattern.test(jQuery("#date").val())),
+                dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
             if (skillsValidation) {

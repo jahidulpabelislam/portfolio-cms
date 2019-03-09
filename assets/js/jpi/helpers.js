@@ -1,6 +1,4 @@
-;
-
-/*
+;/*
  * Holds any helpers functions for whole project
  */
 window.jpi = window.jpi || {};

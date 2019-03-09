@@ -1,4 +1,11 @@
-<?php include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php"); ?>
+<?php
+include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
+
+$app = App::get();
+$app->echoConfig();
+
+$isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0"));
+?>
 
 <!DOCTYPE html>
 <html lang="en" ng-app="portfolioCMS">
@@ -8,17 +15,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JPI Portfolio CMS</title>
 
-        <?php $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0")); ?>
         <!-- The custom styling for this page -->
         <?php
         if (!$isDebug) {
             ?>
-            <link href="/assets/css/main.min.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
+            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
             <?php
         }
         else {
             ?>
-            <link href="/assets/css/main.css?v=1" rel="stylesheet" title="style" media="all" type="text/css">
+            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css">
             <?php
         }
         ?>
@@ -71,26 +77,26 @@
         if (!$isDebug) {
             ?>
             <!-- Compiled project & libraries js files -->
-            <script src="/assets/js/main.min.js?v=1" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/main.min.js"); ?>" type="text/javascript"></script>
         <?php
         }
         else {
         ?>
             <!-- All individual js files for site as debug is specified -->
             <!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
-            <script src="/assets/js/third-party/jquery.min.js?v=1" type="text/javascript"></script>
-            <script src="/assets/js/third-party/jquery-ui.min.js?v=1" type="text/javascript"></script>
-            <script src="/assets/js/third-party/angular.min.js?v=1" type="text/javascript"></script>
-            <script src="/assets/js/third-party/sortable.js?v=1" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/jquery.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/angular.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/sortable.js"); ?>" type="text/javascript"></script>
 
-            <script src="/assets/js/jpi/helpers.js?v=1" type="text/javascript"></script>
-            <script src="/assets/js/jpi/drag-n-drop.js?v=1" type="text/javascript"></script>
-            <script src="/assets/js/jpi/nav.js?v=1" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
             <?php
         }
         ?>
 
         <!-- The AngularJS script for the CMS page -->
-        <script src="/assets/js/jpi/controller.js?v=1" type="text/javascript"></script>
+        <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/controller.js"); ?>" type="text/javascript"></script>
     </body>
 </html>

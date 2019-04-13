@@ -616,6 +616,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 }
             });
 
+            jQuery(".nav-item__link").on("click", jpi.nav.closeMobileNav);
+
             window.addEventListener("popstate", function() {
                 fn.showLoading();
                 global.url = new URL(window.location);

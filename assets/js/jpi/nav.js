@@ -26,7 +26,7 @@ window.jpi.nav = (function(jQuery) {
 
         closeMobileNav: function(e) {
             if (
-                !jQuery(e.target).closest(global.mainSelector).length &&
+                (jQuery(e.target).hasClass("nav-item__link") || !jQuery(e.target).closest(global.mainSelector).length) &&
                 jQuery(global.mainSelector).hasClass("opened") &&
                 jQuery(global.mobileToggleSelector).css("display") !== "none"
             ) {
@@ -43,5 +43,9 @@ window.jpi.nav = (function(jQuery) {
     };
 
     jQuery(document).on("ready", fn.initListeners);
+
+    return {
+        closeMobileNav: fn.closeMobileNav,
+    }
 
 })(jQuery);

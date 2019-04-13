@@ -93,7 +93,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 pos = topOfLastItem + lastItem.outerHeight();
             }
 
-            var navHeight = jQuery(".nav").outerHeight();
+            var navHeight = jQuery(".nav__header").outerHeight();
             var feedbackHeight = jQuery(".project__feedback").outerHeight();
             jQuery("html, body").animate(
                 {
@@ -259,7 +259,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             jQuery(".projects-select").hide();
             jQuery("#projectName, #skill-input, #longDescription, #shortDescription, #github, #date").removeClass("invalid valid");
 
-            jQuery(".main-content").css("padding-top", jQuery(".nav").height());
+            jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
             jpi.helpers.delayExpandingSection();
         },
@@ -315,7 +315,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             jQuery(".nav .js-projects").addClass("active");
             jQuery(".nav .js-new-project").removeClass("active");
 
-            jQuery(".main-content").css("padding-top", jQuery(".nav").height());
+            jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
         },
 
         onSuccessfulProjectsGet: function(response) {
@@ -637,7 +637,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fn.initNewProject();
             fn.initListeners();
 
-            jQuery(".main-content").css("padding-top", jQuery(".nav").height());
+            jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
             jQuery(".login, .project-view, .projects-select").hide();
 
@@ -788,7 +788,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 var firstInvalidInput = jQuery(".project__form .invalid").first(),
                     id = firstInvalidInput.attr("id"),
                     pos = jQuery("label[for=" + id + "]").offset().top,
-                    navHeight = jQuery(".nav").outerHeight(),
+                    navHeight = jQuery(".nav__header").outerHeight(),
                     feedbackHeight = jQuery(".project__feedback").outerHeight();
 
                 jQuery("html, body").animate(

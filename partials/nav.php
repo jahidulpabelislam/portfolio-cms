@@ -5,7 +5,7 @@ if (!defined("ROOT")) {
 ?>
 
         <!-- The navigation used on site -->
-        <nav class="nav" ng-if="isLoggedIn">
+        <nav class="nav" ng-show="isLoggedIn">
             <div class="container nav__container">
                 <div class="nav__header">
                     <button type="button" class="nav__mobile-toggle">

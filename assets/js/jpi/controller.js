@@ -769,6 +769,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 method = $scope.selectedProject.id ? "PUT" : "POST",
                 data = {
                     name: $scope.selectedProject.name || "",
+                    status: $scope.selectedProject.status || "",
                     date: $scope.selectedProject.date || "",
                     link: $scope.selectedProject.link || "",
                     github: $scope.selectedProject.github || "",

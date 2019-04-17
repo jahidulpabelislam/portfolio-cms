@@ -18,6 +18,21 @@ if (!defined("ROOT")) {
                         <label for="projectName">Project Name: <span class="required">*</span></label>
                         <input ng-model="selectedProject.name" type="text" name="projectName" id="projectName" class="input" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />
 
+                        <label for="status">Colour:</label>
+                        <select ng-model="selectedProject.status" name="status" id="status" class="input" tabindex="1">
+                            <?php
+                            $statusOptions = [
+                                "" => "Please Select",
+                                "draft" => "Draft",
+                                "private" => "Private",
+                                "published" => "Published",
+                            ];
+                            foreach ($statusOptions as $value => $display) {
+                                echo "<option value='{$value}'>{$display}</option>";
+                            }
+                            ?>
+                        </select>
+
                         <label for="date">Date: <span class="required">*</span></label>
                         <input ng-model="selectedProject.date" type="date" name="date" id="date" class="input" placeholder="2016-01-30" tabindex="13" oninput="jpi.helpers.checkInputField(this);" required />
 

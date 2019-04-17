@@ -827,6 +827,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
     $scope.selectProject = function(project) {
         project.date = new Date(project.date);
+        project.created_at = new Date(project.created_at);
+        project.updated_at = new Date(project.updated_at);
 
         if (typeof project.skills === "string") {
             project.skills = project.skills.split(",");

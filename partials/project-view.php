@@ -14,6 +14,9 @@ if (!defined("ROOT")) {
                         <i class="fa fa-arrow-circle-left"></i>
                     </a>
 
+                    <p>Created at: {{ selectedProject.created_at | date:'EEEE d MMMM y h:mma' }}</p>
+                    <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
+
                     <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
                         <label for="projectName">Project Name <span class="required">*</span></label>
                         <input ng-model="selectedProject.name" type="text" name="projectName" id="projectName" class="input" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />

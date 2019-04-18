@@ -14,8 +14,10 @@ if (!defined("ROOT")) {
                         <i class="fa fa-arrow-circle-left"></i>
                     </a>
 
-                    <p>Created at: {{ selectedProject.created_at | date:'EEEE d MMMM y h:mma' }}</p>
-                    <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
+                    <div ng-if="selectedProject.id">
+                        <p>Created at: {{ selectedProject.created_at | date: 'EEEE d MMMM y h:mma' }}</p>
+                        <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
+                    </div>
 
                     <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
                         <label for="projectName">Project Name <span class="required">*</span></label>

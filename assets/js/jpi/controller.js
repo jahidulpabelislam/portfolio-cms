@@ -108,7 +108,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 options = {
                     url: fullUrl,
                     method: method.toUpperCase(),
-                    params: data ? data : {},
+                    params: data || {},
                 };
 
             if (url !== "login") {
@@ -536,7 +536,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         loadApp: function() {
             var path = global.url.pathname.substring(1).split("/"),
-                root = path[0] ? path[0] : "",
+                root = path[0] || "",
                 func,
                 redirectTo;
 
@@ -606,7 +606,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                var id = $scope.selectedProject ? $scope.selectedProject.id : null;
+                var id = $scope.selectedProject && $scope.selectedProject.id ? $scope.selectedProject.id : null;
 
                 if (id) {
                     $scope.checkAuthStatus(function() {
@@ -765,7 +765,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         var isFormValid = fn.validateProjectForm();
         if (isFormValid) {
-            var id = $scope.selectedProject.id ? $scope.selectedProject.id : "",
+            var id = $scope.selectedProject.id || "",
                 method = $scope.selectedProject.id ? "PUT" : "POST",
                 data = {
                     name: $scope.selectedProject.name ? $scope.selectedProject.name : "",

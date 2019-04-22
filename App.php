@@ -12,7 +12,7 @@ class App {
         }
     }
 
-    public static function get() {
+    public static function get(): App {
         if (self::$instance === null) {
             self::$instance = new self();
         }
@@ -22,10 +22,8 @@ class App {
 
     /**
      * Return this projects root directory
-     *
-     * @return string
      */
-    private static function getProjectRoot() {
+    private static function getProjectRoot(): string {
         if (defined("ROOT")) {
             return ROOT;
         }
@@ -44,7 +42,7 @@ class App {
      * @param $url string The url to add slash to
      * @return string The new url
      */
-    public static function addTrailingSlash($url) {
+    public static function addTrailingSlash(string $url): string {
         $url = rtrim($url, " /");
         $url .= "/";
 
@@ -63,7 +61,7 @@ class App {
      * @param bool $root string The root location of where the file should be if not the default
      * @return string The version number found
      */
-    public static function getAssetVersion(string $src, $ver = false, $root = false) {
+    public static function getAssetVersion(string $src, $ver = false, $root = false): string {
         if (!$ver) {
             if (!$root) {
                 $root = self::getProjectRoot();
@@ -86,7 +84,7 @@ class App {
      * Wrapper around Site::getAssetVersion() to generate the full relative URL for the asset
      * including a version number
      */
-    public static function getWithAssetVersion($src, $ver = false, $root = false) {
+    public static function getWithAssetVersion(string $src, $ver = false, $root = false): string {
         $ver = self::getAssetVersion($src, $ver, $root);
 
         return "{$src}?v={$ver}";
@@ -96,14 +94,14 @@ class App {
      * Wrapper around Site::getWithAssetVersion() & Site::getAssetVersion()
      * Used to echo the full relative URL for the asset including a version number
      */
-    public static function echoWithAssetVersion($src, $ver = false, $root = false) {
+    public static function echoWithAssetVersion(string $src, $ver = false, $root = false) {
         echo self::getWithAssetVersion($src, $ver, $root);
     }
 
     /**
      * @return bool Whether or not the debug was set by user on page view
      */
-    public static function isDebug() {
+    public static function isDebug(): bool {
         return (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0"));
     }
 }

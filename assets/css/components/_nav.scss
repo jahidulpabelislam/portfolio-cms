@@ -1,278 +1,149 @@
 .nav {
-	z-index: 3;
-	margin: 0 -15px;
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	transition: all 0.7s ease-in-out;
-}
-
-.nav--light {
-	background-color: transparentize(white, 0.92);
-}
-
-.nav--dark {
-	background-color: transparentize($dark, 0.80);
-}
-
-.nav.scrolled,
-.nav.opened {
-	box-shadow: 0 0 10px 0 $dark;
-	background-color: white;
+    display: none;
+    z-index: 3;
+    margin: 0 -15px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    transition: all 0.7s ease-in-out;
+    background-color: white;
+    box-shadow: 0 0 10px 0 $dark-colour;
 }
 
 .nav__header {
-	height: 46px;
-}
-
-.nav__logo-container {
-	display: inline-block;
-	padding: 4px 0;
-	height: 46px;
-}
-
-.nav__logo {
-	height: 100%;
-	border-radius: 50%;
-	background: transparent;
-	border: 1px solid transparent;
-	opacity: 1;
-}
-
-.scrolled .nav__logo,
-.opened .nav__logo {
-	background: $dark;
-	border-color: $dark;
-}
-
-.nav__logo.current,
-.nav__logo-container:hover .nav__logo {
-	background: $primary-color;
-	border-color: $primary-color;
-}
-
-.nav__logo-container:hover .nav__logo.current {
-	box-shadow: none;
-}
-
-.opened .nav__logo {
-	display: none;
+    height: 46px;
 }
 
 .nav__mobile-toggle {
-	position: absolute;
-	top: 0;
-	right: 16px;
-	margin: 6px 10px 6px 0;
-	padding: 7px;
-	border: solid transparent 2px;
-	border-radius: 50%;
-	transition: all 0.7s ease-in-out;
+    position: absolute;
+    top: 0;
+    right: 16px;
+    margin: 6px 10px 6px 0;
+    padding: 7px;
+    border: solid transparent 2px;
+    border-radius: 50%;
+    transition: all 0.7s ease-in-out;
 }
 
 .menu-bar {
-	display: block;
-	width: 18px;
-	height: 2px;
-	background-color: white;
-	transition: all 0.7s ease-in-out;
-	position: relative;
-}
-
-.scrolled .menu-bar {
-	background-color: $dark;
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: $dark-colour;
+    transition: all 0.7s ease-in-out;
+    position: relative;
 }
 
 .opened .nav__mobile-toggle {
-	border-color: colour(red, main);
+    border-color: colour(red, main);
 }
 
 .opened .menu-bar {
-	background-color: colour(red, main)
+    background-color: colour(red, main);
 }
 
 .menu-bar--top {
-	top: 0;
+    top: 0;
 }
 
 .menu-bar--middle {
-	margin-top: 4px;
-	margin-left: auto;
-	margin-right: auto;
+    margin-top: 4px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu-bar--bottom {
-	top: 0;
-	margin-top: 4px;
+    top: 0;
+    margin-top: 4px;
 }
 
 .opened .menu-bar--top {
-	top: 6px;
-	transform: rotate(45deg);
+    top: 6px;
+    transform: rotate(45deg);
 }
 
 .opened .menu-bar--middle,
 .opened:hover .menu-bar--middle {
-	background-color: transparent;
-	width: 0;
+    background-color: transparent;
+    width: 0;
 }
 
 .opened .menu-bar--bottom {
-	top: -6px;
-	transform: rotate(-45deg);
+    top: -6px;
+    transform: rotate(-45deg);
 }
 
-.nav__links-container,
-.nav__social-links-container {
-	display: none;
+.nav__links-container {
+    display: none;
+}
+
+.nav__links {
+    border-top: $light-grey-colour 1px solid;
 }
 
 .nav__links-container--left .nav__links {
-	border-top: none;
-}
-
-.nav__links,
-.nav__social-links {
-	border-top: $light-grey 1px solid;
+    border-top: none;
 }
 
 .nav-item__link {
-	padding: 12px 12px;
-	display: block;
-	color: white;
-	text-align: center;
-}
-
-.scrolled .nav-item__link,
-.opened .nav-item__link {
-	color: $dark;
+    display: block;
+    padding: 9px 12px;
+    font-size: 28px;
+    color: $dark-colour;
+    text-align: center;
 }
 
 .nav-item__link:focus,
 .nav-item__link:hover {
-	color: colour(blue, main);
+    color: colour(blue, main);
 }
 
 .nav-item__link.active {
-	background-color: colour(blue, main);
-	color: white;
-}
-
-.nav__social-links .nav-link__item {
-	display: inline-block;
-}
-
-.nav__social-links .social-link__img {
-	height: 36px;
-	width: 36px;
-	margin: 10px 4px;
-	background: transparent;
-}
-
-.nav.scrolled .nav__social-links .social-link__img,
-.nav.opened .nav__social-links .social-link__img {
-	background: $dark;
-}
-
-.nav__social-links .social-link:hover .social-link__img {
-	background: colour(blue, main);
-}
-
-.nav__social-links .social-link__img--instagram {
-	transition: all 0.3s ease-in-out;
+    background-color: colour(blue, main);
+    color: white;
 }
 
 /* For Tablets & Desktops */
 @media only screen and (min-width: $tablet) {
-	.nav {
-		margin: 0;
-	}
+    .nav {
+        margin: 0;
+    }
 
-	.nav__container {
-		display: flex;
-	}
+    .nav__container {
+        display: flex;
+    }
 
-	.nav__header {
-		flex: 1;
-		order: 2;
-	}
+    .nav__header {
+        flex: 1;
+        order: 2;
+    }
 
-	.nav__mobile-toggle {
-		display: none;
-	}
+    .nav__mobile-toggle {
+        display: none;
+    }
 
-	.nav__links-container {
-		display: block;
-		flex: 1;
-		order: 3;
-	}
+    .nav__links-container {
+        display: block;
+        flex: 1;
+        order: 3;
+    }
 
-	.nav__social-links-container {
-		display: block;
-		order: 1;
-		flex: 1;
-	}
+    .nav__links-container--left {
+        order: 1;
+        text-align: left;
+    }
 
-	.nav__links-container--left {
-		display: block;
-		order: 1;
-		flex: 1;
-	}
+    .nav__links-container--left .nav__links {
+        float: left;
+    }
 
-	.nav__links-container--left .nav__links {
-		float: none;
-	}
+    .nav__links {
+        border-top: none;
+        float: right;
+    }
 
-	.nav__social-links {
-		border-top: none;
-		text-align: left;
-	}
-
-	.nav__links {
-		border-top: none;
-		float: right;
-	}
-
-	.nav-link__item {
-		float: left;
-	}
-
-	.nav-item__link {
-		border-bottom: solid transparent 2px;
-	}
-
-	.nav-item__link:hover {
-		border-bottom-color: colour(blue, main);
-	}
-
-	.nav-item__link.active {
-		border-bottom-color: colour(blue, main);
-	}
-
-	.nav__social-links .social-link__img.social-link__img {
-		margin: 5px 2px;
-	}
-
-	.nav__social-links .social-link__img--instagram i {
-		width: 29.44px;
-		height: 29.44px;
-		border: 2.72px solid white;
-		border-radius: 8.33px;
-	}
-
-	.nav__social-links .social-link__img--instagram i::before {
-		width: 15.22px;
-		height: 15.22px;
-		border: 2.72px solid white;
-		border-radius: 7.61px;
-	}
-
-	.nav__social-links .social-link__img--instagram i::after {
-		top: 2.38px;
-		right: 2.38px;
-		width: 3.55px;
-		height: 3.55px;
-		border-radius: 1.77px;
-	}
+    .nav-link__item {
+        float: left;
+    }
 }

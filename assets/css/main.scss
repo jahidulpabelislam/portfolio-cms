@@ -1,10 +1,12 @@
 /*
   IMPORT ALL NECESSARY CSS FILES
 */
+@import "third-party/reset";
+@import "third-party/google-fonts";
+
 @import "tools/variables";
 @import "tools/mixins";
 
-@import "base/reset";
 @import "base/layout";
 @import "base/base";
 @import "base/clearfix";
@@ -12,9 +14,10 @@
 @import "base/global";
 
 @import "components/buttons";
-@import "components/inputs";
 @import "components/form";
 @import "components/nav";
 @import "components/pagination";
 
-@import "templates/admin";
+@import "templates/login";
+@import "templates/projects-select";
+@import "templates/project-view";

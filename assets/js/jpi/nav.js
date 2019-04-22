@@ -1,54 +1,51 @@
-window.jpi = window.jpi || {};
-window.jpi.nav = (function (jQuery) {
+;window.jpi = window.jpi || {};
+window.jpi.nav = (function(jQuery) {
 
-	"use strict";
+    "use strict";
 
-	var fn = {
-		toggleMobileMenu: function () {
-			var container = jQuery(".nav__links-container, .nav__social-links-container");
-			jQuery(".nav").toggleClass("opened");
-			container.slideToggle();
-		},
+    var global = {
+        mainSelector: ".nav",
+        itemsSelector: ".nav__links-container",
+        mobileToggleSelector: ".nav__mobile-toggle",
+    };
 
-		initDesktopNav: function () {
-			if (jQuery(window).width() > 768) {
-				var container = jQuery(".nav__links-container, .nav__social-links-container");
-				container.show();
-			}
-		},
+    var fn = {
 
-		//Custom code to collapse mobile menu when user clicks off it.
-		closeMobileNav: function (event) {
-			if (!jQuery(event.target).closest('.nav').length && jQuery(".nav").hasClass("opened") && jQuery(".nav__mobile-toggle").css("display") !== "none") {
-				jQuery(".nav__mobile-toggle").trigger("click");
-			}
-		},
+        toggleMobileMenu: function() {
+            var container = jQuery(global.itemsSelector);
+            jQuery(global.mainSelector).toggleClass("opened");
+            container.slideToggle();
+        },
 
-		toggleNavBarColour: function () {
-			var navHeight = jQuery(".nav").height();
-			var scrollPos = jQuery(window).scrollTop() + navHeight;
-			var headerHeight = jQuery(".jumbotron").height();
+        initDesktopNav: function() {
+            if (jQuery(window).width() > 768) {
+                var container = jQuery(global.itemsSelector);
+                container.show();
+            }
+        },
 
-			if (scrollPos >= headerHeight) {
-				jQuery(".nav").addClass("scrolled");
-			}
-			else {
-				jQuery(".nav").removeClass("scrolled");
-			}
-		},
+        closeMobileNav: function(e) {
+            if (
+                (jQuery(e.target).hasClass("nav-item__link") || !jQuery(e.target).closest(global.mainSelector).length) &&
+                jQuery(global.mainSelector).hasClass("opened") &&
+                jQuery(global.mobileToggleSelector).css("display") !== "none"
+            ) {
+                jQuery(global.mobileToggleSelector).trigger("click");
+            }
+        },
 
-		initListeners: function () {
-			jQuery(document).on("click", fn.closeMobileNav);
+        initListeners: function() {
+            jQuery("body").on("click", global.mobileToggleSelector, fn.toggleMobileMenu);
+            jQuery(document).on("click", fn.closeMobileNav);
+            jQuery(window).on("orientationchange resize", fn.initDesktopNav);
+        },
 
-			jQuery(".nav__mobile-toggle").on("click", fn.toggleMobileMenu);
+    };
 
-			jQuery(window).on("orientationchange resize", fn.initDesktopNav);
+    jQuery(document).on("ready", fn.initListeners);
 
-			jQuery(window).on("scroll", fn.toggleNavBarColour);
-			fn.toggleNavBarColour();
-		}
-	};
+    return {
+        closeMobileNav: fn.closeMobileNav,
+    }
 
-	jQuery(document).on("ready", fn.initListeners);
-
-}(jQuery));
+})(jQuery);

@@ -2,24 +2,29 @@
   Any css for many templates and/or components.
 */
 
-.link-styled {
-	color: $dark;
-	border-bottom: transparent solid 1px;
+.fixed-overlay {
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    z-index: -10;
+    padding: 50px;
+    background: transparentize($dark-colour, 0.4);
+    text-align: center;
+    font-size: 50px;
+    line-height: 60px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, z-index 0s ease-in-out;
 }
 
-.link-styled:hover {
-	color: darken($dark, 10%);
-	border-bottom-color: darken($dark, 10%);
+.fixed-overlay--loading {
+    z-index: 10;
+    opacity: 1;
 }
 
-@each $color, $colors in $colors {
-	.link-styled--#{$color} {
-		color: map-get($colors, main);
-		border-bottom: transparent solid 1px;
-	}
-
-	.link-styled--#{$color}:hover {
-		color: map-get($colors, hover);
-		border-bottom-color: map-get($colors, hover);
-	}
+.fixed-overlay__text {
+    margin: auto;
+    color: white;
 }

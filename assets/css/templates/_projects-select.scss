@@ -1,0 +1,28 @@
+.projects-select {
+    display: none;
+    text-align: center;
+}
+
+.projects-select__add-button.projects-select__add-button {
+    margin-top: 10px;
+}
+
+.projects-select__edit-button {
+    margin-top: 10px;
+}
+
+.projects-select__delete-button {
+    margin-top: 10px;
+}
+
+.projects-select__option input {
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 5px;
+}
+
+.projects-select__feedback {
+    padding: 5px;
+    display: block;
+    text-align: center;
+}

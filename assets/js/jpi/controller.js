@@ -223,6 +223,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         validateProjectForm: function() {
             var validDatePattern = /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im,
                 projectNameValidation = jpi.helpers.checkInputField(jQuery("#projectName")[0]),
+                statusValidation = jpi.helpers.checkInputField(jQuery("#status")[0]),
                 longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
@@ -242,6 +243,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             return (
                 projectNameValidation &&
+                statusValidation &&
                 skillsValidation &&
                 longDescriptionValidation &&
                 shortDescriptionValidation &&

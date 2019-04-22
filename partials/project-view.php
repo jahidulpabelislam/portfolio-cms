@@ -23,7 +23,7 @@ if (!defined("ROOT")) {
                         <label for="projectName">Project Name: <span class="required">*</span></label>
                         <input ng-model="selectedProject.name" type="text" name="projectName" id="projectName" class="input" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />
 
-                        <label for="status">Status:</label>
+                        <label for="status">Status: <span class="required">*</span></label>
                         <select ng-model="selectedProject.status" name="status" id="status" class="input" tabindex="1">
                             <?php
                             $statusOptions = [

@@ -46,6 +46,9 @@ class App {
      */
     public static function addTrailingSlash($url) {
         $url = rtrim($url, " /");
+        $url .= "/";
+
+        return $url;
     }
 
     /**
@@ -65,6 +68,7 @@ class App {
             if (!$root) {
                 $root = self::getProjectRoot();
             }
+
             $src = ltrim($src, " /");
             $file = self::addTrailingSlash($root) . $src;
             if (file_exists($file)) {

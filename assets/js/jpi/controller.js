@@ -830,8 +830,20 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
     $scope.selectProject = function(project) {
         project.date = new Date(project.date);
-        project.created_at = new Date(project.created_at);
-        project.updated_at = new Date(project.updated_at);
+
+        if (project.created_at && project.created_at !== "") {
+            project.created_at = new Date(project.created_at);
+        }
+        else {
+            project.created_at = "Not Available";
+        }
+
+        if (project.updated_at && project.updated_at !== "") {
+            project.updated_at = new Date(project.updated_at);
+        }
+        else {
+            project.updated_at = "Not Available";
+        }
 
         if (typeof project.skills === "string") {
             project.skills = project.skills.split(",");

@@ -14,7 +14,7 @@ if (!defined("ROOT")) {
                         <i class="fa fa-arrow-circle-left"></i>
                     </a>
 
-                    <div ng-if="selectedProject.id">
+                    <div ng-if="selectedProject && selectedProject.id">
                         <p>Created at: {{ selectedProject.created_at | date: 'EEEE d MMMM y h:mma' }}</p>
                         <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
                     </div>

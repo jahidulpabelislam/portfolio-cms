@@ -592,6 +592,9 @@ label {
   display: none;
   text-align: center; }
 
+.projects-select__form {
+  display: inline-block; }
+
 .projects-select__add-button.projects-select__add-button {
   margin-top: 10px; }
 
@@ -615,7 +618,7 @@ label {
   display: none; }
 
 .project__form {
-  text-align: center;
+  text-align: left;
   padding: 5px; }
 
 .project__save-button {

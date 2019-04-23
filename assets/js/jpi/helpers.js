@@ -40,7 +40,7 @@ window.jpi.helpers = (function(jQuery) {
                 return response.meta.feedback;
             }
 
-            return defaultFeedback ? defaultFeedback : "";
+            return defaultFeedback || "";
         },
 
         getAJAXResponse: function(response) {

@@ -30,7 +30,7 @@ scriptNames.forEach(function(key) {
                    .pipe(gulp.dest("assets/js"));
     });
 });
-gulp.task("scripts", scriptTasks);
+gulp.task("scripts", gulp.parallel(scriptTasks));
 
 // Minify Stylesheets
 const stylesheets = {
@@ -60,7 +60,7 @@ stylesheetNames.forEach(function(key) {
                    .pipe(gulp.dest("assets/css"));
     });
 });
-gulp.task("styles", stylesheetTasks);
+gulp.task("styles", gulp.parallel(stylesheetTasks));
 
 gulp.task("sass", function() {
     return gulp.src("assets/css/main.scss")
@@ -69,7 +69,7 @@ gulp.task("sass", function() {
 });
 // Watch Files For Changes
 gulp.task("watch", function() {
-    gulp.watch("assets/css/**/*.scss", ["sass"]);
+    gulp.watch("assets/css/**/*.scss", gulp.parallel("sass"));
 });
 
-gulp.task("default", ["scripts", "styles"]);
+gulp.task("default", gulp.parallel(["scripts", "styles"]));

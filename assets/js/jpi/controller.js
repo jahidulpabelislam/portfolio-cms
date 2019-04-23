@@ -108,7 +108,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 options = {
                     url: fullUrl,
                     method: method.toUpperCase(),
-                    params: data ? data : {},
+                    params: data || {},
                 };
 
             if (url !== "login") {
@@ -223,6 +223,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         validateProjectForm: function() {
             var validDatePattern = /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im,
                 projectNameValidation = jpi.helpers.checkInputField(jQuery("#projectName")[0]),
+                statusValidation = jpi.helpers.checkInputField(jQuery("#status")[0]),
                 longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
                 githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
@@ -242,6 +243,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             return (
                 projectNameValidation &&
+                statusValidation &&
                 skillsValidation &&
                 longDescriptionValidation &&
                 shortDescriptionValidation &&
@@ -536,7 +538,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         loadApp: function() {
             var path = global.url.pathname.substring(1).split("/"),
-                root = path[0] ? path[0] : "",
+                root = path[0] || "",
                 func,
                 redirectTo;
 
@@ -606,7 +608,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                var id = $scope.selectedProject ? $scope.selectedProject.id : null;
+                var id = $scope.selectedProject && $scope.selectedProject.id ? $scope.selectedProject.id : null;
 
                 if (id) {
                     $scope.checkAuthStatus(function() {
@@ -765,18 +767,19 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         var isFormValid = fn.validateProjectForm();
         if (isFormValid) {
-            var id = $scope.selectedProject.id ? $scope.selectedProject.id : "",
+            var id = $scope.selectedProject.id || "",
                 method = $scope.selectedProject.id ? "PUT" : "POST",
                 data = {
-                    name: $scope.selectedProject.name ? $scope.selectedProject.name : "",
+                    name: $scope.selectedProject.name || "",
+                    status: $scope.selectedProject.status || "",
+                    date: $scope.selectedProject.date || "",
+                    link: $scope.selectedProject.link || "",
+                    github: $scope.selectedProject.github || "",
+                    download: $scope.selectedProject.download || "",
+                    colour: $scope.selectedProject.colour || "",
                     skills: $scope.selectedProject.skills ? $scope.selectedProject.skills.join(",") : "",
-                    long_description: $scope.selectedProject.long_description ? $scope.selectedProject.long_description : "",
-                    short_description: $scope.selectedProject.short_description ? $scope.selectedProject.short_description : "",
-                    link: $scope.selectedProject.link ? $scope.selectedProject.link : "",
-                    github: $scope.selectedProject.github ? $scope.selectedProject.github : "",
-                    download: $scope.selectedProject.download ? $scope.selectedProject.download : "",
-                    date: $scope.selectedProject.date ? $scope.selectedProject.date : "",
-                    colour: $scope.selectedProject.colour ? $scope.selectedProject.colour : "",
+                    short_description: $scope.selectedProject.short_description || "",
+                    long_description: $scope.selectedProject.long_description || "",
                     images: $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : [],
                 };
 
@@ -827,6 +830,20 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
     $scope.selectProject = function(project) {
         project.date = new Date(project.date);
+
+        if (project.created_at && project.created_at !== "") {
+            project.created_at = new Date(project.created_at);
+        }
+        else {
+            project.created_at = "Not Available";
+        }
+
+        if (project.updated_at && project.updated_at !== "") {
+            project.updated_at = new Date(project.updated_at);
+        }
+        else {
+            project.updated_at = "Not Available";
+        }
 
         if (typeof project.skills === "string") {
             project.skills = project.skills.split(",");

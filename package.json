@@ -2,12 +2,12 @@
     "name": "portfolio-cms",
     "version": "1.0.0",
     "dependencies": {
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "^3.1.1",
-        "gulp-clean-css": "^3.10.0",
+        "gulp": "^4.0.1",
+        "gulp-autoprefixer": "^6.1.0",
+        "gulp-clean-css": "^4.0.0",
         "gulp-concat": "^2.6.1",
         "gulp-rename": "^1.4.0",
-        "gulp-sass": "^3.2.1",
-        "gulp-uglify": "^1.5.4"
+        "gulp-sass": "^4.0.2",
+        "gulp-uglify": "^3.0.2"
     }
 }

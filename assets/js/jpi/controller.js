@@ -257,7 +257,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             jQuery(".project-view, .nav").show();
             jQuery(".projects-select").hide();
-            jQuery("#projectName, #skill-input, #longDescription, #shortDescription, #date").removeClass("invalid valid");
+            jQuery("#projectName, #status, #date, #skill-input, #longDescription, #shortDescription").removeClass("invalid valid");
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 

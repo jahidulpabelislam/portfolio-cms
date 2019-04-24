@@ -226,7 +226,6 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 statusValidation = jpi.helpers.checkInputField(jQuery("#status")[0]),
                 longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
                 shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
-                githubValidation = jpi.helpers.checkInputField(jQuery("#github")[0]),
                 dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
@@ -244,11 +243,10 @@ app.controller("portfolioCMSController", function($scope, $http) {
             return (
                 projectNameValidation &&
                 statusValidation &&
+                dateValidation &&
                 skillsValidation &&
                 longDescriptionValidation &&
-                shortDescriptionValidation &&
-                githubValidation &&
-                dateValidation
+                shortDescriptionValidation
             );
         },
 
@@ -259,7 +257,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             jQuery(".project-view, .nav").show();
             jQuery(".projects-select").hide();
-            jQuery("#projectName, #skill-input, #longDescription, #shortDescription, #github, #date").removeClass("invalid valid");
+            jQuery("#projectName, #skill-input, #longDescription, #shortDescription, #date").removeClass("invalid valid");
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 

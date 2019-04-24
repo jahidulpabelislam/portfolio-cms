@@ -44,8 +44,8 @@ if (!defined("ROOT")) {
                         <label for="link">Link:</label>
                         <input ng-model="selectedProject.link" type="text" name="link" id="link" class="input" placeholder="link" tabindex="10" />
 
-                        <label for="github">GitHub: <span class="required">*</span></label>
-                        <input ng-model="selectedProject.github" type="url" name="github" id="github" class="input" placeholder="github" tabindex="11" oninput="jpi.helpers.checkInputField(this);" required />
+                        <label for="github">GitHub:</label>
+                        <input ng-model="selectedProject.github" type="url" name="github" id="github" class="input" placeholder="github" tabindex="11" />
 
                         <label for="download">Download:</label>
                         <input ng-model="selectedProject.download" type="text" name="download" id="download" class="input" placeholder="download" tabindex="12" />

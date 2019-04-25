@@ -94,14 +94,15 @@
 }
 
 .project__image-container {
+    position: relative;
     width: 100%;
     padding: 5px;
-    background-color: white;
     border-radius: 4px;
     margin: 5px 0;
-    position: relative;
-    list-style: none;
+    text-align: center;
+    background-color: white;
     border: 1px solid #e0e0e0;
+    list-style: none;
     cursor: pointer;
 }
 

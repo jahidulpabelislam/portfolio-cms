@@ -336,7 +336,7 @@ label {
   transition: all 0.3s ease-in-out; }
 
 .input::placeholder {
-  color: gray; }
+  color: #808080; }
 
 .input:focus {
   box-shadow: 0 0 8px #0375b4;
@@ -350,10 +350,10 @@ label {
   box-shadow: 0 0 8px rgba(229, 37, 37, 0.6); }
 
 .input.valid {
-  border-color: green; }
+  border-color: #008000; }
 
 .input:focus.valid {
-  border-color: green;
+  border-color: #008000;
   box-shadow: 0 0 8px rgba(0, 128, 0, 0.6); }
 
 .styled-checkbox {
@@ -378,7 +378,7 @@ label {
   left: 0;
   top: 0;
   background: white;
-  border: 2px solid gray;
+  border: 2px solid #808080;
   transition: all 0.3s ease-in-out; }
 
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
@@ -405,7 +405,7 @@ label {
   width: 100%; }
 
 .feedback--success {
-  color: green; }
+  color: #008000; }
 
 .feedback--error {
   color: #e52525; }
@@ -680,8 +680,8 @@ label {
   background: #e52525; }
 
 .project__feedback.feedback--success {
-  border-color: green;
-  background: green; }
+  border-color: #008000;
+  background: #008000; }
 
 .project__hide-error {
   position: absolute;

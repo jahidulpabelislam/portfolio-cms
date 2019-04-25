@@ -176,7 +176,7 @@
 }
 
 /* For tablets and some are for desktops */
-@media only screen and (min-width: $tablet) {
+@media only screen and (min-width: $tablet-width) {
     .project-view,
     .project__uploads {
         max-width: 640px;
@@ -192,7 +192,7 @@
 }
 
 /* For desktops */
-@media only screen and (min-width: $desktop) {
+@media only screen and (min-width: $desktop-width) {
     .project__image-container {
         width: calc(50% - 5px);
         display: inline-block;

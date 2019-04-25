@@ -64,7 +64,7 @@ a.btn {
 }
 
 /* Only for Desktops */
-@media only screen and (min-width: $desktop) {
+@media only screen and (min-width: $desktop-width) {
     .btn {
         margin: 7px;
         padding: 9px 14px;

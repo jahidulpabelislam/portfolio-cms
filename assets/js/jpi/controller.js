@@ -740,7 +740,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         fn.showLoading();
 
         fn.doAJAXCall(
-            "projects/" + projectImage.ProjectID + "/images/" + projectImage.id,
+            "projects/" + projectImage.project_id + "/images/" + projectImage.id,
             "DELETE",
             fn.onSuccessfulProjectImageDeletion,
             function(response) {

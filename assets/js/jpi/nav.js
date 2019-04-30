@@ -1,5 +1,5 @@
 ;window.jpi = window.jpi || {};
-window.jpi.nav = (function(jQuery) {
+window.jpi.nav = (function(jQuery, jpi) {
 
     "use strict";
 
@@ -37,7 +37,7 @@ window.jpi.nav = (function(jQuery) {
         initListeners: function() {
             jQuery("body").on("click", global.mobileToggleSelector, fn.toggleMobileMenu);
             jQuery(document).on("click", fn.closeMobileNav);
-            jQuery(window).on("orientationchange resize", fn.initDesktopNav);
+            jQuery(window).on("orientationchange resize", jpi.helpers.debounce(fn.initDesktopNav, 150));
         },
 
     };
@@ -46,6 +46,6 @@ window.jpi.nav = (function(jQuery) {
 
     return {
         closeMobileNav: fn.closeMobileNav,
-    }
+    };
 
-})(jQuery);
+})(jQuery, jpi);

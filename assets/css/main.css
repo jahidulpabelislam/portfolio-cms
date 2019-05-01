@@ -336,25 +336,25 @@ label {
   transition: all 0.3s ease-in-out; }
 
 .input::placeholder {
-  color: #808080; }
+  color: #7b8676; }
 
 .input:focus {
   box-shadow: 0 0 8px #0375b4;
   border-color: #0375b4; }
 
 .input.invalid {
-  border-color: #e52525; }
+  border-color: #f74440; }
 
 .input:focus.invalid {
-  border-color: #e52525;
-  box-shadow: 0 0 8px rgba(229, 37, 37, 0.6); }
+  border-color: #f74440;
+  box-shadow: 0 0 8px rgba(247, 68, 64, 0.6); }
 
 .input.valid {
-  border-color: #008000; }
+  border-color: #00a000; }
 
 .input:focus.valid {
-  border-color: #008000;
-  box-shadow: 0 0 8px rgba(0, 128, 0, 0.6); }
+  border-color: #00a000;
+  box-shadow: 0 0 8px rgba(0, 160, 0, 0.6); }
 
 .styled-checkbox {
   position: relative;
@@ -378,7 +378,7 @@ label {
   left: 0;
   top: 0;
   background: white;
-  border: 2px solid #808080;
+  border: 2px solid #7b8676;
   transition: all 0.3s ease-in-out; }
 
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
@@ -405,10 +405,10 @@ label {
   width: 100%; }
 
 .feedback--success {
-  color: #008000; }
+  color: #00a000; }
 
 .feedback--error {
-  color: #e52525; }
+  color: #f74440; }
 
 /* Only for Tablets & Desktops */
 @media only screen and (min-width: 768px) {
@@ -651,8 +651,8 @@ label {
   margin: 0 auto; }
 
 .project__upload--failed {
-  border-color: #d71a1a;
-  color: #e52525; }
+  border-color: #f62c28;
+  color: #f74440; }
 
 .project__feedback {
   display: block;
@@ -677,12 +677,12 @@ label {
   max-height: 0; }
 
 .project__feedback.feedback--error {
-  border-color: #e52525;
-  background: #e52525; }
+  border-color: #f74440;
+  background: #f74440; }
 
 .project__feedback.feedback--success {
-  border-color: #008000;
-  background: #008000; }
+  border-color: #00a000;
+  background: #00a000; }
 
 .project__hide-error {
   position: absolute;

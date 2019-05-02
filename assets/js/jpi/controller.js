@@ -221,12 +221,13 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         validateProjectForm: function() {
+            var projectDate = jQuery(".project__date");
             var validDatePattern = /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im,
-                projectNameValidation = jpi.helpers.checkInputField(jQuery("#projectName")[0]),
-                statusValidation = jpi.helpers.checkInputField(jQuery("#status")[0]),
-                longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
-                shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
-                dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val())),
+                projectNameValidation = jpi.helpers.checkInputField(jQuery(".project__name")[0]),
+                statusValidation = jpi.helpers.checkInputField(jQuery(".project__status")[0]),
+                longDescriptionValidation = jpi.helpers.checkInputField(jQuery(".project__long-desc")[0]),
+                shortDescriptionValidation = jpi.helpers.checkInputField(jQuery(".project__short-desc")[0]),
+                dateValidation = (jpi.helpers.checkInputField(projectDate[0]) && validDatePattern.test(projectDate.val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
             if (skillsValidation) {
@@ -257,7 +258,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             jQuery(".project-view, .nav").show();
             jQuery(".projects-select").hide();
-            jQuery("#projectName, #status, #date, #skill-input, #longDescription, #shortDescription").removeClass("invalid valid");
+            jQuery(".project__name, .project__status, .project__date, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 

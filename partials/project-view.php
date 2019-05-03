@@ -51,21 +51,7 @@ if (!defined("ROOT")) {
                         <input ng-model="selectedProject.download" type="text" name="project-download" id="project-download" class="input project__download" placeholder="download" tabindex="12" />
 
                         <label for="project-colour">Colour:</label>
-                        <select ng-model="selectedProject.colour" name="project-colour" id="project-colour" class="input project__colour" tabindex="14">
-                            <?php
-                            $colourOptions = [
-                                "" => "Default",
-                                "blue" => "Blue",
-                                "red" => "Red",
-                                "orange" => "Orange",
-                                "lime-green" => "Lime Green",
-                                "green" => "Green",
-                                "purple" => "Purple",
-                            ];
-                            foreach ($colourOptions as $value => $display) {
-                                echo "<option value='{$value}'>{$display}</option>";
-                            }
-                            ?>
+                        <select ng-options="colour as colourName for (colour, colourName) in colourOptions" ng-model="selectedProject.colour" name="project-colour" id="project-colour" class="input project__colour" tabindex="14">
                         </select>
 
                         <label for="skill-input">Skills: <span class="required">*</span></label>

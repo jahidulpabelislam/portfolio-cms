@@ -880,6 +880,16 @@ app.controller("portfolioCMSController", function($scope, $http) {
         }
     };
 
+    $scope.colourOptions = {
+        "": "Default",
+        "blue": "Blue",
+        "red": "Red",
+        "orange": "Orange",
+        "lime-green": "Lime Green",
+        "green": "Green",
+        "purple": "Purple",
+    };
+
     /*
      * Allow some selective functions to be window scoped (So it can be used in other JS files)
      */

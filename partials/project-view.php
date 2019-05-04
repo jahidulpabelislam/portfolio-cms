@@ -19,7 +19,7 @@ if (!defined("ROOT")) {
                         <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
                     </div>
 
-                    <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)" ng-if="selectedProject">
+                    <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
                         <label for="project-name">Project Name: <span class="required">*</span></label>
                         <input ng-model="selectedProject.name" type="text" name="project-name" id="project-name" class="input project__name" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />
 
@@ -64,7 +64,7 @@ if (!defined("ROOT")) {
 
                         <div class="project__skill-input-container">
                             <label for="skill-input" class="screen-reader-text">Add skills for project.</label>
-                            <input type="text" class="input project__skill-input" id="skill-input" placeholder="HTML5" ng-model="skillInput" />
+                            <input ng-model="skillInput" type="text" class="input project__skill-input" id="skill-input" placeholder="HTML5" />
                             <button class="btn btn--green project__skill-add-button" type="button" id="skill-add" ng-click="addSkill()" type="button">
                                 <span class="screen-reader-text">Add</span>
                                 <i class="fa fa-plus"></i>
@@ -72,10 +72,10 @@ if (!defined("ROOT")) {
                         </div>
 
                         <label for="project-short-desc">Short Description: <span class="required">*</span></label>
-                        <textarea ui-tinymce="tinymceOptions" ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" tabindex="9"></textarea>
+                        <textarea ng-if="selectedProject" ui-tinymce="tinymceOptions" ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" tabindex="9"></textarea>
 
                         <label for="project-long-desc">Long Description: <span class="required">*</span></label>
-                        <textarea ui-tinymce="tinymceOptions" ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" tabindex="9"></textarea>
+                        <textarea ng-if="selectedProject" ui-tinymce="tinymceOptions" ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" tabindex="9"></textarea>
 
                         <!-- Div containing all the project images -->
                         <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">

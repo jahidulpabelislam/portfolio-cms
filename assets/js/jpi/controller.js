@@ -952,11 +952,11 @@ app.controller("portfolioCMSController", function($scope, $http) {
     for (var colour in $scope.colourOptions) {
         var colourName = $scope.colourOptions[colour];
         tinymceOptions.link_class_list.push({
-            title: colourName + " Link",
+            title: colourName + " link",
             value: "link-styled link-styled--" + colour,
         });
         tinymceOptions.link_class_list.push({
-            title: colourName + " Button",
+            title: colourName + " button",
             value: "btn btn--" + colour,
         });
     }

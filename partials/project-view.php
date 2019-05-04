@@ -19,7 +19,7 @@ if (!defined("ROOT")) {
                         <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
                     </div>
 
-                    <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
+                    <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)" ng-if="selectedProject">
                         <label for="project-name">Project Name: <span class="required">*</span></label>
                         <input ng-model="selectedProject.name" type="text" name="project-name" id="project-name" class="input project__name" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />
 
@@ -72,10 +72,10 @@ if (!defined("ROOT")) {
                         </div>
 
                         <label for="project-short-desc">Short Description: <span class="required">*</span></label>
-                        <textarea ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+                        <textarea ui-tinymce="tinymceOptions" ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" tabindex="9"></textarea>
 
                         <label for="project-long-desc">Long Description: <span class="required">*</span></label>
-                        <textarea ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+                        <textarea ui-tinymce="tinymceOptions" ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" tabindex="9"></textarea>
 
                         <!-- Div containing all the project images -->
                         <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">

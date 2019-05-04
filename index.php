@@ -71,6 +71,8 @@ $isDebug = $app->isDebug();
             window.jpi.config.jpiAPIEndpoint = "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>";
         </script>
 
+        <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=hci3sc80vemjpp1nnhl817vewvfm9vbg59omb77vfmur5sts" type="text/javascript"></script>
+
         <!-- All the JS's needed for the page  -->
         <?php
         // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified
@@ -82,6 +84,7 @@ $isDebug = $app->isDebug();
             <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/angular.min.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/sortable.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js"); ?>" type="text/javascript"></script>
 
             <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>

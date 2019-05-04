@@ -12,6 +12,7 @@ const scripts = {
         "assets/js/third-party/jquery.min.js",
         "assets/js/third-party/jquery-ui.min.js",
         "assets/js/third-party/angular.min.js",
+        "assets/js/third-party/angular-ui-tinymce.min.js",
         "assets/js/third-party/sortable.js",
         "assets/js/jpi/helpers.js",
         "assets/js/jpi/drag-n-drop.js",

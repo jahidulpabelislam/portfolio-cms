@@ -789,11 +789,18 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fn.showProjectError(message, "feedback--error");
 
             setTimeout(function() {
-                var firstInvalidInput = jQuery(".project__form .invalid").first(),
-                    id = firstInvalidInput.attr("id"),
-                    pos = jQuery("label[for=" + id + "]").offset().top,
+                var pos = 0,
+                    firstInvalidInput = jQuery(".project__form .invalid").first(),
+                    inputId = firstInvalidInput.attr("id"),
                     navHeight = jQuery(".nav__header").outerHeight(),
                     feedbackHeight = jQuery(".project__feedback").outerHeight();
+
+                var label = jQuery("label[for=" + inputId + "]");
+                if (!label.length) {
+                    label = firstInvalidInput.prev();
+                }
+
+                pos = label.offset().top;
 
                 jQuery("html, body").animate(
                     {

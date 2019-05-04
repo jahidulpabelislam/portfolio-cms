@@ -1,4 +1,4 @@
-;window.app = angular.module("portfolioCMS", ["ui.sortable"]);
+;window.app = angular.module("portfolioCMS", ["ui.sortable", "ui.tinymce"]);
 
 app.directive("fileUpload", function() {
 
@@ -221,12 +221,13 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         validateProjectForm: function() {
+            var projectDate = jQuery(".project__date");
             var validDatePattern = /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im,
-                projectNameValidation = jpi.helpers.checkInputField(jQuery("#projectName")[0]),
-                statusValidation = jpi.helpers.checkInputField(jQuery("#status")[0]),
-                longDescriptionValidation = jpi.helpers.checkInputField(jQuery("#longDescription")[0]),
-                shortDescriptionValidation = jpi.helpers.checkInputField(jQuery("#shortDescription")[0]),
-                dateValidation = (jpi.helpers.checkInputField(jQuery("#date")[0]) && validDatePattern.test(jQuery("#date").val())),
+                projectNameValidation = jpi.helpers.checkInputField(jQuery(".project__name")[0]),
+                statusValidation = jpi.helpers.checkInputField(jQuery(".project__status")[0]),
+                longDescriptionValidation = jpi.helpers.checkInputField(jQuery(".project__long-desc")[0]),
+                shortDescriptionValidation = jpi.helpers.checkInputField(jQuery(".project__short-desc")[0]),
+                dateValidation = (jpi.helpers.checkInputField(projectDate[0]) && validDatePattern.test(projectDate.val())),
                 skillsValidation = $scope.selectedProject.skills.length;
 
             if (skillsValidation) {
@@ -257,7 +258,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             jQuery(".project-view, .nav").show();
             jQuery(".projects-select").hide();
-            jQuery("#projectName, #status, #date, #skill-input, #longDescription, #shortDescription").removeClass("invalid valid");
+            jQuery(".project__name, .project__status, .project__date, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
@@ -878,6 +879,82 @@ app.controller("portfolioCMSController", function($scope, $http) {
             $scope.userFormFeedback = "Password field needs to be filled.";
         }
     };
+
+    $scope.colourOptions = {
+        "": "Default",
+        "blue": "Blue",
+        "red": "Red",
+        "orange": "Orange",
+        "lime-green": "Lime Green",
+        "green": "Green",
+        "purple": "Purple",
+    };
+
+    var tinymceOptions = {
+        branding: false,
+        menubar: false,
+        browser_spellcheck: true,
+        plugins: "link code autoresize lists",
+        width: "100%",
+        max_height: 450,
+        resize: true,
+        toolbar: [
+            "styleselect | bold italic underline strikethrough | bullist numlist | blockquote",
+            "link unlink alignleft aligncenter alignright undo redo removeformat code",
+        ],
+        style_formats: [
+            {
+                title: "Headings",
+                items: [
+                    {title: "Heading 2", format: "h2"},
+                    {title: "Heading 3", format: "h3"},
+                    {title: "Heading 4", format: "h4"},
+                    {title: "Heading 5", format: "h5"},
+                    {title: "Heading 6", format: "h6"},
+                ],
+            },
+            {
+                title: "Paragraph", format: "p",
+            },
+            {
+                title: "Other",
+                items: [
+                    {title: "Warning", inline: "span", classes: "notice"},
+                ],
+            },
+        ],
+        relative_urls : true,
+        document_base_url : "https://jahidulpabelislam.com",
+        convert_urls: false,
+        link_title: false,
+        rel_list: [
+            {title: "Default", value: ""},
+            {title: "Nofollow", value: "nofollow"},
+        ],
+        link_class_list: [
+            {title: "None", value: ""},
+            {title: "Project link", value: "link-styled link-styled--{{colour}}"},
+            {title: "Project button", value: "btn btn--{{colour}}"},
+        ],
+    };
+
+    /*
+     * Dynamically add link & button classes for current colours
+     * And as these can change and but managed by a variable
+     */
+    for (var colour in $scope.colourOptions) {
+        var colourName = $scope.colourOptions[colour];
+        tinymceOptions.link_class_list.push({
+            title: colourName + " Link",
+            value: "link-styled link-styled--" + colour,
+        });
+        tinymceOptions.link_class_list.push({
+            title: colourName + " Button",
+            value: "btn btn--" + colour,
+        });
+    }
+
+    $scope.tinymceOptions = tinymceOptions;
 
     /*
      * Allow some selective functions to be window scoped (So it can be used in other JS files)

@@ -41,7 +41,7 @@ img {
 }
 
 /* Only for Desktops */
-@media only screen and (min-width: $desktop) {
+@media only screen and (min-width: $desktop-width) {
     .container {
         width: 1170px;
     }

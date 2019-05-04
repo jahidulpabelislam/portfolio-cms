@@ -79,7 +79,7 @@
 }
 
 .nav__links {
-    border-top: $light-grey-colour 1px solid;
+    border-top: $light-grey 1px solid;
 }
 
 .nav__links-container--left .nav__links {
@@ -105,7 +105,7 @@
 }
 
 /* For Tablets & Desktops */
-@media only screen and (min-width: $tablet) {
+@media only screen and (min-width: $tablet-width) {
     .nav {
         margin: 0;
     }

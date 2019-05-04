@@ -4,7 +4,7 @@ window.jpi.dnd = (function(jQuery) {
     "use strict";
 
     var global = {
-        dropZone: jQuery(".js-drop-zone")[0],
+        dropZone: jQuery(".js-drop-zone"),
     };
 
     var fn = {
@@ -37,17 +37,19 @@ window.jpi.dnd = (function(jQuery) {
             e.preventDefault();
             e.stopPropagation();
 
-            global.dropZone.style.zIndex = 10;
-            global.dropZone.style.opacity = 1;
+            global.dropZone.css({
+                zIndex: 10,
+                opacity: 1,
+            });
         },
 
         removeDropZone: function(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            global.dropZone.style.opacity = 0;
+            global.dropZone.css("opacity", 0);
             setTimeout(function() {
-                global.dropZone.style.zIndex = -10;
+                global.dropZone.css("zIndex", -10);
             }, 1000);
         },
 
@@ -56,7 +58,7 @@ window.jpi.dnd = (function(jQuery) {
 
             fn.removeDropZone(e);
 
-            items = e.dataTransfer.items;
+            items = e.originalEvent.dataTransfer.items || [];
 
             // Loop through each item (file/directory) dropped & read each one
             for (i = 0; i < items.length; i++) {
@@ -67,14 +69,15 @@ window.jpi.dnd = (function(jQuery) {
         },
 
         stop: function() {
-            window.removeEventListener("dragover", fn.dragOver);
-            window.removeEventListener("drop", fn.drop);
+            jQuery(window).off("dragover", fn.dragOver)
+                          .off("drop", fn.drop);
         },
 
         setUp: function() {
-            window.addEventListener("dragover", fn.dragOver);
-            window.addEventListener("drop", fn.drop);
-            global.dropZone.addEventListener("dragleave", fn.removeDropZone);
+            jQuery(window).on("dragover", fn.dragOver)
+                          .on("drop", fn.drop);
+
+            global.dropZone.on("dragleave", fn.removeDropZone);
         },
     };
 

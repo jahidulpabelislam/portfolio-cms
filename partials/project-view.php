@@ -19,12 +19,12 @@ if (!defined("ROOT")) {
                         <p>Updated at: {{ selectedProject.updated_at | date:'EEEE d MMMM y h:mma' }}</p>
                     </div>
 
-                    <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)">
-                        <label for="projectName">Project Name: <span class="required">*</span></label>
-                        <input ng-model="selectedProject.name" type="text" name="projectName" id="projectName" class="input" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />
+                    <form id="projectForm" class="project__form" ng-submit="checkAuthStatus(submitProject)" ng-if="selectedProject">
+                        <label for="project-name">Project Name: <span class="required">*</span></label>
+                        <input ng-model="selectedProject.name" type="text" name="project-name" id="project-name" class="input project__name" placeholder="myproject" tabindex="7" oninput="jpi.helpers.checkInputField(this);" required />
 
-                        <label for="status">Status: <span class="required">*</span></label>
-                        <select ng-model="selectedProject.status" name="status" id="status" class="input" tabindex="1" required>
+                        <label for="project-status">Status: <span class="required">*</span></label>
+                        <select ng-model="selectedProject.status" name="project-status" id="project-status" class="input project__status" tabindex="1" required>
                             <?php
                             $statusOptions = [
                                 "" => "Please Select",
@@ -38,34 +38,20 @@ if (!defined("ROOT")) {
                             ?>
                         </select>
 
-                        <label for="date">Date: <span class="required">*</span></label>
-                        <input ng-model="selectedProject.date" type="date" name="date" id="date" class="input" placeholder="2016-01-30" tabindex="13" oninput="jpi.helpers.checkInputField(this);" required />
+                        <label for="project-date">Date: <span class="required">*</span></label>
+                        <input ng-model="selectedProject.date" type="date" name="project-date" id="project-date" class="input project__date" placeholder="2016-01-30" tabindex="13" oninput="jpi.helpers.checkInputField(this);" required />
 
-                        <label for="link">Link:</label>
-                        <input ng-model="selectedProject.link" type="text" name="link" id="link" class="input" placeholder="link" tabindex="10" />
+                        <label for="project-link">Link:</label>
+                        <input ng-model="selectedProject.link" type="text" name="project-link" id="project-link" class="input project__link" placeholder="link" tabindex="10" />
 
-                        <label for="github">GitHub:</label>
-                        <input ng-model="selectedProject.github" type="url" name="github" id="github" class="input" placeholder="github" tabindex="11" />
+                        <label for="project-github">GitHub:</label>
+                        <input ng-model="selectedProject.github" type="url" name="project-github" id="project-github" class="input project__github" placeholder="github" tabindex="11" />
 
-                        <label for="download">Download:</label>
-                        <input ng-model="selectedProject.download" type="text" name="download" id="download" class="input" placeholder="download" tabindex="12" />
+                        <label for="project-download">Download:</label>
+                        <input ng-model="selectedProject.download" type="text" name="project-download" id="project-download" class="input project__download" placeholder="download" tabindex="12" />
 
-                        <label for="colour">Colour:</label>
-                        <select ng-model="selectedProject.colour" name="colour" id="colour" class="input" tabindex="14">
-                            <?php
-                            $colourOptions = [
-                                "" => "Default",
-                                "blue" => "Blue",
-                                "red" => "Red",
-                                "orange" => "Orange",
-                                "lime-green" => "Lime Green",
-                                "green" => "Green",
-                                "purple" => "Purple",
-                            ];
-                            foreach ($colourOptions as $value => $display) {
-                                echo "<option value='{$value}'>{$display}</option>";
-                            }
-                            ?>
+                        <label for="project-colour">Colour:</label>
+                        <select ng-options="colour as colourName for (colour, colourName) in colourOptions" ng-model="selectedProject.colour" name="project-colour" id="project-colour" class="input project__colour" tabindex="14">
                         </select>
 
                         <label for="skill-input">Skills: <span class="required">*</span></label>
@@ -85,11 +71,11 @@ if (!defined("ROOT")) {
                             </button>
                         </div>
 
-                        <label for="shortDescription">Short Description: <span class="required">*</span></label>
-                        <textarea ng-model="selectedProject.short_description" name="description" id="shortDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+                        <label for="project-short-desc">Short Description: <span class="required">*</span></label>
+                        <textarea ui-tinymce="tinymceOptions" ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" tabindex="9"></textarea>
 
-                        <label for="longDescription">Long Description: <span class="required">*</span></label>
-                        <textarea ng-model="selectedProject.long_description" name="description" id="longDescription" class="input" placeholder="description" tabindex="9" oninput="jpi.helpers.checkInputField(this);" required rows="10"></textarea>
+                        <label for="project-long-desc">Long Description: <span class="required">*</span></label>
+                        <textarea ui-tinymce="tinymceOptions" ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" tabindex="9"></textarea>
 
                         <!-- Div containing all the project images -->
                         <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">

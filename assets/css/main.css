@@ -245,42 +245,42 @@ button,
 
 .btn--blue:hover,
 .btn--blue:focus {
-  background-color: #035691; }
+  background-color: #0382c3; }
 
 .btn--red {
-  background-color: #e52525; }
+  background-color: #f12525; }
 
 .btn--red:hover,
 .btn--red:focus {
-  background-color: #c32424; }
+  background-color: #ff2525; }
 
 .btn--orange {
-  background-color: #e1a02f; }
+  background-color: #f69e00; }
 
 .btn--orange:hover,
 .btn--orange:focus {
-  background-color: #d2922e; }
+  background-color: #fba300; }
 
 .btn--lime-green {
-  background-color: #b5c82f; }
+  background-color: #b5cf16; }
 
 .btn--lime-green:hover,
 .btn--lime-green:focus {
-  background-color: #a6b930; }
+  background-color: #bdd716; }
 
 .btn--green {
-  background-color: #5cb85c; }
+  background-color: #1aaf5d; }
 
 .btn--green:hover,
 .btn--green:focus {
-  background-color: #54a754; }
+  background-color: #1bbe69; }
 
 .btn--purple {
-  background-color: #80379b; }
+  background-color: #82379d; }
 
 .btn--purple:hover,
 .btn--purple:focus {
-  background-color: #62357d; }
+  background-color: #9339af; }
 
 .btn--clear {
   background-color: transparent;
@@ -320,7 +320,7 @@ label {
 
 .required,
 .notice {
-  color: #e52525;
+  color: #f12525;
   font-weight: 700; }
 
 .input {
@@ -336,7 +336,7 @@ label {
   transition: all 0.3s ease-in-out; }
 
 .input::placeholder {
-  color: gray; }
+  color: #7b8676; }
 
 .input:focus {
   box-shadow: 0 0 8px #0375b4;
@@ -350,10 +350,10 @@ label {
   box-shadow: 0 0 8px rgba(229, 37, 37, 0.6); }
 
 .input.valid {
-  border-color: green; }
+  border-color: #008000; }
 
 .input:focus.valid {
-  border-color: green;
+  border-color: #008000;
   box-shadow: 0 0 8px rgba(0, 128, 0, 0.6); }
 
 .styled-checkbox {
@@ -378,7 +378,7 @@ label {
   left: 0;
   top: 0;
   background: white;
-  border: 2px solid gray;
+  border: 2px solid #7b8676;
   transition: all 0.3s ease-in-out; }
 
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
@@ -405,7 +405,7 @@ label {
   width: 100%; }
 
 .feedback--success {
-  color: green; }
+  color: #008000; }
 
 .feedback--error {
   color: #e52525; }
@@ -461,10 +461,10 @@ label {
   position: relative; }
 
 .opened .nav__mobile-toggle {
-  border-color: #e52525; }
+  border-color: #f12525; }
 
 .opened .menu-bar {
-  background-color: #e52525; }
+  background-color: #f12525; }
 
 .menu-bar--top {
   top: 0; }
@@ -638,7 +638,8 @@ label {
   padding: 5px;
   border-radius: 6px;
   background-color: white;
-  border: 2px solid white; }
+  border: 2px solid white;
+  text-align: center; }
 
 .project__upload--success {
   border-color: #0375b4; }
@@ -680,8 +681,8 @@ label {
   background: #e52525; }
 
 .project__feedback.feedback--success {
-  border-color: green;
-  background: green; }
+  border-color: #008000;
+  background: #008000; }
 
 .project__hide-error {
   position: absolute;
@@ -695,14 +696,15 @@ label {
   padding: 0; }
 
 .project__image-container {
+  position: relative;
   width: 100%;
   padding: 5px;
-  background-color: white;
   border-radius: 4px;
   margin: 5px 0;
-  position: relative;
-  list-style: none;
+  text-align: center;
+  background-color: white;
   border: 1px solid #e0e0e0;
+  list-style: none;
   cursor: pointer; }
 
 .project__image {
@@ -751,27 +753,27 @@ label {
 
 .project__skill--blue {
   background-color: #0375b4;
-  border-color: #035691; }
+  border-color: #0382c3; }
 
 .project__skill--red {
-  background-color: #e52525;
-  border-color: #c32424; }
+  background-color: #f12525;
+  border-color: #ff2525; }
 
 .project__skill--orange {
-  background-color: #e1a02f;
-  border-color: #d2922e; }
+  background-color: #f69e00;
+  border-color: #fba300; }
 
 .project__skill--lime-green {
-  background-color: #b5c82f;
-  border-color: #a6b930; }
+  background-color: #b5cf16;
+  border-color: #bdd716; }
 
 .project__skill--green {
-  background-color: #5cb85c;
-  border-color: #54a754; }
+  background-color: #1aaf5d;
+  border-color: #1bbe69; }
 
 .project__skill--purple {
-  background-color: #80379b;
-  border-color: #62357d; }
+  background-color: #82379d;
+  border-color: #9339af; }
 
 .project__skill-delete-button {
   margin: 2px;

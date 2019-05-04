@@ -76,6 +76,31 @@ window.jpi.helpers = (function(jQuery) {
             }
         },
 
+        /*
+         * http://davidwalsh.name/javascript-debounce-function
+         */
+        debounce: function(func, wait, immediate) {
+            var timeout;
+            return function() {
+                var context = this,
+                    args = arguments;
+
+                var later = function() {
+                    timeout = null;
+                    if (!immediate) {
+                        func.apply(context, args);
+                    }
+                };
+
+                var callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) {
+                    func.apply(context, args);
+                }
+            };
+        },
+
         // Expands height of content to make it full length
         expandSection: function() {
             var contentElem = jQuery(global.contentSelector);
@@ -105,7 +130,8 @@ window.jpi.helpers = (function(jQuery) {
         },
 
         initListeners: function() {
-            jQuery(window).on("load orientationchange resize", fn.expandSection);
+            jQuery(window).on("load", fn.expandSection)
+                          .on("orientationchange resize", fn.debounce(fn.expandSection, 150));
         },
     };
 
@@ -118,6 +144,7 @@ window.jpi.helpers = (function(jQuery) {
         getAJAXResponse: fn.getAJAXResponse,
         getInt: fn.getInt,
         checkInputField: fn.checkInputField,
+        debounce: fn.debounce,
         delayExpandingSection: fn.delayExpandingSection,
     };
 

@@ -57,7 +57,7 @@ if (!defined("ROOT")) {
                         <label for="skill-input">Skills: <span class="required">*</span></label>
 
                         <div ng-model="selectedProject.skills" ui-sortable class="ui-state-default">
-                            <p ng-repeat="skill in selectedProject.skills" class="project__skill project__skill--{{ selectedProject.colour }}">{{ skill }}
+                            <p ng-repeat="skill in selectedProject.skills track by $index" class="project__skill project__skill--{{ selectedProject.colour }}">{{ skill }}
                                 <button class="btn project__skill-delete-button" ng-click="deleteSkill(skill)" type="button">x</button>
                             </p>
                         </div>

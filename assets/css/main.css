@@ -343,18 +343,18 @@ label {
   border-color: #0375b4; }
 
 .input.invalid {
-  border-color: #f74440; }
+  border-color: #e52525; }
 
 .input:focus.invalid {
-  border-color: #f74440;
-  box-shadow: 0 0 8px rgba(247, 68, 64, 0.6); }
+  border-color: #e52525;
+  box-shadow: 0 0 8px rgba(229, 37, 37, 0.6); }
 
 .input.valid {
-  border-color: #00a000; }
+  border-color: #008000; }
 
 .input:focus.valid {
-  border-color: #00a000;
-  box-shadow: 0 0 8px rgba(0, 160, 0, 0.6); }
+  border-color: #008000;
+  box-shadow: 0 0 8px rgba(0, 128, 0, 0.6); }
 
 .styled-checkbox {
   position: relative;
@@ -405,10 +405,10 @@ label {
   width: 100%; }
 
 .feedback--success {
-  color: #00a000; }
+  color: #008000; }
 
 .feedback--error {
-  color: #f74440; }
+  color: #e52525; }
 
 /* Only for Tablets & Desktops */
 @media only screen and (min-width: 768px) {
@@ -651,8 +651,8 @@ label {
   margin: 0 auto; }
 
 .project__upload--failed {
-  border-color: #f62c28;
-  color: #f74440; }
+  border-color: #d71a1a;
+  color: #e52525; }
 
 .project__feedback {
   display: block;
@@ -677,12 +677,12 @@ label {
   max-height: 0; }
 
 .project__feedback.feedback--error {
-  border-color: #f74440;
-  background: #f74440; }
+  border-color: #e52525;
+  background: #e52525; }
 
 .project__feedback.feedback--success {
-  border-color: #00a000;
-  background: #00a000; }
+  border-color: #008000;
+  background: #008000; }
 
 .project__hide-error {
   position: absolute;

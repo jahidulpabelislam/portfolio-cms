@@ -766,20 +766,21 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         var isFormValid = fn.validateProjectForm();
         if (isFormValid) {
-            var id = $scope.selectedProject.id || "",
-                method = $scope.selectedProject.id ? "PUT" : "POST",
+            var project = $scope.selectedProject,
+                id = project.id || "",
+                method = project.id ? "PUT" : "POST",
                 data = {
-                    "name": $scope.selectedProject.name || "",
-                    "status": $scope.selectedProject.status || "",
-                    "date": $scope.selectedProject.date || "",
-                    "link": $scope.selectedProject.link || "",
-                    "github": $scope.selectedProject.github || "",
-                    "download": $scope.selectedProject.download || "",
-                    "colour": $scope.selectedProject.colour || "",
-                    "skills[]": $scope.selectedProject.skills || [],
-                    "short_description": $scope.selectedProject.short_description || "",
-                    "long_description": $scope.selectedProject.long_description || "",
-                    "images": $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : [],
+                    "name": project.name || "",
+                    "status": project.status || "",
+                    "date": project.date || "",
+                    "link": project.link || "",
+                    "github": project.github || "",
+                    "download": project.download || "",
+                    "colour": project.colour || "",
+                    "skills[]": project.skills || [],
+                    "short_description": project.short_description || "",
+                    "long_description": project.long_description || "",
+                    "images": project.images ? angular.toJson(project.images) : [],
                 };
 
             fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);

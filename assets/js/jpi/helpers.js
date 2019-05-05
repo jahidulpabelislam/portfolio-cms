@@ -101,6 +101,28 @@ window.jpi.helpers = (function(jQuery) {
             };
         },
 
+        slashURL: function(url, isRelative) {
+            if (isRelative && url[0] !== "/") {
+                url = "/" + url;
+            }
+
+            if (url[url.length - 1] !== "/") {
+                url += "/";
+            }
+
+            return url;
+        },
+
+        genURL: function(domain, relativeURL) {
+            if (domain[domain.length - 1] === "/") {
+                domain = domain.substring(0, domain.length - 1);
+            }
+
+            relativeURL = fn.slashURL(relativeURL, true);
+
+            return domain + relativeURL;
+        },
+
         // Expands height of content to make it full length
         expandSection: function() {
             var contentElem = jQuery(global.contentSelector);
@@ -144,6 +166,8 @@ window.jpi.helpers = (function(jQuery) {
         getAJAXResponse: fn.getAJAXResponse,
         getInt: fn.getInt,
         checkInputField: fn.checkInputField,
+        slashURL: fn.slashURL,
+        genURL: fn.genURL,
         debounce: fn.debounce,
         delayExpandingSection: fn.delayExpandingSection,
     };

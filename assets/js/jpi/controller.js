@@ -104,7 +104,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         doAJAXCall: function(url, method, onSuccess, onFail, data) {
-            var fullUrl = jpi.config.jpiAPIEndpoint + url + "/",
+            var fullUrl = jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, url),
                 options = {
                     url: fullUrl,
                     method: method.toUpperCase(),
@@ -682,7 +682,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             form.append("image", upload.file);
 
             $http.post(
-                jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.id + "/images/",
+                jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, "/projects/" + $scope.selectedProject.id + "/images/"),
                 form,
                 {
                     transformRequest: angular.identity,

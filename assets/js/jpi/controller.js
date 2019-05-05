@@ -780,7 +780,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     "skills[]": project.skills || [],
                     "short_description": project.short_description || "",
                     "long_description": project.long_description || "",
-                    "images": project.images ? angular.toJson(project.images) : [],
+                    "images[]": project.images || [],
                 };
 
             fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);

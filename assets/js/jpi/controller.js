@@ -852,10 +852,6 @@ app.controller("portfolioCMSController", function($scope, $http) {
             project.updated_at = "Not Available";
         }
 
-        if (typeof project.skills === "string") {
-            project.skills = project.skills.split(",");
-        }
-
         $scope.selectedProject = project;
     };
 

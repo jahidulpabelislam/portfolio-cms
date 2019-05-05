@@ -769,17 +769,17 @@ app.controller("portfolioCMSController", function($scope, $http) {
             var id = $scope.selectedProject.id || "",
                 method = $scope.selectedProject.id ? "PUT" : "POST",
                 data = {
-                    name: $scope.selectedProject.name || "",
-                    status: $scope.selectedProject.status || "",
-                    date: $scope.selectedProject.date || "",
-                    link: $scope.selectedProject.link || "",
-                    github: $scope.selectedProject.github || "",
-                    download: $scope.selectedProject.download || "",
-                    colour: $scope.selectedProject.colour || "",
-                    skills: $scope.selectedProject.skills ? $scope.selectedProject.skills.join(",") : "",
-                    short_description: $scope.selectedProject.short_description || "",
-                    long_description: $scope.selectedProject.long_description || "",
-                    images: $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : [],
+                    "name": $scope.selectedProject.name || "",
+                    "status": $scope.selectedProject.status || "",
+                    "date": $scope.selectedProject.date || "",
+                    "link": $scope.selectedProject.link || "",
+                    "github": $scope.selectedProject.github || "",
+                    "download": $scope.selectedProject.download || "",
+                    "colour": $scope.selectedProject.colour || "",
+                    "skills[]": $scope.selectedProject.skills || [],
+                    "short_description": $scope.selectedProject.short_description || "",
+                    "long_description": $scope.selectedProject.long_description || "",
+                    "images": $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : [],
                 };
 
             fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);

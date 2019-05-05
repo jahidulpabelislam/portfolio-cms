@@ -681,8 +681,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
             var form = new FormData();
             form.append("image", upload.file);
 
+            var relativeURL = "/projects/" + $scope.selectedProject.id + "/images/";
             $http.post(
-                jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, "/projects/" + $scope.selectedProject.id + "/images/"),
+                jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, relativeURL),
                 form,
                 {
                     transformRequest: angular.identity,

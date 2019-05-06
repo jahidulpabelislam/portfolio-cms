@@ -363,7 +363,15 @@ label {
   padding-top: 2px; }
 
 .styled-checkbox .checkbox {
-  display: none; }
+  opacity: 0;
+  display: inline;
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
 
 .styled-checkbox__label {
   margin: 0;
@@ -381,6 +389,7 @@ label {
   border: 2px solid #7b8676;
   transition: all 0.3s ease-in-out; }
 
+.styled-checkbox .checkbox:focus + .styled-checkbox__pseudo,
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
   border-color: #0375b4; }
 

@@ -122,7 +122,7 @@ window.jpi.helpers = (function() {
             return domain + relativeURL;
         },
 
-    }
+    };
 
     return {
         getJwt: fn.getJwt,

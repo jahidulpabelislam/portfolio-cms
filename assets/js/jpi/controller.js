@@ -712,17 +712,17 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                         "Authorization": "Bearer " + jpi.helpers.getJwt(),
                     },
                 })
-                 .then(
-                     function(response) {
-                         response = jpi.helpers.getAJAXResponse(response);
-                         fn.onSuccessfulProjectImageUpload(response, upload);
-                     },
-                     function(response) {
-                         response = jpi.helpers.getAJAXResponse(response);
-                         var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
-                         fn.showProjectError(message, "feedback--error");
-                     }
-                 );
+                .then(
+                    function(response) {
+                        response = jpi.helpers.getAJAXResponse(response);
+                        fn.onSuccessfulProjectImageUpload(response, upload);
+                    },
+                    function(response) {
+                        response = jpi.helpers.getAJAXResponse(response);
+                        var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
+                        fn.showProjectError(message, "feedback--error");
+                    }
+                );
         });
     };
 
@@ -955,8 +955,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 ],
             },
         ],
-        relative_urls : true,
-        document_base_url : "https://jahidulpabelislam.com",
+        relative_urls: true,
+        document_base_url: "https://jahidulpabelislam.com",
         convert_urls: false,
         link_title: false,
         rel_list: [

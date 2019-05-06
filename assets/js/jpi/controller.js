@@ -18,7 +18,7 @@ app.directive("fileUpload", function() {
     };
 });
 
-app.controller("portfolioCMSController", function($scope, $http) {
+app.controller("portfolioCMSController", function($scope, $http, $httpParamSerializerJQLike) {
 
     "use strict";
 
@@ -104,17 +104,27 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         doAJAXCall: function(url, method, onSuccess, onFail, data) {
-            var fullUrl = jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, url),
-                options = {
-                    url: fullUrl,
-                    method: method.toUpperCase(),
-                    params: data || {},
-                };
+            var fullUrl = jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, url);
+
+            method = method.toUpperCase();
+            data = data || {};
+
+            var options = {
+                url: fullUrl,
+                method: method,
+                headers: {},
+            };
+
+            if (method === "POST") {
+                options.headers["Content-Type"] = "application/x-www-form-urlencoded";
+                options.data = $httpParamSerializerJQLike(data);
+            }
+            else {
+                options.params = data;
+            }
 
             if (url !== "login") {
-                options.headers = {
-                    Authorization: "Bearer " + jpi.helpers.getJwt(),
-                };
+                options.headers.Authorization = "Bearer " + jpi.helpers.getJwt();
             }
 
             $http(options).then(
@@ -778,13 +788,21 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     "github": project.github || "",
                     "download": project.download || "",
                     "colour": project.colour || "",
-                    "skills[]": project.skills || [],
                     "short_description": project.short_description || "",
                     "long_description": project.long_description || "",
                     "images[]": project.images || [],
                 };
 
-            fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);
+            var skillsProp = project.id ? "skills[]" : "skills";
+            data[skillsProp] = project.skills || [];
+
+            fn.doAJAXCall(
+                "projects/" + id,
+                method,
+                fn.onSuccessfulProjectSave,
+                fn.onFailedProjectSave,
+                data
+            );
         }
         else {
             var message = "Fill in Required Inputs Fields.";

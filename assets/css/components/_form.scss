@@ -12,7 +12,7 @@ label {
 
 .required,
 .notice {
-    color: colour(red, main);
+    color: get-colour(red, main);
     font-weight: 700;
 }
 

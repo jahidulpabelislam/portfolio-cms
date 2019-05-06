@@ -38,6 +38,15 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
      */
     var fn = {
 
+        resetFooter: function() {
+            if (jpi && jpi.stickyFooter) {
+                // Slight delay so Angular updates UI
+                setTimeout(function() {
+                    jpi.stickyFooter.repositionFooter();
+                }, 1);
+            }
+        },
+
         setURl: function(url) {
             url += "/";
             global.url.pathname = url;
@@ -75,7 +84,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 text: errorMessage,
             });
             $scope.$apply();
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         scrollToUploads: function() {
@@ -170,7 +179,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
 
             fn.showProjectError(message, feedbackClass);
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         onSuccessfulProjectImageUpload: function(response, upload) {
@@ -198,7 +207,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
 
             fn.showProjectSelectError(jpi.helpers.getFeedback(response, defaultFeedback), feedbackClass);
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         onSuccessfulProjectSave: function(response) {
@@ -272,7 +281,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         setUpEditProject: function() {
@@ -347,7 +356,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 fn.showProjectSelectError(message);
             }
 
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         getProjects: function(page, addToHistory) {
@@ -490,7 +499,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
             fn.hideLoading();
 
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
 
             global.redirectTo = redirectTo;
             fn.setURl("login");
@@ -732,7 +741,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     file: file,
                 });
                 $scope.$apply();
-                jpi.helpers.delayExpandingSection();
+                fn.resetFooter();
             };
 
             fileReader.onerror = function() {
@@ -851,7 +860,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.showProjectSelectError("Select A Project To Delete.");
         }
 
-        jpi.helpers.delayExpandingSection();
+        fn.resetFooter();
     };
 
     $scope.selectProject = function(project) {
@@ -983,11 +992,16 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
      * Allow some selective functions to be window scoped (So it can be used in other JS files)
      */
     window.jpi = window.jpi || {};
+
     window.jpi.cms = {
         checkFile: $scope.checkFile,
         renderFailedUpload: fn.renderFailedUpload,
         scrollToUploads: fn.scrollToUploads,
     };
+
+    jQuery(window).on("load", function() {
+        jpi.stickyFooter = new StickyFooter(".main-content");
+    });
 
     jQuery(document).on("ready", fn.init);
 

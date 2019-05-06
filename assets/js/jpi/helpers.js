@@ -2,12 +2,11 @@
  * Holds any helpers functions for whole project
  */
 window.jpi = window.jpi || {};
-window.jpi.helpers = (function(jQuery) {
+window.jpi.helpers = (function() {
 
     "use strict";
 
     var global = {
-        contentSelector: ".main-content",
         jwtStorageKey: "cmsJwt",
         jwt: "",
     };
@@ -123,41 +122,7 @@ window.jpi.helpers = (function(jQuery) {
             return domain + relativeURL;
         },
 
-        // Expands height of content to make it full length
-        expandSection: function() {
-            var contentElem = jQuery(global.contentSelector);
-
-            // Makes content default height to work out if content is too small or big
-            contentElem.height("auto");
-
-            // Calculates the default height of the content
-            var height = contentElem.outerHeight(true);
-
-            // Checks if default height of content is shorter than screen height
-            if (height < jQuery(window).height()) {
-                // Section is extended to fill the difference
-                contentElem.height(jQuery(window).height() - height + contentElem.height());
-            }
-        },
-
-        /*
-         * Used to expand height of section every 10 milliseconds
-         * created to combat against the css transition delays
-         */
-        delayExpandingSection: function() {
-            var timer = setInterval(fn.expandSection, 100);
-            setTimeout(function() {
-                clearInterval(timer);
-            }, 2500);
-        },
-
-        initListeners: function() {
-            jQuery(window).on("load", fn.expandSection)
-                          .on("orientationchange resize", fn.debounce(fn.expandSection, 150));
-        },
-    };
-
-    jQuery(document).on("ready", fn.initListeners);
+    }
 
     return {
         getJwt: fn.getJwt,
@@ -169,7 +134,6 @@ window.jpi.helpers = (function(jQuery) {
         slashURL: fn.slashURL,
         genURL: fn.genURL,
         debounce: fn.debounce,
-        delayExpandingSection: fn.delayExpandingSection,
     };
 
-})(jQuery);
+})();

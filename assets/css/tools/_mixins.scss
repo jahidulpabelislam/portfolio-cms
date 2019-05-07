@@ -1,3 +1,17 @@
-@function get-colour($colour, $colour-variant) {
-    @return map-get(map-get($colour-schemes, $colour), $colour-variant);
+@function get-colour-variant($variants, $variant, $default: "") {
+    $colour: map-get($variants, $variant);
+
+    $colour: $default !default; // If variant not found use default colour
+
+    @return $colour;
+}
+
+@function get-colour($colour, $variant, $default: "") {
+    $variants: map-get($colour-schemes, $colour);
+
+    $variants: map-get($colour-schemes, dark-blue) !default; // If colour not found use default colour
+
+    $colour: get-colour-variant($variants, $variant, $default);
+
+    @return $colour;
 }

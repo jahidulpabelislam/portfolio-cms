@@ -914,12 +914,18 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
     $scope.colourOptions = {
         "": "Default",
-        "blue": "Blue",
+        "light-blue": "Light blue",
+        "dark-blue": "Dark blue",
+        "purple": "Purple",
+        "pink": "Pink",
         "red": "Red",
         "orange": "Orange",
-        "lime-green": "Lime Green",
-        "green": "Green",
-        "purple": "Purple",
+        "yellow": "Yellow",
+        "light-green": "Light green",
+        "lime-green": "Lime green",
+        "dark-green": "Dark green",
+        "grey": "Grey",
+        "black": "Black",
     };
 
     var tinymceOptions = {

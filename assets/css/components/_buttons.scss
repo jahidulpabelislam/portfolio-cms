@@ -32,6 +32,7 @@ button,
 @each $colour, $colours in $colour-schemes {
     .btn--#{$colour} {
         background-color: map-get($colours, main);
+        color: get-colour-variant($colours, text, white);
     }
 
     .btn--#{$colour}:hover,

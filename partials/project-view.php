@@ -66,7 +66,7 @@ if (!defined("ROOT")) {
                         <div class="project__skill-input-container">
                             <label for="skill-input" class="screen-reader-text">Add skills for project.</label>
                             <input ng-model="skillInput" type="text" class="input project__skill-input" id="skill-input" placeholder="HTML5" tabindex="1" />
-                            <button type="button" class="btn btn--green project__skill-add-button" type="button" id="skill-add" ng-click="addSkill()" tabindex="1">
+                            <button type="button" class="btn btn--dark-green project__skill-add-button" type="button" id="skill-add" ng-click="addSkill()" tabindex="1">
                                 <span class="screen-reader-text">Add</span>
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -86,7 +86,7 @@ if (!defined("ROOT")) {
                             </li>
                         </ul>
 
-                        <button type="submit" value="Add Project" class="btn btn--green project__save-button" tabindex="1">
+                        <button type="submit" value="Add Project" class="btn btn--dark-green project__save-button" tabindex="1">
                             <span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span>
                             <i class="fa fa-upload"></i>
                         </button>
@@ -98,7 +98,7 @@ if (!defined("ROOT")) {
                             <div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">
                                 <p>{{ upload.text }}</p>
                                 <img ng-if="upload.ok == true" src="{{ upload.image }}" />
-                                <button type="button" ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--blue" tabindex="1">
+                                <button type="button" ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--dark-blue" tabindex="1">
                                     <span class="screen-reader-text">Upload This Image</span>
                                     <i class="fa fa-upload"></i>
                                 </button>

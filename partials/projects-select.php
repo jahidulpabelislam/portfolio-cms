@@ -18,7 +18,7 @@ if (!defined("ROOT")) {
                     <p class="feedback feedback--error projects-select__feedback" ng-show="selectProjectFeedback">{{ selectProjectFeedback }}</p>
 
                     <div>
-                        <a href="/project/{{ selectedProject.id }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.id" class="btn btn--blue projects-select__edit-button js-edit-project" tabindex="1">
+                        <a href="/project/{{ selectedProject.id }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.id" class="btn btn--dark-blue projects-select__edit-button js-edit-project" tabindex="1">
                             <span class="screen-reader-text">Edit</span>
                             <i class="fa fa-edit"></i>
                         </a>
@@ -26,7 +26,7 @@ if (!defined("ROOT")) {
                             <span class="screen-reader-text">Delete</span>
                             <i class="fa fa-trash"></i>
                         </button>
-                        <a href="/project/new/" title="Link to New Project Form Page" class="btn btn--green projects-select__add-button js-new-project" tabindex="1">
+                        <a href="/project/new/" title="Link to New Project Form Page" class="btn btn--dark-green projects-select__add-button js-new-project" tabindex="1">
                             <span class="screen-reader-text">Add A Project</span>
                             <i class="fa fa-plus"></i>
                         </a>

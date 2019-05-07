@@ -18,7 +18,7 @@ app.directive("fileUpload", function() {
     };
 });
 
-app.controller("portfolioCMSController", function($scope, $http) {
+app.controller("portfolioCMSController", function($scope, $http, $httpParamSerializerJQLike) {
 
     "use strict";
 
@@ -37,6 +37,15 @@ app.controller("portfolioCMSController", function($scope, $http) {
      * Any Functions only used within JS
      */
     var fn = {
+
+        resetFooter: function() {
+            if (jpi && jpi.stickyFooter) {
+                // Slight delay so Angular updates UI
+                setTimeout(function() {
+                    jpi.stickyFooter.repositionFooter();
+                }, 1);
+            }
+        },
 
         setURl: function(url) {
             url += "/";
@@ -75,7 +84,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 text: errorMessage,
             });
             $scope.$apply();
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         scrollToUploads: function() {
@@ -104,17 +113,27 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         doAJAXCall: function(url, method, onSuccess, onFail, data) {
-            var fullUrl = jpi.config.jpiAPIEndpoint + url + "/",
-                options = {
-                    url: fullUrl,
-                    method: method.toUpperCase(),
-                    params: data || {},
-                };
+            var fullUrl = jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, url);
+
+            method = method.toUpperCase();
+            data = data || {};
+
+            var options = {
+                url: fullUrl,
+                method: method,
+                headers: {},
+            };
+
+            if (method === "POST") {
+                options.headers["Content-Type"] = "application/x-www-form-urlencoded";
+                options.data = $httpParamSerializerJQLike(data);
+            }
+            else {
+                options.params = data;
+            }
 
             if (url !== "login") {
-                options.headers = {
-                    Authorization: "Bearer " + jpi.helpers.getJwt(),
-                };
+                options.headers.Authorization = "Bearer " + jpi.helpers.getJwt();
             }
 
             $http(options).then(
@@ -160,7 +179,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             }
 
             fn.showProjectError(message, feedbackClass);
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         onSuccessfulProjectImageUpload: function(response, upload) {
@@ -188,7 +207,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             }
 
             fn.showProjectSelectError(jpi.helpers.getFeedback(response, defaultFeedback), feedbackClass);
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         onSuccessfulProjectSave: function(response) {
@@ -262,7 +281,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         setUpEditProject: function() {
@@ -337,7 +356,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 fn.showProjectSelectError(message);
             }
 
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
         },
 
         getProjects: function(page, addToHistory) {
@@ -480,7 +499,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             }
             fn.hideLoading();
 
-            jpi.helpers.delayExpandingSection();
+            fn.resetFooter();
 
             global.redirectTo = redirectTo;
             fn.setURl("login");
@@ -681,8 +700,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
             var form = new FormData();
             form.append("image", upload.file);
 
+            var relativeURL = "/projects/" + $scope.selectedProject.id + "/images/";
             $http.post(
-                jpi.config.jpiAPIEndpoint + "projects/" + $scope.selectedProject.id + "/images/",
+                jpi.helpers.genURL(jpi.config.jpiAPIEndpoint, relativeURL),
                 form,
                 {
                     transformRequest: angular.identity,
@@ -692,17 +712,17 @@ app.controller("portfolioCMSController", function($scope, $http) {
                         "Authorization": "Bearer " + jpi.helpers.getJwt(),
                     },
                 })
-                 .then(
-                     function(response) {
-                         response = jpi.helpers.getAJAXResponse(response);
-                         fn.onSuccessfulProjectImageUpload(response, upload);
-                     },
-                     function(response) {
-                         response = jpi.helpers.getAJAXResponse(response);
-                         var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
-                         fn.showProjectError(message, "feedback--error");
-                     }
-                 );
+                .then(
+                    function(response) {
+                        response = jpi.helpers.getAJAXResponse(response);
+                        fn.onSuccessfulProjectImageUpload(response, upload);
+                    },
+                    function(response) {
+                        response = jpi.helpers.getAJAXResponse(response);
+                        var message = jpi.helpers.getFeedback(response, "Error uploading the Project Image.");
+                        fn.showProjectError(message, "feedback--error");
+                    }
+                );
         });
     };
 
@@ -721,7 +741,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     file: file,
                 });
                 $scope.$apply();
-                jpi.helpers.delayExpandingSection();
+                fn.resetFooter();
             };
 
             fileReader.onerror = function() {
@@ -766,34 +786,50 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         var isFormValid = fn.validateProjectForm();
         if (isFormValid) {
-            var id = $scope.selectedProject.id || "",
-                method = $scope.selectedProject.id ? "PUT" : "POST",
+            var project = $scope.selectedProject,
+                id = project.id || "",
+                method = project.id ? "PUT" : "POST",
                 data = {
-                    name: $scope.selectedProject.name || "",
-                    status: $scope.selectedProject.status || "",
-                    date: $scope.selectedProject.date || "",
-                    link: $scope.selectedProject.link || "",
-                    github: $scope.selectedProject.github || "",
-                    download: $scope.selectedProject.download || "",
-                    colour: $scope.selectedProject.colour || "",
-                    skills: $scope.selectedProject.skills ? $scope.selectedProject.skills.join(",") : "",
-                    short_description: $scope.selectedProject.short_description || "",
-                    long_description: $scope.selectedProject.long_description || "",
-                    images: $scope.selectedProject.images ? angular.toJson($scope.selectedProject.images) : [],
+                    "name": project.name || "",
+                    "status": project.status || "",
+                    "date": project.date || "",
+                    "link": project.link || "",
+                    "github": project.github || "",
+                    "download": project.download || "",
+                    "colour": project.colour || "",
+                    "short_description": project.short_description || "",
+                    "long_description": project.long_description || "",
+                    "images[]": project.images || [],
                 };
 
-            fn.doAJAXCall("projects/" + id, method, fn.onSuccessfulProjectSave, fn.onFailedProjectSave, data);
+            var skillsProp = project.id ? "skills[]" : "skills";
+            data[skillsProp] = project.skills || [];
+
+            fn.doAJAXCall(
+                "projects/" + id,
+                method,
+                fn.onSuccessfulProjectSave,
+                fn.onFailedProjectSave,
+                data
+            );
         }
         else {
             var message = "Fill in Required Inputs Fields.";
             fn.showProjectError(message, "feedback--error");
 
             setTimeout(function() {
-                var firstInvalidInput = jQuery(".project__form .invalid").first(),
-                    id = firstInvalidInput.attr("id"),
-                    pos = jQuery("label[for=" + id + "]").offset().top,
+                var pos = 0,
+                    firstInvalidInput = jQuery(".project__form .invalid").first(),
+                    inputId = firstInvalidInput.attr("id"),
                     navHeight = jQuery(".nav__header").outerHeight(),
                     feedbackHeight = jQuery(".project__feedback").outerHeight();
+
+                var label = jQuery("label[for=" + inputId + "]");
+                if (!label.length) {
+                    label = firstInvalidInput.prev();
+                }
+
+                pos = label.offset().top;
 
                 jQuery("html, body").animate(
                     {
@@ -824,7 +860,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fn.showProjectSelectError("Select A Project To Delete.");
         }
 
-        jpi.helpers.delayExpandingSection();
+        fn.resetFooter();
     };
 
     $scope.selectProject = function(project) {
@@ -842,10 +878,6 @@ app.controller("portfolioCMSController", function($scope, $http) {
         }
         else {
             project.updated_at = "Not Available";
-        }
-
-        if (typeof project.skills === "string") {
-            project.skills = project.skills.split(",");
         }
 
         $scope.selectedProject = project;
@@ -882,12 +914,18 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
     $scope.colourOptions = {
         "": "Default",
-        "blue": "Blue",
+        "light-blue": "Light blue",
+        "dark-blue": "Dark blue",
+        "purple": "Purple",
+        "pink": "Pink",
         "red": "Red",
         "orange": "Orange",
-        "lime-green": "Lime Green",
-        "green": "Green",
-        "purple": "Purple",
+        "yellow": "Yellow",
+        "light-green": "Light green",
+        "lime-green": "Lime green",
+        "dark-green": "Dark green",
+        "grey": "Grey",
+        "black": "Black",
     };
 
     var tinymceOptions = {
@@ -923,8 +961,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 ],
             },
         ],
-        relative_urls : true,
-        document_base_url : "https://jahidulpabelislam.com",
+        relative_urls: true,
+        document_base_url: "https://jahidulpabelislam.com",
         convert_urls: false,
         link_title: false,
         rel_list: [
@@ -945,11 +983,11 @@ app.controller("portfolioCMSController", function($scope, $http) {
     for (var colour in $scope.colourOptions) {
         var colourName = $scope.colourOptions[colour];
         tinymceOptions.link_class_list.push({
-            title: colourName + " Link",
+            title: colourName + " link",
             value: "link-styled link-styled--" + colour,
         });
         tinymceOptions.link_class_list.push({
-            title: colourName + " Button",
+            title: colourName + " button",
             value: "btn btn--" + colour,
         });
     }
@@ -960,11 +998,16 @@ app.controller("portfolioCMSController", function($scope, $http) {
      * Allow some selective functions to be window scoped (So it can be used in other JS files)
      */
     window.jpi = window.jpi || {};
+
     window.jpi.cms = {
         checkFile: $scope.checkFile,
         renderFailedUpload: fn.renderFailedUpload,
         scrollToUploads: fn.scrollToUploads,
     };
+
+    jQuery(window).on("load", function() {
+        jpi.stickyFooter = new StickyFooter(".main-content");
+    });
 
     jQuery(document).on("ready", fn.init);
 

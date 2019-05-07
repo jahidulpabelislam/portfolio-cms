@@ -12,10 +12,25 @@ $tablet-width: 768px;
 $desktop-width: 1200px;
 
 $colour-schemes: (
-    blue: (
+    light-blue: (
+        main: #54c6e2,
+        hover: #53d1ec,
+        dark: #52c2dd,
+    ),
+    dark-blue: (
         main: #0375b4,
         hover: #0382c3,
         dark: #0360a0,
+    ),
+    purple: (
+        main: #82379d,
+        hover: #9339af,
+        dark: #6c3687,
+    ),
+    pink: (
+        main: #f47ab3,
+        hover: #ff82bf,
+        dark: #ff739b,
     ),
     red: (
         main: #f12525,
@@ -25,21 +40,37 @@ $colour-schemes: (
     orange: (
         main: #f69e00,
         hover: #fba300,
-        dark: #f37d00,
+        dark: #f77f00,
+    ),
+    yellow: (
+        main: #ffef38,
+        hover: #fffd3c,
+        dark: #f8e43b,
+        text: $dark-colour,
+    ),
+    light-green: (
+        main: #3dc714,
+        hover: #3bcf14,
+        dark: #33bb12,
     ),
     lime-green: (
         main: #b5cf16,
         hover: #bdd716,
-        dark: #abbe30,
+        dark: #b4c72f,
     ),
-    green: (
-        main: #1aaf5d,
+    dark-green: (
+        main: #1aad5b,
         hover: #1bbe69,
         dark: #1ba553,
     ),
-    purple: (
-        main: #82379d,
-        hover: #9339af,
-        dark: #6c3687,
+    grey: (
+        main: $grey,
+        hover: lighten($grey, 5%),
+        dark: darken($grey, 10%),
+    ),
+    black: (
+        main: $dark-colour,
+        hover: darken($dark-colour, 5%),
+        dark: darken($dark-colour, 15%),
     ),
 );

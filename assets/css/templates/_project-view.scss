@@ -161,6 +161,7 @@
     .project__skill--#{$colour} {
         background-color: map-get($colours, main);
         border-color: map-get($colours, hover);
+        color: get-colour-variant($colours, text, white);
     }
 }
 
@@ -169,6 +170,8 @@
     padding: 0;
     background-color: transparent;
     border: none;
+    color: inherit;
+    font-weight: 700;
 }
 
 .project__skill-delete-button:hover,

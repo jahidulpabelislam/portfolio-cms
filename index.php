@@ -8,7 +8,7 @@ $isDebug = $app->isDebug();
 ?>
 
 <!DOCTYPE html>
-<html lang="en" ng-app="portfolioCMS">
+<html lang="en-gb" ng-app="portfolioCMS">
     <head>
         <meta charset="UTF-8" />
         <meta name="author" content="Jahidul Pabel Islam" />

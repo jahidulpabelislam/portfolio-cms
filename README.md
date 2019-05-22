@@ -1,5 +1,6 @@
 # Portfolio CMS
 
+[![CodeFactor](https://www.codefactor.io/repository/github/jahidulpabelislam/portfolio-cms/badge?style=flat-square)](https://www.codefactor.io/repository/github/jahidulpabelislam/portfolio-cms/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2186fdc8ef9c493fa4f28032319cd61b)](https://app.codacy.com/app/jahidulpabelislam/portfolio-cms?utm_source=github.com&utm_medium=referral&utm_content=jahidulpabelislam/portfolio-cms&utm_campaign=Badge_Grade_Dashboard)
 
 This CMS is to manage the projects and it's images displayed in my [Portfolio](https://jahidulpabelislam.com/). This is all connected together via a [API](https://github.com/jahidulpabelislam/portfolio-api/) as well as the actual [Portfolio](https://github.com/jahidulpabelislam/portfolio/).

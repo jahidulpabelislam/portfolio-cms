@@ -38,11 +38,6 @@ IndexIgnore *
     deny from all
 </Files>
 
-<Files robots.txt>
-    order allow,deny
-    deny from all
-</Files>
-
 RewriteEngine On
 
 # Redirect all requests to main index router

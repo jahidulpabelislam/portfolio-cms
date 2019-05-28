@@ -100,8 +100,8 @@ window.jpi.helpers = (function() {
             };
         },
 
-        slashURL: function(url, isRelative) {
-            if (isRelative && url[0] !== "/") {
+        slashURL: function(url) {
+            if (url[0] !== "/") {
                 url = "/" + url;
             }
 
@@ -117,7 +117,7 @@ window.jpi.helpers = (function() {
                 domain = domain.substring(0, domain.length - 1);
             }
 
-            relativeURL = fn.slashURL(relativeURL, true);
+            relativeURL = fn.slashURL(relativeURL);
 
             return domain + relativeURL;
         },

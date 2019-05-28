@@ -48,7 +48,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         setURl: function(url) {
-            url += "/";
+            url = jpi.helpers.slashURL(url);
             global.url.pathname = url;
             history.pushState(null, null, global.url.toString());
         },

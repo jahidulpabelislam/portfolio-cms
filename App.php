@@ -13,7 +13,7 @@ class App {
     }
 
     public static function get(): App {
-        if (self::$instance === null) {
+        if (!self::$instance) {
             self::$instance = new self();
         }
 

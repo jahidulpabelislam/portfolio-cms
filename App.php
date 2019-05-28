@@ -2,9 +2,9 @@
 
 class App {
 
-    const DEFAULT_ASSET_VERSION = "1";
+    private const DEFAULT_ASSET_VERSION = "1";
 
-    private static $instance = null;
+    private static $instance;
 
     public function __construct() {
         if (!defined("ROOT")) {
@@ -13,7 +13,7 @@ class App {
     }
 
     public static function get(): App {
-        if (self::$instance === null) {
+        if (!self::$instance) {
             self::$instance = new self();
         }
 
@@ -97,7 +97,7 @@ class App {
      * @return bool Whether or not the debug was set by user on page view
      */
     public static function isDebug(): bool {
-        return (isset($_GET["debug"]) && !($_GET["debug"] == "false" || $_GET["debug"] == "0"));
+        return (isset($_GET["debug"]) && !($_GET["debug"] === "false" || $_GET["debug"] === "0"));
     }
 }
 

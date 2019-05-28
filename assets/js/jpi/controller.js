@@ -48,7 +48,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         setURl: function(url) {
-            url += "/";
+            url = jpi.helpers.slashURL(url, true);
             global.url.pathname = url;
             history.pushState(null, null, global.url.toString());
         },
@@ -96,8 +96,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
              */
 
             var pos = jQuery(".project__uploads").offset().top;
-            if (jQuery(".project__upload").length) {
-                var lastItem = jQuery(".project__upload").last();
+            var uploads = jQuery(".project__upload");
+            if (uploads.length) {
+                var lastItem = uploads.last();
                 var topOfLastItem = lastItem.offset().top;
                 pos = topOfLastItem + lastItem.outerHeight();
             }
@@ -405,7 +406,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
         getAndEditProject: function(id) {
             fn.doAJAXCall(
-                "projects/" + id,
+                "/projects/" + id,
                 "GET",
                 function(response) {
                     fn.onSuccessfulProjectGet(response, id);
@@ -506,7 +507,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         callLogout: function() {
-            fn.doAJAXCall("logout", "DELETE", function(response) {
+            fn.doAJAXCall("/auth/logout", "DELETE", function(response) {
                 if (response && response.meta && response.meta.status && response.meta.status == 200) {
                     jpi.helpers.setJwt("");
                     fn.showLoginForm(response);
@@ -673,7 +674,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
     $scope.checkAuthStatus = function(successFunc, redirectTo, messageOverride) {
         fn.doAJAXCall(
-            "session",
+            "/auth/session",
             "GET",
             function(response) {
                 fn.onSuccessfulAuthCheck(response, successFunc, redirectTo, messageOverride);
@@ -761,7 +762,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         fn.showLoading();
 
         fn.doAJAXCall(
-            "projects/" + projectImage.project_id + "/images/" + projectImage.id,
+            "/projects/" + projectImage.project_id + "/images/" + projectImage.id,
             "DELETE",
             fn.onSuccessfulProjectImageDeletion,
             function(response) {
@@ -806,7 +807,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             data[skillsProp] = project.skills || [];
 
             fn.doAJAXCall(
-                "projects/" + id,
+                "/projects/" + id,
                 method,
                 fn.onSuccessfulProjectSave,
                 fn.onFailedProjectSave,
@@ -818,8 +819,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.showProjectError(message, "feedback--error");
 
             setTimeout(function() {
-                var pos = 0,
-                    firstInvalidInput = jQuery(".project__form .invalid").first(),
+                var firstInvalidInput = jQuery(".project__form .invalid").first(),
                     inputId = firstInvalidInput.attr("id"),
                     navHeight = jQuery(".nav__header").outerHeight(),
                     feedbackHeight = jQuery(".project__feedback").outerHeight();
@@ -829,7 +829,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     label = firstInvalidInput.prev();
                 }
 
-                pos = label.offset().top;
+                var pos = label.offset().top;
 
                 jQuery("html, body").animate(
                     {
@@ -847,7 +847,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         $scope.selectProjectFeedback = "";
         if ($scope.selectedProject && $scope.selectedProject.id) {
             fn.doAJAXCall(
-                "projects/" + $scope.selectedProject.id,
+                "/projects/" + $scope.selectedProject.id,
                 "DELETE",
                 fn.onSuccessfulProjectDeletion,
                 function(response) {
@@ -896,7 +896,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 password: $scope.password,
             };
 
-            fn.doAJAXCall("login", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
+            fn.doAJAXCall("/auth/login", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
         }
         // If both inputs are empty
         else if (!usernameValid && !passwordValid) {

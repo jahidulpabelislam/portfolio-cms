@@ -1,5 +1,8 @@
 # Portfolio CMS
 
+[![CodeFactor](https://www.codefactor.io/repository/github/jahidulpabelislam/portfolio-cms/badge?style=flat-square)](https://www.codefactor.io/repository/github/jahidulpabelislam/portfolio-cms/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2186fdc8ef9c493fa4f28032319cd61b)](https://app.codacy.com/app/jahidulpabelislam/portfolio-cms?utm_source=github.com&utm_medium=referral&utm_content=jahidulpabelislam/portfolio-cms&utm_campaign=Badge_Grade_Dashboard)
+
 This CMS is to manage the projects and it's images displayed in my [Portfolio](https://jahidulpabelislam.com/). This is all connected together via a [API](https://github.com/jahidulpabelislam/portfolio-api/) as well as the actual [Portfolio](https://github.com/jahidulpabelislam/portfolio/).
 
 The CMS (and API) was created as I realised that all the projects within my site were consistent in terms of what information was being shown. Therefore, for future proofing and making it easier to maintain, I thought to make sure it is ALWAYS consistent I can define a common project structure, so each project has the same information. This was done by adding CRUD abilities through a database via a CMS and API.

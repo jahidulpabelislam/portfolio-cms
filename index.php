@@ -2,13 +2,13 @@
 include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
 
 $app = App::get();
-$app->echoConfig();
+$app::echoConfig();
 
-$isDebug = $app->isDebug();
+$isDebug = $app::isDebug();
 ?>
 
 <!DOCTYPE html>
-<html lang="en" ng-app="portfolioCMS">
+<html lang="en-gb" ng-app="portfolioCMS">
     <head>
         <meta charset="UTF-8" />
         <meta name="author" content="Jahidul Pabel Islam" />
@@ -19,12 +19,12 @@ $isDebug = $app->isDebug();
         <?php
         if ($isDebug) {
             ?>
-            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
+            <link href="<?php $app::echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
             <?php
         }
         else {
             ?>
-            <link href="<?php $app->echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
+            <link href="<?php $app::echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
             <?php
         }
         ?>
@@ -80,28 +80,28 @@ $isDebug = $app->isDebug();
             ?>
             <!-- All individual js files for site as debug is specified -->
             <!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/jquery.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/angular.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/sortable.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js"); ?>" type="text/javascript"></script>
 
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
             <?php
         }
         else {
             ?>
             <!-- Compiled project & libraries js files -->
-            <script src="<?php $app->echoWithAssetVersion("/assets/js/main.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/main.min.js"); ?>" type="text/javascript"></script>
             <?php
         }
         ?>
 
-        <script src="https://cdn.jsdelivr.net/gh/jahidulpabelislam/StickyFooter.js@1.0.0/src/sticky-footer.min.js" type="application/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/gh/jahidulpabelislam/sticky-footer.js@1.0.0/src/sticky-footer.min.js" type="application/javascript"></script>
 
         <!-- The AngularJS script for the CMS page -->
-        <script src="<?php $app->echoWithAssetVersion("/assets/js/jpi/controller.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/controller.js"); ?>" type="text/javascript"></script>
     </body>
 </html>

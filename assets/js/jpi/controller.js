@@ -96,8 +96,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
              */
 
             var pos = jQuery(".project__uploads").offset().top;
-            if (jQuery(".project__upload").length) {
-                var lastItem = jQuery(".project__upload").last();
+            var uploads = jQuery(".project__upload");
+            if (uploads.length) {
+                var lastItem = uploads.last();
                 var topOfLastItem = lastItem.offset().top;
                 pos = topOfLastItem + lastItem.outerHeight();
             }
@@ -818,8 +819,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.showProjectError(message, "feedback--error");
 
             setTimeout(function() {
-                var pos = 0,
-                    firstInvalidInput = jQuery(".project__form .invalid").first(),
+                var firstInvalidInput = jQuery(".project__form .invalid").first(),
                     inputId = firstInvalidInput.attr("id"),
                     navHeight = jQuery(".nav__header").outerHeight(),
                     feedbackHeight = jQuery(".project__feedback").outerHeight();
@@ -829,7 +829,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     label = firstInvalidInput.prev();
                 }
 
-                pos = label.offset().top;
+                var pos = label.offset().top;
 
                 jQuery("html, body").animate(
                     {

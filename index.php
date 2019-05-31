@@ -99,7 +99,7 @@ $isDebug = $app::isDebug();
         }
         ?>
 
-        <script src="https://cdn.jsdelivr.net/gh/jahidulpabelislam/sticky-footer.js@1.0.0/src/sticky-footer.min.js" type="application/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/gh/jahidulpabelislam/sticky-footer.js@1.1.0/src/sticky-footer.min.js" type="application/javascript"></script>
 
         <!-- The AngularJS script for the CMS page -->
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/controller.js"); ?>" type="text/javascript"></script>

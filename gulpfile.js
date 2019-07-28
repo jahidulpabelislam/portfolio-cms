@@ -1,10 +1,13 @@
-const gulp = require("gulp");
+const gulp = require("gulp"),
 
-const concat = require("gulp-concat");
-const uglify = require("gulp-uglify");
-const cleanCss = require("gulp-clean-css");
-const autoprefixer = require("gulp-autoprefixer");
-const sass = require("gulp-sass");
+    concat = require("gulp-concat"),
+
+    uglify = require("gulp-uglify"),
+
+    cleanCss = require("gulp-clean-css"),
+    autoPrefixer = require("gulp-autoprefixer"),
+
+    sass = require("gulp-sass");
 
 let defaultTasks = [];
 
@@ -53,7 +56,7 @@ stylesheetNames.forEach(function(key) {
         return gulp.src(stylesheets[key])
                    .pipe(concat(key + ".min.css"))
                    .pipe(
-                       autoprefixer({
+                       autoPrefixer({
                            browsers: ["> 0.1%", "ie 8-11"],
                            remove: false,
                        })

@@ -9,8 +9,9 @@ app.directive("fileUpload", function() {
         scope: true,
         link: function($scope, $element) {
             $element.bind("change", function() {
-                for (var i = 0; i < $element[0].files.length; i++) {
-                    $scope.checkFile($element[0].files[i]);
+                var files = $element[0].files;
+                for (var i = 0; i < files.length; i++) {
+                    $scope.checkFile(files[i]);
                 }
                 jpi.cms.scrollToUploads();
             });

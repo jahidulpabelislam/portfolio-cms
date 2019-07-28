@@ -971,8 +971,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         ],
         link_class_list: [
             {title: "None", value: ""},
-            {title: "Project link", value: "link-styled link-styled--{{colour}}"},
-            {title: "Project button", value: "btn btn--{{colour}}"},
+            {title: "Project link", value: "link-styled link-styled--{{ colour }}"},
+            {title: "Project button", value: "btn btn--{{ colour }}"},
         ],
     };
 

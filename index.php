@@ -31,9 +31,7 @@ $isDebug = $app::isDebug();
 
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css" />
 
-        <?php
-        include_once(ROOT . "/partials/favicons.php");
-        ?>
+        <?php include_once(ROOT . "/partials/favicons.php"); ?>
     </head>
 
     <body ng-controller="portfolioCMSController" class="cms-page">

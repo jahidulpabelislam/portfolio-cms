@@ -12,7 +12,7 @@ if (!defined("ROOT")) {
 
                     <a class="btn btn--orange project__back-button js-projects" href="/projects/" title="Link to Projects Page" tabindex="1">
                         <span class="screen-reader-text">Back</span>
-                        <i class="fa fa-arrow-circle-left"></i>
+                        <i class="fas fa-arrow-circle-left"></i>
                     </a>
 
                     <div ng-if="selectedProject && selectedProject.id">
@@ -71,7 +71,7 @@ if (!defined("ROOT")) {
                             <input type="text" class="input project__skill-input" id="skill-input" ng-model="skillInput" placeholder="HTML5" tabindex="1" />
                             <button type="button" class="btn btn--dark-green project__skill-add-button" id="skill-add" ng-click="addSkill()" tabindex="1">
                                 <span class="screen-reader-text">Add</span>
-                                <i class="fa fa-plus"></i>
+                                <i class="fas fa-plus"></i>
                             </button>
                         </div>
 
@@ -91,7 +91,7 @@ if (!defined("ROOT")) {
 
                         <button type="submit" class="btn btn--dark-green project__save-button" tabindex="1">
                             <span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span>
-                            <i class="fa fa-upload"></i>
+                            <i class="fas fa-upload"></i>
                         </button>
 
                         <input type="file" class="input" id="imageUpload" name="imageUpload" ng-if="selectedProject.id" data-file-Upload accept="image/*" multiple tabindex="1" />
@@ -103,7 +103,7 @@ if (!defined("ROOT")) {
                                 <img src="{{ upload.image }}" alt="Screenshot of {{ selectedProject.name }}" ng-if="upload.ok == true"  />
                                 <button type="button" ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--dark-blue" tabindex="1">
                                     <span class="screen-reader-text">Upload This Image</span>
-                                    <i class="fa fa-upload"></i>
+                                    <i class="fas fa-upload"></i>
                                 </button>
                             </div>
                         </div>

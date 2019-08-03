@@ -22,15 +22,15 @@ if (!defined("ROOT")) {
                     <div>
                         <a class="btn btn--dark-blue projects-select__edit-button js-edit-project" href="/project/{{ selectedProject.id }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.id" tabindex="1">
                             <span class="screen-reader-text">Edit</span>
-                            <i class="fa fa-edit"></i>
+                            <i class="fas fa-edit"></i>
                         </a>
                         <button type="button" class="btn btn--red projects-select__delete-button" ng-show="projects.length > 0" ng-click="checkAuthStatus(deleteProject)" tabindex="1">
                             <span class="screen-reader-text">Delete</span>
-                            <i class="fa fa-trash"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                         <a class="btn btn--dark-green projects-select__add-button js-new-project" href="/project/new/" title="Link to New Project Form Page" tabindex="1">
                             <span class="screen-reader-text">Add A Project</span>
-                            <i class="fa fa-plus"></i>
+                            <i class="fas fa-plus"></i>
                         </a>
                     </div>
 

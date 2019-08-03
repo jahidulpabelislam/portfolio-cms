@@ -15,6 +15,8 @@ $isDebug = $app::isDebug();
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JPI Portfolio CMS</title>
 
+        <link href="<?php $app::echoWithAssetVersion("/assets/css/third-party/font-awesome.min.css", "5.10.0"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
+
         <!-- The custom styling for this page -->
         <?php
         if ($isDebug) {
@@ -28,8 +30,6 @@ $isDebug = $app::isDebug();
             <?php
         }
         ?>
-
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css" />
 
         <?php include_once(ROOT . "/partials/favicons.php"); ?>
     </head>
@@ -58,7 +58,7 @@ $isDebug = $app::isDebug();
         <!-- The loading area -->
         <div class="js-loading fixed-overlay fixed-overlay--loading">
             <h1 class="fixed-overlay__text">
-                <i class="fa fa-spinner fa-spin"></i>
+                <i class="fas fa-spinner fa-spin"></i>
             </h1>
         </div>
 

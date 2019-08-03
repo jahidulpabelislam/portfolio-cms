@@ -20,13 +20,13 @@ if (!defined("ROOT")) {
                         <li class="nav-link__item">
                             <a class="nav-item__link js-projects" href="/projects/1/" title="Link to Projects Page" tabindex="2">
                                 <span class="screen-reader-text">Projects</span>
-                                <i class="fa fa-list-ul"></i>
+                                <i class="fas fa-list"></i>
                             </a>
                         </li>
                         <li class="nav-link__item">
                             <a class="nav-item__link js-new-project" href="/project/new/" title="Link to New Project Form Page" tabindex="2">
                                 <span class="screen-reader-text">Add A Project</span>
-                                <i class="fa fa-plus"></i>
+                                <i class="fas fa-plus"></i>
                             </a>
                         </li>
                     </ul>
@@ -36,7 +36,7 @@ if (!defined("ROOT")) {
                         <li class="nav-link__item">
                             <a class="nav-item__link js-logout" href="/logout/" title="Link to Logout Page" tabindex="2">
                                 <span class="screen-reader-text">Logout</span>
-                                <i class="fa fa-times-circle"></i>
+                                <i class="fas fa-sign-out-alt"></i>
                             </a>
                         </li>
                     </ul>

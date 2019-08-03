@@ -78,11 +78,11 @@ $isDebug = $app::isDebug();
             ?>
             <!-- All individual js files for site as debug is specified -->
             <!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery.min.js", "1.11.3"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js", "1.12.1"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js", "1.6.4"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js", "0.17.2"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js", "0.0.19"); ?>" type="text/javascript"></script>
 
             <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>

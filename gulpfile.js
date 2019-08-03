@@ -43,7 +43,7 @@ defaultTasks.push("scripts");
 // Minify Stylesheets
 const stylesheets = {
     main: [
-        "./assets/css/main.css",
+        "./assets/css/jpi/main.css",
     ],
 };
 const stylesheetNames = Object.keys(stylesheets);
@@ -66,16 +66,16 @@ stylesheetNames.forEach(function(key) {
                            compatibility: "ie8",
                        })
                    )
-                   .pipe(gulp.dest("./assets/css/"));
+                   .pipe(gulp.dest("./assets/css/jpi/"));
     });
 });
 gulp.task("styles", gulp.parallel(stylesheetTasks));
 defaultTasks.push("styles");
 
 gulp.task("sass", function() {
-    return gulp.src("./assets/css/main.scss")
+    return gulp.src("./assets/css/jpi/main.scss")
                .pipe(sass().on("error", sass.logError))
-               .pipe(gulp.dest("./assets/css/"));
+               .pipe(gulp.dest("./assets/css/jpi/"));
 });
 // Watch Files For Changes
 gulp.task("watch", function() {

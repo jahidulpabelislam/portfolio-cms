@@ -84,6 +84,7 @@ $isDebug = $app::isDebug();
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js", "1.6.4"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js", "0.17.2"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js", "0.0.19"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sticky-footer.min.js", "1.1.0"); ?>" type="text/javascript"></script>
 
             <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
@@ -97,8 +98,6 @@ $isDebug = $app::isDebug();
             <?php
         }
         ?>
-
-        <script src="https://cdn.jsdelivr.net/gh/jahidulpabelislam/sticky-footer.js@1.1.0/src/sticky-footer.min.js" type="application/javascript"></script>
 
         <!-- The AngularJS script for the CMS page -->
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/controller.js"); ?>" type="text/javascript"></script>

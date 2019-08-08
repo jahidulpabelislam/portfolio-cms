@@ -63,10 +63,11 @@ $isDebug = $app::isDebug();
         </div>
 
         <!-- The API endpoint is configured per environment and stored in a PHP constant, so echo here into global js variable -->
-        <script>
+        <script type="application/javascript">
             window.jpi = window.jpi || {};
-            window.jpi.config = window.jpi.config || {};
-            window.jpi.config.jpiAPIEndpoint = "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>";
+            window.jpi.config = {
+                jpiAPIEndpoint: "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>"
+            };
         </script>
 
         <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=hci3sc80vemjpp1nnhl817vewvfm9vbg59omb77vfmur5sts" type="text/javascript"></script>

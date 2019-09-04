@@ -70,8 +70,6 @@ $isDebug = $app::isDebug();
             };
         </script>
 
-        <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=hci3sc80vemjpp1nnhl817vewvfm9vbg59omb77vfmur5sts" type="text/javascript"></script>
-
         <!-- All the JS's needed for the page  -->
         <?php
         // Either output a compiled js file for all project & libraries js files, or include individual files if debug is specified
@@ -83,6 +81,7 @@ $isDebug = $app::isDebug();
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js", "1.12.1"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js", "1.6.4"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js", "0.17.2"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/tinymce/tinymce.min.js", "1.1.0"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js", "0.0.19"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sticky-footer.min.js", "1.1.0"); ?>" type="text/javascript"></script>
 

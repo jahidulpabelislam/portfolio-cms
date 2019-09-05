@@ -10,8 +10,6 @@ window.jpi.dnd = (function(jQuery, jpi) {
     var fn = {
 
         readItem: function(item) {
-            var directoryReader, i;
-
             if (item.isFile) {
                 item.file(function(file) {
                     jpi.cms.checkFile(file);
@@ -19,10 +17,10 @@ window.jpi.dnd = (function(jQuery, jpi) {
             }
             else if (item.isDirectory) {
                 // Get folder content
-                directoryReader = item.createReader();
+                var directoryReader = item.createReader();
                 directoryReader.readEntries(function(entries) {
                     // Loop through each item in directory and read each item
-                    for (i = 0; i < entries.length; i++) {
+                    for (var i = 0; i < entries.length; i++) {
                         fn.readItem(entries[i]);
                     }
                 });
@@ -54,14 +52,12 @@ window.jpi.dnd = (function(jQuery, jpi) {
         },
 
         drop: function(e) {
-            var items, i;
-
             fn.removeDropZone(e);
 
-            items = e.originalEvent.dataTransfer.items || [];
+            var items = e.originalEvent.dataTransfer.items || [];
 
             // Loop through each item (file/directory) dropped & read each one
-            for (i = 0; i < items.length; i++) {
+            for (var i = 0; i < items.length; i++) {
                 fn.readItem(items[i].webkitGetAsEntry());
             }
 

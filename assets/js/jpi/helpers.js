@@ -1,4 +1,4 @@
-;/*
+;/**
  * Holds any helpers functions for whole project
  */
 window.jpi = window.jpi || {};
@@ -13,6 +13,12 @@ window.jpi.helpers = (function() {
 
     var fn = {
 
+        getJwtFromStorage: function() {
+            var jwt = localStorage.getItem(global.jwtStorageKey);
+            global.jwt = jwt;
+            return jwt;
+        },
+
         getJwt: function() {
             var jwt = global.jwt;
 
@@ -23,18 +29,12 @@ window.jpi.helpers = (function() {
             return jwt;
         },
 
-        getJwtFromStorage: function() {
-            var jwt = localStorage.getItem(global.jwtStorageKey);
-            global.jwt = jwt;
-            return jwt;
-        },
-
         setJwt: function(jwt) {
             localStorage.setItem(global.jwtStorageKey, jwt);
             global.jwt = jwt;
         },
 
-        getFeedback: function(response, defaultFeedback) {
+        getAPIFeedback: function(response, defaultFeedback) {
             if (response && response.meta && response.meta.feedback) {
                 return response.meta.feedback;
             }
@@ -42,7 +42,7 @@ window.jpi.helpers = (function() {
             return defaultFeedback || "";
         },
 
-        getAJAXResponse: function(response) {
+        getAPIResponse: function(response) {
             response = response && response.data ? response.data : {};
 
             return response;
@@ -57,12 +57,12 @@ window.jpi.helpers = (function() {
             return defaultInt;
         },
 
-        /*
+        /**
          * Used to check if input field is empty
          * add invalid class if empty and return false
          * or remove invalid class if  not empty and return true
          */
-        checkInputField: function(elem) {
+        checkInput: function(elem) {
             if (elem.value.trim() === "") {
                 elem.classList.add("invalid");
                 elem.classList.remove("valid");
@@ -75,7 +75,7 @@ window.jpi.helpers = (function() {
             }
         },
 
-        /*
+        /**
          * http://davidwalsh.name/javascript-debounce-function
          */
         debounce: function(func, wait, immediate) {
@@ -101,10 +101,16 @@ window.jpi.helpers = (function() {
         },
 
         slashURL: function(url, isRelative) {
+            if (url === "" || url === "/") {
+                return "/";
+            }
+
+            // Add leading slash if none
             if (isRelative && url[0] !== "/") {
                 url = "/" + url;
             }
 
+            // Add trailing slash if none
             if (url[url.length - 1] !== "/") {
                 url += "/";
             }
@@ -113,13 +119,20 @@ window.jpi.helpers = (function() {
         },
 
         genURL: function(domain, relativeURL) {
+            relativeURL = fn.slashURL(relativeURL, true);
+            // Remove leading slash as its added below
+            if (relativeURL[0] === "/") {
+                relativeURL = relativeURL.substring(1);
+            }
+
+            // Remove trailing slash as its added below
             if (domain[domain.length - 1] === "/") {
                 domain = domain.substring(0, domain.length - 1);
             }
 
-            relativeURL = fn.slashURL(relativeURL, true);
+            var fullURL = domain + "/" + relativeURL;
 
-            return domain + relativeURL;
+            return fullURL;
         },
 
     };
@@ -127,10 +140,10 @@ window.jpi.helpers = (function() {
     return {
         getJwt: fn.getJwt,
         setJwt: fn.setJwt,
-        getFeedback: fn.getFeedback,
-        getAJAXResponse: fn.getAJAXResponse,
+        getAPIFeedback: fn.getAPIFeedback,
+        getAPIResponse: fn.getAPIResponse,
         getInt: fn.getInt,
-        checkInputField: fn.checkInputField,
+        checkInput: fn.checkInput,
         slashURL: fn.slashURL,
         genURL: fn.genURL,
         debounce: fn.debounce,

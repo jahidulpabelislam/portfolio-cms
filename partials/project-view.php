@@ -7,7 +7,7 @@ if (!defined("ROOT")) {
                 <div class="project-view" ng-show="isLoggedIn">
                     <p class="feedback project__feedback hide">
                         <span>{{ projectFormFeedback }}</span>
-                        <button type="button" class="project__hide-error" ng-click="hideProjectError()">X</button>
+                        <button type="button" class="project__hide-error" ng-click="hideProjectFeedback()">X</button>
                     </p>
 
                     <a class="btn btn--orange project__back-button js-projects" href="/projects/" title="Link to Projects Page" tabindex="1">
@@ -22,7 +22,7 @@ if (!defined("ROOT")) {
 
                     <form class="project__form" id="projectForm" ng-submit="checkAuthStatus(submitProject)">
                         <label for="project-name">Project Name: <span class="required">*</span></label>
-                        <input type="text" class="input project__name" id="project-name" name="project-name" ng-model="selectedProject.name" placeholder="myproject" tabindex="1" oninput="jpi.helpers.checkInputField(this);" required />
+                        <input type="text" class="input project__name" id="project-name" name="project-name" ng-model="selectedProject.name" placeholder="myproject" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
                         <label for="project-status">Status: <span class="required">*</span></label>
                         <select class="input project__status" id="project-status" name="project-status" ng-model="selectedProject.status" tabindex="1" required>
@@ -40,7 +40,7 @@ if (!defined("ROOT")) {
                         </select>
 
                         <label for="project-date">Date: <span class="required">*</span></label>
-                        <input type="date" class="input project__date" id="project-date" name="project-date" ng-model="selectedProject.date" placeholder="2016-01-30" tabindex="1" oninput="jpi.helpers.checkInputField(this);" required />
+                        <input type="date" class="input project__date" id="project-date" name="project-date" ng-model="selectedProject.date" placeholder="2016-01-30" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
                         <label for="project-link">Link:</label>
                         <input type="text" class="input project__link" id="project-link" name="project-link" ng-model="selectedProject.link" placeholder="link" tabindex="1" />

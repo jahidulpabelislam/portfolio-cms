@@ -66,7 +66,7 @@ $isDebug = $app::isDebug();
         <script type="application/javascript">
             window.jpi = window.jpi || {};
             window.jpi.config = {
-                jpiAPIEndpoint: "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>"
+                jpiAPIBaseURL: "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>"
             };
         </script>
 

@@ -51,23 +51,53 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !(.+)/$
 RewriteRule ^(.*)$ %{REQUEST_URI}/ [R=301,L]
 
+# Add caching for resources
 <IfModule mod_headers.c>
-    # Cache specified files for 31 days
+    # Cache specified static files for 1 year
     <FilesMatch "\.(ico|jpg|jpeg|png|gif|css|svg|js)$">
-        Header set Cache-Control "max-age=2678400, public"
+        Header set Cache-Control "max-age=31556952, public"
+    </FilesMatch>
+    # Cache specified files for 1 week
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "max-age=604800, public"
     </FilesMatch>
 </IfModule>
 
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 1 seconds"
-    ExpiresByType image/gif "access plus 2678400 seconds"
-    ExpiresByType image/jpeg "access plus 2678400 seconds"
-    ExpiresByType image/png "access plus 2678400 seconds"
-    ExpiresByType image/svg+xml "access plus 2678400 seconds"
-    ExpiresByType text/css "access plus 2678400 seconds"
-    ExpiresByType text/javascript "access plus 2678400 seconds"
-    ExpiresByType application/json "access plus 2678400 seconds"
-    ExpiresByType application/javascript "access plus 2678400 seconds"
-    ExpiresByType text/plain "access plus 2678400 seconds"
+
+    AddType application/font-woff woff
+    AddType application/font-woff2 woff2
+    AddType application/vnd.ms-fontobject eot
+    AddType application/x-font-ttf ttc ttf
+    AddType font/opentype otf
+
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType image/svg+xml "access 1 year"
+
+    ExpiresByType application/json "access 1 year"
+    ExpiresByType application/javascript "access 1 year"
+    ExpiresByType application/x-javascript "access 1 year"
+
+    ExpiresByType application/vnd.ms-fontobject "access 1 year"
+
+    ExpiresByType application/font-woff "access 1 year"
+    ExpiresByType application/x-font-woff "access 1 year"
+    ExpiresByType application/font-woff2 "access 1 year"
+    ExpiresByType application/x-font-woff2 "access 1 year"
+    ExpiresByType application/x-font-ttf "access 1 year"
+    ExpiresByType font/eot "access 1 year"
+    ExpiresByType font/opentype "access 1 year"
+    ExpiresByType font/woff2 "access 1 year"
+
+    ExpiresByType text/plain "access 1 year"
+    ExpiresByType text/css "access 1 year"
+    ExpiresByType text/javascript "access 1 year"
+
+    ExpiresByType text/html "access 1 week"
+
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
 </IfModule>

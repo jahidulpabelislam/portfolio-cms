@@ -46,6 +46,18 @@ scriptNames.forEach(function(key) {
 gulp.task("scripts", gulp.parallel(scriptTasks));
 defaultTasks.push("scripts");
 
+gulp.task("sass", function() {
+    return gulp.src(`${cssDir}/jpi/main.scss`)
+               .pipe(sass().on("error", sass.logError))
+               .pipe(gulp.dest(`${cssDir}/jpi/`));
+});
+defaultTasks.push("sass");
+
+// Watch SASS files For changes to compile to css
+gulp.task("watch", function() {
+    gulp.watch(`${cssDir}/**/*.scss`, gulp.parallel("sass"));
+});
+
 // Minify Stylesheets
 const stylesheets = {
     main: [
@@ -74,14 +86,4 @@ stylesheetNames.forEach(function(key) {
 gulp.task("styles", gulp.parallel(stylesheetTasks));
 defaultTasks.push("styles");
 
-gulp.task("sass", function() {
-    return gulp.src(`${cssDir}/jpi/main.scss`)
-               .pipe(sass().on("error", sass.logError))
-               .pipe(gulp.dest(`${cssDir}/jpi/`));
-});
-// Watch Files For Changes
-gulp.task("watch", function() {
-    gulp.watch(`${cssDir}/**/*.scss`, gulp.parallel("sass"));
-});
-
-gulp.task("default", gulp.parallel(defaultTasks));
+gulp.task("default", gulp.series(defaultTasks));

@@ -15,26 +15,28 @@ if (!defined("ROOT")) {
                         </div>
                     </div>
 
-                    <p class="feedback feedback--error projects-select__feedback" ng-show="selectProjectFeedback">{{ selectProjectFeedback }}</p>
+                    <p class="feedback feedback--error projects-select__feedback" ng-show="selectProjectFeedback">
+                        {{ selectProjectFeedback }}
+                    </p>
 
                     <div>
-                        <a href="/project/{{ selectedProject.id }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.id" class="btn btn--dark-blue projects-select__edit-button js-edit-project" tabindex="1">
+                        <a class="btn btn--dark-blue projects-select__edit-button js-edit-project" href="/project/{{ selectedProject.id }}/edit/" title="Link to Edit Project Form Page" ng-show="projects.length > 0" ng-disabled="!selectedProject.id" tabindex="1">
                             <span class="screen-reader-text">Edit</span>
-                            <i class="fa fa-edit"></i>
+                            <i class="fas fa-edit"></i>
                         </a>
-                        <button type="button" ng-show="projects.length > 0" ng-click="checkAuthStatus(deleteProject)" value="Delete" class="btn btn--red projects-select__delete-button" tabindex="1">
+                        <button type="button" class="btn btn--red projects-select__delete-button" ng-show="projects.length > 0" ng-click="checkAuthStatus(deleteProject)" tabindex="1">
                             <span class="screen-reader-text">Delete</span>
-                            <i class="fa fa-trash"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
-                        <a href="/project/new/" title="Link to New Project Form Page" class="btn btn--dark-green projects-select__add-button js-new-project" tabindex="1">
+                        <a class="btn btn--dark-green projects-select__add-button js-new-project" href="/project/new/" title="Link to New Project Form Page" tabindex="1">
                             <span class="screen-reader-text">Add A Project</span>
-                            <i class="fa fa-plus"></i>
+                            <i class="fas fa-plus"></i>
                         </a>
                     </div>
 
                     <ul class="pagination" ng-show="pages.length > 1">
-                        <li ng-repeat="page in pages" class="pagination__item">
-                            <a href="/projects/{{ page }}/" title="Link to Projects Page" class="pagination__item-link js-projects" ng-class="{'active': page == currentPage}" data-page="{{ page }}" tabindex="1">{{ page }}</a>
+                        <li class="pagination__item"ng-repeat="page in pages" >
+                            <a class="pagination__item-link js-projects" href="/projects/{{ page }}/" title="Link to Projects Page" ng-class="{'active': page == currentPage}" data-page="{{ page }}" tabindex="1">{{ page }}</a>
                         </li>
                     </ul>
                 </div>

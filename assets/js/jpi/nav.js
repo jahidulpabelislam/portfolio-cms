@@ -4,38 +4,37 @@ window.jpi.nav = (function(jQuery, jpi) {
     "use strict";
 
     var global = {
-        mainSelector: ".nav",
-        itemsSelector: ".nav__links-container",
-        mobileToggleSelector: ".nav__mobile-toggle",
+        nav: jQuery(".nav"),
+        items: jQuery(".nav__links-container"),
+        menuButton: jQuery(".nav__mobile-toggle"),
     };
 
     var fn = {
 
         toggleMobileMenu: function() {
-            var container = jQuery(global.itemsSelector);
-            jQuery(global.mainSelector).toggleClass("opened");
-            container.slideToggle();
+            global.nav.toggleClass("opened");
+            global.items.slideToggle();
         },
 
         initDesktopNav: function() {
             if (jQuery(window).width() > 768) {
-                var container = jQuery(global.itemsSelector);
-                container.show();
+                global.items.show();
             }
         },
 
         closeMobileNav: function(e) {
+            var clickedElem = jQuery(e.target);
             if (
-                (jQuery(e.target).hasClass("nav-item__link") || !jQuery(e.target).closest(global.mainSelector).length) &&
-                jQuery(global.mainSelector).hasClass("opened") &&
-                jQuery(global.mobileToggleSelector).css("display") !== "none"
+                (clickedElem.hasClass("nav-item__link") || !clickedElem.closest(".nav").length) &&
+                global.nav.hasClass("opened") &&
+                global.menuButton.css("display") !== "none"
             ) {
-                jQuery(global.mobileToggleSelector).trigger("click");
+                global.menuButton.trigger("click");
             }
         },
 
         initListeners: function() {
-            jQuery("body").on("click", global.mobileToggleSelector, fn.toggleMobileMenu);
+            jQuery("body").on("click", ".nav__mobile-toggle", fn.toggleMobileMenu);
             jQuery(document).on("click", fn.closeMobileNav);
             jQuery(window).on("orientationchange resize", jpi.helpers.debounce(fn.initDesktopNav, 150));
         },

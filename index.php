@@ -15,25 +15,23 @@ $isDebug = $app::isDebug();
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JPI Portfolio CMS</title>
 
+        <link href="<?php $app::echoWithAssetVersion("/assets/css/third-party/font-awesome.min.css", "5.10.0"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
+
         <!-- The custom styling for this page -->
         <?php
         if ($isDebug) {
             ?>
-            <link href="<?php $app::echoWithAssetVersion("/assets/css/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
+            <link href="<?php $app::echoWithAssetVersion("/assets/css/jpi/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
             <?php
         }
         else {
             ?>
-            <link href="<?php $app::echoWithAssetVersion("/assets/css/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
+            <link href="<?php $app::echoWithAssetVersion("/assets/css/jpi/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
             <?php
         }
         ?>
 
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" title="style" media="all" type="text/css" />
-
-        <?php
-        include_once(ROOT . "/partials/favicons.php");
-        ?>
+        <?php include_once(ROOT . "/partials/favicons.php"); ?>
     </head>
 
     <body ng-controller="portfolioCMSController" class="cms-page">
@@ -60,18 +58,17 @@ $isDebug = $app::isDebug();
         <!-- The loading area -->
         <div class="js-loading fixed-overlay fixed-overlay--loading">
             <h1 class="fixed-overlay__text">
-                <i class="fa fa-spinner fa-spin"></i>
+                <i class="fas fa-spinner fa-spin"></i>
             </h1>
         </div>
 
         <!-- The API endpoint is configured per environment and stored in a PHP constant, so echo here into global js variable -->
-        <script>
+        <script type="application/javascript">
             window.jpi = window.jpi || {};
-            window.jpi.config = window.jpi.config || {};
-            window.jpi.config.jpiAPIEndpoint = "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>";
+            window.jpi.config = {
+                jpiAPIBaseURL: "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>"
+            };
         </script>
-
-        <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=hci3sc80vemjpp1nnhl817vewvfm9vbg59omb77vfmur5sts" type="text/javascript"></script>
 
         <!-- All the JS's needed for the page  -->
         <?php
@@ -80,11 +77,13 @@ $isDebug = $app::isDebug();
             ?>
             <!-- All individual js files for site as debug is specified -->
             <!-- The third party scripts needed for the page for the app e.g. sorting of images etc. -->
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery.min.js", "1.11.3"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/jquery-ui.min.js", "1.12.1"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular.min.js", "1.6.4"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sortable.js", "0.17.2"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/tinymce/tinymce.min.js", "1.1.0"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/angular-ui-tinymce.min.js", "0.0.19"); ?>" type="text/javascript"></script>
+            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/sticky-footer.min.js", "1.1.0"); ?>" type="text/javascript"></script>
 
             <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
             <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
@@ -98,8 +97,6 @@ $isDebug = $app::isDebug();
             <?php
         }
         ?>
-
-        <script src="https://cdn.jsdelivr.net/gh/jahidulpabelislam/sticky-footer.js@1.0.0/src/sticky-footer.min.js" type="application/javascript"></script>
 
         <!-- The AngularJS script for the CMS page -->
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/controller.js"); ?>" type="text/javascript"></script>

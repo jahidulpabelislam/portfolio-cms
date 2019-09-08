@@ -79,25 +79,27 @@ class App {
      * Wrapper around Site::getAssetVersion() to generate the full relative URL for the asset
      * including a version number
      */
-    public static function getWithAssetVersion(string $src, $ver = false, string $root = ROOT): string {
+    public static function addAssetVersion(string $src, $ver = false, string $root = ROOT): string {
         $ver = self::getAssetVersion($src, $ver, $root);
 
         return "{$src}?v={$ver}";
     }
 
     /**
-     * Wrapper around Site::getWithAssetVersion() & Site::getAssetVersion()
+     * Wrapper around Site::getAssetVersion() & Site::getAssetVersion()
      * Used to echo the full relative URL for the asset including a version number
      */
     public static function echoWithAssetVersion(string $src, $ver = false, string $root = ROOT) {
-        echo self::getWithAssetVersion($src, $ver, $root);
+        echo self::addAssetVersion($src, $ver, $root);
     }
 
     /**
      * @return bool Whether or not the debug was set by user on page view
      */
     public static function isDebug(): bool {
-        return (isset($_GET["debug"]) && !($_GET["debug"] === "false" || $_GET["debug"] === "0"));
+        $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] === "false" || $_GET["debug"] === "0"));
+
+        return $isDebug;
     }
 }
 

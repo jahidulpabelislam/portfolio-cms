@@ -944,6 +944,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         branding: false,
         menubar: false,
         browser_spellcheck: true,
+        baseURL : window.location.origin + "/assets/js/third-party/tinymce",
         plugins: "link code autoresize lists",
         width: "100%",
         max_height: 450,

@@ -48,6 +48,15 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
         },
 
+        updateProjectMetaOffset: function() {
+            var offset = 0;
+            if (jpi.helpers.isDesktop()) {
+                var navHeight = jQuery(".nav__header").outerHeight();
+                offset = navHeight + 16;
+            }
+            jQuery(".project__meta").css("top", offset + "px");
+        },
+
         setURl: function(url) {
             url = jpi.helpers.slashURL(url, true);
             global.url.pathname = url;
@@ -683,6 +692,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 global.url = new URL(window.location);
                 fn.loadApp();
             });
+
+            jQuery(window).on("orientationchange resize", fn.updateProjectMetaOffset);
         },
 
         initVariables: function() {
@@ -693,17 +704,20 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         init: function() {
-            jpi.helpers.getJwt();
             fn.showLoading();
+            jQuery(".login, .project-view, .projects-select").hide();
+
+            jpi.helpers.getJwt();
+
             fn.initVariables();
             fn.initNewProject();
             fn.initListeners();
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
-            jQuery(".login, .project-view, .projects-select").hide();
-
             fn.loadApp();
+
+            fn.updateProjectMetaOffset();
         },
     };
 
@@ -1035,6 +1049,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
     jQuery(window).on("load", function() {
         jpi.stickyFooter = new StickyFooter(".main-content");
+
     });
 
     jQuery(document).on("ready", fn.init);

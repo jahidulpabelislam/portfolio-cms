@@ -7,6 +7,28 @@
     padding: 5px;
 }
 
+.project-meta__item {
+    display: flex;
+    align-items: center;
+}
+.project-meta__item--dates {
+    display: block;
+}
+
+.project-meta__item label,
+.project-meta__item .input {
+    margin-top: 0;
+}
+
+.project-meta__item .input {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.project-meta__item--dates > p {
+    margin: 4px 0;
+}
+
 .project__save-button {
     display: block;
     margin: 5px 0 5px auto;
@@ -104,7 +126,6 @@
     background-color: white;
     border: 1px solid #e0e0e0;
     list-style: none;
-    cursor: pointer;
 }
 
 .project__image {
@@ -181,22 +202,48 @@
 
 /* For tablets and some are for desktops */
 @media only screen and (min-width: $tablet-width) {
-    .project-view,
-    .project__uploads {
-        max-width: 640px;
-        margin-left: auto;
-        margin-right: auto;
+
+    .project-meta__item {
+        margin-right: 24px;
+        width: calc(50% - 12px);
+        float: left;
     }
 
-    .project__feedback {
-        max-width: 635px;
-        margin-left: auto;
-        margin-right: auto;
+    .project-meta__item:nth-child(even) {
+        margin-right: 0;
     }
+
 }
 
 /* For desktops */
 @media only screen and (min-width: $desktop-width) {
+
+    .project__meta {
+        width: 320px;
+        float: right;
+        position: sticky;
+        top: 0;
+    }
+
+    .project-meta__block {
+        padding: 10px 20px;
+        margin-bottom: 24px;
+        background: white;
+        box-shadow: 0 0 10px 0 transparentize($dark-colour, 0.95);
+    }
+
+    .project-meta__item {
+        width: 100%;
+        float: none;
+        text-align: right;
+    }
+
+    .project__main {
+        width: calc(100% - 320px);
+        padding: 0 20px 0 0;
+        float: left;
+    }
+
     .project__image-container {
         width: calc(50% - 5px);
         display: inline-block;
@@ -222,4 +269,5 @@
     .project__skill-add-button {
         padding: 10px 12px;
     }
+
 }

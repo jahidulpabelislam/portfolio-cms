@@ -17,7 +17,7 @@ window.jpi.nav = (function(jQuery, jpi) {
         },
 
         initDesktopNav: function() {
-            if (jQuery(window).width() > 768) {
+            if (jpi.helpers.isDesktop()) {
                 global.items.show();
             }
         },

@@ -57,6 +57,12 @@ window.jpi.helpers = (function() {
             return defaultInt;
         },
 
+        isDesktop: function() {
+            var isDesktop = jQuery(window).width() > 768;
+
+            return isDesktop;
+        },
+
         /**
          * Used to check if input field is empty
          * add invalid class if empty and return false
@@ -142,6 +148,7 @@ window.jpi.helpers = (function() {
         setJwt: fn.setJwt,
         getAPIFeedback: fn.getAPIFeedback,
         getAPIResponse: fn.getAPIResponse,
+        isDesktop: fn.isDesktop,
         getInt: fn.getInt,
         checkInput: fn.checkInput,
         slashURL: fn.slashURL,

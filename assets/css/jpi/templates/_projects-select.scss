@@ -1,32 +1,18 @@
 .projects-select {
     display: none;
-    text-align: center;
-}
-
-.projects-select__form {
-    display: inline-block;
+    text-align: right;
 }
 
 .projects-select__add-button.projects-select__add-button {
-    margin-top: 10px;
-}
-
-.projects-select__edit-button {
-    margin-top: 10px;
-}
-
-.projects-select__delete-button {
-    margin-top: 10px;
-}
-
-.projects-select__option input {
-    cursor: pointer;
-    vertical-align: middle;
-    margin: 5px;
+    margin: 15px 0;
 }
 
 .projects-select__feedback {
     padding: 5px;
     display: block;
     text-align: center;
+}
+
+.projects-select .pagination__item:last-child .pagination__item-link {
+    margin-right: 0;
 }

@@ -154,6 +154,26 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             );
         },
 
+        formatProject: function(project) {
+            project.date = new Date(project.date);
+
+            if (project.created_at && project.created_at !== "") {
+                project.created_at = new Date(project.created_at);
+            }
+            else {
+                project.created_at = "Not Available";
+            }
+
+            if (project.updated_at && project.updated_at !== "") {
+                project.updated_at = new Date(project.updated_at);
+            }
+            else {
+                project.updated_at = "Not Available";
+            }
+
+            return project;
+        },
+
         // Render a Project Image deletion message to show if it's been deleted or failed
         onSuccessfulProjectImageDeletion: function(response) {
             $scope.hideProjectFeedback();
@@ -221,7 +241,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     defaultFeedback = "Successfully " + typeSubmit + " project.",
                     feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
 
-                $scope.selectProject(response.row);
+                var project = fn.formatProject(response.row);
+                $scope.selectProject(project);
 
                 if (!wasUpdate) {
                     fn.setURl("project/" + $scope.selectedProject.id + "/edit");
@@ -346,11 +367,16 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.setUpProjectsSelect();
 
             if (response && response.rows && response.rows.length) {
-                $scope.projects = response.rows;
+                var projects = response.rows;
+
+                for (var i = 0; i < projects.length; i++) {
+                    projects[i] = fn.formatProject(projects[i]);
+                }
+                $scope.projects = projects;
 
                 var pages = Math.ceil(response.meta.total_count / 10);
-                for (var i = 1; i <= pages; i++) {
-                    $scope.pages.push(i);
+                for (var k = 1; k <= pages; k++) {
+                    $scope.pages.push(k);
                 }
 
                 fn.hideLoading();
@@ -393,7 +419,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
         onSuccessfulProjectGet: function(response, id) {
             if (response && response.meta && response.meta.ok && response.row) {
-                $scope.selectProject(response.row);
+                var project = fn.formatProject(response.row);
+                $scope.selectProject(project);
                 fn.setUpEditProject();
                 fn.hideLoading();
             }
@@ -876,22 +903,6 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
     };
 
     $scope.selectProject = function(project) {
-        project.date = new Date(project.date);
-
-        if (project.created_at && project.created_at !== "") {
-            project.created_at = new Date(project.created_at);
-        }
-        else {
-            project.created_at = "Not Available";
-        }
-
-        if (project.updated_at && project.updated_at !== "") {
-            project.updated_at = new Date(project.updated_at);
-        }
-        else {
-            project.updated_at = "Not Available";
-        }
-
         $scope.selectedProject = project;
     };
 

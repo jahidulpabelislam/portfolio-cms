@@ -21,7 +21,7 @@ if (!defined("ROOT")) {
                     </div>
 
                     <form class="project__form" id="projectForm" ng-submit="checkAuthStatus(submitProject)">
-                        <label for="project-name">Project Name: <span class="required">*</span></label>
+                        <label for="project-name">Name: <span class="required">*</span></label>
                         <input type="text" class="input project__name" id="project-name" name="project-name" ng-model="selectedProject.name" placeholder="myproject" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
                         <label for="project-status">Status: <span class="required">*</span></label>
@@ -41,6 +41,9 @@ if (!defined("ROOT")) {
 
                         <label for="project-date">Date: <span class="required">*</span></label>
                         <input type="date" class="input project__date" id="project-date" name="project-date" ng-model="selectedProject.date" placeholder="2016-01-30" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
+
+                        <label for="project-type">Type: <span class="required">*</span></label>
+                        <input type="text" class="input project__type" id="project-type" name="project-type" ng-model="selectedProject.type" placeholder="Web App" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
                         <label for="project-link">Link:</label>
                         <input type="text" class="input project__link" id="project-link" name="project-link" ng-model="selectedProject.link" placeholder="link" tabindex="1" />

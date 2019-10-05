@@ -337,6 +337,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         initNewProject: function() {
             $scope.selectedProject = {
                 name: "",
+                type: "",
                 skills: [],
                 long_description: "",
                 short_description: "",
@@ -830,6 +831,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 method = project.id ? "PUT" : "POST",
                 data = {
                     "name": project.name || "",
+                    "type": project.type || "",
                     "status": project.status || "",
                     "date": project.date || "",
                     "link": project.link || "",

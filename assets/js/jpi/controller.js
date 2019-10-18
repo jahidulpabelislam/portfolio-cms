@@ -269,8 +269,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
                 validDatePattern = /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im,
 
-                isProjectNameValid = jpi.helpers.checkInput(jQuery(".project__name")[0]),
+                isNameValid = jpi.helpers.checkInput(jQuery(".project__name")[0]),
                 isStatusValid = jpi.helpers.checkInput(jQuery(".project__status")[0]),
+                isTypeValid = jpi.helpers.checkInput(jQuery(".project__type")[0]),
                 isLongDescValid = jpi.helpers.checkInput(jQuery(".project__long-desc")[0]),
                 isShortDescValid = jpi.helpers.checkInput(jQuery(".project__short-desc")[0]),
                 isDateValid = (jpi.helpers.checkInput(projectDate[0]) && validDatePattern.test(projectDate.val())),
@@ -288,9 +289,10 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
 
             return (
-                isProjectNameValid &&
+                isNameValid &&
                 isStatusValid &&
                 isDateValid &&
+                isTypeValid &&
                 isSkillsValid &&
                 isLongDescValid &&
                 isShortDescValid
@@ -304,7 +306,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
             jQuery(".project-view, .nav").show();
             jQuery(".projects-select").hide();
-            jQuery(".project__name, .project__status, .project__date, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
+            jQuery(".project__name, .project__status, .project__date, .project__type, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 

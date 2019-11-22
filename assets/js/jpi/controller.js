@@ -999,8 +999,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         ],
         link_class_list: [
             {title: "None", value: ""},
-            {title: "Project link", value: "link-styled link-styled--{{ colour }}"},
-            {title: "Project button", value: "btn btn--{{ colour }}"},
+            {title: "Project link", value: "link link--{{ colour }}"},
+            {title: "Project button", value: "button button--{{ colour }}"},
         ],
     };
 
@@ -1012,11 +1012,11 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         var colourName = $scope.colourOptions[colour];
         tinymceOptions.link_class_list.push({
             title: colourName + " link",
-            value: "link-styled link-styled--" + colour,
+            value: "link link--" + colour,
         });
         tinymceOptions.link_class_list.push({
             title: colourName + " button",
-            value: "btn btn--" + colour,
+            value: "button button--" + colour,
         });
     }
 

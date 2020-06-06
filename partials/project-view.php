@@ -75,19 +75,19 @@ if (!defined("ROOT")) {
 
                         <div class="project__main">
                             <label for="project-name">Name: <span class="required">*</span></label>
-                            <input ng-model="selectedProject.name" type="text" name="project-name" id="project-name" class="input project__name" placeholder="myproject" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
+                            <input ng-model="selectedProject.name" type="text" name="project-name" id="project-name" class="input project__name" placeholder="Portfolio" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
                             <label for="project-type">Type: <span class="required">*</span></label>
                             <input ng-model="selectedProject.type" type="text" name="project-type" id="project-type" class="input project__type" placeholder="Web app" tabindex="1" />
 
                             <label for="project-link">Link:</label>
-                            <input ng-model="selectedProject.link" type="text" name="project-link" id="project-link" class="input project__link" placeholder="link" tabindex="1" />
+                            <input ng-model="selectedProject.link" type="text" name="project-link" id="project-link" class="input project__link" placeholder="https://jahidulpabelislam.com/" tabindex="1" />
 
                             <label for="project-github">GitHub:</label>
-                            <input ng-model="selectedProject.github" type="url" name="project-github" id="project-github" class="input project__github" placeholder="github" tabindex="1" />
+                            <input ng-model="selectedProject.github" type="url" name="project-github" id="project-github" class="input project__github" placeholder="https://github.com/jahidulpabelislam/portfolio" tabindex="1" />
 
                             <label for="project-download">Download:</label>
-                            <input ng-model="selectedProject.download" type="text" name="project-download" id="project-download" class="input project__download" placeholder="download" tabindex="1" />
+                            <input ng-model="selectedProject.download" type="text" name="project-download" id="project-download" class="input project__download" placeholder="https://github.com/jahidulpabelislam/portfolio/archive/v4.zip" tabindex="1" />
 
                             <label for="project-short-desc">Short Description: <span class="required">*</span></label>
                             <textarea ng-if="selectedProject" ui-tinymce="tinymceOptions" ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" tabindex="1"></textarea>

@@ -183,10 +183,10 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 feedbackType = "error";
 
             // Check if the deletion of project image has been processed
-            if (response && response.row && response.row.id) {
+            if (response && response.data && response.data.id) {
                 // Find and remove the image from view
                 for (var i = 0; i < $scope.selectedProject.images.length; i++) {
-                    if ($scope.selectedProject.images[i].id === response.row.id) {
+                    if ($scope.selectedProject.images[i].id === response.data.id) {
                         $scope.selectedProject.images.splice(i, 1);
                         found = true;
                         break;
@@ -204,7 +204,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulProjectImageUpload: function(response, upload) {
-            $scope.selectedProject.images.push(response.row);
+            $scope.selectedProject.images.push(response.data);
 
             var index = $scope.uploads.indexOf(upload);
             if (index > -1) {
@@ -221,8 +221,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 feedbackType = "error";
 
             // Check the project delete has been processed
-            if (response && response.row && response.row.id) {
-                defaultFeedback = "Successfully deleted the Project identified by: " + response.row.id + ".";
+            if (response && response.data && response.data.id) {
+                defaultFeedback = "Successfully deleted the Project identified by: " + response.data.id + ".";
                 feedbackType = "success";
                 fn.getProjects(1);
             }
@@ -233,7 +233,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulProjectSave: function(response) {
-            if (response && response.row) {
+            if (response && response.data) {
                 var wasUpdate = $scope.selectedProject && $scope.selectedProject.id,
 
                     typeSubmit = wasUpdate ? "updated" : "inserted",
@@ -241,7 +241,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     defaultFeedback = "Successfully " + typeSubmit + " project.",
                     feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
 
-                var project = fn.formatProject(response.row);
+                var project = fn.formatProject(response.data);
                 $scope.selectProject(project);
 
                 if (!wasUpdate) {
@@ -369,8 +369,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         onSuccessfulProjectsGet: function(response) {
             fn.setUpProjectsSelect();
 
-            if (response && response.rows && response.rows.length) {
-                var projects = response.rows;
+            if (response && response.data && response.data.length) {
+                var projects = response.data;
 
                 for (var i = 0; i < projects.length; i++) {
                     projects[i] = fn.formatProject(projects[i]);
@@ -421,8 +421,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulProjectGet: function(response, id) {
-            if (response && response.meta && response.meta.ok && response.row) {
-                var project = fn.formatProject(response.row);
+            if (response && response.data) {
+                var project = fn.formatProject(response.data);
                 $scope.selectProject(project);
                 fn.setUpEditProject();
                 fn.hideLoading();
@@ -454,7 +454,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulAuthCheck: function(response, successFunc, redirectTo, feedbackOverride) {
-            if (response && response.meta && response.meta.status && response.meta.status == 200) {
+            if (response && response.data && response.data == true) {
                 $scope.isLoggedIn = true;
                 successFunc();
             }
@@ -466,8 +466,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         // After user has attempted to log in
         onSuccessfulLogIn: function(response) {
             // Check if data was valid
-            if (response && response.meta && response.meta.status && response.meta.status == 200) {
-                jpi.helpers.setJwt(response.meta.jwt);
+            if (response && response.data) {
+                jpi.helpers.setJwt(response.data);
 
                 // Make the log in/sign up form not visible
                 jQuery(".login").hide();
@@ -523,8 +523,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
 
             var success = false;
-            if (response && response.meta && response.meta.status) {
-                success = response.meta.status == 200 || response.meta.status == 201;
+            if (response && response.data) {
+                success = response.data == true;
             }
 
             if (success) {

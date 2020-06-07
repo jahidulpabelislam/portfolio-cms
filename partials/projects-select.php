@@ -20,22 +20,22 @@ if (!defined("ROOT")) {
                     <table class="projects-select__table table table--sticky">
                         <thead>
                             <tr class="table__row">
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Last Modified</th>
-                                <th>Created at</th>
-                                <th>-</th>
+                                <th class="table__header">ID</th>
+                                <th class="table__header">Name</th>
+                                <th class="table__header">Date</th>
+                                <th class="table__header">Last Modified</th>
+                                <th class="table__header">Created at</th>
+                                <th class="table__header">-</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="table__row" ng-repeat="project in projects">
-                                <td>{{ project.id }}</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.date | date: 'EEEE d MMMM yyyy' }}</td>
-                                <td>{{ project.updated_at | date: 'EEEE d MMMM yyyy' }}</td>
-                                <td>{{ project.created_at | date: 'EEEE d MMMM yyyy' }}</td>
-                                <td>
+                                <td class="table__column" data-title="ID">{{ project.id }}</td>
+                                <td class="table__column" data-title="Name">{{ project.name }}</td>
+                                <td class="table__column" data-title="Date">{{ project.date | date: 'EEEE d MMMM yyyy' }}</td>
+                                <td class="table__column" data-title="Last Modified">{{ project.updated_at | date: 'EEEE d MMMM yyyy' }}</td>
+                                <td class="table__column" data-title="Created at">{{ project.created_at | date: 'EEEE d MMMM yyyy' }}</td>
+                                <td class="table__column table__column--no-padding">
                                     <a class="btn btn--dark-blue projects-select__edit-button js-edit-project" href="/project/{{ project.id }}/edit/" title="Link to Edit Project Form Page" tabindex="1" ng-click="selectProject(project)">
                                         <span class="screen-reader-text">Edit</span>
                                         <i class="fas fa-edit"></i>

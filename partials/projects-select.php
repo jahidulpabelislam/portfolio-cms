@@ -17,7 +17,7 @@ if (!defined("ROOT")) {
                         </a>
                     </div>
 
-                    <table class="projects-select__table table">
+                    <table class="projects-select__table table table--sticky">
                         <thead>
                             <tr class="table__row">
                                 <th>ID</th>

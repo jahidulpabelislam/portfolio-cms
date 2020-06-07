@@ -4,35 +4,33 @@
     border: solid #000000 3px;
 }
 
-.table__row {
-    border: solid $dark-colour 1px;
-}
-
 .table th,
 .table td {
     padding: 10px;
+}
+
+.table th {
+    font-weight: 700;
+    background: $grey;
+    color: white;
+    border-top: solid #000000 3px;
+    border-bottom: solid #000000 3px;
+}
+.table--sticky th {
+    position: sticky;
+    top: 0;
+}
+
+.table td {
+    border-bottom: solid $dark-colour 1px;
+    background: white;
+}
+
+.table .table__row:nth-child(even) td {
+    background: $light-grey;
 }
 
 .table td .btn {
     margin-top: 0;
     margin-bottom: 0;
 }
-
-.table thead .table__row {
-    background: $grey;
-    color: white;
-    border-bottom: solid #000000 3px;
-}
-
-.table th {
-    font-weight: 700;
-}
-
-.table tbody .table__row {
-    background: white;
-}
-
-.table tbody .table__row:nth-child(even) {
-    background: $light-grey;
-}
-

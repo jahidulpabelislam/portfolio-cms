@@ -51,10 +51,10 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         updateProjectMetaOffset: function() {
             var offset = 0;
             if (jpi.helpers.isDesktop()) {
-                var navHeight = jQuery(".nav__header").outerHeight();
-                offset = navHeight + 16;
+                offset = jQuery(".nav__header").outerHeight();
             }
-            jQuery(".project__meta").css("top", offset + "px");
+            jQuery(".project__meta").css("top", offset + 16 + "px");
+            jQuery(".table--sticky th").css("top", offset + "px");
         },
 
         setURl: function(url) {

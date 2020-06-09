@@ -48,15 +48,6 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
         },
 
-        updateProjectMetaOffset: function() {
-            var offset = 0;
-            if (jpi.helpers.isDesktop()) {
-                offset = jQuery(".nav__header").outerHeight();
-            }
-            jQuery(".project__meta").css("top", offset + 16 + "px");
-            jQuery(".table--sticky th").css("top", offset + "px");
-        },
-
         setURl: function(url) {
             url = jpi.helpers.slashURL(url, true);
             global.url.pathname = url;
@@ -113,11 +104,10 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 pos = topOfLastItem + lastItem.outerHeight();
             }
 
-            var navHeight = jQuery(".nav__header").outerHeight();
             var feedbackHeight = jQuery(".project__feedback").outerHeight();
             jQuery("html, body").animate(
                 {
-                    scrollTop: pos - navHeight - feedbackHeight - 16,
+                    scrollTop: pos - feedbackHeight - 16,
                 },
                 1000
             );
@@ -313,11 +303,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
             $scope.selectProjectFeedback = $scope.skillInput = "";
 
-            jQuery(".project-view, .nav").show();
+            jQuery(".project-view").show();
             jQuery(".projects-select").hide();
             jQuery(".project__name, .project__status, .project__date, .project__type, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
-
-            jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
             fn.resetFooter();
         },
@@ -368,11 +356,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             $scope.selectedProject = undefined;
 
             jQuery(".project-view").hide();
-            jQuery(".projects-select, .nav, .projects-select__add-button").show();
+            jQuery(".projects-select, .projects-select__add-button").show();
             jQuery(".nav .js-projects").addClass("active");
             jQuery(".nav .js-new-project").removeClass("active");
-
-            jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
         },
 
         onSuccessfulProjectsGet: function(response) {
@@ -445,7 +431,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             var defaultFeedback = "Sorry, no Project found with ID: " + id + ".";
             var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
             fn.showProjectSelectFeedback(feedback);
-            jQuery(".projects-select, .nav").show();
+            jQuery(".projects-select").show();
             jQuery(".projects-select__add-button").hide();
         },
 
@@ -480,7 +466,6 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
                 // Make the log in/sign up form not visible
                 jQuery(".login").hide();
-                jQuery(".nav").show();
 
                 $scope.isLoggedIn = true;
 
@@ -520,7 +505,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
             document.title = "Login" + global.titlePostfix;
 
-            jQuery(".projects-select, .project-view, .nav").hide();
+            jQuery(".projects-select, .project-view").hide();
             jQuery(".login").css("display", "flex");
 
             if (feedbackOverride) {
@@ -685,15 +670,11 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 }
             });
 
-            jQuery(".nav-item__link").on("click", jpi.nav.closeMobileNav);
-
             window.addEventListener("popstate", function() {
                 fn.showLoading();
                 global.url = new URL(window.location);
                 fn.loadApp();
             });
-
-            jQuery(window).on("orientationchange resize", fn.updateProjectMetaOffset);
         },
 
         initVariables: function() {
@@ -713,11 +694,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.initNewProject();
             fn.initListeners();
 
-            jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
-
             fn.loadApp();
-
-            fn.updateProjectMetaOffset();
         },
     };
 
@@ -877,7 +854,6 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             setTimeout(function() {
                 var firstInvalidInput = jQuery(".project__form .invalid").first(),
                     inputId = firstInvalidInput.attr("id"),
-                    navHeight = jQuery(".nav__header").outerHeight(),
                     feedbackHeight = jQuery(".project__feedback").outerHeight();
 
                 var label = jQuery("label[for=" + inputId + "]");
@@ -889,7 +865,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
                 jQuery("html, body").animate(
                     {
-                        scrollTop: pos - navHeight - feedbackHeight - 16,
+                        scrollTop: pos - feedbackHeight - 16,
                     },
                     1000
                 );

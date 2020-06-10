@@ -17,9 +17,9 @@ if (!defined("ROOT")) {
 
                     <form id="projectForm" class="project__form clearfix" ng-submit="checkAuthStatus(submitProject)">
 
-                        <div class="project__meta clearfix">
-                            <div class="project-meta__block clearfix">
-                                <div class="project-meta__item">
+                        <div class="project__sidebar clearfix">
+                            <div class="project__sidebar-block clearfix">
+                                <div class="project__meta-item">
                                     <label for="project-status">Status: <span class="required">*</span></label>
                                     <select ng-model="selectedProject.status" name="project-status" id="project-status" class="input input--inline project__status" tabindex="1" required>
                                         <?php
@@ -36,24 +36,24 @@ if (!defined("ROOT")) {
                                     </select>
                                 </div>
 
-                                <div class="project-meta__item">
+                                <div class="project__meta-item">
                                     <label for="project-colour">Colour:</label>
                                     <select ng-options="colour as colourName for (colour, colourName) in colourOptions" ng-model="selectedProject.colour" name="project-colour" id="project-colour" class="input input--inline project__colour" tabindex="1">
                                     </select>
                                 </div>
 
-                                <div class="project-meta__item">
+                                <div class="project__meta-item">
                                     <label for="project-date">Date:<span class="required">*</span></label>
                                     <input ng-model="selectedProject.date" type="date" name="project-date" id="project-date" class="input input--inline project__date" placeholder="2016-01-30" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
                                 </div>
 
-                                <div class="project-meta__item project-meta__item--dates" ng-if="selectedProject && selectedProject.id">
+                                <div class="project__meta-item project__meta-item--dates" ng-if="selectedProject && selectedProject.id">
                                     <p><strong>Created at:</strong> {{ selectedProject.created_at | date: 'EEE d MMM yy h:mma' }}</p>
                                     <p><strong>Updated at:</strong> {{ selectedProject.updated_at | date: 'EEE d MMM yy h:mma' }}</p>
                                 </div>
                             </div>
 
-                            <div class="project-meta__block">
+                            <div class="project__sidebar-block">
                                 <label for="skill-input">Skills: <span class="required">*</span></label>
 
                                 <div ng-model="selectedProject.skills" ui-sortable class="ui-state-default">
@@ -95,30 +95,35 @@ if (!defined("ROOT")) {
                             <label for="project-long-desc">Long Description: <span class="required">*</span></label>
                             <textarea ng-if="selectedProject" ui-tinymce="tinymceOptions" ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" tabindex="1"></textarea>
 
-                            <!-- Div containing all the project images -->
-                            <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">
-                                <li class="project__image-container" ng-repeat="image in selectedProject.images" id="{{ image.file }}">
-                                    <img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{ image.file }}" />
-                                    <button type="button" ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" tabindex="1">X</button>
-                                </li>
-                            </ul>
-
                             <button type="submit" value="Add Project" class="btn btn--dark-green project__save-button" tabindex="1">
                                 <span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span>
                                 <i class="fa fa-upload"></i>
                             </button>
+                        </div>
 
-                            <input ng-if="selectedProject.id" data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="1" />
+                        <div class="project__sidebar clearfix">
 
-                            <!-- Div containing the project image uploads -->
-                            <div class="project__uploads">
-                                <div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">
-                                    <p>{{ upload.text }}</p>
-                                    <img ng-if="upload.ok == true" src="{{ upload.image }}" />
-                                    <button type="button" ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--dark-blue" tabindex="1">
-                                        <span class="screen-reader-text">Upload This Image</span>
-                                        <i class="fa fa-upload"></i>
-                                    </button>
+                            <div class="project__sidebar-block clearfix" ng-if="selectedProject.id">
+                                <!-- Div containing all the project images -->
+                                <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">
+                                    <li class="project__image-container" ng-repeat="image in selectedProject.images" id="{{ image.file }}">
+                                        <img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{ image.file }}" />
+                                        <button type="button" ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" tabindex="1">X</button>
+                                    </li>
+                                </ul>
+
+                                <input data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="1" />
+
+                                <!-- Div containing the project image uploads -->
+                                <div class="project__uploads">
+                                    <div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">
+                                        <p>{{ upload.text }}</p>
+                                        <img ng-if="upload.ok == true" src="{{ upload.image }}" />
+                                        <button type="button" ng-if="upload.ok == true" ng-click="sendImage(upload)" class="btn btn--dark-blue" tabindex="1">
+                                            <span class="screen-reader-text">Upload This Image</span>
+                                            <i class="fa fa-upload"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

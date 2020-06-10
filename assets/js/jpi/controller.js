@@ -113,6 +113,21 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             );
         },
 
+        resetSidebarOffsets: function() {
+            var sidebars = jQuery(".project__sidebar");
+            if (jpi.helpers.isDesktop()) {
+                var height = 16;
+
+                sidebars.each(function(i, elem) {
+                    var jElem = jQuery(elem);
+                    jElem.css("top", height + "px");
+                    height += jElem.outerHeight();
+                });
+            } else {
+                sidebars.css("top", "");
+            }
+        },
+
         doAJAXCall: function(endpoint, method, onSuccess, onFail, data) {
             var fullURL = jpi.helpers.genURL(jpi.config.jpiAPIBaseURL, endpoint);
 
@@ -308,6 +323,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             jQuery(".project__name, .project__status, .project__date, .project__type, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
 
             fn.resetFooter();
+            fn.resetSidebarOffsets();
         },
 
         setUpEditProject: function() {
@@ -315,8 +331,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 document.title = "Edit Project (" + $scope.selectedProject.id + ")" + global.titlePostfix;
 
                 jpi.dnd.setUp();
-                fn.setUpProjectForm();
                 jQuery(".project__uploads").sortable().disableSelection();
+                fn.setUpProjectForm();
             }
             else {
                 fn.showProjectSelectFeedback("Select A Project To Edit.");
@@ -675,6 +691,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 global.url = new URL(window.location);
                 fn.loadApp();
             });
+
+            jQuery(window).on("orientationchange resize", fn.resetSidebarOffsets);
         },
 
         initVariables: function() {

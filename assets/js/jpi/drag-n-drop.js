@@ -3,11 +3,19 @@ window.jpi.dnd = (function(jQuery, jpi) {
 
     "use strict";
 
-    var global = {
-        dropZone: jQuery(".js-drop-zone"),
-    };
+    var global = {};
 
     var fn = {
+
+        initGlobals: function() {
+            if (!global.dropZone) {
+                global.dropZone = jQuery(".js-drop-zone");
+            }
+
+            if (!global.window) {
+                global.window = jQuery(window);
+            }
+        },
 
         readItem: function(item) {
             if (item.isFile) {
@@ -65,12 +73,18 @@ window.jpi.dnd = (function(jQuery, jpi) {
         },
 
         stop: function() {
-            jQuery(window).off("dragover", fn.dragOver)
+            fn.initGlobals();
+
+            global.window.off("dragover", fn.dragOver)
                           .off("drop", fn.drop);
+
+            global.dropZone.off("dragleave", fn.removeDropZone);
         },
 
         setUp: function() {
-            jQuery(window).on("dragover", fn.dragOver)
+            fn.initGlobals();
+
+            global.window.on("dragover", fn.dragOver)
                           .on("drop", fn.drop);
 
             global.dropZone.on("dragleave", fn.removeDropZone);

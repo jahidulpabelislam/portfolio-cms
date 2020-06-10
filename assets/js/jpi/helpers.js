@@ -58,9 +58,7 @@ window.jpi.helpers = (function() {
         },
 
         isDesktop: function() {
-            var isDesktop = jQuery(window).width() > 768;
-
-            return isDesktop;
+            return window.innerWidth > 1200;
         },
 
         /**

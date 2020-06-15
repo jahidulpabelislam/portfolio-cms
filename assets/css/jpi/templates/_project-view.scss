@@ -212,8 +212,7 @@
     background: $dark-colour;
 }
 
-.project__image-drop-zone-text,
-.project__image-drop-zone-loading {
+.project__image-drop-zone-text {
     text-align: center;
     color: white;
 }
@@ -222,28 +221,6 @@
     margin: auto;
     font-size: 28px;
     line-height: 30px;
-}
-
-.project__image-drop-zone-loading {
-    display: none;
-    font-size: 100px;
-    line-height: 110px;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-
-    i {
-        margin: auto;
-    }
-}
-
-.project__image-drop-zone.dropping .project__image-drop-zone-text {
-    display: none;
-}
-.project__image-drop-zone.dropping .project__image-drop-zone-loading {
-    display: flex;
 }
 
 .project__image-upload {

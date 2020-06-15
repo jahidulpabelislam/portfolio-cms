@@ -45,8 +45,7 @@ window.jpi.dnd = (function(jQuery, jpi) {
         },
 
         drop: function(e) {
-            global.dropZone.addClass("dropping");
-
+            jpi.cms.showLoading();
             var items = e.originalEvent.dataTransfer.items || [];
 
             var length = items.length;

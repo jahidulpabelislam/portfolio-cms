@@ -117,10 +117,6 @@ if (!defined("ROOT")) {
                                     <label class="project__faux-image-upload" for="project-image-upload">Choose</label> or Drop Image(s) Here To Upload for Project
                                 </p>
 
-                                <div class="project__image-drop-zone-loading">
-                                    <i class="fas fa-spinner fa-spin"></i>
-                                </div>
-
                                 <input data-file-Upload type="file" id="project-image-upload" class="input project__image-upload" multiple accept="image/*" tabindex="1" />
                             </div>
 

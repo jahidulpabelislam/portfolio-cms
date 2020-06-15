@@ -9,7 +9,7 @@ app.directive("fileUpload", function() {
         scope: true,
         link: function($scope, $element) {
             $element.bind("change", function() {
-                jQuery(".project__image-drop-zone").addClass("dropping");
+                jpi.cms.showLoading();
 
                 var files = $element[0].files;
                 var count = files.length;
@@ -786,7 +786,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 fn.resetFooter();
 
                 if (isLast) {
-                    jQuery(".project__image-drop-zone").removeClass("dropping");
+                    jpi.cms.hideLoading();
                     jpi.cms.scrollToUploads();
                 }
             };
@@ -1036,6 +1036,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         checkFile: $scope.checkFile,
         renderFailedUpload: fn.renderFailedUpload,
         scrollToUploads: fn.scrollToUploads,
+        showLoading: fn.showLoading,
+        hideLoading: fn.hideLoading,
     };
 
     jQuery(window).on("load", function() {

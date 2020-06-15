@@ -49,8 +49,7 @@ $isDebug = $app::isDebug();
         </main>
 
         <?php include_once(ROOT . "/partials/login.php"); ?>
-
-        <!-- The loading area -->
+        
         <div class="js-loading fixed-overlay fixed-overlay--loading">
             <h1 class="fixed-overlay__text">
                 <i class="fas fa-spinner fa-spin"></i>

@@ -28,3 +28,11 @@
     margin: auto;
     color: white;
 }
+
+/* For tablets & desktops */
+@media only screen and (min-width: $tablet-width) {
+    .fixed-overlay--loading {
+        font-size: 100px;
+        line-height: 110px;
+    }
+}

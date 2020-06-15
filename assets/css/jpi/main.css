@@ -196,6 +196,12 @@ strong {
   margin: auto;
   color: white; }
 
+/* For tablets & desktops */
+@media only screen and (min-width: 768px) {
+  .fixed-overlay--loading {
+    font-size: 100px;
+    line-height: 110px; } }
+
 /* For all devices */
 button,
 [type="button"],

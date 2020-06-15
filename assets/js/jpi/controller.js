@@ -9,11 +9,13 @@ app.directive("fileUpload", function() {
         scope: true,
         link: function($scope, $element) {
             $element.bind("change", function() {
+                jQuery(".project__image-drop-zone").addClass("dropping");
+
                 var files = $element[0].files;
+                var count = files.length;
                 for (var i = 0; i < files.length; i++) {
-                    $scope.checkFile(files[i]);
+                    $scope.checkFile(files[i], i === count - 1);
                 }
-                jpi.cms.scrollToUploads();
             });
         },
     };
@@ -89,20 +91,12 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         scrollToUploads: function() {
-
-            /**
-             * As the reading of files are async, the upload may not be in DOM yet
-             * So we go to uploads container instead as default
-             * But if there was already items in uploads, we scroll to the bottom of last item
-             */
-
             var pos = jQuery(".project__uploads").offset().top;
-            var uploads = jQuery(".project__upload");
+            var uploads = jQuery(".project__upload:not(.project__upload--scrolled)");
             if (uploads.length) {
-                var lastItem = uploads.last();
-                var topOfLastItem = lastItem.offset().top;
-                pos = topOfLastItem + lastItem.outerHeight();
+                pos = uploads.first().offset().top;
             }
+            uploads.addClass("project__upload--scrolled");
 
             var feedbackHeight = jQuery(".project__feedback").outerHeight();
             jQuery("html, body").animate(
@@ -330,9 +324,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             if ($scope.selectedProject && $scope.selectedProject.id) {
                 document.title = "Edit Project (" + $scope.selectedProject.id + ")" + global.titlePostfix;
 
-                jpi.dnd.setUp();
-                jQuery(".project__uploads").sortable().disableSelection();
                 fn.setUpProjectForm();
+                jQuery(".project__uploads").sortable().disableSelection();
+                jpi.dnd.setUp();
             }
             else {
                 fn.showProjectSelectFeedback("Select A Project To Edit.");
@@ -410,8 +404,6 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             $scope.selectProjectFeedback = "";
 
             $scope.currentPage = page;
-
-            jpi.dnd.stop();
 
             if (addToHistory !== false) {
                 fn.setURl("projects/" + page);
@@ -776,7 +768,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         });
     };
 
-    $scope.checkFile = function(file) {
+    $scope.checkFile = function(file, isLast) {
         var fileReader;
 
         if (file.type.includes("image/")) {
@@ -792,6 +784,11 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 });
                 $scope.$apply();
                 fn.resetFooter();
+
+                if (isLast) {
+                    jQuery(".project__image-drop-zone").removeClass("dropping");
+                    jpi.cms.scrollToUploads();
+                }
             };
 
             fileReader.onerror = function() {

@@ -200,6 +200,72 @@
     background-color: transparent;
 }
 
+.project__image-drop-zone.project__image-drop-zone {
+    display: flex;
+    position: relative;
+    min-height: 240px;
+    padding: 50px;
+    background: lighten($grey, 20);
+    transition: background .3s linear;
+}
+.project__image-drop-zone.drag-over {
+    background: $dark-colour;
+}
+
+.project__image-drop-zone-text,
+.project__image-drop-zone-loading {
+    text-align: center;
+    color: white;
+}
+
+.project__image-drop-zone-text {
+    margin: auto;
+    font-size: 28px;
+    line-height: 30px;
+}
+
+.project__image-drop-zone-loading {
+    display: none;
+    font-size: 100px;
+    line-height: 110px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    i {
+        margin: auto;
+    }
+}
+
+.project__image-drop-zone.dropping .project__image-drop-zone-text {
+    display: none;
+}
+.project__image-drop-zone.dropping .project__image-drop-zone-loading {
+    display: flex;
+}
+
+.project__image-upload {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.project__faux-image-upload {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.project__faux-image-upload:hover {
+    color: black;
+}
+
 /* For tablets and some are for desktops */
 @media only screen and (min-width: $tablet-width) {
     .project__meta-item {
@@ -269,5 +335,14 @@
 
     .project__image-container {
         box-shadow: 0 0 10px 0 transparentize($dark-colour, 0.95);
+    }
+
+    .project__image-drop-zone {
+        min-height: 120px;
+    }
+
+    .project__image-drop-zone-text {
+        font-size: 16px;
+        line-height: 18px;
     }
 }

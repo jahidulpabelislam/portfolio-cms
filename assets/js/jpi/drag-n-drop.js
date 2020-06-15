@@ -7,29 +7,26 @@ window.jpi.dnd = (function(jQuery, jpi) {
 
     var fn = {
 
-        initGlobals: function() {
+        initDropZone: function() {
             if (!global.dropZone) {
-                global.dropZone = jQuery(".js-drop-zone");
-            }
-
-            if (!global.window) {
-                global.window = jQuery(window);
+                global.dropZone = jQuery(".project__image-drop-zone");
             }
         },
 
-        readItem: function(item) {
+        readItem: function(item, isLast) {
             if (item.isFile) {
                 item.file(function(file) {
-                    jpi.cms.checkFile(file);
+                    jpi.cms.checkFile(file, isLast);
                 });
             }
             else if (item.isDirectory) {
                 // Get folder content
                 var directoryReader = item.createReader();
                 directoryReader.readEntries(function(entries) {
+                    var length = entries.length;
                     // Loop through each item in directory and read each item
-                    for (var i = 0; i < entries.length; i++) {
-                        fn.readItem(entries[i]);
+                    for (var i = 0; i < length; i++) {
+                        fn.readItem(entries[i], (isLast && i === length - 1));
                     }
                 });
             }
@@ -39,61 +36,45 @@ window.jpi.dnd = (function(jQuery, jpi) {
             }
         },
 
-        dragOver: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            global.dropZone.css({
-                zIndex: 10,
-                opacity: 1,
-            });
+        dragOver: function() {
+            global.dropZone.addClass("drag-over");
         },
 
-        removeDropZone: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            global.dropZone.css("opacity", 0);
-            setTimeout(function() {
-                global.dropZone.css("zIndex", -10);
-            }, 1000);
+        dragOverEnd: function() {
+            global.dropZone.removeClass("drag-over");
         },
 
         drop: function(e) {
-            fn.removeDropZone(e);
+            global.dropZone.addClass("dropping");
 
             var items = e.originalEvent.dataTransfer.items || [];
 
+            var length = items.length;
             // Loop through each item (file/directory) dropped & read each one
-            for (var i = 0; i < items.length; i++) {
-                fn.readItem(items[i].webkitGetAsEntry());
+            for (var i = 0; i < length; i++) {
+                fn.readItem(items[i].webkitGetAsEntry(), i === length - 1);
+            }
+        },
+
+        init: function() {
+            if (global.dropZone) {
+                return;
             }
 
-            jpi.cms.scrollToUploads();
-        },
+            fn.initDropZone();
 
-        stop: function() {
-            fn.initGlobals();
-
-            global.window.off("dragover", fn.dragOver)
-                          .off("drop", fn.drop);
-
-            global.dropZone.off("dragleave", fn.removeDropZone);
-        },
-
-        setUp: function() {
-            fn.initGlobals();
-
-            global.window.on("dragover", fn.dragOver)
-                          .on("drop", fn.drop);
-
-            global.dropZone.on("dragleave", fn.removeDropZone);
+            global.dropZone.on('dragover dragenter dragleave dragend drop', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                })
+                .on('dragover dragenter', fn.dragOver)
+                .on('dragleave dragend drop', fn.dragOverEnd)
+                .on('drop', fn.drop);
         },
     };
 
     return {
-        setUp: fn.setUp,
-        stop: fn.stop,
+        setUp: fn.init,
     };
 
 })(jQuery, jpi);

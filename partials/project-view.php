@@ -18,7 +18,7 @@ if (!defined("ROOT")) {
                     <form id="projectForm" class="project__form clearfix" ng-submit="checkAuthStatus(submitProject)">
 
                         <div class="project__sidebar clearfix">
-                            <div class="project__sidebar-block clearfix">
+                            <div class="project__sidebar-block">
                                 <div class="project__meta-item">
                                     <label for="project-status">Status: <span class="required">*</span></label>
                                     <select ng-model="selectedProject.status" name="project-status" id="project-status" class="input input--inline project__status" tabindex="1" required>
@@ -101,9 +101,8 @@ if (!defined("ROOT")) {
                             </button>
                         </div>
 
-                        <div class="project__sidebar clearfix">
-
-                            <div class="project__sidebar-block clearfix" ng-if="selectedProject.id">
+                        <div class="project__sidebar clearfix" ng-if="selectedProject.id">
+                            <div class="project__sidebar-block" ng-if="selectedProject.images.length">
                                 <!-- Div containing all the project images -->
                                 <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">
                                     <li class="project__image-container" ng-repeat="image in selectedProject.images" id="{{ image.file }}">
@@ -111,9 +110,21 @@ if (!defined("ROOT")) {
                                         <button type="button" ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" tabindex="1">X</button>
                                     </li>
                                 </ul>
+                            </div>
 
-                                <input data-file-Upload type="file" name="imageUpload" id="imageUpload" class="input" multiple accept="image/*" tabindex="1" />
+                            <div class="project__sidebar-block project__image-drop-zone">
+                                <p class="project__image-drop-zone-text">
+                                    <label class="project__faux-image-upload" for="project-image-upload">Choose</label> or Drop Image(s) Here To Upload for Project
+                                </p>
 
+                                <div class="project__image-drop-zone-loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </div>
+
+                                <input data-file-Upload type="file" id="project-image-upload" class="input project__image-upload" multiple accept="image/*" tabindex="1" />
+                            </div>
+
+                            <div class="project__sidebar-block" ng-if="uploads.length">
                                 <!-- Div containing the project image uploads -->
                                 <div class="project__uploads">
                                     <div ng-repeat="upload in uploads" class="project__upload" ng-class="upload.ok == true ? 'project__upload--success' : 'project__upload--failed'">

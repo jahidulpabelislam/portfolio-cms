@@ -50,11 +50,6 @@ $isDebug = $app::isDebug();
 
         <?php include_once(ROOT . "/partials/login.php"); ?>
 
-        <!-- The drag and drop area -->
-        <div class="js-drop-zone fixed-overlay">
-            <h1 class="fixed-overlay__text">Drag And Drop Image Here To Upload A Slide for Project</h1>
-        </div>
-
         <!-- The loading area -->
         <div class="js-loading fixed-overlay fixed-overlay--loading">
             <h1 class="fixed-overlay__text">

@@ -86,8 +86,8 @@ if (!defined("ROOT")) {
 
                         <!-- Div containing all the project images -->
                         <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">
-                            <li class="project__image-container" id="{{ image.file }}" ng-repeat="image in selectedProject.images">
-                                <img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{ image.file }}" alt="Image of {{ selectedProject.name }}"/>
+                            <li class="project__image-container" id="{{ image.id }}" ng-repeat="image in selectedProject.images">
+                                <img class="project__image" src="{{ image.url }}" alt="Image of {{ selectedProject.name }}"/>
                                 <button type="button" class="btn btn--red project__image-delete-button" ng-click="deleteProjectImage(image)" tabindex="1">X</button>
                             </li>
                         </ul>

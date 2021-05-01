@@ -713,7 +713,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
     $scope.checkAuthStatus = function(successFunc, redirectTo, feedbackOverride) {
         fn.doAJAXCall(
-            "/auth/session",
+            "/auth/status",
             "GET",
             function(response) {
                 fn.onSuccessfulAuthCheck(response, successFunc, redirectTo, feedbackOverride);

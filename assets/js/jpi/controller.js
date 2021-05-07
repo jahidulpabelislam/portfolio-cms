@@ -19,7 +19,7 @@ app.directive("fileUpload", function() {
     };
 });
 
-app.controller("portfolioCMSController", function($scope, $http, $httpParamSerializerJQLike) {
+app.controller("portfolioCMSController", function($scope, $http) {
 
     "use strict";
 
@@ -126,12 +126,12 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 headers: {},
             };
 
-            if (method === "POST") {
-                options.headers["Content-Type"] = "application/x-www-form-urlencoded";
-                options.data = $httpParamSerializerJQLike(data);
-            }
-            else {
-                options.params = data;
+            if (data) {
+                if (method === "GET") {
+                    options.params = data;
+                } else {
+                    options.data = data;
+                }
             }
 
             if (endpoint !== "login") {
@@ -842,11 +842,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     "colour": project.colour || "",
                     "short_description": project.short_description || "",
                     "long_description": project.long_description || "",
-                    "images[]": project.images || [],
+                    "images": project.images || [],
+                    "skills": project.skills || [],
                 };
-
-            var skillsProp = project.id ? "skills[]" : "skills";
-            data[skillsProp] = project.skills || [];
 
             fn.doAJAXCall(
                 "/projects/" + id,

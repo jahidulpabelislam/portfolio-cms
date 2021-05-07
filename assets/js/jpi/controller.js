@@ -547,10 +547,8 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
         callLogout: function() {
             fn.doAJAXCall("/auth/logout/", "DELETE", function(response) {
-                if (response && response.meta && response.meta.status && response.meta.status == 200) {
-                    jpi.helpers.setJwt("");
-                    fn.showLoginForm(response);
-                }
+                jpi.helpers.setJwt("");
+                fn.showLoginForm(response);
             });
         },
 

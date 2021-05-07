@@ -245,7 +245,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 $scope.selectProject(project);
 
                 if (!wasUpdate) {
-                    fn.setURl("project/" + $scope.selectedProject.id + "/edit");
+                    fn.setURl("/project/" + $scope.selectedProject.id + "/edit/");
                     fn.setUpEditProject();
                 }
 
@@ -403,11 +403,11 @@ app.controller("portfolioCMSController", function($scope, $http) {
             jpi.dnd.stop();
 
             if (addToHistory !== false) {
-                fn.setURl("projects/" + page);
+                fn.setURl("/projects/" + page);
             }
 
             fn.doAJAXCall(
-                "projects",
+                "/projects/",
                 "GET",
                 fn.onSuccessfulProjectsGet,
                 function(response) {
@@ -476,7 +476,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 $scope.isLoggedIn = true;
 
                 if (!global.redirectTo) {
-                    global.redirectTo = "projects/1";
+                    global.redirectTo = "/projects/1/";
                 }
 
                 fn.setURl(global.redirectTo);
@@ -542,11 +542,11 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fn.resetFooter();
 
             global.redirectTo = redirectTo;
-            fn.setURl("login");
+            fn.setURl("/login/");
         },
 
         callLogout: function() {
-            fn.doAJAXCall("/auth/logout", "DELETE", function(response) {
+            fn.doAJAXCall("/auth/logout/", "DELETE", function(response) {
                 if (response && response.meta && response.meta.status && response.meta.status == 200) {
                     jpi.helpers.setJwt("");
                     fn.showLoginForm(response);
@@ -606,19 +606,19 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 func = function() {
                     fn.getProjects(pageNum, false);
                 };
-                redirectTo = "projects/" + pageNum;
+                redirectTo = "/projects/" + pageNum;
             }
             else if (root === "project" && path[1]) {
                 if (path[1] === "add" && !path[2]) {
                     func = fn.setUpAddProject;
-                    redirectTo = "project/add";
+                    redirectTo = "/project/add/";
                 }
                 else if (jpi.helpers.getInt(path[1]) && path[2] && path[2] === "edit" && !path[3]) {
                     var id = jpi.helpers.getInt(path[1]);
                     func = function() {
                         fn.getAndEditProject(id, 10);
                     };
-                    redirectTo = "project/" + id + "/edit";
+                    redirectTo = "/project/" + id + "/edit/";
                 }
             }
             else if (root === "logout" && !path[1]) {
@@ -649,7 +649,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
                 $scope.checkAuthStatus(function() {
                     fn.getProjects(page);
-                }, "projects/" + page);
+                }, "/projects/" + page);
             });
 
             jQuery(".cms-page").on("click", ".js-new-project", function(e) {
@@ -657,9 +657,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 e.stopPropagation();
 
                 $scope.checkAuthStatus(function() {
-                    fn.setURl("project/add");
+                    fn.setURl("/project/add/");
                     fn.setUpAddProject();
-                }, "project/add");
+                }, "/project/add/");
             });
 
             jQuery(".cms-page").on("click", ".js-edit-project", function(e) {
@@ -670,9 +670,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
                 if (id) {
                     $scope.checkAuthStatus(function() {
-                        fn.setURl("project/" + id + "/edit");
+                        fn.setURl("/project/" + id + "/edit/");
                         fn.setUpEditProject();
-                    }, "project/" + id + "/edit");
+                    }, "/project/" + id + "/edit/");
                 }
             });
 
@@ -713,7 +713,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
 
     $scope.checkAuthStatus = function(successFunc, redirectTo, feedbackOverride) {
         fn.doAJAXCall(
-            "/auth/status",
+            "/auth/status/",
             "GET",
             function(response) {
                 fn.onSuccessfulAuthCheck(response, successFunc, redirectTo, feedbackOverride);
@@ -921,7 +921,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 password: $scope.password,
             };
 
-            fn.doAJAXCall("/auth/login", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
+            fn.doAJAXCall("/auth/login/", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
         }
         // If both inputs are empty
         else if (!isUsernameValid && !isPasswordValid) {

@@ -175,28 +175,25 @@ app.controller("portfolioCMSController", function($scope, $http) {
         },
 
         // Render a Project Image deletion message to show if it's been deleted or failed
-        onSuccessfulProjectImageDeletion: function(response) {
+        onSuccessfulProjectImageDeletion: function(id) {
             $scope.hideProjectFeedback();
 
             var found = false,
                 feedback = "Error deleting the Project Image.",
                 feedbackType = "error";
 
-            // Check if the deletion of project image has been processed
-            if (response && response.data && response.data.id) {
-                // Find and remove the image from view
-                for (var i = 0; i < $scope.selectedProject.images.length; i++) {
-                    if ($scope.selectedProject.images[i].id === response.data.id) {
-                        $scope.selectedProject.images.splice(i, 1);
-                        found = true;
-                        break;
-                    }
+            // Find and remove the image from view
+            for (var i = 0; i < $scope.selectedProject.images.length; i++) {
+                if ($scope.selectedProject.images[i].id === id) {
+                    $scope.selectedProject.images.splice(i, 1);
+                    found = true;
+                    break;
                 }
+            }
 
-                if (found) {
-                    feedback = "Successfully deleted the Project Image.";
-                    feedbackType = "success";
-                }
+            if (found) {
+                feedback = "Successfully deleted the Project Image.";
+                feedbackType = "success";
             }
 
             fn.showProjectFeedback(feedback, feedbackType);
@@ -215,20 +212,13 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fn.showProjectFeedback(feedback, "success");
         },
 
-        onSuccessfulProjectDeletion: function(response) {
-            $scope.selectProjectFeedback = "";
-            var defaultFeedback = "Error deleting your project.",
-                feedbackType = "error";
+        onSuccessfulProjectDeletion: function(id) {
+            fn.getProjects(1);
 
-            // Check the project delete has been processed
-            if (response && response.data && response.data.id) {
-                defaultFeedback = "Successfully deleted the Project identified by: " + response.data.id + ".";
-                feedbackType = "success";
-                fn.getProjects(1);
-            }
-
-            var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
-            fn.showProjectSelectFeedback(feedback, feedbackType);
+            fn.showProjectSelectFeedback(
+                "Successfully deleted the Project identified by: " + id + ".",
+                "success"
+            );
             fn.resetFooter();
         },
 
@@ -802,7 +792,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
         fn.doAJAXCall(
             "/projects/" + projectImage.project_id + "/images/" + projectImage.id,
             "DELETE",
-            fn.onSuccessfulProjectImageDeletion,
+            function() {
+                fn.onSuccessfulProjectImageDeletion(projectImage.id);
+            },
             function(response) {
                 var defaultFeedback = "Error deleting the Project Image.";
                 var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
@@ -887,7 +879,9 @@ app.controller("portfolioCMSController", function($scope, $http) {
             fn.doAJAXCall(
                 "/projects/" + $scope.selectedProject.id,
                 "DELETE",
-                fn.onSuccessfulProjectDeletion,
+                function() {
+                    fn.onSuccessfulProjectDeletion($scope.selectedProject.id);
+                },
                 function(response) {
                     var defaultFeedback = "Error deleting your project.";
                     var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);

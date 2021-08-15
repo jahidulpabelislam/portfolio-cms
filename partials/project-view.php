@@ -45,14 +45,14 @@ if (!defined("ROOT")) {
                         <label for="project-type">Type: <span class="required">*</span></label>
                         <input type="text" class="input project__type" id="project-type" name="project-type" ng-model="selectedProject.type" placeholder="Web App" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
-                        <label for="project-link">Link:</label>
-                        <input type="text" class="input project__link" id="project-link" name="project-link" ng-model="selectedProject.link" placeholder="link" tabindex="1" />
+                        <label for="project-url">URL:</label>
+                        <input type="text" class="input project__url" id="project-url" name="project-url" ng-model="selectedProject.url" placeholder="https://jahidulpabelislam.com/" tabindex="1" />
 
-                        <label for="project-github">GitHub:</label>
-                        <input type="url" class="input project__github" id="project-github" name="project-github" ng-model="selectedProject.github" placeholder="github" tabindex="1" />
+                        <label for="project-github-url">GitHub:</label>
+                        <input type="url" class="input project__github" id="project-github-url" name="project-github-url" ng-model="selectedProject.github_url" placeholder="http://github.com/jahidulpabelislam/portfolio/" tabindex="1" />
 
-                        <label for="project-download">Download:</label>
-                        <input type="text" class="input project__download" id="project-download" name="project-download" ng-model="selectedProject.download" placeholder="download" tabindex="1" />
+                        <label for="project-download-url">Download:</label>
+                        <input type="text" class="input project__download" id="project-download-url" name="project-download-url" ng-model="selectedProject.download_url" placeholder="download" tabindex="1" />
 
                         <label for="project-colour">Colour:</label>
                         <select class="input project__colour" id="project-colour" name="project-colour" ng-model="selectedProject.colour" ng-options="colour as colourName for (colour, colourName) in colourOptions" tabindex="1">

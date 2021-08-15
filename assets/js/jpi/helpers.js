@@ -40,12 +40,8 @@ window.jpi.helpers = (function() {
                     return response.error;
                 }
 
-                if (response.errors && response.errors.message) {
-                    return response.errors.message;
-                }
-
-                if (response.meta && response.meta.message) {
-                    return response.meta.message;
+                if (response.message) {
+                    return response.message;
                 }
             }
 

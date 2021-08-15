@@ -367,7 +367,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 }
                 $scope.projects = projects;
 
-                var pages = Math.ceil(response.meta.total_count / 10);
+                var pages = Math.ceil(response._total_count / 10);
                 for (var k = 1; k <= pages; k++) {
                     $scope.pages.push(k);
                 }

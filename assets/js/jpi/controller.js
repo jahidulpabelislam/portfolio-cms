@@ -21,7 +21,7 @@ app.directive("fileUpload", function() {
     };
 });
 
-app.controller("portfolioCMSController", function($scope, $http, $httpParamSerializerJQLike) {
+app.controller("portfolioCMSController", function($scope, $http) {
 
     "use strict";
 
@@ -134,12 +134,12 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 headers: {},
             };
 
-            if (method === "POST") {
-                options.headers["Content-Type"] = "application/x-www-form-urlencoded";
-                options.data = $httpParamSerializerJQLike(data);
-            }
-            else {
-                options.params = data;
+            if (data) {
+                if (method === "GET") {
+                    options.params = data;
+                } else {
+                    options.data = data;
+                }
             }
 
             if (endpoint !== "login") {
@@ -183,28 +183,25 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         // Render a Project Image deletion message to show if it's been deleted or failed
-        onSuccessfulProjectImageDeletion: function(response) {
+        onSuccessfulProjectImageDeletion: function(id) {
             $scope.hideProjectFeedback();
 
             var found = false,
                 feedback = "Error deleting the Project Image.",
                 feedbackType = "error";
 
-            // Check if the deletion of project image has been processed
-            if (response && response.row && response.row.id) {
-                // Find and remove the image from view
-                for (var i = 0; i < $scope.selectedProject.images.length; i++) {
-                    if ($scope.selectedProject.images[i].id === response.row.id) {
-                        $scope.selectedProject.images.splice(i, 1);
-                        found = true;
-                        break;
-                    }
+            // Find and remove the image from view
+            for (var i = 0; i < $scope.selectedProject.images.length; i++) {
+                if ($scope.selectedProject.images[i].id === id) {
+                    $scope.selectedProject.images.splice(i, 1);
+                    found = true;
+                    break;
                 }
+            }
 
-                if (found) {
-                    feedback = "Successfully deleted the Project Image.";
-                    feedbackType = "success";
-                }
+            if (found) {
+                feedback = "Successfully deleted the Project Image.";
+                feedbackType = "success";
             }
 
             fn.showProjectFeedback(feedback, feedbackType);
@@ -212,7 +209,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulProjectImageUpload: function(response, upload) {
-            $scope.selectedProject.images.push(response.row);
+            $scope.selectedProject.images.push(response.data);
 
             var index = $scope.uploads.indexOf(upload);
             if (index > -1) {
@@ -223,25 +220,18 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.showProjectFeedback(feedback, "success");
         },
 
-        onSuccessfulProjectDeletion: function(response) {
-            $scope.selectProjectFeedback = "";
-            var defaultFeedback = "Error deleting your project.",
-                feedbackType = "error";
+        onSuccessfulProjectDeletion: function(id) {
+            fn.getProjects(1);
 
-            // Check the project delete has been processed
-            if (response && response.row && response.row.id) {
-                defaultFeedback = "Successfully deleted the Project identified by: " + response.row.id + ".";
-                feedbackType = "success";
-                fn.getProjects(1);
-            }
-
-            var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
-            fn.showProjectSelectFeedback(feedback, feedbackType);
+            fn.showProjectSelectFeedback(
+                "Successfully deleted the Project identified by: " + id + ".",
+                "success"
+            );
             fn.resetFooter();
         },
 
         onSuccessfulProjectSave: function(response) {
-            if (response && response.row) {
+            if (response && response.data) {
                 var wasUpdate = $scope.selectedProject && $scope.selectedProject.id,
 
                     typeSubmit = wasUpdate ? "updated" : "inserted",
@@ -249,11 +239,11 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     defaultFeedback = "Successfully " + typeSubmit + " project.",
                     feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
 
-                var project = fn.formatProject(response.row);
+                var project = fn.formatProject(response.data);
                 $scope.selectProject(project);
 
                 if (!wasUpdate) {
-                    fn.setURl("project/" + $scope.selectedProject.id + "/edit");
+                    fn.setURl("/project/" + $scope.selectedProject.id + "/edit/");
                     fn.setUpEditProject();
                 }
 
@@ -350,9 +340,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 skills: [],
                 long_description: "",
                 short_description: "",
-                link: "",
-                github: "",
-                download: "",
+                url: "",
+                github_url: "",
+                download_url: "",
                 date: "",
                 colour: "",
                 images: [],
@@ -374,15 +364,15 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         onSuccessfulProjectsGet: function(response) {
             fn.setUpProjectsSelect();
 
-            if (response && response.rows && response.rows.length) {
-                var projects = response.rows;
+            if (response && response.data && response.data.length) {
+                var projects = response.data;
 
                 for (var i = 0; i < projects.length; i++) {
                     projects[i] = fn.formatProject(projects[i]);
                 }
                 $scope.projects = projects;
 
-                var pages = Math.ceil(response.meta.total_count / 10);
+                var pages = Math.ceil(response._total_count / 10);
                 for (var k = 1; k <= pages; k++) {
                     $scope.pages.push(k);
                 }
@@ -406,11 +396,11 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             $scope.currentPage = page;
 
             if (addToHistory !== false) {
-                fn.setURl("projects/" + page);
+                fn.setURl("/projects/" + page);
             }
 
             fn.doAJAXCall(
-                "projects",
+                "/projects/",
                 "GET",
                 fn.onSuccessfulProjectsGet,
                 function(response) {
@@ -424,8 +414,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulProjectGet: function(response, id) {
-            if (response && response.meta && response.meta.ok && response.row) {
-                var project = fn.formatProject(response.row);
+            if (response && response.data) {
+                var project = fn.formatProject(response.data);
                 $scope.selectProject(project);
                 fn.setUpEditProject();
                 fn.hideLoading();
@@ -457,7 +447,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         },
 
         onSuccessfulAuthCheck: function(response, successFunc, redirectTo, feedbackOverride) {
-            if (response && response.meta && response.meta.status && response.meta.status == 200) {
+            if (response && response.data && response.data == true) {
                 $scope.isLoggedIn = true;
                 successFunc();
             }
@@ -469,8 +459,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         // After user has attempted to log in
         onSuccessfulLogIn: function(response) {
             // Check if data was valid
-            if (response && response.meta && response.meta.status && response.meta.status == 200) {
-                jpi.helpers.setJwt(response.meta.jwt);
+            if (response && response.data) {
+                jpi.helpers.setJwt(response.data);
 
                 // Make the log in/sign up form not visible
                 jQuery(".login").hide();
@@ -478,7 +468,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 $scope.isLoggedIn = true;
 
                 if (!global.redirectTo) {
-                    global.redirectTo = "projects/1";
+                    global.redirectTo = "/projects/1/";
                 }
 
                 fn.setURl(global.redirectTo);
@@ -525,8 +515,8 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             }
 
             var success = false;
-            if (response && response.meta && response.meta.status) {
-                success = response.meta.status == 200 || response.meta.status == 201;
+            if (response && response.data) {
+                success = response.data == true;
             }
 
             if (success) {
@@ -544,15 +534,13 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.resetFooter();
 
             global.redirectTo = redirectTo;
-            fn.setURl("login");
+            fn.setURl("/login/");
         },
 
         callLogout: function() {
-            fn.doAJAXCall("/auth/logout", "DELETE", function(response) {
-                if (response && response.meta && response.meta.status && response.meta.status == 200) {
-                    jpi.helpers.setJwt("");
-                    fn.showLoginForm(response);
-                }
+            fn.doAJAXCall("/auth/logout/", "DELETE", function(response) {
+                jpi.helpers.setJwt("");
+                fn.showLoginForm(response);
             });
         },
 
@@ -608,19 +596,19 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 func = function() {
                     fn.getProjects(pageNum, false);
                 };
-                redirectTo = "projects/" + pageNum;
+                redirectTo = "/projects/" + pageNum;
             }
             else if (root === "project" && path[1]) {
                 if (path[1] === "add" && !path[2]) {
                     func = fn.setUpAddProject;
-                    redirectTo = "project/add";
+                    redirectTo = "/project/add/";
                 }
                 else if (jpi.helpers.getInt(path[1]) && path[2] && path[2] === "edit" && !path[3]) {
                     var id = jpi.helpers.getInt(path[1]);
                     func = function() {
                         fn.getAndEditProject(id, 10);
                     };
-                    redirectTo = "project/" + id + "/edit";
+                    redirectTo = "/project/" + id + "/edit/";
                 }
             }
             else if (root === "logout" && !path[1]) {
@@ -651,7 +639,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
                 $scope.checkAuthStatus(function() {
                     fn.getProjects(page);
-                }, "projects/" + page);
+                }, "/projects/" + page);
             });
 
             jQuery(".cms-page").on("click", ".js-new-project", function(e) {
@@ -659,9 +647,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 e.stopPropagation();
 
                 $scope.checkAuthStatus(function() {
-                    fn.setURl("project/add");
+                    fn.setURl("/project/add/");
                     fn.setUpAddProject();
-                }, "project/add");
+                }, "/project/add/");
             });
 
             jQuery(".cms-page").on("click", ".js-edit-project", function(e) {
@@ -672,9 +660,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
                 if (id) {
                     $scope.checkAuthStatus(function() {
-                        fn.setURl("project/" + id + "/edit");
+                        fn.setURl("/project/" + id + "/edit/");
                         fn.setUpEditProject();
-                    }, "project/" + id + "/edit");
+                    }, "/project/" + id + "/edit/");
                 }
             });
 
@@ -714,7 +702,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
 
     $scope.checkAuthStatus = function(successFunc, redirectTo, feedbackOverride) {
         fn.doAJAXCall(
-            "/auth/session",
+            "/auth/status/",
             "GET",
             function(response) {
                 fn.onSuccessfulAuthCheck(response, successFunc, redirectTo, feedbackOverride);
@@ -810,7 +798,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
         fn.doAJAXCall(
             "/projects/" + projectImage.project_id + "/images/" + projectImage.id,
             "DELETE",
-            fn.onSuccessfulProjectImageDeletion,
+            function() {
+                fn.onSuccessfulProjectImageDeletion(projectImage.id);
+            },
             function(response) {
                 var defaultFeedback = "Error deleting the Project Image.";
                 var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
@@ -842,17 +832,15 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                     "type": project.type || "",
                     "status": project.status || "",
                     "date": project.date || "",
-                    "link": project.link || "",
-                    "github": project.github || "",
-                    "download": project.download || "",
+                    "url": project.url || "",
+                    "github_url": project.github_url || "",
+                    "download_url": project.download_url || "",
                     "colour": project.colour || "",
                     "short_description": project.short_description || "",
                     "long_description": project.long_description || "",
-                    "images[]": project.images || [],
+                    "images": project.images || [],
+                    "skills": project.skills || [],
                 };
-
-            var skillsProp = project.id ? "skills[]" : "skills";
-            data[skillsProp] = project.skills || [];
 
             fn.doAJAXCall(
                 "/projects/" + id,
@@ -896,7 +884,9 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
             fn.doAJAXCall(
                 "/projects/" + $scope.selectedProject.id,
                 "DELETE",
-                fn.onSuccessfulProjectDeletion,
+                function() {
+                    fn.onSuccessfulProjectDeletion($scope.selectedProject.id);
+                },
                 function(response) {
                     var defaultFeedback = "Error deleting your project.";
                     var feedback = jpi.helpers.getAPIFeedback(response, defaultFeedback);
@@ -928,7 +918,7 @@ app.controller("portfolioCMSController", function($scope, $http, $httpParamSeria
                 password: $scope.password,
             };
 
-            fn.doAJAXCall("/auth/login", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
+            fn.doAJAXCall("/auth/login/", "POST", fn.onSuccessfulLogIn, fn.onFailedLogIn, data);
         }
         // If both inputs are empty
         else if (!isUsernameValid && !isPasswordValid) {

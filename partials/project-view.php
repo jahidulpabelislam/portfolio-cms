@@ -48,8 +48,8 @@ if (!defined("ROOT")) {
                                 </div>
 
                                 <div class="project__meta-item project__meta-item--dates" ng-if="selectedProject && selectedProject.id">
-                                    <p><strong>Created at:</strong> {{ selectedProject.created_at | date: 'EEE d MMM yy h:mma' }}</p>
-                                    <p><strong>Updated at:</strong> {{ selectedProject.updated_at | date: 'EEE d MMM yy h:mma' }}</p>
+                                    <p><strong>Created at:</strong> {{ selectedProject.created_at|date:'EEE d MMM y h:mma' }}</p>
+                                    <p><strong>Updated at:</strong> {{ selectedProject.updated_at|date:'EEE d MMM y h:mma' }}</p>
                                 </div>
                             </div>
 
@@ -78,16 +78,16 @@ if (!defined("ROOT")) {
                             <input ng-model="selectedProject.name" type="text" name="project-name" id="project-name" class="input project__name" placeholder="Portfolio" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
                             <label for="project-type">Type: <span class="required">*</span></label>
-                            <input ng-model="selectedProject.type" type="text" name="project-type" id="project-type" class="input project__type" placeholder="Web app" tabindex="1" />
+                            <input ng-model="selectedProject.type" type="text" name="project-type" id="project-type" class="input project__type" placeholder="Web App" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
 
-                            <label for="project-link">Link:</label>
-                            <input ng-model="selectedProject.link" type="text" name="project-link" id="project-link" class="input project__link" placeholder="https://jahidulpabelislam.com/" tabindex="1" />
+                            <label for="project-url">URL:</label>
+                            <input ng-model="selectedProject.url" type="text" name="project-url" id="project-url" class="input project__url" placeholder="https://jahidulpabelislam.com/" tabindex="1" />
 
-                            <label for="project-github">GitHub:</label>
-                            <input ng-model="selectedProject.github" type="url" name="project-github" id="project-github" class="input project__github" placeholder="https://github.com/jahidulpabelislam/portfolio" tabindex="1" />
+                            <label for="project-github-url">GitHub:</label>
+                            <input ng-model="selectedProject.github_url" type="url" name="project-github-url" id="project-github-url" class="input project__github" placeholder="http://github.com/jahidulpabelislam/portfolio/" tabindex="1" />
 
-                            <label for="project-download">Download:</label>
-                            <input ng-model="selectedProject.download" type="text" name="project-download" id="project-download" class="input project__download" placeholder="https://github.com/jahidulpabelislam/portfolio/archive/v4.zip" tabindex="1" />
+                            <label for="project-download-url">Download:</label>
+                            <input ng-model="selectedProject.download_url" type="text" name="project-download-url" id="project-download-url" class="input project__download" placeholder="https://github.com/jahidulpabelislam/portfolio/archive/v4.zip" tabindex="1" />
 
                             <label for="project-short-desc">Short Description: <span class="required">*</span></label>
                             <textarea ng-if="selectedProject" ui-tinymce="tinymceOptions" ng-model="selectedProject.short_description" name="project-short-desc" id="project-short-desc" class="project__short-desc" tabindex="1"></textarea>
@@ -95,7 +95,7 @@ if (!defined("ROOT")) {
                             <label for="project-long-desc">Long Description: <span class="required">*</span></label>
                             <textarea ng-if="selectedProject" ui-tinymce="tinymceOptions" ng-model="selectedProject.long_description" name="project-long-desc" id="project-long-desc" class="project__long-desc" tabindex="1"></textarea>
 
-                            <button type="submit" value="Add Project" class="btn btn--dark-green project__save-button" tabindex="1">
+                            <button type="submit" class="btn btn--dark-green project__save-button" tabindex="1">
                                 <span class="screen-reader-text">{{ selectedProject.id ? "Update Project" : "Add Project" }}</span>
                                 <i class="fa fa-upload"></i>
                             </button>
@@ -105,8 +105,8 @@ if (!defined("ROOT")) {
                             <div class="project__sidebar-block" ng-if="selectedProject.images.length">
                                 <!-- Div containing all the project images -->
                                 <ul ui-sortable ng-model="selectedProject.images" class="project__images-container ui-state-default">
-                                    <li class="project__image-container" ng-repeat="image in selectedProject.images" id="{{ image.file }}">
-                                        <img class="project__image" src="<?php echo rtrim(JPI_API_ENDPOINT, "/"); ?>{{ image.file }}" />
+                                    <li class="project__image-container" ng-repeat="image in selectedProject.images" id="{{ image.id }}">
+                                        <img class="project__image" src="{{ image.url }}" />
                                         <button type="button" ng-click="deleteProjectImage(image)" class="btn btn--red project__image-delete-button" tabindex="1">X</button>
                                     </li>
                                 </ul>

@@ -35,8 +35,14 @@ window.jpi.helpers = (function() {
         },
 
         getAPIFeedback: function(response, defaultFeedback) {
-            if (response && response.meta && response.meta.feedback) {
-                return response.meta.feedback;
+            if (response) {
+                if (response.error) {
+                    return response.error;
+                }
+
+                if (response.message) {
+                    return response.message;
+                }
             }
 
             return defaultFeedback || "";

@@ -35,6 +35,10 @@ class App {
      * Include the common config file for page/site
      */
     public static function echoConfig() {
+        if (file_exists(ROOT . "/config.local.php")) {
+            include_once(ROOT . "/config.local.php");
+        }
+
         include_once(ROOT . "/config.php");
     }
 

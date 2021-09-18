@@ -3,4 +3,4 @@ logs/*.log
 
 .idea/*
 
-config.php
+config.local.php

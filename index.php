@@ -2,7 +2,7 @@
 include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
 
 $app = App::get();
-$app::echoConfig();
+$app->addConfig();
 
 $isDebug = $app::isDebug();
 ?>
@@ -49,7 +49,7 @@ $isDebug = $app::isDebug();
         </main>
 
         <?php include_once(ROOT . "/partials/login.php"); ?>
-        
+
         <div class="js-loading fixed-overlay fixed-overlay--loading">
             <h1 class="fixed-overlay__text">
                 <i class="fas fa-spinner fa-spin"></i>

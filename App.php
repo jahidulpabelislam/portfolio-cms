@@ -32,17 +32,6 @@ class App {
     }
 
     /**
-     * Include the common config file for page/site
-     */
-    public static function echoConfig() {
-        if (file_exists(ROOT . "/config.local.php")) {
-            include_once(ROOT . "/config.local.php");
-        }
-
-        include_once(ROOT . "/config.php");
-    }
-
-    /**
      * @param $url string The url to add slash to
      * @return string The new url
      */
@@ -104,6 +93,29 @@ class App {
         $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] === "false" || $_GET["debug"] === "0"));
 
         return $isDebug;
+    }
+
+    public function getEnvironment(): string {
+        return getenv("APPLICATION_ENV") ?? "production";
+    }
+
+    /**
+     * Include the config files for app.
+     */
+    public function addConfig() {
+        if (file_exists(ROOT . "/config.local.php")) {
+            include_once(ROOT . "/config.local.php");
+        }
+
+        $environment = $this->getEnvironment();
+
+        if ($environment !== 'production') {
+            if (file_exists(ROOT . "/config.$environment.php")) {
+                include_once(ROOT . "/config.$environment.php");
+            }
+        }
+
+        include_once(ROOT . "/config.php");
     }
 }
 

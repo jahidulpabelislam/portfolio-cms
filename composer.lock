@@ -1,0 +1,65 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "c32aadfc57736271d35aa4f3e6b0b17f",
+    "packages": [
+        {
+            "name": "jpi/utils",
+            "version": "0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jahidulpabelislam/utils.git",
+                "reference": "161442d86d6c943ff859395fde61146eebf53110"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/161442d86d6c943ff859395fde61146eebf53110",
+                "reference": "161442d86d6c943ff859395fde61146eebf53110",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JPI\\Utils\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Jahidul Pabel Islam",
+                    "email": "me@jahidulpabelislam.com"
+                }
+            ],
+            "description": "Library with various utility classes",
+            "keywords": [
+                "utilities"
+            ],
+            "support": {
+                "issues": "https://github.com/jahidulpabelislam/utils/issues",
+                "source": "https://github.com/jahidulpabelislam/utils/tree/v0.1.0"
+            },
+            "time": "2022-09-18T20:17:10+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "jpi/utils": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

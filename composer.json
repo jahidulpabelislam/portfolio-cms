@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jpi/utils": "0.x-dev"
+    }
+}

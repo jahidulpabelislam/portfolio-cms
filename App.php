@@ -1,23 +1,17 @@
 <?php
 
+use JPI\Utils\Singleton;
+
 class App {
+
+    use Singleton;
 
     private const DEFAULT_ASSET_VERSION = "1";
 
-    private static $instance;
-
-    public function __construct() {
+    protected function __construct() {
         if (!defined("ROOT")) {
             define("ROOT", self::getProjectRoot());
         }
-    }
-
-    public static function get(): App {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
     }
 
     /**

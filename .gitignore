@@ -1,6 +1,5 @@
 node_modules/*
+vendor/
 logs/*.log
-
 .idea/*
-
 config.php

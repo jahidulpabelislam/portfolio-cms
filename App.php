@@ -1,6 +1,7 @@
 <?php
 
 use JPI\Utils\Singleton;
+use JPI\Utils\URL;
 
 class App {
 
@@ -33,17 +34,6 @@ class App {
     }
 
     /**
-     * @param $url string The url to add slash to
-     * @return string The new url
-     */
-    public static function addTrailingSlash(string $url): string {
-        $url = rtrim($url, " /");
-        $url = "{$url}/";
-
-        return $url;
-    }
-
-    /**
      * Get a version number of a asset file.
      *
      * The number to use can be passed as a param.
@@ -59,8 +49,7 @@ class App {
         if (!$ver) {
             $ver = self::DEFAULT_ASSET_VERSION;
 
-            $src = ltrim($src, " /");
-            $file = self::addTrailingSlash($root) . $src;
+            $file = URL::addTrailingSlash($root) . URL::removeLeadingSlash($src);
             if (file_exists($file)) {
                 $ver = date("mdYHi", filemtime($file));
             }

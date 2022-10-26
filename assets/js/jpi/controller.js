@@ -265,15 +265,16 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 isLongDescValid = jpi.helpers.checkInput(jQuery(".project__long-desc")[0]),
                 isShortDescValid = jpi.helpers.checkInput(jQuery(".project__short-desc")[0]),
                 isDateValid = (jpi.helpers.checkInput(projectDate[0]) && validDatePattern.test(projectDate.val())),
-                isSkillsValid = $scope.selectedProject.skills.length > 0;
+                isTagsValid = $scope.selectedProject.tags.length > 0
+            ;
 
-            if (isSkillsValid) {
-                jQuery(".project__skill-input")
+            if (isTagsValid) {
+                jQuery(".project__tag-input")
                     .addClass("valid")
                     .removeClass("invalid");
             }
             else {
-                jQuery(".project__skill-input")
+                jQuery(".project__tag-input")
                     .addClass("invalid")
                     .removeClass("valid");
             }
@@ -283,7 +284,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                 isStatusValid &&
                 isDateValid &&
                 isTypeValid &&
-                isSkillsValid &&
+                isTagsValid &&
                 isLongDescValid &&
                 isShortDescValid
             );
@@ -292,11 +293,11 @@ app.controller("portfolioCMSController", function($scope, $http) {
         setUpProjectForm: function() {
             $scope.hideProjectFeedback();
 
-            $scope.selectProjectFeedback = $scope.skillInput = "";
+            $scope.selectProjectFeedback = $scope.tagInput = "";
 
             jQuery(".project-view, .nav").show();
             jQuery(".projects-select").hide();
-            jQuery(".project__name, .project__status, .project__date, .project__type, #skill-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
+            jQuery(".project__name, .project__status, .project__date, .project__type, #tag-input, .project__long-desc, .project__short-desc").removeClass("invalid valid");
 
             jQuery(".main-content").css("padding-top", jQuery(".nav__header").height());
 
@@ -330,7 +331,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             $scope.selectedProject = {
                 name: "",
                 type: "",
-                skills: [],
+                tags: [],
                 long_description: "",
                 short_description: "",
                 url: "",
@@ -677,7 +678,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
             $scope.isLoggedIn = false;
             $scope.projects = $scope.pages = $scope.uploads = [];
             $scope.currentPage = 1;
-            $scope.userFormFeedback = $scope.selectProjectFeedback = $scope.projectFormFeedback = $scope.skillInput = "";
+            $scope.userFormFeedback = $scope.selectProjectFeedback = $scope.projectFormFeedback = $scope.tagInput = "";
         },
 
         init: function() {
@@ -803,14 +804,14 @@ app.controller("portfolioCMSController", function($scope, $http) {
         );
     };
 
-    $scope.addSkill = function() {
-        $scope.selectedProject.skills.push($scope.skillInput);
-        $scope.skillInput = "";
+    $scope.addTag = function() {
+        $scope.selectedProject.tags.push($scope.tagInput);
+        $scope.tagInput = "";
     };
 
-    $scope.deleteSkill = function(skill) {
-        var index = $scope.selectedProject.skills.indexOf(skill);
-        $scope.selectedProject.skills.splice(index, 1);
+    $scope.deleteTag = function(tag) {
+        var index = $scope.selectedProject.tags.indexOf(tag);
+        $scope.selectedProject.tags.splice(index, 1);
     };
 
     $scope.submitProject = function() {
@@ -833,7 +834,7 @@ app.controller("portfolioCMSController", function($scope, $http) {
                     "short_description": project.short_description || "",
                     "long_description": project.long_description || "",
                     "images": project.images || [],
-                    "skills": project.skills || [],
+                    "tags": project.tags || [],
                 };
 
             fn.doAJAXCall(

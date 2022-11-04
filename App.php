@@ -1,23 +1,18 @@
 <?php
 
+use JPI\Utils\Singleton;
+use JPI\Utils\URL;
+
 class App {
+
+    use Singleton;
 
     private const DEFAULT_ASSET_VERSION = "1";
 
-    private static $instance;
-
-    public function __construct() {
+    protected function __construct() {
         if (!defined("ROOT")) {
             define("ROOT", self::getProjectRoot());
         }
-    }
-
-    public static function get(): App {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
     }
 
     /**
@@ -29,17 +24,6 @@ class App {
         }
 
         return $_SERVER["DOCUMENT_ROOT"];
-    }
-
-    /**
-     * @param $url string The url to add slash to
-     * @return string The new url
-     */
-    public static function addTrailingSlash(string $url): string {
-        $url = rtrim($url, " /");
-        $url = "{$url}/";
-
-        return $url;
     }
 
     /**
@@ -58,8 +42,7 @@ class App {
         if (!$ver) {
             $ver = self::DEFAULT_ASSET_VERSION;
 
-            $src = ltrim($src, " /");
-            $file = self::addTrailingSlash($root) . $src;
+            $file = URL::addTrailingSlash($root) . URL::removeLeadingSlash($src);
             if (file_exists($file)) {
                 $ver = date("mdYHi", filemtime($file));
             }

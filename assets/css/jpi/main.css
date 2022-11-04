@@ -816,14 +816,14 @@ label {
   border-radius: 50%;
   box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.19); }
 
-.project__skill-input-container {
+.project__tag-input-container {
   position: relative; }
 
-.project__skill-input {
+.project__tag-input {
   margin: 0;
   width: 100%; }
 
-.project__skill-add-button {
+.project__tag-add-button {
   position: absolute;
   right: 0;
   margin: 0;
@@ -832,7 +832,7 @@ label {
   border-top-left-radius: 0;
   padding: 7px 12px; }
 
-.project__skill {
+.project__tag {
   position: relative;
   border: 1px solid #262626;
   border-radius: 5px;
@@ -844,67 +844,67 @@ label {
   color: white;
   cursor: pointer; }
 
-.project__skill--light-blue {
+.project__tag--light-blue {
   background-color: #54c6e2;
   border-color: #53d1ec;
   color: white; }
 
-.project__skill--dark-blue {
+.project__tag--dark-blue {
   background-color: #0375b4;
   border-color: #0382c3;
   color: white; }
 
-.project__skill--purple {
+.project__tag--purple {
   background-color: #82379d;
   border-color: #9339af;
   color: white; }
 
-.project__skill--pink {
+.project__tag--pink {
   background-color: #f47ab3;
   border-color: #ff82bf;
   color: white; }
 
-.project__skill--red {
+.project__tag--red {
   background-color: #f12525;
   border-color: #ff2525;
   color: white; }
 
-.project__skill--orange {
+.project__tag--orange {
   background-color: #f69e00;
   border-color: #fba300;
   color: white; }
 
-.project__skill--yellow {
+.project__tag--yellow {
   background-color: #ffef38;
   border-color: #fffd3c;
   color: #333333; }
 
-.project__skill--light-green {
+.project__tag--light-green {
   background-color: #3dc714;
   border-color: #3bcf14;
   color: white; }
 
-.project__skill--lime-green {
+.project__tag--lime-green {
   background-color: #b5cf16;
   border-color: #bdd716;
   color: white; }
 
-.project__skill--dark-green {
+.project__tag--dark-green {
   background-color: #1aad5b;
   border-color: #1bbe69;
   color: white; }
 
-.project__skill--grey {
+.project__tag--grey {
   background-color: #7b8676;
   border-color: #889283;
   color: white; }
 
-.project__skill--black {
+.project__tag--black {
   background-color: #333333;
   border-color: #262626;
   color: white; }
 
-.project__skill-delete-button {
+.project__tag-delete-button {
   margin: 2px;
   padding: 0;
   background-color: transparent;
@@ -912,8 +912,8 @@ label {
   color: inherit;
   font-weight: 700; }
 
-.project__skill-delete-button:hover,
-.project__skill-delete-button:active {
+.project__tag-delete-button:hover,
+.project__tag-delete-button:active {
   background-color: transparent; }
 
 .project__image-drop-zone.project__image-drop-zone {
@@ -994,7 +994,7 @@ label {
     width: calc(100% - 320px);
     padding: 0 20px 0 0;
     float: left; }
-  .project__skill-add-button {
+  .project__tag-add-button {
     padding: 10px 12px; }
   .project__image-container {
     box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.05); }

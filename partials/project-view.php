@@ -54,18 +54,18 @@ if (!defined("ROOT")) {
                             </div>
 
                             <div class="project__sidebar-block">
-                                <label for="skill-input">Skills: <span class="required">*</span></label>
+                                <label for="tag-input">Tags: <span class="required">*</span></label>
 
-                                <div ng-model="selectedProject.skills" ui-sortable class="ui-state-default">
-                                    <p ng-repeat="skill in selectedProject.skills track by $index" class="project__skill project__skill--{{ selectedProject.colour }}">{{ skill }}
-                                        <button type="button" class="btn project__skill-delete-button" ng-click="deleteSkill(skill)" tabindex="1">x</button>
+                                <div ng-model="selectedProject.tags" ui-sortable class="ui-state-default">
+                                    <p ng-repeat="tag in selectedProject.tags track by $index" class="project__tag project__tag--{{ selectedProject.colour }}">{{ tag }}
+                                        <button type="button" class="btn project__tag-delete-button" ng-click="deleteTag(tag)" tabindex="1">x</button>
                                     </p>
                                 </div>
 
-                                <div class="project__skill-input-container">
-                                    <label for="skill-input" class="screen-reader-text">Add skills for project.</label>
-                                    <input ng-model="skillInput" type="text" class="input project__skill-input" id="skill-input" placeholder="HTML5" tabindex="1" />
-                                    <button type="button" class="btn btn--dark-green project__skill-add-button" type="button" id="skill-add" ng-click="addSkill()" tabindex="1">
+                                <div class="project__tag-input-container">
+                                    <label for="tag-input" class="screen-reader-text">Add tags for project.</label>
+                                    <input ng-model="tagInput" type="text" class="input project__tag-input" id="tag-input" placeholder="HTML5" tabindex="1" />
+                                    <button type="button" class="btn btn--dark-green project__tag-add-button" type="button" id="tag-add" ng-click="addTag()" tabindex="1">
                                         <span class="screen-reader-text">Add</span>
                                         <i class="fa fa-plus"></i>
                                     </button>

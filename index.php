@@ -1,4 +1,6 @@
 <?php
+include_once("vendor/autoload.php");
+
 include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
 
 $app = App::get();
@@ -60,7 +62,7 @@ $isDebug = $app::isDebug();
         <script type="application/javascript">
             window.jpi = window.jpi || {};
             window.jpi.config = {
-                jpiAPIBaseURL: "<?php echo trim(JPI_API_ENDPOINT, "/") . "/v" . trim(JPI_API_VERSION, "/") . "/"; ?>"
+                jpiAPIBaseURL: "<?php echo \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION . "/"; ?>"
             };
         </script>
 

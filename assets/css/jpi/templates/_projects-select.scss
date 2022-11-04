@@ -1,16 +1,31 @@
 .projects-select {
     display: none;
     text-align: right;
-}
-
-.projects-select__add-button.projects-select__add-button {
-    margin: 15px 0;
+    padding: 20px 0;
 }
 
 .projects-select__feedback {
     padding: 5px;
     display: block;
     text-align: center;
+}
+
+.projects-select__edit-button,
+.projects-select__delete-button {
+    margin: 0 8px;
+    padding: 0;
+}
+
+.projects-select__edit-button {
+    i {
+        color: get-colour(orange, main);
+    }
+}
+
+.projects-select__delete-button {
+    i {
+        color: get-colour(red, main);
+    }
 }
 
 .projects-select .pagination__item:last-child .pagination__item-link {

@@ -1,7 +1,8 @@
 .table {
     width: 100%;
-    text-align: center;
-    border: solid #000000 3px;
+    text-align: left;
+    border: solid $dark-colour 3px;
+    border-top: 0;
 }
 
 .table__row {
@@ -34,6 +35,7 @@
 @media only screen and (min-width: $tablet-width) {
     .table thead .table__row {
         display: table-row;
+        border-top: 0;
     }
 
     .table__header,
@@ -41,16 +43,16 @@
         padding: 10px;
     }
 
-    .table__header {
-        font-weight: 700;
-        background: $grey;
-        color: white;
-        border-top: solid #000000 3px;
-        border-bottom: solid #000000 3px;
-    }
-    .table--sticky .table__header {
+    .table--sticky thead {
         position: sticky;
         top: 0;
+    }
+
+    .table__header {
+        font-weight: 700;
+        background: $dark-colour;
+        color: white;
+        border-bottom: solid $dark-colour 3px;
     }
 
     .table__column {
@@ -59,5 +61,10 @@
 
     .table__column[data-title]:before {
         content: none;
+    }
+
+    .table__header--center,
+    .table__column--center {
+        text-align: center;
     }
 }

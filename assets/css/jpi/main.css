@@ -584,8 +584,9 @@ label {
 /* For Tablets & Desktops */
 .table {
   width: 100%;
-  text-align: center;
-  border: solid #000000 3px; }
+  text-align: left;
+  border: solid #333333 3px;
+  border-top: 0; }
 
 .table__row {
   border: solid #333333 1px; }
@@ -610,23 +611,26 @@ label {
 
 @media only screen and (min-width: 768px) {
   .table thead .table__row {
-    display: table-row; }
+    display: table-row;
+    border-top: 0; }
   .table__header,
   .table__column {
     padding: 10px; }
-  .table__header {
-    font-weight: 700;
-    background: #7b8676;
-    color: white;
-    border-top: solid #000000 3px;
-    border-bottom: solid #000000 3px; }
-  .table--sticky .table__header {
+  .table--sticky thead {
     position: sticky;
     top: 0; }
+  .table__header {
+    font-weight: 700;
+    background: #333333;
+    color: white;
+    border-bottom: solid #333333 3px; }
   .table__column {
     display: table-cell; }
   .table__column[data-title]:before {
-    content: none; } }
+    content: none; }
+  .table__header--center,
+  .table__column--center {
+    text-align: center; } }
 
 /* For all devices */
 .pagination.pagination {
@@ -642,18 +646,19 @@ label {
   margin: 6px 4px;
   cursor: pointer;
   padding: 6px 12px;
-  background-color: #0375b4;
-  border: 1px solid #03659b;
-  color: white; }
+  background-color: transparent;
+  border: 1px solid #333333;
+  color: #333333; }
 
 .pagination__item-link:hover {
-  background-color: #03659b;
-  border-color: #024469; }
+  border-color: #0375b4;
+  color: #0375b4; }
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-  background-color: #333333;
-  border-color: #2e2e2e; }
+  background-color: #0375b4;
+  border-color: #0375b4;
+  color: #fff; }
 
 .login {
   display: none;
@@ -677,15 +682,24 @@ label {
 
 .projects-select {
   display: none;
-  text-align: right; }
-
-.projects-select__add-button.projects-select__add-button {
-  margin: 15px 0; }
+  text-align: right;
+  padding: 20px 0; }
 
 .projects-select__feedback {
   padding: 5px;
   display: block;
   text-align: center; }
+
+.projects-select__edit-button,
+.projects-select__delete-button {
+  margin: 0 8px;
+  padding: 0; }
+
+.projects-select__edit-button i {
+  color: #f69e00; }
+
+.projects-select__delete-button i {
+  color: #f12525; }
 
 .projects-select .pagination__item:last-child .pagination__item-link {
   margin-right: 0; }

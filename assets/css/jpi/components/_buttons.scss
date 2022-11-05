@@ -16,6 +16,10 @@ button,
     border-radius: 2px;
     color: white;
     background-color: $dark-colour;
+
+    i {
+        pointer-events: none;
+    }
 }
 
 .btn:hover,

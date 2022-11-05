@@ -1,79 +1,77 @@
 ;window.jpi = window.jpi || {};
-window.jpi.dnd = (function(jQuery, jpi) {
+window.jpi.DragNDrop = function(dropZone, options) {
 
     "use strict";
 
-    var global = {};
+    var totalDropped = 0;
+    var totalDroppedComplete = 0;
 
-    var fn = {
+    var readItem = function(item) {
+        if (item.isFile) {
+            item.file(function(file) {
+                if (!file.type.includes("image/")) {
+                    totalDroppedComplete++;
+                    options.onFileAddError(file.name + " isn't a image.", totalDropped === totalDroppedComplete);
+                    return;
+                }
 
-        initDropZone: function() {
-            if (!global.dropZone) {
-                global.dropZone = jQuery(".project__image-drop-zone");
-            }
-        },
-
-        readItem: function(item, isLast) {
-            if (item.isFile) {
-                item.file(function(file) {
-                    jpi.cms.checkFile(file, isLast);
-                });
-            }
-            else if (item.isDirectory) {
-                // Get folder content
-                var directoryReader = item.createReader();
-                directoryReader.readEntries(function(entries) {
-                    var length = entries.length;
-                    // Loop through each item in directory and read each item
-                    for (var i = 0; i < length; i++) {
-                        fn.readItem(entries[i], (isLast && i === length - 1));
-                    }
-                });
-            }
-            // Else drop of item has failed therefore show its failed
-            else {
-                jpi.cms.renderFailedUpload("Error processing upload - " + item.name);
-            }
-        },
-
-        dragOver: function() {
-            global.dropZone.addClass("drag-over");
-        },
-
-        dragOverEnd: function() {
-            global.dropZone.removeClass("drag-over");
-        },
-
-        drop: function(e) {
-            jpi.cms.showLoading();
-            var items = e.originalEvent.dataTransfer.items || [];
-
-            var length = items.length;
-            // Loop through each item (file/directory) dropped & read each one
-            for (var i = 0; i < length; i++) {
-                fn.readItem(items[i].webkitGetAsEntry(), i === length - 1);
-            }
-        },
-
-        init: function() {
-            if (global.dropZone) {
-                return;
-            }
-
-            fn.initDropZone();
-
-            global.dropZone.on('dragover dragenter dragleave dragend drop', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                })
-                .on('dragover dragenter', fn.dragOver)
-                .on('dragleave dragend drop', fn.dragOverEnd)
-                .on('drop', fn.drop);
-        },
+                var fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    totalDroppedComplete++;
+                    options.onFileAddSuccess(file, event.target.result, totalDropped === totalDroppedComplete);
+                };
+                fileReader.onerror = function() {
+                    totalDroppedComplete++;
+                    options.onFileAddError("Error getting " + file.name, totalDropped === totalDroppedComplete);
+                }
+                fileReader.readAsDataURL(file);
+            });
+        }
+        else if (item.isDirectory) {
+            var directoryReader = item.createReader();
+            directoryReader.readEntries(function(entries) {
+                var length = entries.length;
+                totalDropped += length;
+                for (var i = 0; i < length; i++) {
+                    readItem(entries[i]);
+                }
+            });
+        }
+        else {
+            totalDroppedComplete++;
+            options.onFileAddError("Error processing upload - " + item.name, totalDropped === totalDroppedComplete);
+        }
     };
 
-    return {
-        setUp: fn.init,
+    var onDragOver = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        dropZone.classList.add("drag-over");
     };
 
-})(jQuery, jpi);
+    var onDragOverEnd = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        dropZone.classList.remove("drag-over");
+    };
+
+    dropZone.addEventListener("dragover", onDragOver);
+    dropZone.addEventListener("dragenter", onDragOver);
+
+    dropZone.addEventListener("dragleave", onDragOverEnd);
+    dropZone.addEventListener("dragend", onDragOverEnd);
+    dropZone.addEventListener("drop", onDragOverEnd);
+
+    dropZone.addEventListener("drop", function(event) {
+        options.onDrop();
+
+        totalDropped = event.dataTransfer.items.length;
+        totalDroppedComplete = 0;
+
+        for (var i = 0; i <= event.dataTransfer.items.length; i++) {
+            readItem(event.dataTransfer.items[i].webkitGetAsEntry());
+        }
+    });
+};

@@ -1,37 +1,28 @@
-;(function(jQuery, jpi) {
+;(function() {
 
     "use strict";
 
-    var global = {
-        nav: jQuery(".nav"),
-        menuButton: jQuery(".nav__toggle"),
-    };
+    var nav = document.querySelector(".nav");
 
-    var fn = {
+    document.addEventListener("click", function (event) {
+        if (!nav.classList.contains("nav--opened")) {
+            return;
+        }
 
-        toggleMobileMenu: function() {
-            global.nav.toggleClass("nav--opened");
-        },
+        if (!nav.contains(event.target)) {
+            nav.classList.remove("nav--opened");
+        }
+    });
 
-        closeMobileNav: function(e) {
-            var clickedElem = jQuery(e.target);
-            if (
-                (clickedElem.hasClass("nav__link") || !clickedElem.closest(".nav").length) &&
-                global.nav.hasClass("nav--opened") &&
-                global.menuButton.css("display") !== "none"
-            ) {
-                global.menuButton.trigger("click");
+    document.querySelector(".nav__toggle").addEventListener("click", function() {
+        nav.classList.toggle("nav--opened");
+    });
+
+    document.querySelectorAll(".nav__link").forEach(function (link) {
+        link.addEventListener("click", function () {
+            if (nav.classList.contains("nav--opened")) {
+                nav.classList.remove("nav--opened");
             }
-        },
-
-        initListeners: function() {
-            global.menuButton.on("click", fn.toggleMobileMenu);
-            jQuery(document).on("click", fn.closeMobileNav);
-            jQuery(".nav__link").on("click", fn.closeMobileNav);
-        },
-
-    };
-
-    jQuery(document).on("ready", fn.initListeners);
-
-})(jQuery, jpi);
+        });
+    });
+})();

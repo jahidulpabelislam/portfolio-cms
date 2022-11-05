@@ -2,6 +2,10 @@
     display: none;
 }
 
+.project-view--active {
+    display: block;
+}
+
 .project__form {
     text-align: left;
     padding: 5px;
@@ -76,7 +80,7 @@
     color: white;
     background: white;
     border: 1px solid white;
-    left: 0;
+    left: 56px;
     right: 0;
     margin: 15px 20px;
     padding: 10px;
@@ -85,6 +89,10 @@
     max-height: 50px;
     width: auto;
     transition: opacity 0.2s ease-in-out, padding 0.2s ease-in-out 0.2s, max-height 0.2s ease-in-out 0.2s;
+
+    .nav--opened + .main-content & {
+        left: 200px;
+    }
 }
 
 .project__feedback.hide {
@@ -110,6 +118,14 @@
     color: white;
     font-weight: 700;
     padding-left: 30px;
+}
+
+.project__images {
+   display: none;
+}
+
+.project__images--active {
+    display: block;
 }
 
 .project__images-container.project__images-container {

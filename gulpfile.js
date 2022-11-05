@@ -20,16 +20,13 @@ defaultTasks.push("scripts");
 gulp.task("scripts", function(callback) {
     const scripts = {
         main: [
-            `${jsDir}/third-party/jquery.min.js`,
-            `${jsDir}/third-party/jquery-ui.min.js`,
-            `${jsDir}/third-party/angular.min.js`,
             `${jsDir}/third-party/tinymce/tinymce.min.js`,
-            `${jsDir}/third-party/angular-ui-tinymce.min.js`,
-            `${jsDir}/third-party/sortable.js`,
-            `${jsDir}/third-party/sticky-footer.min.js`,
+            `${jsDir}/third-party/Sortable.min.js`,
             `${jsDir}/jpi/helpers.js`,
             `${jsDir}/jpi/drag-n-drop.js`,
             `${jsDir}/jpi/nav.js`,
+            `${jsDir}/jpi/router.js`,
+            `${jsDir}/jpi/app.js`,
         ],
     };
     const scriptNames = Object.keys(scripts);

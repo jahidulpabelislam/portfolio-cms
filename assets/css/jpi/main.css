@@ -74,6 +74,7 @@ body {
 
 .main-content {
   display: flex;
+  min-height: 100vh;
   width: 100%;
   transition: all 1s ease-in-out, margin-left 0.4s ease-in-out, padding-left 0.4s ease-in-out; }
 
@@ -173,7 +174,7 @@ strong {
   Any css for many templates and/or components.
 */
 .fixed-overlay {
-  display: flex;
+  display: none;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -181,16 +182,19 @@ strong {
   top: 0;
   z-index: -10;
   padding: 50px;
-  background: rgba(51, 51, 51, 0.6);
-  text-align: center;
-  font-size: 50px;
-  line-height: 60px;
   opacity: 0;
   transition: opacity 1s ease-in-out, z-index 0s ease-in-out; }
 
-.fixed-overlay--loading {
+.fixed-overlay--active {
+  display: flex;
   z-index: 10;
   opacity: 1; }
+
+.fixed-overlay--loading {
+  font-size: 50px;
+  line-height: 60px;
+  text-align: center;
+  background: rgba(51, 51, 51, 0.6); }
 
 .fixed-overlay__text {
   margin: auto;
@@ -219,6 +223,8 @@ button,
   border-radius: 2px;
   color: white;
   background-color: #333333; }
+  .btn i {
+    pointer-events: none; }
 
 .btn:hover,
 .btn:focus {
@@ -357,7 +363,7 @@ a.btn {
   padding: 0 2px; }
 
 label {
-  margin: 5px 0 0;
+  margin: 0 0 5px;
   font-weight: 700;
   display: inline-block; }
 
@@ -456,9 +462,7 @@ label {
 
 .feedback {
   font-weight: 700;
-  margin: 0;
-  display: none;
-  width: 100%; }
+  margin: 0; }
 
 .feedback--success {
   color: #008000; }
@@ -484,6 +488,7 @@ label {
     padding: 9px 14px; } }
 
 .nav {
+  display: none;
   z-index: 3;
   position: fixed;
   top: 0;
@@ -494,6 +499,9 @@ label {
   text-align: right;
   transition: width 0.4s ease-in-out;
   width: 56px; }
+
+.nav--shown {
+  display: block; }
 
 .nav--opened {
   width: 200px; }
@@ -569,6 +577,7 @@ label {
   color: #333333;
   white-space: nowrap; }
   .nav__link i {
+    pointer-events: none;
     font-size: 28px;
     vertical-align: middle;
     padding-right: 8px; }
@@ -661,12 +670,6 @@ label {
   color: #fff; }
 
 .login {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   text-align: center; }
 
 .login__form {
@@ -675,25 +678,37 @@ label {
   margin: auto; }
 
 .login__feedback {
+  display: none;
   padding: 5px;
-  display: block;
   text-align: center;
   margin: 5px; }
+
+.login__feedback--active {
+  display: block; }
 
 .projects-select {
   display: none;
   text-align: right;
   padding: 20px 0; }
 
+.projects-select--active {
+  display: block; }
+
 .projects-select__feedback {
+  display: none;
   padding: 5px;
-  display: block;
   text-align: center; }
+
+.projects-select__feedback--active {
+  display: block; }
 
 .projects-select__edit-button,
 .projects-select__delete-button {
   margin: 0 8px;
   padding: 0; }
+  .projects-select__edit-button i,
+  .projects-select__delete-button i {
+    pointer-events: none; }
 
 .projects-select__edit-button i {
   color: #f69e00; }
@@ -706,6 +721,9 @@ label {
 
 .project-view {
   display: none; }
+
+.project-view--active {
+  display: block; }
 
 .project__form {
   text-align: left;
@@ -769,7 +787,7 @@ label {
   color: white;
   background: white;
   border: 1px solid white;
-  left: 0;
+  left: 56px;
   right: 0;
   margin: 15px 20px;
   padding: 10px;
@@ -778,6 +796,8 @@ label {
   max-height: 50px;
   width: auto;
   transition: opacity 0.2s ease-in-out, padding 0.2s ease-in-out 0.2s, max-height 0.2s ease-in-out 0.2s; }
+  .nav--opened + .main-content .project__feedback {
+    left: 200px; }
 
 .project__feedback.hide {
   opacity: 0;
@@ -799,6 +819,12 @@ label {
   color: white;
   font-weight: 700;
   padding-left: 30px; }
+
+.project__images {
+  display: none; }
+
+.project__images--active {
+  display: block; }
 
 .project__images-container.project__images-container {
   padding: 0; }

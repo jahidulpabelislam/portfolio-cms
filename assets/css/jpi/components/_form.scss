@@ -5,7 +5,7 @@
 }
 
 label {
-    margin: 5px 0 0;
+    margin: 0 0 5px;
     font-weight: 700;
     display: inline-block;
 }
@@ -122,8 +122,6 @@ label {
 .feedback {
     font-weight: 700;
     margin: 0;
-    display: none;
-    width: 100%;
 }
 
 .feedback--success {

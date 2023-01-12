@@ -670,21 +670,34 @@ label {
   color: #fff; }
 
 .login {
-  text-align: center; }
+  padding: 0;
+  text-align: center;
+  background: #0375b4; }
 
 .login__form {
-  width: 100%;
-  max-width: 330px;
-  margin: auto; }
+  width: 90%;
+  margin: auto;
+  padding: 20px 14px;
+  border-radius: 6px;
+  background: #f5f5f5; }
 
 .login__feedback {
   display: none;
   padding: 5px;
-  text-align: center;
-  margin: 5px; }
+  margin: 5px;
+  text-align: center; }
 
 .login__feedback--active {
   display: block; }
+
+@media only screen and (min-width: 768px) {
+  .login__form {
+    padding: 60px 40px;
+    max-width: 400px; }
+    .login__form label {
+      margin-bottom: 2px; }
+    .login__form .input {
+      margin-bottom: 18px; } }
 
 .projects-select {
   display: none;

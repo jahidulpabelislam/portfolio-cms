@@ -6,7 +6,7 @@
             <label for="password">Password</label>
             <input type="password" class="input" id="password" placeholder="mypassword" tabindex="1" oninput="jpi.helpers.checkInput(this);" />
             <p class="feedback feedback--error login__feedback"></p>
-            <button type="submit" class="btn btn--dark-green">Log In</button>
+            <button type="submit" class="btn btn--dark-green">Log in</button>
         </form>
     </div>
 </div>

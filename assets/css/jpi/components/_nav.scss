@@ -25,8 +25,21 @@
 }
 
 .nav--opened + .main-content {
+    position: relative;
     margin-left: 200px;
     padding-left: 0;
+
+    &::before {
+        content: " ";
+        background: black;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
 }
 
 .nav__toggle {

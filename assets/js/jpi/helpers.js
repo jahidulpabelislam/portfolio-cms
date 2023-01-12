@@ -11,14 +11,10 @@ window.jpi.helpers = (function() {
     var checkInput = function(elem) {
         if (elem.value.trim() === "") {
             elem.classList.add("invalid");
-            elem.classList.remove("valid");
             return false;
         }
-        else {
-            elem.classList.remove("invalid");
-            elem.classList.add("valid");
-            return true;
-        }
+
+        return true;
     };
 
     /**

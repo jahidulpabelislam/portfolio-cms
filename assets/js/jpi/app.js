@@ -18,23 +18,23 @@ window.jpi = window.jpi || {};
 
     var projectsListingRowTemplate = document.querySelector("#js-projects-table-row").innerHTML;
 
-    var projectShowContainer = document.querySelector(".project-view");
-    var projectShowFormContainer = document.querySelector(".project__form");
-    var projectShowFeedbackElem = document.querySelector(".project__feedback span");
-    var projectShowTagsElem = document.querySelector(".js-project-view-tags");
+    var projectEditContainer = document.querySelector(".project-edit");
+    var projectEditFormContainer = document.querySelector(".project-edit__form");
+    var projectEditFeedbackElem = document.querySelector(".project-edit__feedback span");
+    var projectEditTagsElem = document.querySelector(".js-project-edit-tags");
 
-    var projectShowImagesContainer = document.querySelector(".project__images");
-    var projectShowImageTemplate = document.querySelector("#js-project-show-image-template").innerHTML;
+    var projectEditImagesContainer = document.querySelector(".project-edit__images");
+    var projectEditImageTemplate = document.querySelector("#js-project-edit-image-template").innerHTML;
 
-    var projectShowUploadsContainer = document.querySelector(".project__uploads");
-    var projectShowUploadedImages = [];
+    var projectEditUploadsContainer = document.querySelector(".project-edit__uploads");
+    var projectEditUploadedImages = [];
 
-    var projectShowImageUploadSuccessTemplate = document.querySelector("#js-project-show-image-upload-success-template").innerHTML;
-    var projectShowImageUploadErrorTemplate = document.querySelector("#js-project-show-image-upload-error-template").innerHTML;
+    var projectEditImageUploadSuccessTemplate = document.querySelector("#js-project-edit-image-upload-success-template").innerHTML;
+    var projectEditImageUploadErrorTemplate = document.querySelector("#js-project-edit-image-upload-error-template").innerHTML;
 
-    var projectShowSelectedProjectID;
+    var projectEditSelectedProjectID;
 
-    var shortDateFormat = new Intl.DateTimeFormat("default", {
+    var shortDateFormat = new Intl.DateTimeFormat("en-GB", {
         month: "long",
         year: "numeric",
     });
@@ -231,18 +231,28 @@ window.jpi = window.jpi || {};
         });
     };
 
-    var showProjectShowFeedback = function (feedback, isError) {
-        projectShowFeedbackElem.innerHTML = feedback;
+    var addOffsetToProjectEditSidebar = function () {
+        var offset = 20;
+
+        offset += document.querySelector(".project-edit__header").clientHeight;
+
+        var sidebar = document.querySelector(".project-edit__sidebar");
+
+        sidebar.style.top = offset + "px";
+    }
+
+    var showProjectEditFeedback = function (feedback, isError) {
+        projectEditFeedbackElem.innerHTML = feedback;
 
         if (isError) {
-            projectShowFeedbackElem.parentElement.classList.remove("feedback--success");
-            projectShowFeedbackElem.parentElement.classList.add("feedback--error");
+            projectEditFeedbackElem.parentElement.classList.remove("feedback--success");
+            projectEditFeedbackElem.parentElement.classList.add("feedback--error");
         } else {
-            projectShowFeedbackElem.parentElement.classList.add("feedback--success");
-            projectShowFeedbackElem.parentElement.classList.remove("feedback--error");
+            projectEditFeedbackElem.parentElement.classList.add("feedback--success");
+            projectEditFeedbackElem.parentElement.classList.remove("feedback--error");
         }
 
-        projectShowFeedbackElem.parentElement.classList.remove("hide");
+        projectEditFeedbackElem.parentElement.classList.remove("hide");
     };
 
     var onProjectFormSubmit = function(event) {
@@ -251,35 +261,31 @@ window.jpi = window.jpi || {};
         loadingElem.classList.add("fixed-overlay--active");
 
         var isNameValid = jpi.helpers.checkInput(document.getElementById("project-name"));
-        var isStatusValid = jpi.helpers.checkInput(document.getElementById("project-status"));
         var isTypeValid = jpi.helpers.checkInput(document.getElementById("project-type"));
         var isShortDescValid = jpi.helpers.checkInput(document.getElementById("project-short-desc"));
         var isLongDescValid = jpi.helpers.checkInput(document.getElementById("project-long-desc"));
         var isDateValid = (jpi.helpers.checkInput(document.getElementById("project-date")) && /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im.test(document.getElementById("project-date").value));
-        var isTagsValid = document.querySelectorAll(".js-project-view-tag").length > 0;
+        var isTagsValid = document.querySelectorAll(".js-project-edit-tag").length > 0;
 
         if (isTagsValid) {
-            document.querySelector(".project__tag-input").classList.add("valid");
-            document.querySelector(".project__tag-input").classList.remove("invalid");
+            document.querySelector(".project-edit__tag-input").classList.remove("invalid");
         }
         else {
-            document.querySelector(".project__tag-input").classList.add("invalid");
-            document.querySelector(".project__tag-input").classList.remove("valid");
+            document.querySelector(".project-edit__tag-input").classList.add("invalid");
         }
 
         if (
             !isNameValid ||
-            !isStatusValid ||
             !isDateValid ||
             !isTypeValid ||
             !isTagsValid ||
             !isLongDescValid ||
             !isShortDescValid
         ) {
-            showProjectShowFeedback("Fill in Required Inputs Fields.", true);
+            showProjectEditFeedback("Fill in Required Inputs Fields.", true);
 
-            var firstInvalidInput = document.querySelector(".project__form .invalid");
-            var feedbackHeight = projectShowFeedbackElem.parentElement.offsetHeight;
+            var firstInvalidInput = document.querySelector(".project-edit__form .invalid");
+            var feedbackHeight = projectEditFeedbackElem.parentElement.offsetHeight;
 
             var label = document.querySelector("label[for=" + firstInvalidInput.getAttribute("id") + "]");
 
@@ -291,12 +297,12 @@ window.jpi = window.jpi || {};
             return;
         }
 
-        var isUpdate = projectShowSelectedProjectID;
+        var isUpdate = projectEditSelectedProjectID;
 
         var requestData = jpi.helpers.encodePayload({
             "name": document.getElementById("project-name").value,
             "type": document.getElementById("project-type").value,
-            "status": document.getElementById("project-status").value,
+            "status": document.getElementById("project-is-published").checked ? "published" : "draft",
             "date": document.getElementById("project-date").value,
             "url": document.getElementById("project-url").value,
             "github_url": document.getElementById("project-github-url").value,
@@ -306,20 +312,20 @@ window.jpi = window.jpi || {};
             "long_description": document.getElementById("project-long-desc").value,
         });
 
-        document.querySelectorAll(".js-project-view-tag").forEach(function (elem) {
+        document.querySelectorAll(".js-project-edit-tag").forEach(function (elem) {
             requestData += "&" + jpi.helpers.encodePayload({"tags[]": elem.value});
         });
 
-        document.querySelectorAll(".js-project-view-image").forEach(function (elem) {
+        document.querySelectorAll(".js-project-edit-image").forEach(function (elem) {
             requestData += "&" + jpi.helpers.encodePayload({"images[]": elem.value});
         });
 
         makeAPIRequest({
             method: isUpdate ? "PUT" : "POST",
-            url: isUpdate ? ("/projects/" + projectShowSelectedProjectID + "/") : "/projects/",
+            url: isUpdate ? ("/projects/" + projectEditSelectedProjectID + "/") : "/projects/",
             data: requestData,
             onSuccess: function (response) {
-                showProjectShowFeedback(
+                showProjectEditFeedback(
                     getFeedbackFromAPIResponse(response, "Successfully " + (isUpdate ? "updated" : "added") + " project"),
                 );
 
@@ -327,10 +333,10 @@ window.jpi = window.jpi || {};
                     history.pushState(null, null, "/project/edit/" + response.data.id + "/");
                 }
 
-                setUpProjectShow(response.data);
+                setUpProjectEdit(response.data);
             },
             onError: function (response) {
-                showProjectShowFeedback(
+                showProjectEditFeedback(
                     getFeedbackFromAPIResponse(response, "Error " + (isUpdate ? "updating" : "adding") + " project"),
                     true
                 );
@@ -340,16 +346,16 @@ window.jpi = window.jpi || {};
         });
     };
 
-    var renderProjectTag = function (project, tag) {
-        projectShowTagsElem.innerHTML +=
-            '<p class="project__tag project__tag--' + project.colour + '">' + tag +
-            '   <input type="hidden" class="js-project-view-tag" name="project-tags" value="' + tag + '" />' +
-            '   <button type="button" class="btn project__tag-delete-button" tab-index="1">x</button>' +
+    var renderProjectTag = function (tag) {
+        projectEditTagsElem.innerHTML +=
+            '<p class="project-edit__tag"><span>' + tag +
+            '</span>   <input type="hidden" class="js-project-edit-tag" name="project-tags" value="' + tag + '" />' +
+            '   <button type="button" class="btn project-edit__tag-delete-button" tab-index="1">x</button>' +
             '</p>';
     };
 
     var renderProjectImage = function (image) {
-        var html = projectShowImageTemplate;
+        var html = projectEditImageTemplate;
 
         for (var field in image) {
             if ({}.hasOwnProperty.call(image, field)) {
@@ -358,12 +364,11 @@ window.jpi = window.jpi || {};
             }
         }
 
-        projectShowImagesContainer.classList.add("project__images--active");
-        projectShowImagesContainer.innerHTML += html;
+        projectEditImagesContainer.innerHTML += html;
     };
 
-    var setUpProjectShow = function (project) {
-        document.querySelector("#project-status").value = project ? project.status : "";
+    var setUpProjectEdit = function (project) {
+        document.querySelector("#project-is-published").checked = project ? (project.status === "published") : false;
         document.querySelector("#project-colour").value = project ? project.colour : "";
         document.querySelector("#project-date").value = project ? project.date : "";
         document.querySelector(".js-project-created-at").innerHTML = project && project.created_at ? longDateFormat.format(new Date(project.created_at)) : "-";
@@ -379,34 +384,31 @@ window.jpi = window.jpi || {};
         tinymce.get("project-short-desc").setContent(project ? project.short_description : "");
         tinymce.get("project-long-desc").setContent(project ? project.long_description : "");
 
-        projectShowImagesContainer.innerHTML = "";
-        projectShowTagsElem.innerHTML = "";
+        projectEditImagesContainer.innerHTML = "";
+        projectEditTagsElem.innerHTML = "";
 
-        projectShowUploadedImages = [];
-        projectShowUploadsContainer.innerHTML = "";
-
+        projectEditUploadedImages = [];
+        projectEditUploadsContainer.innerHTML = "";
         if (project) {
             for (var i = 0; i < project.images.length; i++) {
                 renderProjectImage(project.images[i]);
             }
 
             for (var j = 0; j < project.tags.length; j++) {
-                renderProjectTag(project, project.tags[j]);
+                renderProjectTag(project.tags[j]);
             }
         }
 
-        if (projectShowImagesContainer.innerHTML === "") {
-            projectShowImagesContainer.classList.remove("project__images--active");
-        }
+        document.querySelector(".project-edit__save-button span").innerHTML = project ? "Save" : "Create";
 
-        document.querySelector(".project__save-button span").innerHTML = project ? "Update Project" : "Add Project";
-
-        projectShowContainer.classList.add("project-view--active");
+        projectEditContainer.classList.add("project-edit--active");
         loadingElem.classList.remove("fixed-overlay--active");
+
+        addOffsetToProjectEditSidebar();
     };
 
-    var showProject = function(projectID) {
-        projectShowSelectedProjectID = projectID;
+    var showProjectEdit = function(projectID) {
+        projectEditSelectedProjectID = projectID;
 
         loadingElem.classList.add("fixed-overlay--active");
 
@@ -414,7 +416,7 @@ window.jpi = window.jpi || {};
             method: "GET",
             url: "/projects/" + projectID + "/",
             onSuccess: function (response) {
-                setUpProjectShow(response.data);
+                setUpProjectEdit(response.data);
             },
             onError: function(response) {
                 showProjectsListingFeedback(
@@ -428,8 +430,8 @@ window.jpi = window.jpi || {};
         });
     };
 
-    Sortable.create(projectShowTagsElem);
-    Sortable.create(projectShowImagesContainer);
+    Sortable.create(projectEditTagsElem);
+    Sortable.create(projectEditImagesContainer);
 
     var colourOptions = {
         "": "Default",
@@ -513,9 +515,9 @@ window.jpi = window.jpi || {};
     });
 
     var onFileAddEnd = function () {
-        var feedbackHeight = projectShowFeedbackElem.parentElement.offsetHeight;
+        var feedbackHeight = projectEditFeedbackElem.parentElement.offsetHeight;
 
-        var pos = projectShowUploadsContainer.firstElementChild.getBoundingClientRect().top + window.scrollY - feedbackHeight - 16;
+        var pos = projectEditUploadsContainer.firstElementChild.getBoundingClientRect().top + window.scrollY - feedbackHeight - 16;
 
         window.scrollTo({top: pos, behavior: "smooth"});
 
@@ -528,18 +530,18 @@ window.jpi = window.jpi || {};
             name: file.name,
             file: file,
         };
-        projectShowUploadedImages.push(data);
+        projectEditUploadedImages.push(data);
 
-        var html = projectShowImageUploadSuccessTemplate;
+        var html = projectEditImageUploadSuccessTemplate;
 
-        data["index"] = projectShowUploadedImages.length - 1;
+        data["index"] = projectEditUploadedImages.length - 1;
         for (var field in data) {
             if ({}.hasOwnProperty.call(data, field)) {
                 var regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
                 html = html.replace(regex, data[field]);
             }
         }
-        projectShowUploadsContainer.innerHTML += html;
+        projectEditUploadsContainer.innerHTML += html;
 
         if (isAllComplete) {
             onFileAddEnd();
@@ -547,14 +549,14 @@ window.jpi = window.jpi || {};
     };
 
     var onFileAddError = function (error, isAllComplete) {
-        projectShowUploadedImages.push({error});
+        projectEditUploadedImages.push({error});
 
-        var html = projectShowImageUploadErrorTemplate;
+        var html = projectEditImageUploadErrorTemplate;
 
         var regex = new RegExp("{{2} ?error ?}{2}", "g");
         html = html.replace(regex, error);
 
-        projectShowUploadsContainer.innerHTML += html;
+        projectEditUploadsContainer.innerHTML += html;
 
         if (isAllComplete) {
             onFileAddEnd();
@@ -562,7 +564,7 @@ window.jpi = window.jpi || {};
     };
 
     new jpi.DragNDrop(
-        document.querySelector(".project__image-drop-zone"),
+        document.querySelector(".project-edit__image-drop-zone"),
         {
             onDrop: function () {
                 loadingElem.classList.add("fixed-overlay--active");
@@ -572,7 +574,7 @@ window.jpi = window.jpi || {};
         }
     );
 
-    document.querySelector(".project__image-upload").addEventListener("change", function () {
+    document.querySelector(".project-edit__image-upload").addEventListener("change", function () {
         loadingElem.classList.remove("fixed-overlay--active");
 
         var files = this.files;
@@ -603,25 +605,37 @@ window.jpi = window.jpi || {};
 
     loginForm.addEventListener("submit", logIn);
 
-    projectShowFormContainer.addEventListener("submit", onProjectFormSubmit);
+    projectEditFormContainer.addEventListener("submit", onProjectFormSubmit);
 
     document.querySelectorAll(".js-link-projects").forEach(function (element) {
         element.addEventListener("click", function (event) {
             event.preventDefault();
-            projectShowContainer.classList.remove("project-view--active");
+            projectEditContainer.classList.remove("project-edit--active");
             history.pushState(null, null, "/projects/");
             router.run();
         });
     });
 
-    document.querySelector(".project__hide-error").addEventListener("click", function (event) {
-        projectShowFeedbackElem.parentElement.classList.add("hide");
+    document.querySelectorAll(".project-edit__tabs-bar-item").forEach(function (element, i) {
+        element.addEventListener("click", function (event) {
+            document.querySelector(".project-edit__tabs-content--active").classList.remove("project-edit__tabs-content--active");
+            document.querySelectorAll(".project-edit__tabs-content")[i].classList.add("project-edit__tabs-content--active");
+            document.querySelector(".project-edit__tabs-bar-item--active").classList.remove("project-edit__tabs-bar-item--active");
+            element.classList.add("project-edit__tabs-bar-item--active");
+        });
     });
 
-    document.querySelector(".project__tag-add-button").addEventListener("click", function (event) {
-        renderProjectTag({colour: document.querySelector("#project-colour").value}, document.querySelector(".project__tag-input").value)
+    document.querySelector(".project-edit__hide-error").addEventListener("click", function (event) {
+        projectEditFeedbackElem.parentElement.classList.add("hide");
+    });
 
-        document.querySelector(".project__tag-input").value = ""; // Reset
+    document.querySelector(".project-edit__tag-add-button").addEventListener("click", function (event) {
+        var tag = document.querySelector(".project-edit__tag-input").value;
+        if (tag) {
+            renderProjectTag(tag);
+        }
+
+        document.querySelector(".project-edit__tag-input").value = ""; // Reset
     });
 
     document.querySelector(".js-link-new-project").addEventListener("click", function (event) {
@@ -635,6 +649,18 @@ window.jpi = window.jpi || {};
         event.preventDefault();
         setJwt("");
         window.location = window.location;
+    });
+
+    window.addEventListener("mouseover", function (event) {
+        if (event.target.classList.contains("project-edit__tag-delete-button")) {
+            event.target.parentElement.classList.add("project-edit__tag--to-delete");
+        }
+    });
+
+    window.addEventListener("mouseout", function (event) {
+        if (event.target.classList.contains("project-edit__tag-delete-button")) {
+            event.target.parentElement.classList.remove("project-edit__tag--to-delete");
+        }
     });
 
     window.addEventListener("click", function (event) {
@@ -658,7 +684,7 @@ window.jpi = window.jpi || {};
             return;
         }
 
-        if (event.target.classList.contains("project__tag-delete-button")) {
+        if (event.target.classList.contains("project-edit__tag-delete-button")) {
             event.preventDefault();
             event.target.parentElement.remove();
             return;
@@ -693,23 +719,23 @@ window.jpi = window.jpi || {};
             return;
         }
 
-        if (event.target.classList.contains("project__image-delete-button")) {
+        if (event.target.classList.contains("project-edit__image-delete-button")) {
             loadingElem.classList.add("fixed-overlay--active");
 
             makeAPIRequest({
                 method: "DELETE",
-                url: "/projects/" + projectShowSelectedProjectID + "/images/" + event.target.getAttribute("data-id") + "/",
+                url: "/projects/" + projectEditSelectedProjectID + "/images/" + event.target.getAttribute("data-id") + "/",
                 data: form,
                 onSuccess: function (response) {
                     event.target.parentElement.remove();
 
-                    showProjectShowFeedback("Successfully deleted the project image");
+                    showProjectEditFeedback("Successfully deleted the project image");
 
                     loadingElem.classList.remove("fixed-overlay--active");
                 },
                 onError: function (response) {
                     var defaultFeedback = "Error deleting the project image";
-                    showProjectShowFeedback(getFeedbackFromAPIResponse(response, defaultFeedback), true);
+                    showProjectEditFeedback(getFeedbackFromAPIResponse(response, defaultFeedback), true);
 
                     loadingElem.classList.remove("fixed-overlay--active");
                 },
@@ -723,24 +749,24 @@ window.jpi = window.jpi || {};
 
             var index = event.target.getAttribute("data-index");
             var form = new FormData();
-            form.append("image", projectShowUploadedImages[index].file);
+            form.append("image", projectEditUploadedImages[index].file);
 
             makeAPIRequest({
                 method: "POST",
-                url: "/projects/" + projectShowSelectedProjectID + "/images/",
+                url: "/projects/" + projectEditSelectedProjectID + "/images/",
                 data: form,
                 onSuccess: function (response) {
-                    event.target.closest(".project__upload").remove();
+                    event.target.closest(".project-edit__upload").remove();
 
                     renderProjectImage(response.data);
 
-                    showProjectShowFeedback("Successfully added a new project image");
+                    showProjectEditFeedback("Successfully added a new project image");
 
                     loadingElem.classList.remove("fixed-overlay--active");
                 },
                 onError: function (response) {
                     var defaultFeedback = "Error uploading the project image";
-                    showProjectShowFeedback(getFeedbackFromAPIResponse(response, defaultFeedback), true);
+                    showProjectEditFeedback(getFeedbackFromAPIResponse(response, defaultFeedback), true);
 
                     loadingElem.classList.remove("fixed-overlay--active");
                 },
@@ -754,13 +780,13 @@ window.jpi = window.jpi || {};
         "/projects/": getProjects,
         "/projects/(.+)/": getProjects,
         "/project/edit/new/": function () {
-            projectShowSelectedProjectID = undefined;
+            projectEditSelectedProjectID = undefined;
 
             loadingElem.classList.add("fixed-overlay--active");
 
-            setUpProjectShow();
+            setUpProjectEdit();
         },
-        "/project/edit/(.+)/": showProject,
+        "/project/edit/(.+)/": showProjectEdit,
         "(.*)": function() {
             // Fallback - redirect to projects listing
             history.pushState(null, null, "/projects/");

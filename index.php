@@ -51,7 +51,7 @@ $isDebug = $app::isDebug();
                 <?php
                 include_once(ROOT . "/partials/projects-select.php");
 
-                include_once(ROOT . "/partials/project-view.php");
+                include_once(ROOT . "/partials/project-edit.php");
                 ?>
             </div>
         </main>

@@ -1,6 +1,6 @@
 <nav class="nav">
     <button type="button" class="nav__toggle">
-        <span class="screen-reader-text">Toggle navigation</span>
+        <span class="visually-hidden">Toggle navigation</span>
         <span class="nav__toggle-bar"></span>
         <span class="nav__toggle-bar"></span>
         <span class="nav__toggle-bar"></span>

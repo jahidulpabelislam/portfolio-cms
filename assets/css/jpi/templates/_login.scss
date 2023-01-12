@@ -23,16 +23,16 @@
     display: block;
 }
 
+.login__submit {
+    margin: 0;
+}
+
 @media only screen and (min-width: $tablet-width) {
     .login__form {
         padding: 60px 40px;
         max-width: 400px;
 
-        label {
-            margin-bottom: 2px;
-        }
-
-        .input {
+        .input-group {
             margin-bottom: 18px;
         }
     }

@@ -27,12 +27,12 @@
         <td class="table__column" data-title="Last Modified">{{ updated_at }}</td>
         <td class="table__column table__column--center table__column--no-padding">
             <a class="projects-select__edit-button" href="/project/edit/{{ id }}/" data-id="{{ id }}" title="Link to Edit Project Form Page" tabindex="1">
-                <span class="screen-reader-text">Edit</span>
+                <span class="visually-hidden">Edit</span>
                 <i class="fas fa-edit"></i>
             </a>
 
             <button type="button" class="projects-select__delete-button" data-id="{{ id }}" tabindex="1">
-                <span class="screen-reader-text">Delete</span>
+                <span class="visually-hidden">Delete</span>
                 <i class="fas fa-trash"></i>
             </button>
         </td>

@@ -84,6 +84,7 @@ window.jpi = window.jpi || {};
         request.headers = request.headers || {};
 
         request.headers.Accept = "application/json";
+        request.headers["Cache-Control"] = "no-cache";
 
         if (request.data && !(request.data instanceof FormData)) {
             request.headers["Content-Type"] = "application/json";

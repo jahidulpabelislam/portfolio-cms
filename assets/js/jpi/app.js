@@ -725,7 +725,6 @@ window.jpi = window.jpi || {};
             makeAPIRequest({
                 method: "DELETE",
                 url: "/projects/" + projectEditSelectedProjectID + "/images/" + event.target.getAttribute("data-id") + "/",
-                data: form,
                 onSuccess: function (response) {
                     event.target.parentElement.remove();
 

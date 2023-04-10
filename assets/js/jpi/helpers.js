@@ -42,32 +42,8 @@ window.jpi.helpers = (function() {
         };
     };
 
-    var encodePayload = function(data) {
-        var payload = [];
-
-        for (var name in data) {
-            if ({}.hasOwnProperty.call(data, name)) {
-                payload.push(name + "=" + encodeURIComponent(data[name]));
-            }
-        }
-
-        var payloadString = payload.join("&");
-        payloadString = payloadString.replace("%20", "+");
-        payloadString = payloadString.replace("%3D", "=");
-
-        return payloadString;
-    };
-
     var makeAJAXRequest = function (request) {
         request.method = request.method.toUpperCase();
-
-        if (request.data && typeof request.data == "object" && !(request.data instanceof FormData)) {
-            if (["POST", "PUT"].includes(request.method)) {
-                request.data = encodePayload(request.data);
-            } else {
-                request.url += "?" + encodePayload(request.data);
-            }
-        }
 
         var xhr = new XMLHttpRequest();
         xhr.open(request.method, request.url, true);
@@ -112,7 +88,6 @@ window.jpi.helpers = (function() {
         },
         checkInput,
         debounce,
-        encodePayload,
         makeAJAXRequest,
     };
 })();

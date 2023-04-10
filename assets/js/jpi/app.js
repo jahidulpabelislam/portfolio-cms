@@ -85,8 +85,9 @@ window.jpi = window.jpi || {};
 
         request.headers.Accept = "application/json";
 
-        if (request.method === "POST" && request.data && !(request.data instanceof FormData)) {
-            request.headers["Content-Type"] = "application/x-www-form-urlencoded";
+        if (request.data && !(request.data instanceof FormData)) {
+            request.headers["Content-Type"] = "application/json";
+            request.data = JSON.stringify(request.data);
         }
 
         if (request.url !== jpi.config.jpiAPIBaseURL + "/auth/login/") {
@@ -215,10 +216,7 @@ window.jpi = window.jpi || {};
 
         makeAPIRequest({
             method: "GET",
-            url: "/projects/",
-            data: {
-                page,
-            },
+            url: "/projects/?page=" + page,
             onSuccess: function (response) {
                 onSuccessfulProjectsGet(response, page);
             },
@@ -299,7 +297,7 @@ window.jpi = window.jpi || {};
 
         var isUpdate = projectEditSelectedProjectID;
 
-        var requestData = jpi.helpers.encodePayload({
+        var requestData = {
             "name": document.getElementById("project-name").value,
             "type": document.getElementById("project-type").value,
             "status": document.getElementById("project-is-published").checked ? "published" : "draft",
@@ -310,14 +308,16 @@ window.jpi = window.jpi || {};
             "colour": document.getElementById("project-colour").value,
             "short_description": document.getElementById("project-short-desc").value,
             "long_description": document.getElementById("project-long-desc").value,
-        });
+            "tags": [],
+            "images": [],
+        };
 
         document.querySelectorAll(".js-project-edit-tag").forEach(function (elem) {
-            requestData += "&" + jpi.helpers.encodePayload({"tags[]": elem.value});
+            requestData.tags.push(elem.value);
         });
 
         document.querySelectorAll(".js-project-edit-image").forEach(function (elem) {
-            requestData += "&" + jpi.helpers.encodePayload({"images[]": elem.value});
+            requestData.images.push(elem.value);
         });
 
         makeAPIRequest({

@@ -199,7 +199,7 @@ button,
   border-radius: 2px;
   color: white;
   background-color: #333333; }
-  .btn i {
+  .btn .material-symbols-outlined {
     pointer-events: none; }
 
 .btn:hover,
@@ -533,7 +533,7 @@ input:checked + .radio-toggle__toggle:before {
     z-index: 2; }
 
 .nav__toggle {
-  margin: 16px 10px 6px 10px;
+  margin: 20px 10px 6px 10px;
   padding: 7px;
   border: solid transparent 2px;
   border-radius: 50%;
@@ -579,7 +579,7 @@ input:checked + .radio-toggle__toggle:before {
   transform: rotate(-45deg); }
 
 .nav__links {
-  margin-top: 40px;
+  margin-top: 20px;
   transition: all .4s ease-in-out;
   border-top: #eeeeee 1px solid;
   text-align: left;
@@ -594,11 +594,12 @@ input:checked + .radio-toggle__toggle:before {
   padding: 9px 12px;
   color: #333333;
   white-space: nowrap; }
-  .nav__link i {
-    pointer-events: none;
+  .nav__link span {
+    vertical-align: middle; }
+  .nav__link .material-symbols-outlined {
     font-size: 28px;
-    vertical-align: middle;
-    padding-right: 8px; }
+    padding-right: 16px;
+    pointer-events: none; }
 
 .nav__link:focus,
 .nav__link:hover {
@@ -642,7 +643,8 @@ input:checked + .radio-toggle__toggle:before {
     border-top: 0; }
   .table__header,
   .table__column {
-    padding: 10px; }
+    padding: 14px;
+    vertical-align: middle; }
   .table--sticky thead {
     position: sticky;
     top: 0; }
@@ -737,15 +739,17 @@ input:checked + .radio-toggle__toggle:before {
 .projects-select__edit-button,
 .projects-select__delete-button {
   margin: 0 8px;
-  padding: 0; }
-  .projects-select__edit-button i,
-  .projects-select__delete-button i {
+  padding: 0;
+  vertical-align: middle;
+  line-height: 0; }
+  .projects-select__edit-button .material-symbols-outlined,
+  .projects-select__delete-button .material-symbols-outlined {
     pointer-events: none; }
 
-.projects-select__edit-button i {
+.projects-select__edit-button .material-symbols-outlined {
   color: #f69e00; }
 
-.projects-select__delete-button i {
+.projects-select__delete-button .material-symbols-outlined {
   color: #f12525; }
 
 .projects-select .pagination__item:last-child .pagination__item-link {
@@ -786,7 +790,9 @@ input:checked + .radio-toggle__toggle:before {
   font-weight: 400; }
 
 .project-edit__back-button.project-edit__back-button {
-  margin: 0; }
+  margin: 0;
+  line-height: 1;
+  font-size: 0; }
 
 .project-edit__main {
   background: #fff;

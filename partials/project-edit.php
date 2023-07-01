@@ -8,7 +8,7 @@
             <div class="project-edit__header-buttons">
                 <a class="btn btn--orange project-edit__back-button js-link-projects" href="/projects/" title="Link to Projects Page" tabindex="1">
                     <span class="visually-hidden">Back</span>
-                    <i class="fas fa-arrow-circle-left"></i>
+                    <span class="material-symbols-outlined">chevron_left</span>
                 </a>
 
                 <button type="submit" class="btn btn--dark-green project-edit__save-button" tabindex="1">
@@ -32,7 +32,7 @@
                     <input type="text" class="input project-edit__tag-input" id="tag-input" placeholder="HTML5" tabindex="1" />
                     <button type="button" class="btn btn--dark-blue project-edit__tag-add-button" id="tag-add" tabindex="1">
                         <span class="visually-hidden">Add</span>
-                        <i class="fa fa-plus"></i>
+                        <span class="material-symbols-outlined">add</span>
                     </button>
                 </div>
             </div>
@@ -155,7 +155,7 @@
         <img src="{{ url }}" alt="{{ name }}" />
         <button type="button" class="btn btn--dark-blue js-project-image-upload-button" data-index="{{ index }}" tabindex="1">
             <span class="visually-hidden">Upload This Image</span>
-            <i class="fa fa-upload"></i>
+            <span class="material-symbols-outlined">upload</span>
         </button>
     </div>
 </script>

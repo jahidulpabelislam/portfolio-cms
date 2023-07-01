@@ -43,7 +43,7 @@
 }
 
 .nav__toggle {
-    margin: 16px 10px 6px 10px;
+    margin: 20px 10px 6px 10px;
     padding: 7px;
     border: solid transparent 2px;
     border-radius: 50%;
@@ -99,7 +99,7 @@
 }
 
 .nav__links {
-    margin-top: 40px;
+    margin-top: 20px;
     transition: all .4s ease-in-out;
     border-top: $light-grey 1px solid;
     text-align: left;
@@ -117,11 +117,14 @@
     color: $dark-colour;
     white-space: nowrap;
 
-    i {
-        pointer-events: none;
-        font-size: 28px;
+    span {
         vertical-align: middle;
-        padding-right: 8px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 28px;
+        padding-right: 16px;
+        pointer-events: none;
     }
 }
 

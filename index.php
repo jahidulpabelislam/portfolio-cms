@@ -17,8 +17,6 @@ $isDebug = $app::isDebug();
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JPI Portfolio CMS</title>
 
-        <link href="<?php $app::echoWithAssetVersion("/assets/css/third-party/font-awesome.min.css", "5.10.0"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
-
         <?php
         if ($isDebug) {
             ?>
@@ -31,6 +29,8 @@ $isDebug = $app::isDebug();
             <?php
         }
         ?>
+
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" title="style" media="all" type="text/css">
 
         <?php include_once(ROOT . "/partials/favicons.php"); ?>
     </head>

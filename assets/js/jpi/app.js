@@ -789,8 +789,8 @@ window.jpi = window.jpi || {};
         "/project/edit/(.+)/": showProjectEdit,
         "(.*)": function() {
             // Fallback - redirect to projects listing
-            history.pushState(null, null, "/projects/");
-            router.run();
+            // history.pushState(null, null, "/projects/");
+            // router.run();
         },
     });
 

@@ -22,20 +22,22 @@
 .projects-select__delete-button {
     margin: 0 8px;
     padding: 0;
+    vertical-align: middle;
+    line-height: 0;
 
-    i {
+    .material-symbols-outlined {
         pointer-events: none;
     }
 }
 
 .projects-select__edit-button {
-    i {
+    .material-symbols-outlined {
         color: get-colour(orange, main);
     }
 }
 
 .projects-select__delete-button {
-    i {
+    .material-symbols-outlined {
         color: get-colour(red, main);
     }
 }

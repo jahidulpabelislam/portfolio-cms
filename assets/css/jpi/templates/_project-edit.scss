@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .project-edit {
     display: none;
     margin-bottom: $v-gutter;
@@ -32,7 +34,7 @@
     justify-content: space-between;
 
     &:not(:last-child) {
-        margin-bottom: $v-spacing / 2;
+        margin-bottom: math.div($v-spacing, 2);
     }
 }
 

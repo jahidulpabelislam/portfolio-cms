@@ -34,11 +34,19 @@
     .material-symbols-outlined {
         color: get-colour(orange, main);
     }
+
+    &:hover .material-symbols-outlined {
+        color: get-colour(orange, hover);
+    }
 }
 
 .projects-select__delete-button {
     .material-symbols-outlined {
         color: get-colour(red, main);
+    }
+
+    &:hover .material-symbols-outlined {
+        color: get-colour(red, hover);
     }
 }
 

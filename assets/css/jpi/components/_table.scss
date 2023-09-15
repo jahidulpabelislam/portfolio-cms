@@ -40,7 +40,6 @@
 
     .table__header,
     .table__column {
-        padding: 14px;
         vertical-align: middle;
     }
 
@@ -50,6 +49,7 @@
     }
 
     .table__header {
+        padding: 10px;
         font-weight: 700;
         background: $dark-colour;
         color: white;
@@ -58,6 +58,7 @@
 
     .table__column {
         display: table-cell;
+        padding: 14px;
     }
 
     .table__column[data-title]:before {

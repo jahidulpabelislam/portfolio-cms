@@ -17,6 +17,14 @@
 
 .nav--opened {
     width: 200px;
+
+    .nav__toggle:hover {
+        border-color: get-colour(red, hover);
+
+        .nav__toggle-bar {
+            background-color: get-colour(red, hover);
+        }
+    }
 }
 
 .nav + .main-content {

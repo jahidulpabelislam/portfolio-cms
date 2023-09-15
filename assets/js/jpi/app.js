@@ -756,7 +756,7 @@ window.jpi = window.jpi || {};
                 url: "/projects/" + projectEditSelectedProjectID + "/images/",
                 data: form,
                 onSuccess: function (response) {
-                    event.target.closest(".project-edit__upload").remove();
+                    event.target.closest(".project-edit__image-container").remove();
 
                     renderProjectImage(response.data);
 

@@ -69,15 +69,6 @@ class App {
         echo self::addAssetVersion($src, $ver, $root);
     }
 
-    /**
-     * @return bool Whether or not the debug was set by user on page view
-     */
-    public static function isDebug(): bool {
-        $isDebug = (isset($_GET["debug"]) && !($_GET["debug"] === "false" || $_GET["debug"] === "0"));
-
-        return $isDebug;
-    }
-
     public function getEnvironment(): string {
         return getenv("APPLICATION_ENV") ?? "production";
     }

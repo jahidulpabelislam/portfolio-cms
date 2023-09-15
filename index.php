@@ -5,8 +5,6 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
 
 $app = App::get();
 $app->addConfig();
-
-$isDebug = $app::isDebug();
 ?>
 
 <!DOCTYPE html>
@@ -17,18 +15,7 @@ $isDebug = $app::isDebug();
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>JPI Portfolio CMS</title>
 
-        <?php
-        if ($isDebug) {
-            ?>
-            <link href="<?php $app::echoWithAssetVersion("/assets/css/jpi/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
-            <?php
-        }
-        else {
-            ?>
-            <link href="<?php $app::echoWithAssetVersion("/assets/css/jpi/main.min.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
-            <?php
-        }
-        ?>
+        <link href="<?php $app::echoWithAssetVersion("/assets/css/jpi/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
 
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" title="style" media="all" type="text/css">
 
@@ -63,23 +50,12 @@ $isDebug = $app::isDebug();
             };
         </script>
 
-        <?php
-        if ($isDebug) {
-            ?>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/tinymce/tinymce.min.js", "1.1.0"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/Sortable.min.js", "1.1.0"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/router.js"); ?>" type="text/javascript"></script>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/app.js"); ?>" type="text/javascript"></script>
-            <?php
-        }
-        else {
-            ?>
-            <script src="<?php $app::echoWithAssetVersion("/assets/js/main.min.js"); ?>" type="text/javascript"></script>
-            <?php
-        }
-        ?>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/tinymce/tinymce.min.js", "1.1.0"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/Sortable.min.js", "1.1.0"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/router.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/app.js"); ?>" type="text/javascript"></script>
     </body>
 </html>

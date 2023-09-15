@@ -824,6 +824,9 @@ input:checked + .radio-toggle__toggle:before {
   text-align: center;
   background: #0375b4;
 }
+.login .input {
+  border-radius: 6px;
+}
 
 .login__form {
   width: 90%;
@@ -831,6 +834,7 @@ input:checked + .radio-toggle__toggle:before {
   padding: 20px 14px;
   border-radius: 6px;
   background: #f5f5f5;
+  box-shadow: 0 0 10px 0 #333333;
 }
 
 .login__feedback {
@@ -845,7 +849,9 @@ input:checked + .radio-toggle__toggle:before {
 }
 
 .login__submit {
-  margin: 0;
+  margin: 6px 0 0;
+  padding: 8px 24px;
+  border-radius: 10px;
 }
 
 @media only screen and (min-width: 768px) {

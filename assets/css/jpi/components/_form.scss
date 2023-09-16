@@ -44,26 +44,15 @@ label,
 }
 
 .input:focus {
-    box-shadow: 0 0 8px $primary-colour;
-    border-color: $primary-colour;
+    border-color: $dark-colour;
 }
 
 .input.invalid {
     border-color: $error-colour;
 }
 
-.input:focus.invalid {
-    border-color: $error-colour;
-    box-shadow: 0 0 8px transparentize($error-colour, 0.4);
-}
-
 .input.valid {
     border-color: $success-colour;
-}
-
-.input:focus.valid {
-    border-color: $success-colour;
-    box-shadow: 0 0 8px transparentize($success-colour, 0.4);
 }
 
 .styled-checkbox {

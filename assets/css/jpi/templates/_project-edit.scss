@@ -52,12 +52,12 @@
 
 .project-edit__main {
     background: #fff;
-    border: 1px solid #e3e3e3;
+    border: 1px solid $light-grey;
     box-shadow: 0 0 10px 0 transparentize($dark-colour, 0.95);
 }
 
 .project-edit__tabs-bar {
-    background: #f1f1f1;
+    background: $light-colour;
     display: flex;
 }
 
@@ -65,7 +65,8 @@
     font: inherit;
     font-weight: 700;
     padding: 8px 20px;
-    border-right: 1px solid #e3e3e3;
+    background: $light-colour;
+    border-right: 1px solid $light-grey;
 }
 
 .project-edit__tabs-bar-item--active {
@@ -167,7 +168,7 @@
     text-align: center;
     background-color: white;
     list-style: none;
-    border: 1px solid #e0e0e0;
+    border: 1px solid $light-grey;
     line-height: 0;
 
     img {
@@ -327,7 +328,6 @@
     .project-edit__header {
         position: sticky;
         top: 0;
-        background: #f5f5f5;
         z-index: 1;
         margin-bottom: 20px;
     }

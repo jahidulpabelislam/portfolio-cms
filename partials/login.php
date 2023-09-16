@@ -1,6 +1,8 @@
 <div class="login fixed-overlay">
     <div class="container">
         <form class="login__form">
+            <img class="login__logo" src="/assets/images/jpi.png" />
+
             <div class="input-group">
                 <label for="username" class="visually-hidden">Username</label>
                 <input type="text" class="input" id="username" placeholder="Username" tabindex="1" oninput="jpi.helpers.checkInput(this);" autofocus />

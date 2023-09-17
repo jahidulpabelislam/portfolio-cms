@@ -42,7 +42,7 @@ class App {
         if (!$ver) {
             $ver = self::DEFAULT_ASSET_VERSION;
 
-            $file = URL::addTrailingSlash($root) . URL::removeLeadingSlash($src);
+            $file = URL::removeTrailingSlash($root) . URL::addLeadingSlash($src);
             if (file_exists($file)) {
                 $ver = date("mdYHi", filemtime($file));
             }

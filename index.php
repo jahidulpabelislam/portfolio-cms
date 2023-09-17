@@ -20,7 +20,7 @@ $app->addConfig();
         <?php include_once(ROOT . "/partials/favicons.php"); ?>
     </head>
 
-    <body class="cms-page">
+    <body>
         <div class="fixed-overlay fixed-overlay--loading fixed-overlay--active js-loading">
             <h1 class="fixed-overlay__text">
                 <i class="fas fa-spinner fa-spin"></i>

@@ -2,5 +2,10 @@
     "require": {
         "php": "^7.0 || ^8.0",
         "jpi/utils": "0.x-dev"
+    },
+    "autoload": {
+        "files": [
+            "App.php"
+        ]
     }
 }

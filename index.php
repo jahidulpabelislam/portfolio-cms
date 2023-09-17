@@ -1,8 +1,6 @@
 <?php
 include_once("vendor/autoload.php");
 
-include_once($_SERVER["DOCUMENT_ROOT"] . "/App.php");
-
 $app = App::get();
 $app->addConfig();
 ?>

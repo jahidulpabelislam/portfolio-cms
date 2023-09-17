@@ -92,5 +92,3 @@ class App {
         include_once(ROOT . "/config.php");
     }
 }
-
-App::get();

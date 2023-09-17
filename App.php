@@ -27,18 +27,18 @@ class App {
     }
 
     /**
-     * Get a version number of a asset file.
+     * Get a version number of an asset file.
      *
      * The number to use can be passed as a param.
      * Else it tries to get the last modified date string from file.
      * And if that fails it fall backs to global default version number
      *
-     * @param $src string The relative path to a asset
-     * @param bool $ver string A version number to use
+     * @param $src string The relative path to an asset
+     * @param $ver string|null A version number to use
      * @param $root string The root location of where the file should be if not the default
      * @return string The version number found
      */
-    public static function getAssetVersion(string $src, $ver = false, string $root = ROOT): string {
+    public static function getAssetVersion(string $src, ?string $ver = null, string $root = ROOT): string {
         if (!$ver) {
             $ver = self::DEFAULT_ASSET_VERSION;
 
@@ -55,7 +55,7 @@ class App {
      * Wrapper around Site::getAssetVersion() to generate the full relative URL for the asset
      * including a version number
      */
-    public static function addAssetVersion(string $src, $ver = false, string $root = ROOT): string {
+    public static function addAssetVersion(string $src, ?string $ver = null, string $root = ROOT): string {
         $ver = self::getAssetVersion($src, $ver, $root);
 
         return "{$src}?v={$ver}";
@@ -65,7 +65,7 @@ class App {
      * Wrapper around Site::getAssetVersion() & Site::getAssetVersion()
      * Used to echo the full relative URL for the asset including a version number
      */
-    public static function echoWithAssetVersion(string $src, $ver = false, string $root = ROOT) {
+    public static function echoWithAssetVersion(string $src, ?string $ver = null, string $root = ROOT): void {
         echo self::addAssetVersion($src, $ver, $root);
     }
 
@@ -76,7 +76,7 @@ class App {
     /**
      * Include the config files for app.
      */
-    public function addConfig() {
+    public function addConfig(): void {
         if (file_exists(ROOT . "/config.local.php")) {
             include_once(ROOT . "/config.local.php");
         }

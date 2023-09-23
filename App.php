@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use JPI\Utils\Singleton;
 use JPI\Utils\URL;
 

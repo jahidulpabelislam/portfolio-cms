@@ -16,6 +16,11 @@ window.jpi = window.jpi || {};
     var projectsListingFeedbackElem = document.querySelector(".projects-select__feedback");
     var projectsListingPagination = document.querySelector(".pagination");
 
+    var searchInput = document.querySelector(".js-filters-search");
+    var typeInput = document.querySelector(".js-filters-type");
+    var publishedCheckbox = document.querySelector(".js-filters-published");
+    var dateInput = document.querySelector(".js-filters-date");
+
     var projectsListingRowTemplate = document.querySelector("#js-projects-table-row").innerHTML;
 
     var projectEditContainer = document.querySelector(".project-edit");
@@ -86,7 +91,9 @@ window.jpi = window.jpi || {};
         request.headers.Accept = "application/json";
         request.headers["Cache-Control"] = "no-cache";
 
-        if (request.data && !(request.data instanceof FormData)) {
+        if (request.data && request.method === "GET") {
+            request.url = request.url + "?" + new URLSearchParams(request.data).toString();
+        } else if (request.data && !(request.data instanceof FormData)) {
             request.headers["Content-Type"] = "application/json";
             request.data = JSON.stringify(request.data);
         }
@@ -215,9 +222,27 @@ window.jpi = window.jpi || {};
 
         projectsListingFeedbackElem.classList.remove("projects-select__feedback--active");
 
+        var data = {
+            page: page,
+            search: searchInput.value,
+        };
+
+        if (typeInput.value !== "") {
+            data["filters[type_id]"] = typeInput.value;
+        }
+
+        if (dateInput.value !== "") {
+            data["filters[date]"] = dateInput.value;
+        }
+
+        if (publishedCheckbox.checked) {
+            data["filters[status]"] = "published";
+        }
+
         makeAPIRequest({
             method: "GET",
-            url: "/projects/?page=" + page,
+            url: "/projects/",
+            data: data,
             onSuccess: function (response) {
                 onSuccessfulProjectsGet(response, page);
             },
@@ -624,6 +649,18 @@ window.jpi = window.jpi || {};
             document.querySelector(".project-edit__tabs-bar-item--active").classList.remove("project-edit__tabs-bar-item--active");
             element.classList.add("project-edit__tabs-bar-item--active");
         });
+    });
+
+    document.querySelectorAll(".js-filters-on-change").forEach(function (element) {
+        element.addEventListener("change", function (event) {
+            history.pushState(null, null, "/projects/");
+            router.run();
+        });
+    });
+
+    searchInput.addEventListener("keyup", function (event) {
+        history.pushState(null, null, "/projects/");
+        router.run();
     });
 
     document.querySelector(".project-edit__hide-error").addEventListener("click", function (event) {

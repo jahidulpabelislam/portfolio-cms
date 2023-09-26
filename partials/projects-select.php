@@ -1,14 +1,55 @@
+<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION . "/project-types/");
+curl_setopt(
+    $ch, CURLOPT_HTTPHEADER, [
+        'Accept: application/json',
+    ]
+);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_TIMEOUT, 4); // Seconds
+
+$apiRes = json_decode(curl_exec($ch), true);
+curl_close($ch);
+
+$projectTypes = $apiRes["data"]
+?>
 <div class="projects-select">
     <p class="feedback feedback--error projects-select__feedback"></p>
+
+    <form class="projects-select__filters">
+        <div class="projects-select-filter projects-select-filter--search projects-select-filter-search">
+            <input class="input js-filters-search" type="text" value="" placeholder="Search..." />
+        </div>
+        <div class="projects-select-filter">
+            <select class="input js-filters-type js-filters-on-change">
+                <option value="">Type</option>
+                <?php foreach ($projectTypes as $projectType): ?>
+                    <option value="<?= $projectType["id"] ?>"><?= $projectType["name"] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="projects-select-filter">
+            <div class="projects-select__option styled-checkbox">
+                <label for="projects-select-filter-published" class="styled-checkbox__label">
+                    <input type="checkbox" class="input checkbox js-filters-published js-filters-on-change" id="projects-select-filter-published" value="true" />
+                    Published Only? <span class="styled-checkbox__pseudo js-styled-checkout"></span>
+                </label>
+            </div>
+        </div>
+        <div class="projects-select-filter">
+            <input class="input js-filters-date js-filters-on-change" type="date" value="" />
+        </div>
+    </form>
 
     <table class="projects-select__table table table--sticky">
         <thead>
             <tr class="table__row">
-                <th class="table__header">ID</th>
                 <th class="table__header">Name</th>
                 <th class="table__header">Date</th>
                 <th class="table__header">Created At</th>
-                <th class="table__header">Last Modified</th>
+                <th class="table__header">Updated At</th>
                 <th class="table__header table__header--center">-</th>
             </tr>
         </thead>
@@ -20,7 +61,6 @@
 
 <script type="text/template" id="js-projects-table-row">
     <tr class="table__row">
-        <td class="table__column" data-title="ID">{{ id }}</td>
         <td class="table__column" data-title="Name">{{ name }}</td>
         <td class="table__column" data-title="Date">{{ date }}</td>
         <td class="table__column" data-title="Created At">{{ created_at }}</td>

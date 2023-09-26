@@ -448,8 +448,8 @@ label span,
 .styled-checkbox {
   position: relative;
   padding-left: 32px;
-  margin: 5px 0;
   padding-top: 2px;
+  height: 100%;
 }
 
 .styled-checkbox .checkbox {
@@ -478,29 +478,30 @@ label span,
   left: 0;
   top: 0;
   background: white;
-  border: 2px solid #7b8676;
+  border: 2px solid #333333;
   transition: all 0.3s ease-in-out;
 }
 
 .styled-checkbox .checkbox:focus + .styled-checkbox__pseudo,
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
-  border-color: #0375b4;
+  border-color: #1aad5b;
 }
 
 .styled-checkbox .checkbox:checked + .styled-checkbox__pseudo {
-  background-color: #0375b4;
-  border-color: #0375b4;
+  background-color: #1aad5b;
+  border-color: #1aad5b;
 }
 
 .styled-checkbox__pseudo:after {
   display: none;
   content: "✔";
   color: white;
-  font-size: 22px;
+  font-size: 14px;
   line-height: 20px;
 }
 
 .styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
+  text-align: center;
   display: block;
 }
 
@@ -562,16 +563,16 @@ input:checked + .radio-toggle__toggle:before {
 /* Only for Tablets & Desktops */
 @media only screen and (min-width: 768px) {
   .styled-checkbox {
-    margin: 8px 0;
-    padding-top: 4px;
+    padding-top: 6px;
+    padding-left: 38px;
   }
   .styled-checkbox__pseudo {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
   }
   .styled-checkbox__pseudo:after {
-    font-size: 28px;
-    line-height: 27px;
+    font-size: 20px;
+    line-height: 30px;
   }
 }
 .nav {
@@ -894,6 +895,17 @@ input:checked + .radio-toggle__toggle:before {
   display: block;
 }
 
+.projects-select__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.projects-select-filter {
+  width: calc(50% - 15px);
+}
+
 .projects-select__edit-button,
 .projects-select__delete-button {
   margin: 0 8px;
@@ -924,6 +936,19 @@ input:checked + .radio-toggle__toggle:before {
   margin-right: 0;
 }
 
+@media only screen and (min-width: 980px) {
+  .projects-select-filter {
+    width: auto;
+  }
+  .projects-select-filter--search {
+    flex: 1;
+    text-align: left;
+    margin-left: 0;
+  }
+  .projects-select-filter--search input {
+    max-width: 200px;
+  }
+}
 .project-edit {
   display: none;
   margin-bottom: 18px;

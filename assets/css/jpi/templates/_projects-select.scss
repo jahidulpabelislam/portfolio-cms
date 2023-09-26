@@ -18,6 +18,17 @@
     display: block;
 }
 
+.projects-select__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.projects-select-filter {
+    width: calc(50% - 15px)
+}
+
 .projects-select__edit-button,
 .projects-select__delete-button {
     margin: 0 8px;
@@ -52,4 +63,20 @@
 
 .projects-select .pagination__item:last-child .pagination__item-link {
     margin-right: 0;
+}
+
+@media only screen and (min-width: $desktop-width) {
+    .projects-select-filter {
+        width: auto;
+    }
+
+    .projects-select-filter--search {
+        flex: 1;
+        text-align: left;
+        margin-left: 0;
+
+        input {
+            max-width: 200px;
+        }
+    }
 }

@@ -15,7 +15,7 @@ $app->addConfig();
 
         <link href="<?php $app::echoWithAssetVersion("/assets/css/jpi/main.css"); ?>" rel="stylesheet" title="style" media="all" type="text/css" />
 
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" title="style" media="all" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" title="style" media="all" type="text/css" />
 
         <?php include_once(ROOT . "/partials/favicons.php"); ?>
     </head>

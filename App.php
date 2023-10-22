@@ -85,7 +85,7 @@ class App {
 
         $environment = $this->getEnvironment();
 
-        if ($environment !== 'production') {
+        if ($environment !== "production") {
             if (file_exists(ROOT . "/config.$environment.php")) {
                 include_once(ROOT . "/config.$environment.php");
             }

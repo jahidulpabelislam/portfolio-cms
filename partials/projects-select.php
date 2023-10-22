@@ -1,9 +1,15 @@
 <?php
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION . "/project-types/");
 curl_setopt(
-    $ch, CURLOPT_HTTPHEADER, [
-        'Accept: application/json',
+    $ch,
+    CURLOPT_URL,
+    \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION . "/project-types/"
+);
+curl_setopt(
+    $ch,
+    CURLOPT_HTTPHEADER,
+    [
+        "Accept: application/json",
     ]
 );
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -13,7 +19,7 @@ curl_setopt($ch, CURLOPT_TIMEOUT, 4); // Seconds
 $apiRes = json_decode(curl_exec($ch), true);
 curl_close($ch);
 
-$projectTypes = $apiRes["data"]
+$projectTypes = $apiRes["data"];
 ?>
 <div class="projects-select">
     <p class="feedback feedback--error projects-select__feedback"></p>

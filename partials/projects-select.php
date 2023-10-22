@@ -37,7 +37,7 @@ $projectTypes = $apiRes["data"];
             </select>
         </div>
         <div class="projects-select-filter">
-            <input class="input js-filters-date js-filters-on-change" type="date" value="" />
+            <input class="input js-filters-date js-filters-on-change" type="date" value="" placeholder="dd/mm/yyyy" />
         </div>
         <div class="projects-select-filter">
             <div class="projects-select__option styled-checkbox">

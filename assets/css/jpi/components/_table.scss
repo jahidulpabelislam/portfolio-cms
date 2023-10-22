@@ -5,6 +5,7 @@
 }
 
 .table__row {
+    border-top: solid $light-grey 1px;
     border-bottom: solid $light-grey 1px;
 }
 
@@ -14,7 +15,7 @@
 
 .table__column {
     display: block;
-    padding: 4px 10px;
+    padding: 6px 18px;
     background: white;
 }
 

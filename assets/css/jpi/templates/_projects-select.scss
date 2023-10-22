@@ -30,7 +30,11 @@
 }
 
 .projects-select-filter {
-    width: calc(50% - 8px)
+    width: calc(50% - 8px);
+
+    label {
+        text-align: left;
+    }
 }
 
 .projects-select__edit-button,

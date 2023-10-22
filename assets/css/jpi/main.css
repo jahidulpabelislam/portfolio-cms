@@ -87,6 +87,9 @@ body {
   width: 100%;
   transition: margin-left 0.4s ease-in-out, padding-left 0.4s ease-in-out;
 }
+.main-content .container {
+  min-height: 100vh;
+}
 
 /* Only for Desktops */
 @media only screen and (min-width: 980px) {

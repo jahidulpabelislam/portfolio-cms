@@ -20,6 +20,10 @@ body {
     display: flex;
     width: 100%;
     transition: margin-left 0.4s ease-in-out, padding-left 0.4s ease-in-out;
+
+    .container {
+        min-height: 100vh;
+    }
 }
 
 /* Only for Desktops */

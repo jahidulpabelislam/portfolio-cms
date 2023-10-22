@@ -717,7 +717,7 @@ input:checked + .radio-toggle__toggle:before {
 /* For Tablets & Desktops */
 .table {
   width: 100%;
-  text-align: left;
+  text-align: center;
   border-top: 0;
 }
 
@@ -742,6 +742,9 @@ input:checked + .radio-toggle__toggle:before {
 }
 
 @media only screen and (min-width: 768px) {
+  .table {
+    text-align: left;
+  }
   .table thead .table__row {
     display: table-row;
   }
@@ -928,14 +931,14 @@ input:checked + .radio-toggle__toggle:before {
 }
 
 .projects-select .pagination {
-  margin-right: 20px;
+  text-align: center;
 }
 
 .projects-select .pagination__item:last-child .pagination__item-link {
   margin-right: 0;
 }
 
-@media only screen and (min-width: 980px) {
+@media only screen and (min-width: 768px) {
   .projects-select-filter {
     width: auto;
   }
@@ -946,6 +949,10 @@ input:checked + .radio-toggle__toggle:before {
   }
   .projects-select-filter--search input {
     max-width: 200px;
+  }
+  .projects-select .pagination {
+    text-align: right;
+    margin-right: 20px;
   }
 }
 .project-edit {

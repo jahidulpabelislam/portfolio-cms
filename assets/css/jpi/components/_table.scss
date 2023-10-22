@@ -1,6 +1,6 @@
 .table {
     width: 100%;
-    text-align: left;
+    text-align: center;
     border-top: 0;
 }
 
@@ -25,6 +25,10 @@
 }
 
 @media only screen and (min-width: $tablet-width) {
+    .table {
+        text-align: left;
+    }
+
     .table thead .table__row {
         display: table-row;
     }

@@ -76,14 +76,14 @@
 }
 
 .projects-select .pagination {
-    margin-right: 20px;
+    text-align: center;
 }
 
 .projects-select .pagination__item:last-child .pagination__item-link {
     margin-right: 0;
 }
 
-@media only screen and (min-width: $desktop-width) {
+@media only screen and (min-width: $tablet-width) {
     .projects-select-filter {
         width: auto;
     }
@@ -96,5 +96,10 @@
         input {
             max-width: 200px;
         }
+    }
+
+    .projects-select .pagination {
+        text-align: right;
+        margin-right: 20px;
     }
 }

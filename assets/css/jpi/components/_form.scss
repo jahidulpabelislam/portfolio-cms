@@ -57,9 +57,10 @@ label,
 
 .styled-checkbox {
     position: relative;
-    padding-left: 32px;
-    padding-top: 2px;
+    padding-top: 6px;
+    padding-left: 42px;
     height: 100%;
+    cursor: pointer;
 }
 
 .styled-checkbox .checkbox {
@@ -82,19 +83,19 @@ label,
 .styled-checkbox__pseudo {
     content: "\00a0";
     display: block;
-    width: 22px;
-    height: 22px;
+    width: 34px;
+    height: 34px;
     position: absolute;
     left: 0;
     top: 0;
     background: white;
-    border: 2px solid $dark-colour;
+    border: 1px solid $light-grey;
     transition: all 0.3s ease-in-out;
 }
 
 .styled-checkbox .checkbox:focus + .styled-checkbox__pseudo,
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
-    border-color: $success-colour;
+    border-color: $dark-colour;
 }
 
 .styled-checkbox .checkbox:checked + .styled-checkbox__pseudo {
@@ -106,8 +107,8 @@ label,
     display: none;
     content: "\2714";
     color: white;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 20px;
+    line-height: 30px;
 }
 
 .styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
@@ -169,22 +170,4 @@ input:checked + .radio-toggle__toggle:before {
 
 .feedback--error {
     color: $error-colour;
-}
-
-/* Only for Tablets & Desktops */
-@media only screen and (min-width: $tablet-width) {
-    .styled-checkbox {
-        padding-top: 6px;
-        padding-left: 38px;
-    }
-
-    .styled-checkbox__pseudo {
-        width: 34px;
-        height: 34px;
-    }
-
-    .styled-checkbox__pseudo:after {
-        font-size: 20px;
-        line-height: 30px;
-    }
 }

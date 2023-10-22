@@ -179,16 +179,17 @@ window.jpi = window.jpi || {};
                 if ({}.hasOwnProperty.call(project, field)) {
                     var regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
                     var value = project[field];
+
                     if (field === "status") {
                         value = value === "published" ? "Yes" : "No";
                     }
                     else if (["date", "created_at", "updated_at"].includes(field)) {
                         if (value) {
                             value = shortDateFormat.format(new Date(value));
-                        } else {
-                            value = "-";
                         }
                     }
+
+                    value  = value ? value : "-";
 
                     row = row.replace(regex, value);
                 }

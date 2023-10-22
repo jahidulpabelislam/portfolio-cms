@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "^7.0 || ^8.0",
+        "ext-curl": "*",
         "jpi/utils": "0.x-dev"
     },
     "autoload": {

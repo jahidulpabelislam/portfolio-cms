@@ -57,10 +57,18 @@ label,
 
 .styled-checkbox {
     position: relative;
-    padding-top: 6px;
     padding-left: 42px;
     height: 100%;
+    line-height: 34px;
     cursor: pointer;
+
+    label {
+        margin: 0;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        line-height: 1;
+    }
 }
 
 .styled-checkbox .checkbox {
@@ -76,8 +84,7 @@ label,
 }
 
 .styled-checkbox__label {
-    margin: 0;
-    cursor: pointer;
+    font-weight: 700;
 }
 
 .styled-checkbox__pseudo {

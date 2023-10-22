@@ -41,9 +41,10 @@ $projectTypes = $apiRes["data"];
         </div>
         <div class="projects-select-filter">
             <div class="projects-select__option styled-checkbox">
-                <label for="projects-select-filter-published" class="styled-checkbox__label">
+                <label for="projects-select-filter-published" class="">
                     <input type="checkbox" class="input checkbox js-filters-published js-filters-on-change" id="projects-select-filter-published" value="true" />
-                    Published Only? <span class="styled-checkbox__pseudo js-styled-checkout"></span>
+                    <span class="styled-checkbox__pseudo"></span>
+                    <span class="styled-checkbox__label">Published Only?</span>
                 </label>
             </div>
         </div>

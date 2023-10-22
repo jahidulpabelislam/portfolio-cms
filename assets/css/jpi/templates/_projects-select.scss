@@ -35,6 +35,12 @@
     label {
         text-align: left;
     }
+
+    .styled-checkbox label {
+        @media only screen and (min-width: $tablet-width) {
+            text-align: right;
+        }
+    }
 }
 
 .projects-select__edit-button,

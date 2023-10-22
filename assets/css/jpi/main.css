@@ -450,10 +450,17 @@ label span,
 
 .styled-checkbox {
   position: relative;
-  padding-top: 6px;
   padding-left: 42px;
   height: 100%;
+  line-height: 34px;
   cursor: pointer;
+}
+.styled-checkbox label {
+  margin: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  line-height: 1;
 }
 
 .styled-checkbox .checkbox {
@@ -469,8 +476,7 @@ label span,
 }
 
 .styled-checkbox__label {
-  margin: 0;
-  cursor: pointer;
+  font-weight: 700;
 }
 
 .styled-checkbox__pseudo {
@@ -716,6 +722,7 @@ input:checked + .radio-toggle__toggle:before {
 }
 
 .table__row {
+  border-top: solid #e2e2e2 1px;
   border-bottom: solid #e2e2e2 1px;
 }
 
@@ -725,7 +732,7 @@ input:checked + .radio-toggle__toggle:before {
 
 .table__column {
   display: block;
-  padding: 4px 10px;
+  padding: 6px 18px;
   background: white;
 }
 
@@ -884,6 +891,14 @@ input:checked + .radio-toggle__toggle:before {
 
 .projects-select-filter {
   width: calc(50% - 8px);
+}
+.projects-select-filter label {
+  text-align: left;
+}
+@media only screen and (min-width: 768px) {
+  .projects-select-filter .styled-checkbox label {
+    text-align: right;
+  }
 }
 
 .projects-select__edit-button,

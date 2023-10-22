@@ -1,12 +1,11 @@
 .table {
     width: 100%;
     text-align: left;
-    border: solid $dark-colour 3px;
     border-top: 0;
 }
 
 .table__row {
-    border: solid $dark-colour 1px;
+    border-bottom: solid $light-grey 1px;
 }
 
 .table thead .table__row {
@@ -19,14 +18,6 @@
     background: white;
 }
 
-.table__row:nth-child(even) .table__column {
-    background: $light-grey;
-}
-
-.table__column--no-padding {
-    padding: 0
-}
-
 .table__column[data-title]:before {
     content: attr(data-title) ": ";
     font-weight: bold;
@@ -35,7 +26,6 @@
 @media only screen and (min-width: $tablet-width) {
     .table thead .table__row {
         display: table-row;
-        border-top: 0;
     }
 
     .table__header,
@@ -49,24 +39,22 @@
     }
 
     .table__header {
-        padding: 10px;
+        padding: 10px 20px;
         font-weight: 700;
-        background: $dark-colour;
-        color: white;
-        border-bottom: solid $dark-colour 3px;
+        background: $light-colour;
     }
 
     .table__column {
         display: table-cell;
-        padding: 14px;
+        padding: 14px 20px;
     }
 
     .table__column[data-title]:before {
         content: none;
     }
 
-    .table__header--center,
-    .table__column--center {
-        text-align: center;
+    .table__header--right,
+    .table__column--right {
+        text-align: right;
     }
 }

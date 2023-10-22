@@ -1,7 +1,11 @@
 .projects-select {
     display: none;
     text-align: right;
+    margin: 20px 0;
     padding: 20px 0;
+    background: #ffffff;
+    border-radius: 6px;
+    border: solid $light-grey 1px;
 }
 
 .projects-select--active {
@@ -21,17 +25,17 @@
 .projects-select__filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin: 0 16px 20px;
 }
 
 .projects-select-filter {
-    width: calc(50% - 15px)
+    width: calc(50% - 8px)
 }
 
 .projects-select__edit-button,
 .projects-select__delete-button {
-    margin: 0 8px;
+    margin: 0 4px 0 0;
     padding: 0;
     vertical-align: middle;
     line-height: 0;
@@ -59,6 +63,10 @@
     &:hover .material-symbols-outlined {
         color: get-colour(red, hover);
     }
+}
+
+.projects-select .pagination {
+    margin-right: 20px;
 }
 
 .projects-select .pagination__item:last-child .pagination__item-link {

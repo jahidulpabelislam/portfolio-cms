@@ -447,9 +447,10 @@ label span,
 
 .styled-checkbox {
   position: relative;
-  padding-left: 32px;
-  padding-top: 2px;
+  padding-top: 6px;
+  padding-left: 42px;
   height: 100%;
+  cursor: pointer;
 }
 
 .styled-checkbox .checkbox {
@@ -472,19 +473,19 @@ label span,
 .styled-checkbox__pseudo {
   content: " ";
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 34px;
+  height: 34px;
   position: absolute;
   left: 0;
   top: 0;
   background: white;
-  border: 2px solid #333333;
+  border: 1px solid #e2e2e2;
   transition: all 0.3s ease-in-out;
 }
 
 .styled-checkbox .checkbox:focus + .styled-checkbox__pseudo,
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
-  border-color: #1aad5b;
+  border-color: #333333;
 }
 
 .styled-checkbox .checkbox:checked + .styled-checkbox__pseudo {
@@ -496,8 +497,8 @@ label span,
   display: none;
   content: "✔";
   color: white;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
@@ -560,21 +561,6 @@ input:checked + .radio-toggle__toggle:before {
   color: #e52525;
 }
 
-/* Only for Tablets & Desktops */
-@media only screen and (min-width: 768px) {
-  .styled-checkbox {
-    padding-top: 6px;
-    padding-left: 38px;
-  }
-  .styled-checkbox__pseudo {
-    width: 34px;
-    height: 34px;
-  }
-  .styled-checkbox__pseudo:after {
-    font-size: 20px;
-    line-height: 30px;
-  }
-}
 .nav {
   display: none;
   z-index: 3;
@@ -723,12 +709,11 @@ input:checked + .radio-toggle__toggle:before {
 .table {
   width: 100%;
   text-align: left;
-  border: solid #333333 3px;
   border-top: 0;
 }
 
 .table__row {
-  border: solid #333333 1px;
+  border-bottom: solid #e2e2e2 1px;
 }
 
 .table thead .table__row {
@@ -741,14 +726,6 @@ input:checked + .radio-toggle__toggle:before {
   background: white;
 }
 
-.table__row:nth-child(even) .table__column {
-  background: #e2e2e2;
-}
-
-.table__column--no-padding {
-  padding: 0;
-}
-
 .table__column[data-title]:before {
   content: attr(data-title) ": ";
   font-weight: bold;
@@ -757,7 +734,6 @@ input:checked + .radio-toggle__toggle:before {
 @media only screen and (min-width: 768px) {
   .table thead .table__row {
     display: table-row;
-    border-top: 0;
   }
   .table__header,
   .table__column {
@@ -768,22 +744,20 @@ input:checked + .radio-toggle__toggle:before {
     top: 0;
   }
   .table__header {
-    padding: 10px;
+    padding: 10px 20px;
     font-weight: 700;
-    background: #333333;
-    color: white;
-    border-bottom: solid #333333 3px;
+    background: #f1f1f1;
   }
   .table__column {
     display: table-cell;
-    padding: 14px;
+    padding: 14px 20px;
   }
   .table__column[data-title]:before {
     content: none;
   }
-  .table__header--center,
-  .table__column--center {
-    text-align: center;
+  .table__header--right,
+  .table__column--right {
+    text-align: right;
   }
 }
 /* For all devices */
@@ -804,20 +778,19 @@ input:checked + .radio-toggle__toggle:before {
   cursor: pointer;
   padding: 6px 12px;
   background-color: transparent;
-  border: 1px solid #333333;
+  border: 1px solid #f1f1f1;
   color: #333333;
 }
 
 .pagination__item-link:hover {
-  border-color: #0375b4;
-  color: #0375b4;
+  background-color: #f1f1f1;
+  border-color: #e2e2e2;
 }
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-  background-color: #0375b4;
-  border-color: #0375b4;
-  color: #fff;
+  background-color: #f1f1f1;
+  border-color: #333333;
 }
 
 .login {
@@ -878,7 +851,11 @@ input:checked + .radio-toggle__toggle:before {
 .projects-select {
   display: none;
   text-align: right;
+  margin: 20px 0;
   padding: 20px 0;
+  background: #ffffff;
+  border-radius: 6px;
+  border: solid #e2e2e2 1px;
 }
 
 .projects-select--active {
@@ -898,17 +875,17 @@ input:checked + .radio-toggle__toggle:before {
 .projects-select__filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin: 0 16px 20px;
 }
 
 .projects-select-filter {
-  width: calc(50% - 15px);
+  width: calc(50% - 8px);
 }
 
 .projects-select__edit-button,
 .projects-select__delete-button {
-  margin: 0 8px;
+  margin: 0 4px 0 0;
   padding: 0;
   vertical-align: middle;
   line-height: 0;
@@ -930,6 +907,10 @@ input:checked + .radio-toggle__toggle:before {
 }
 .projects-select__delete-button:hover .material-symbols-outlined {
   color: #fa0f0f;
+}
+
+.projects-select .pagination {
+  margin-right: 20px;
 }
 
 .projects-select .pagination__item:last-child .pagination__item-link {

@@ -16,18 +16,17 @@
     cursor: pointer;
     padding: 6px 12px;
     background-color: transparent;
-    border: 1px solid $dark-colour;
+    border: 1px solid $light-colour;
     color: $dark-colour;
 }
 
 .pagination__item-link:hover {
-    border-color: $primary-colour;
-    color: $primary-colour;
+    background-color: $light-colour;
+    border-color: $light-grey;
 }
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-    background-color: $primary-colour;
-    border-color: $primary-colour;
-    color: #fff;
+    background-color: $light-colour;
+    border-color: $dark-colour;
 }

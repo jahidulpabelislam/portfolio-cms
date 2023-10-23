@@ -27,6 +27,7 @@
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-    background-color: $light-colour;
-    border-color: $dark-colour;
+    background-color: $primary-colour;
+    border-color: $primary-colour;
+    color: white;
 }

@@ -1,10 +1,12 @@
 <nav class="nav">
-    <button type="button" class="nav__toggle">
-        <span class="visually-hidden">Toggle navigation</span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-    </button>
+    <div class="nav__toggle-container">
+        <button type="button" class="nav__toggle">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+        </button>
+    </div>
     <ul class="nav__links">
         <li class="nav__item">
             <a class="nav__link js-link-projects" href="/projects/1/" title="Link to Projects Listing" tabindex="2">
@@ -25,4 +27,8 @@
             </a>
         </li>
     </ul>
+    <div class="nav__footer">
+        <img class="nav__logo" src="/assets/images/jpi.png" />
+        <p>&copy; Jahidul Pabel Islam 2010 - <?php echo date("Y"); ?></p>
+    </div>
 </nav>

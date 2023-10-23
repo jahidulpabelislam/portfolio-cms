@@ -227,6 +227,8 @@ window.jpi = window.jpi || {};
 
         loadingElem.classList.add("fixed-overlay--active");
 
+        projectEditContainer.classList.remove("project-edit--active");
+
         projectsNavLink.classList.add("nav__link--active");
         newProjectNavLink.classList.remove("nav__link--active");
 
@@ -448,6 +450,8 @@ window.jpi = window.jpi || {};
 
         loadingElem.classList.add("fixed-overlay--active");
 
+        projectsListing.classList.remove("projects-select--active");
+
         projectsNavLink.classList.remove("nav__link--active");
         newProjectNavLink.classList.remove("nav__link--active");
 
@@ -649,7 +653,6 @@ window.jpi = window.jpi || {};
     document.querySelectorAll(".js-link-projects").forEach(function (element) {
         element.addEventListener("click", function (event) {
             event.preventDefault();
-            projectEditContainer.classList.remove("project-edit--active");
             history.pushState(null, null, "/projects/");
             router.run();
         });
@@ -691,7 +694,6 @@ window.jpi = window.jpi || {};
 
     document.querySelector(".js-link-new-project").addEventListener("click", function (event) {
         event.preventDefault();
-        projectsListing.classList.remove("projects-select--active");
         history.pushState(null, null, "/project/edit/new/");
         router.run();
     });
@@ -729,7 +731,6 @@ window.jpi = window.jpi || {};
 
         if (event.target.classList.contains("projects-select__edit-button")) {
             event.preventDefault();
-            projectsListing.classList.remove("projects-select--active");
             history.pushState(null, null, "/project/edit/" + event.target.getAttribute("data-id") + "/");
             router.run();
             return;
@@ -830,12 +831,14 @@ window.jpi = window.jpi || {};
         "/projects/": getProjects,
         "/projects/(.+)/": getProjects,
         "/project/edit/new/": function () {
+            loadingElem.classList.add("fixed-overlay--active");
+
+            projectsListing.classList.remove("projects-select--active");
+
             projectsNavLink.classList.remove("nav__link--active");
             newProjectNavLink.classList.add("nav__link--active");
 
             projectEditSelectedProjectID = undefined;
-
-            loadingElem.classList.add("fixed-overlay--active");
 
             setUpProjectEdit();
         },

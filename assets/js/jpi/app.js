@@ -39,6 +39,9 @@ window.jpi = window.jpi || {};
 
     var projectEditSelectedProjectID;
 
+    var projectsNavLink = document.querySelector(".js-link-projects");
+    var newProjectNavLink = document.querySelector(".js-link-new-project");
+
     var shortDateFormat = new Intl.DateTimeFormat("en-GB", {
         month: "long",
         year: "numeric",
@@ -223,6 +226,9 @@ window.jpi = window.jpi || {};
         page = page || 1;
 
         loadingElem.classList.add("fixed-overlay--active");
+
+        projectsNavLink.classList.add("nav__link--active");
+        newProjectNavLink.classList.remove("nav__link--active");
 
         projectsListingFeedbackElem.classList.remove("projects-select__feedback--active");
 
@@ -441,6 +447,9 @@ window.jpi = window.jpi || {};
         projectEditSelectedProjectID = projectID;
 
         loadingElem.classList.add("fixed-overlay--active");
+
+        projectsNavLink.classList.remove("nav__link--active");
+        newProjectNavLink.classList.remove("nav__link--active");
 
         makeAPIRequest({
             method: "GET",
@@ -821,6 +830,9 @@ window.jpi = window.jpi || {};
         "/projects/": getProjects,
         "/projects/(.+)/": getProjects,
         "/project/edit/new/": function () {
+            projectsNavLink.classList.remove("nav__link--active");
+            newProjectNavLink.classList.add("nav__link--active");
+
             projectEditSelectedProjectID = undefined;
 
             loadingElem.classList.add("fixed-overlay--active");

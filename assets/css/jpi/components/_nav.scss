@@ -141,12 +141,7 @@
     color: get-colour(dark-blue, main);
 }
 
-.nav__link.active {
+.nav__link--active.nav__link--active {
     background-color: get-colour(dark-blue, main);
     color: white;
-}
-
-/* For Tablets & Desktops */
-@media only screen and (min-width: $tablet-width) {
-
 }

@@ -709,12 +709,11 @@ input:checked + .radio-toggle__toggle:before {
   color: #0375b4;
 }
 
-.nav__link.active {
+.nav__link--active.nav__link--active {
   background-color: #0375b4;
   color: white;
 }
 
-/* For Tablets & Desktops */
 .table {
   width: 100%;
   text-align: center;
@@ -802,8 +801,9 @@ input:checked + .radio-toggle__toggle:before {
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-  background-color: #f1f1f1;
-  border-color: #333333;
+  background-color: #0375b4;
+  border-color: #0375b4;
+  color: white;
 }
 
 .login {

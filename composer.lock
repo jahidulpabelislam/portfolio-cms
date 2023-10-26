@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67451250e7aca7e4c00589e2a85140aa",
+    "content-hash": "ab9c20974b522bd4b2976ec8ddaea85f",
     "packages": [
         {
             "name": "jpi/utils",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jahidulpabelislam/utils.git",
-                "reference": "41c8e02ede528a97a743efa1ad331369267a36bb"
+                "reference": "5dd01f10244e35ee79c113b463711d1f4ffe82f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/41c8e02ede528a97a743efa1ad331369267a36bb",
-                "reference": "41c8e02ede528a97a743efa1ad331369267a36bb",
+                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/5dd01f10244e35ee79c113b463711d1f4ffe82f1",
+                "reference": "5dd01f10244e35ee79c113b463711d1f4ffe82f1",
                 "shasum": ""
             },
             "require": {
@@ -56,9 +56,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jahidulpabelislam/utils/issues",
-                "source": "https://github.com/jahidulpabelislam/utils/tree/v0.9.1"
+                "source": "https://github.com/jahidulpabelislam/utils/tree/v0.9.3"
             },
-            "time": "2023-07-12T21:01:50+00:00"
+            "time": "2023-10-04T20:09:46+00:00"
         }
     ],
     "packages-dev": [],
@@ -70,8 +70,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0 || ^8.0"
+        "php": "^7.0 || ^8.0",
+        "ext-curl": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

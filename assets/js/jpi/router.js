@@ -3,17 +3,17 @@ window.jpi = window.jpi || {};
 
     "use strict";
 
-    var run = function () {
-        var path = (new URL(window.location)).pathname;
+    const run = function () {
+        const path = (new URL(window.location)).pathname;
 
-        for (var route in routes) {
+        for (const route in routes) {
             if ({}.hasOwnProperty.call(routes, route)) {
-                var regex = new RegExp("^" + route + "$", "g");
+                const regex = new RegExp("^" + route + "$", "g");
                 if (regex.test(path)) {
-                    var matches = path.match(route.replace("/", "\/"));
-                    var params = [];
+                    const matches = path.match(route.replace("/", "\/"));
+                    const params = [];
 
-                    for (var i = 1; i < matches.length; i++) {
+                    for (let i = 1; i < matches.length; i++) {
                         params.push(matches[i]);
                     }
 

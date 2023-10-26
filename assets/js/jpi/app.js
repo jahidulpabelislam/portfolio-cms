@@ -4,50 +4,50 @@ window.jpi = window.jpi || {};
 
     "use strict";
 
-    var loadingElem = document.querySelector(".js-loading");
+    const loadingElem = document.querySelector(".js-loading");
 
-    var loginContainer = document.querySelector(".login");
-    var loginForm = document.querySelector(".login__form");
-    var loginFeedbackElem = document.querySelector(".login__feedback");
+    const loginContainer = document.querySelector(".login");
+    const loginForm = document.querySelector(".login__form");
+    const loginFeedbackElem = document.querySelector(".login__feedback");
 
-    var nav = document.querySelector(".nav");
+    const nav = document.querySelector(".nav");
 
-    var projectsListing = document.querySelector(".projects-select");
-    var projectsListingFeedbackElem = document.querySelector(".projects-select__feedback");
-    var projectsListingPagination = document.querySelector(".pagination");
+    const projectsListing = document.querySelector(".projects-select");
+    const projectsListingFeedbackElem = document.querySelector(".projects-select__feedback");
+    const projectsListingPagination = document.querySelector(".pagination");
 
-    var searchInput = document.querySelector(".js-filters-search");
-    var typeInput = document.querySelector(".js-filters-type");
-    var publishedCheckbox = document.querySelector(".js-filters-published");
-    var dateInput = document.querySelector(".js-filters-date");
+    const searchInput = document.querySelector(".js-filters-search");
+    const typeInput = document.querySelector(".js-filters-type");
+    const publishedCheckbox = document.querySelector(".js-filters-published");
+    const dateInput = document.querySelector(".js-filters-date");
 
-    var projectsListingRowTemplate = document.querySelector("#js-projects-table-row").innerHTML;
+    const projectsListingRowTemplate = document.querySelector("#js-projects-table-row").innerHTML;
 
-    var projectEditContainer = document.querySelector(".project-edit");
-    var projectEditFormContainer = document.querySelector(".project-edit__form");
-    var projectEditFeedbackElem = document.querySelector(".project-edit__feedback span");
-    var projectEditTagsElem = document.querySelector(".js-project-edit-tags");
+    const projectEditContainer = document.querySelector(".project-edit");
+    const projectEditFormContainer = document.querySelector(".project-edit__form");
+    const projectEditFeedbackElem = document.querySelector(".project-edit__feedback span");
+    const projectEditTagsElem = document.querySelector(".js-project-edit-tags");
 
-    var projectEditImagesContainer = document.querySelector(".project-edit__images");
-    var projectEditImageTemplate = document.querySelector("#js-project-edit-image-template").innerHTML;
+    const projectEditImagesContainer = document.querySelector(".project-edit__images");
+    const projectEditImageTemplate = document.querySelector("#js-project-edit-image-template").innerHTML;
 
-    var projectEditUploadsContainer = document.querySelector(".project-edit__uploads");
-    var projectEditUploadedImages = [];
+    const projectEditUploadsContainer = document.querySelector(".project-edit__uploads");
+    let projectEditUploadedImages = [];
 
-    var projectEditImageUploadSuccessTemplate = document.querySelector("#js-project-edit-image-upload-success-template").innerHTML;
-    var projectEditImageUploadErrorTemplate = document.querySelector("#js-project-edit-image-upload-error-template").innerHTML;
+    const projectEditImageUploadSuccessTemplate = document.querySelector("#js-project-edit-image-upload-success-template").innerHTML;
+    const projectEditImageUploadErrorTemplate = document.querySelector("#js-project-edit-image-upload-error-template").innerHTML;
 
-    var projectEditSelectedProjectID;
+    let projectEditSelectedProjectID;
 
-    var projectsNavLink = document.querySelector(".js-link-projects");
-    var newProjectNavLink = document.querySelector(".js-link-new-project");
+    const projectsNavLink = document.querySelector(".js-link-projects");
+    const newProjectNavLink = document.querySelector(".js-link-new-project");
 
-    var shortDateFormat = new Intl.DateTimeFormat("en-GB", {
+    const shortDateFormat = new Intl.DateTimeFormat("en-GB", {
         month: "long",
         year: "numeric",
     });
 
-    var longDateFormat = new Intl.DateTimeFormat("en-GB", {
+    const longDateFormat = new Intl.DateTimeFormat("en-GB", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -56,10 +56,10 @@ window.jpi = window.jpi || {};
         hour12: true,
     });
 
-    var jwt;
-    var jwtStorageKey = "cmsJwt";
+    let jwt;
+    const jwtStorageKey = "cmsJwt";
 
-    var getJwt = function() {
+    const getJwt = function() {
         if (typeof jwt == "undefined") {
             jwt = localStorage.getItem(jwtStorageKey);
         }
@@ -67,12 +67,12 @@ window.jpi = window.jpi || {};
         return jwt;
     };
 
-    var setJwt = function(newJWT) {
+    const setJwt = function(newJWT) {
         localStorage.setItem(jwtStorageKey, newJWT);
         jwt = newJWT;
     };
 
-    var getFeedbackFromAPIResponse = function(response, defaultFeedback) {
+    const getFeedbackFromAPIResponse = function(response, defaultFeedback) {
         if (response) {
             if (response.error) {
                 return response.error;
@@ -86,7 +86,7 @@ window.jpi = window.jpi || {};
         return defaultFeedback || "";
     };
 
-    var makeAPIRequest = function (request) {
+    const makeAPIRequest = function (request) {
         request.url = jpi.config.jpiAPIBaseURL + request.url;
 
         request.headers = request.headers || {};
@@ -108,7 +108,7 @@ window.jpi = window.jpi || {};
         app.helpers.makeAJAXRequest(request);
     };
 
-    var onSuccessfulLogIn = function(response) {
+    const onSuccessfulLogIn = function(response) {
         setJwt(response.data);
 
         loginContainer.classList.remove("fixed-overlay--active");
@@ -117,14 +117,14 @@ window.jpi = window.jpi || {};
         router.run();
     };
 
-    var logIn = function(event) {
+    const logIn = function(event) {
         event.preventDefault();
 
-        var usernameElem = document.querySelector("#username");
-        var passwordElem = document.querySelector("#password");
+        const usernameElem = document.querySelector("#username");
+        const passwordElem = document.querySelector("#password");
 
-        var isUsernameValid = app.helpers.checkInput(usernameElem);
-        var isPasswordValid = app.helpers.checkInput(passwordElem);
+        const isUsernameValid = app.helpers.checkInput(usernameElem);
+        const isPasswordValid = app.helpers.checkInput(passwordElem);
 
         if (isUsernameValid && isPasswordValid) {
             makeAPIRequest({
@@ -144,20 +144,20 @@ window.jpi = window.jpi || {};
         }
 
         if (!isUsernameValid && !isPasswordValid) {
-            var message = "Username and password fields needs to be filled.";
+            const message = "Username and password fields needs to be filled.";
         }
         else if (!isUsernameValid) {
-            var message = "Username field needs to be filled.";
+            const message = "Username field needs to be filled.";
         }
         else {
-            var message = "Password field needs to be filled.";
+            const message = "Password field needs to be filled.";
         }
 
         loginFeedbackElem.innerHTML = message;
         loginFeedbackElem.classList.add("login__feedback--active");
     };
 
-    var showProjectsListingFeedback = function (feedback, isError) {
+    const showProjectsListingFeedback = function (feedback, isError) {
         projectsListingFeedbackElem.innerHTML = feedback;
 
         if (isError) {
@@ -171,17 +171,17 @@ window.jpi = window.jpi || {};
         projectsListingFeedbackElem.classList.add("projects-select__feedback--active");
     };
 
-    var onSuccessfulProjectsGet = function (response, currentPage) {
-        var rows = "";
-        for (var i = 0; i < response.data.length; i++) {
-            var project = response.data[i];
+    const onSuccessfulProjectsGet = function (response, currentPage) {
+        let rows = "";
+        for (let i = 0; i < response.data.length; i++) {
+            const project = response.data[i];
 
-            var row = projectsListingRowTemplate;
+            let row = projectsListingRowTemplate;
 
-            for (var field in project) {
+            for (const field in project) {
                 if ({}.hasOwnProperty.call(project, field)) {
-                    var regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
-                    var value = project[field];
+                    const regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
+                    let value = project[field];
 
                     if (field === "status") {
                         value = value === "published" ? "Yes" : "No";
@@ -192,7 +192,7 @@ window.jpi = window.jpi || {};
                         }
                     }
 
-                    value  = value ? value : "-";
+                    value = value ? value : "-";
 
                     row = row.replace(regex, value);
                 }
@@ -203,8 +203,8 @@ window.jpi = window.jpi || {};
 
         projectsListingPagination.innerHTML = "";
 
-        var finalPage = Math.ceil(response._total_count / 10);
-        for (var page = 1; page <= finalPage; page++) {
+        const finalPage = Math.ceil(response._total_count / 10);
+        for (let page = 1; page <= finalPage; page++) {
             projectsListingPagination.innerHTML += '<li class="pagination__item">' +
                 '    <a class="pagination__item-link' + (page == currentPage ? ' active' : '') + '" href="/projects/' + page + '/" title="Link to Projects Page ' + page + '" data-page="' + page +'" tabindex="1">' + page + '</a>' +
                 '</li>';
@@ -222,7 +222,7 @@ window.jpi = window.jpi || {};
         loadingElem.classList.remove("fixed-overlay--active");
     };
 
-    var getProjects = function(page) {
+    const getProjects = function(page) {
         page = page || 1;
 
         loadingElem.classList.add("fixed-overlay--active");
@@ -234,7 +234,7 @@ window.jpi = window.jpi || {};
 
         projectsListingFeedbackElem.classList.remove("projects-select__feedback--active");
 
-        var data = {
+        const data = {
             page: page,
             search: searchInput.value,
         };
@@ -267,17 +267,17 @@ window.jpi = window.jpi || {};
         });
     };
 
-    var addOffsetToProjectEditSidebar = function () {
-        var offset = 20;
+    const addOffsetToProjectEditSidebar = function () {
+        let offset = 20;
 
         offset += document.querySelector(".project-edit__header").clientHeight;
 
-        var sidebar = document.querySelector(".project-edit__sidebar");
+        const sidebar = document.querySelector(".project-edit__sidebar");
 
         sidebar.style.top = offset + "px";
     }
 
-    var showProjectEditFeedback = function (feedback, isError) {
+    const showProjectEditFeedback = function (feedback, isError) {
         projectEditFeedbackElem.innerHTML = feedback;
 
         if (isError) {
@@ -291,17 +291,17 @@ window.jpi = window.jpi || {};
         projectEditFeedbackElem.parentElement.classList.remove("hide");
     };
 
-    var onProjectFormSubmit = function(event) {
+    const onProjectFormSubmit = function(event) {
         event.preventDefault();
 
         loadingElem.classList.add("fixed-overlay--active");
 
-        var isNameValid = jpi.helpers.checkInput(document.getElementById("project-name"));
-        var isTypeValid = jpi.helpers.checkInput(document.getElementById("project-type"));
-        var isShortDescValid = jpi.helpers.checkInput(document.getElementById("project-short-desc"));
-        var isLongDescValid = jpi.helpers.checkInput(document.getElementById("project-long-desc"));
-        var isDateValid = (jpi.helpers.checkInput(document.getElementById("project-date")) && /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im.test(document.getElementById("project-date").value));
-        var isTagsValid = document.querySelectorAll(".js-project-edit-tag").length > 0;
+        const isNameValid = jpi.helpers.checkInput(document.getElementById("project-name"));
+        const isTypeValid = jpi.helpers.checkInput(document.getElementById("project-type"));
+        const isShortDescValid = jpi.helpers.checkInput(document.getElementById("project-short-desc"));
+        const isLongDescValid = jpi.helpers.checkInput(document.getElementById("project-long-desc"));
+        const isDateValid = (jpi.helpers.checkInput(document.getElementById("project-date")) && /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im.test(document.getElementById("project-date").value));
+        const isTagsValid = document.querySelectorAll(".js-project-edit-tag").length > 0;
 
         if (isTagsValid) {
             document.querySelector(".project-edit__tag-input").classList.remove("invalid");
@@ -320,12 +320,12 @@ window.jpi = window.jpi || {};
         ) {
             showProjectEditFeedback("Fill in Required Inputs Fields.", true);
 
-            var firstInvalidInput = document.querySelector(".project-edit__form .invalid");
-            var feedbackHeight = projectEditFeedbackElem.parentElement.offsetHeight;
+            const firstInvalidInput = document.querySelector(".project-edit__form .invalid");
+            const feedbackHeight = projectEditFeedbackElem.parentElement.offsetHeight;
 
-            var label = document.querySelector("label[for=" + firstInvalidInput.getAttribute("id") + "]");
+            const label = document.querySelector("label[for=" + firstInvalidInput.getAttribute("id") + "]");
 
-            var pos = label.getBoundingClientRect().top + window.scrollY - feedbackHeight - 16;
+            const pos = label.getBoundingClientRect().top + window.scrollY - feedbackHeight - 16;
 
             window.scrollTo({top: pos, behavior: "smooth"});
 
@@ -333,9 +333,9 @@ window.jpi = window.jpi || {};
             return;
         }
 
-        var isUpdate = projectEditSelectedProjectID;
+        const isUpdate = projectEditSelectedProjectID;
 
-        var requestData = {
+        const requestData = {
             "name": document.getElementById("project-name").value,
             "type": document.getElementById("project-type").value,
             "status": document.getElementById("project-is-published").checked ? "published" : "draft",
@@ -384,7 +384,7 @@ window.jpi = window.jpi || {};
         });
     };
 
-    var renderProjectTag = function (tag) {
+    const renderProjectTag = function (tag) {
         projectEditTagsElem.innerHTML +=
             '<p class="project-edit__tag"><span>' + tag +
             '</span>   <input type="hidden" class="js-project-edit-tag" name="project-tags" value="' + tag + '" />' +
@@ -392,12 +392,12 @@ window.jpi = window.jpi || {};
             '</p>';
     };
 
-    var renderProjectImage = function (image) {
-        var html = projectEditImageTemplate;
+    const renderProjectImage = function (image) {
+        let html = projectEditImageTemplate;
 
-        for (var field in image) {
+        for (const field in image) {
             if ({}.hasOwnProperty.call(image, field)) {
-                var regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
+                const regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
                 html = html.replace(regex, image[field]);
             }
         }
@@ -405,7 +405,7 @@ window.jpi = window.jpi || {};
         projectEditImagesContainer.innerHTML += html;
     };
 
-    var setUpProjectEdit = function (project) {
+    const setUpProjectEdit = function (project) {
         document.querySelector("#project-is-published").checked = project ? (project.status === "published") : false;
         document.querySelector("#project-colour").value = project ? project.colour : "";
         document.querySelector("#project-date").value = project ? project.date : "";
@@ -428,11 +428,11 @@ window.jpi = window.jpi || {};
         projectEditUploadedImages = [];
         projectEditUploadsContainer.innerHTML = "";
         if (project) {
-            for (var i = 0; i < project.images.length; i++) {
+            for (let i = 0; i < project.images.length; i++) {
                 renderProjectImage(project.images[i]);
             }
 
-            for (var j = 0; j < project.tags.length; j++) {
+            for (let j = 0; j < project.tags.length; j++) {
                 renderProjectTag(project.tags[j]);
             }
         }
@@ -445,7 +445,7 @@ window.jpi = window.jpi || {};
         addOffsetToProjectEditSidebar();
     };
 
-    var showProjectEdit = function(projectID) {
+    const showProjectEdit = function(projectID) {
         projectEditSelectedProjectID = projectID;
 
         loadingElem.classList.add("fixed-overlay--active");
@@ -476,7 +476,7 @@ window.jpi = window.jpi || {};
     Sortable.create(projectEditTagsElem);
     Sortable.create(projectEditImagesContainer);
 
-    var colourOptions = {
+    const colourOptions = {
         "": "Default",
         "light-blue": "Light blue",
         "dark-blue": "Dark blue",
@@ -492,7 +492,7 @@ window.jpi = window.jpi || {};
         "black": "Black",
     };
 
-    var tinymceConfig = {
+    const tinymceConfig = {
         branding: false,
         menubar: false,
         browser_spellcheck: true,
@@ -541,8 +541,8 @@ window.jpi = window.jpi || {};
         ],
     };
 
-    for (var colour in colourOptions) {
-        var colourName = colourOptions[colour];
+    for (const colour in colourOptions) {
+        const colourName = colourOptions[colour];
         tinymceConfig.link_class_list.push({
             title: colourName + " link",
             value: "link link--" + colour,
@@ -557,30 +557,30 @@ window.jpi = window.jpi || {};
         tinymce.init(Object.assign({}, tinymceConfig, {selector: "#" + tinymceId}));
     });
 
-    var onFileAddEnd = function () {
-        var feedbackHeight = projectEditFeedbackElem.parentElement.offsetHeight;
+    const onFileAddEnd = function () {
+        const feedbackHeight = projectEditFeedbackElem.parentElement.offsetHeight;
 
-        var pos = projectEditUploadsContainer.firstElementChild.getBoundingClientRect().top + window.scrollY - feedbackHeight - 16;
+        const pos = projectEditUploadsContainer.firstElementChild.getBoundingClientRect().top + window.scrollY - feedbackHeight - 16;
 
         window.scrollTo({top: pos, behavior: "smooth"});
 
         loadingElem.classList.remove("fixed-overlay--active");
     };
 
-    var onFileAddSuccess = function (file, image, isAllComplete) {
-        var data = {
+    const onFileAddSuccess = function (file, image, isAllComplete) {
+        const data = {
             url: image,
             name: file.name,
             file: file,
         };
         projectEditUploadedImages.push(data);
 
-        var html = projectEditImageUploadSuccessTemplate;
+        let html = projectEditImageUploadSuccessTemplate;
 
         data["index"] = projectEditUploadedImages.length - 1;
-        for (var field in data) {
+        for (const field in data) {
             if ({}.hasOwnProperty.call(data, field)) {
-                var regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
+                const regex = new RegExp("{{2} ?" + field + " ?}{2}", "g");
                 html = html.replace(regex, data[field]);
             }
         }
@@ -591,12 +591,12 @@ window.jpi = window.jpi || {};
         }
     };
 
-    var onFileAddError = function (error, isAllComplete) {
+    const onFileAddError = function (error, isAllComplete) {
         projectEditUploadedImages.push({error});
 
-        var html = projectEditImageUploadErrorTemplate;
+        let html = projectEditImageUploadErrorTemplate;
 
-        var regex = new RegExp("{{2} ?error ?}{2}", "g");
+        const regex = new RegExp("{{2} ?error ?}{2}", "g");
         html = html.replace(regex, error);
 
         projectEditUploadsContainer.innerHTML += html;
@@ -620,20 +620,20 @@ window.jpi = window.jpi || {};
     document.querySelector(".project-edit__image-upload").addEventListener("change", function () {
         loadingElem.classList.remove("fixed-overlay--active");
 
-        var files = this.files;
-        var count = files.length;
+        const files = this.files;
+        const count = files.length;
 
-        var finishedCount = 0;
+        let finishedCount = 0;
 
-        for (var i = 0; i < count; i++) {
-            var file = files[i];
+        for (let i = 0; i < count; i++) {
+            const file = files[i];
 
             if (!file.type.includes("image/")) {
                 onFileAddError(file.name + " isn't a image.");
                 return;
             }
 
-            var fileReader = new FileReader();
+            const fileReader = new FileReader();
             fileReader.onload = function (event) {
                 finishedCount++;
                 onFileAddSuccess(file, event.target.result, finishedCount === count);
@@ -684,7 +684,7 @@ window.jpi = window.jpi || {};
     });
 
     document.querySelector(".project-edit__tag-add-button").addEventListener("click", function (event) {
-        var tag = document.querySelector(".project-edit__tag-input").value;
+        const tag = document.querySelector(".project-edit__tag-input").value;
         if (tag) {
             renderProjectTag(tag);
         }
@@ -723,7 +723,7 @@ window.jpi = window.jpi || {};
 
         if (event.target.classList.contains("pagination__item-link")) {
             event.preventDefault();
-            var page = event.target.getAttribute("data-page");
+            const page = event.target.getAttribute("data-page");
             history.pushState(null, null, "/projects/" + (page != 1 ? page + "/" : ""));
             router.run();
             return;
@@ -745,7 +745,7 @@ window.jpi = window.jpi || {};
         if (event.target.classList.contains("projects-select__delete-button")) {
             loadingElem.classList.add("fixed-overlay--active");
 
-            var projectID = event.target.getAttribute("data-id");
+            const projectID = event.target.getAttribute("data-id");
 
             makeAPIRequest({
                 method: "DELETE",
@@ -785,7 +785,7 @@ window.jpi = window.jpi || {};
                     loadingElem.classList.remove("fixed-overlay--active");
                 },
                 onError: function (response) {
-                    var defaultFeedback = "Error deleting the project image";
+                    const defaultFeedback = "Error deleting the project image";
                     showProjectEditFeedback(getFeedbackFromAPIResponse(response, defaultFeedback), true);
 
                     loadingElem.classList.remove("fixed-overlay--active");
@@ -798,8 +798,8 @@ window.jpi = window.jpi || {};
         if (event.target.classList.contains("js-project-image-upload-button")) {
             loadingElem.classList.add("fixed-overlay--active");
 
-            var index = event.target.getAttribute("data-index");
-            var form = new FormData();
+            const index = event.target.getAttribute("data-index");
+            const form = new FormData();
             form.append("image", projectEditUploadedImages[index].file);
 
             makeAPIRequest({
@@ -826,7 +826,7 @@ window.jpi = window.jpi || {};
         }
     });
 
-    var router = jpi.Router({
+    const router = jpi.Router({
         "/": getProjects,
         "/projects/": getProjects,
         "/projects/(.+)/": getProjects,

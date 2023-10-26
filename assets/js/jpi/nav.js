@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var nav = document.querySelector(".nav");
+    const nav = document.querySelector(".nav");
 
     document.addEventListener("click", function (event) {
         if (!nav.classList.contains("nav--opened")) {

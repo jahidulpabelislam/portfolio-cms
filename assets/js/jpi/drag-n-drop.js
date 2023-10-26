@@ -3,10 +3,10 @@ window.jpi.DragNDrop = function(dropZone, options) {
 
     "use strict";
 
-    var totalDropped = 0;
-    var totalDroppedComplete = 0;
+    let totalDropped = 0;
+    let totalDroppedComplete = 0;
 
-    var readItem = function(item) {
+    const readItem = function(item) {
         if (item.isFile) {
             item.file(function(file) {
                 if (!file.type.includes("image/")) {
@@ -15,7 +15,7 @@ window.jpi.DragNDrop = function(dropZone, options) {
                     return;
                 }
 
-                var fileReader = new FileReader();
+                const fileReader = new FileReader();
                 fileReader.onload = function (event) {
                     totalDroppedComplete++;
                     options.onFileAddSuccess(file, event.target.result, totalDropped === totalDroppedComplete);
@@ -28,11 +28,11 @@ window.jpi.DragNDrop = function(dropZone, options) {
             });
         }
         else if (item.isDirectory) {
-            var directoryReader = item.createReader();
+            const directoryReader = item.createReader();
             directoryReader.readEntries(function(entries) {
-                var length = entries.length;
+                const length = entries.length;
                 totalDropped += length;
-                for (var i = 0; i < length; i++) {
+                for (let i = 0; i < length; i++) {
                     readItem(entries[i]);
                 }
             });
@@ -43,14 +43,14 @@ window.jpi.DragNDrop = function(dropZone, options) {
         }
     };
 
-    var onDragOver = function(event) {
+    const onDragOver = function(event) {
         event.preventDefault();
         event.stopPropagation();
 
         dropZone.classList.add("drag-over");
     };
 
-    var onDragOverEnd = function(event) {
+    const onDragOverEnd = function(event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -70,7 +70,7 @@ window.jpi.DragNDrop = function(dropZone, options) {
         totalDropped = event.dataTransfer.items.length;
         totalDroppedComplete = 0;
 
-        for (var i = 0; i <= event.dataTransfer.items.length; i++) {
+        for (let i = 0; i <= event.dataTransfer.items.length; i++) {
             readItem(event.dataTransfer.items[i].webkitGetAsEntry());
         }
     });

@@ -3,3 +3,4 @@ vendor/
 logs/*.log
 .idea/*
 config.local.php
+.DS_Store

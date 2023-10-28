@@ -42,6 +42,18 @@ window.jpi.helpers = (function() {
         };
     };
 
+    const delegate = function (elem, selector, eventName, handler) {
+        elem.addEventListener(eventName, function (event) {
+            if (!event.target || !event.target.classList) {
+                return;
+            }
+
+            if (event.target.classList.contains(selector)) {
+                handler(event);
+            }
+        });
+    };
+
     const makeAJAXRequest = function (request) {
         request.method = request.method.toUpperCase();
 
@@ -87,6 +99,7 @@ window.jpi.helpers = (function() {
         },
         checkInput,
         debounce,
+        delegate,
         makeAJAXRequest,
     };
 })();

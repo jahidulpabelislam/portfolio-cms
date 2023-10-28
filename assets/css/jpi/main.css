@@ -886,7 +886,7 @@ input:checked + .radio-toggle__toggle:before {
     margin-bottom: 20px;
   }
 }
-.projects-select {
+.projects-listing {
   display: none;
   text-align: right;
   margin: 20px 0;
@@ -896,86 +896,86 @@ input:checked + .radio-toggle__toggle:before {
   border: solid #e2e2e2 1px;
 }
 
-.projects-select--active {
+.projects-listing--active {
   display: block;
 }
 
-.projects-select__feedback {
+.projects-listing__feedback {
   display: none;
   padding: 5px;
   text-align: center;
 }
 
-.projects-select__feedback--active {
+.projects-listing__feedback--active {
   display: block;
 }
 
-.projects-select__filters {
+.projects-listing__filters {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   margin: 0 16px 20px;
 }
 
-.projects-select-filter {
+.projects-listing-filter {
   width: calc(50% - 8px);
 }
-.projects-select-filter label {
+.projects-listing-filter label {
   text-align: left;
 }
 @media only screen and (min-width: 768px) {
-  .projects-select-filter .styled-checkbox label {
+  .projects-listing-filter .styled-checkbox label {
     text-align: right;
   }
 }
 
-.projects-select__edit-button,
-.projects-select__delete-button {
+.projects-listing__edit-button,
+.projects-listing__delete-button {
   margin: 0 4px 0 0;
   padding: 0;
   vertical-align: middle;
   line-height: 0;
 }
-.projects-select__edit-button .material-symbols-outlined,
-.projects-select__delete-button .material-symbols-outlined {
+.projects-listing__edit-button .material-symbols-outlined,
+.projects-listing__delete-button .material-symbols-outlined {
   pointer-events: none;
 }
 
-.projects-select__edit-button .material-symbols-outlined {
+.projects-listing__edit-button .material-symbols-outlined {
   color: #f69e00;
 }
-.projects-select__edit-button:hover .material-symbols-outlined {
+.projects-listing__edit-button:hover .material-symbols-outlined {
   color: #fba300;
 }
 
-.projects-select__delete-button .material-symbols-outlined {
+.projects-listing__delete-button .material-symbols-outlined {
   color: #f12525;
 }
-.projects-select__delete-button:hover .material-symbols-outlined {
+.projects-listing__delete-button:hover .material-symbols-outlined {
   color: #fa0f0f;
 }
 
-.projects-select .pagination {
+.projects-listing .pagination {
   text-align: center;
 }
 
-.projects-select .pagination__item:last-child .pagination__item-link {
+.projects-listing .pagination__item:last-child .pagination__item-link {
   margin-right: 0;
 }
 
 @media only screen and (min-width: 768px) {
-  .projects-select-filter {
+  .projects-listing-filter {
     width: auto;
   }
-  .projects-select-filter--search {
+  .projects-listing-filter--search {
     flex: 1;
     text-align: left;
     margin-left: 0;
   }
-  .projects-select-filter--search input {
+  .projects-listing-filter--search input {
     max-width: 200px;
   }
-  .projects-select .pagination {
+  .projects-listing .pagination {
     text-align: right;
     margin-right: 20px;
   }

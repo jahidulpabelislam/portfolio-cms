@@ -76,21 +76,6 @@
                         <label for="project-colour">Colour <span>(optional)</span>:</label>
                         <select name="project-colour" id="project-colour" class="input project-edit__colour" tabindex="1">
                             <?php
-                            $colourOptions = [
-                                "" => "Default",
-                                "light-blue" => "Light Blue",
-                                "dark-blue" => "Dark Blue",
-                                "purple" => "Purple",
-                                "pink" => "Pink",
-                                "red" => "Red",
-                                "orange" => "Orange",
-                                "yellow" => "Yellow",
-                                "light-green" => "Light Green",
-                                "lime-green" => "Lime Green",
-                                "dark-green" => "Dark Green",
-                                "grey" => "Grey",
-                                "black" => "Black",
-                            ];
                             foreach ($colourOptions as $value => $display) {
                                 echo "<option value='$value'>$display</option>";
                             }

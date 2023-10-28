@@ -3,6 +3,22 @@ include_once("vendor/autoload.php");
 
 $app = App::get();
 $app->addConfig();
+
+$colourOptions = [
+    "" => "Default",
+    "light-blue" => "Light Blue",
+    "dark-blue" => "Dark Blue",
+    "purple" => "Purple",
+    "pink" => "Pink",
+    "red" => "Red",
+    "orange" => "Orange",
+    "yellow" => "Yellow",
+    "light-green" => "Light Green",
+    "lime-green" => "Lime Green",
+    "dark-green" => "Dark Green",
+    "grey" => "Grey",
+    "black" => "Black",
+];
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +38,7 @@ $app->addConfig();
 
     <body>
         <div class="fixed-overlay fixed-overlay--loading fixed-overlay--active js-loading">
-            <h1 class="fixed-overlay__text">
-                <i class="fas fa-spinner fa-spin"></i>
-            </h1>
+            <h1 class="fixed-overlay__text"><i class="fas fa-spinner fa-spin"></i></h1>
         </div>
 
         <?php include_once(ROOT . "/partials/login.php"); ?>
@@ -34,7 +48,7 @@ $app->addConfig();
         <main class="main-content">
             <div class="container">
                 <?php
-                include_once(ROOT . "/partials/projects-select.php");
+                include_once(ROOT . "/partials/projects-listing.php");
 
                 include_once(ROOT . "/partials/project-edit.php");
                 ?>
@@ -44,7 +58,8 @@ $app->addConfig();
         <script type="application/javascript">
             window.jpi = window.jpi || {};
             window.jpi.config = {
-                jpiAPIBaseURL: "<?php echo \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION; ?>"
+                jpiAPIBaseURL: "<?php echo \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION; ?>",
+                colours: "<?php echo json_encode($colourOptions); ?>",
             };
         </script>
 
@@ -54,6 +69,8 @@ $app->addConfig();
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/router.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/components/projects-listing.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/components/project-edit.js"); ?>" type="text/javascript"></script>
         <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/app.js"); ?>" type="text/javascript"></script>
     </body>
 </html>

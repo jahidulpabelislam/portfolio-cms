@@ -21,14 +21,14 @@ curl_close($ch);
 
 $projectTypes = $apiRes["data"];
 ?>
-<div class="projects-select">
-    <p class="feedback feedback--error projects-select__feedback"></p>
+<div class="projects-listing">
+    <p class="feedback feedback--error projects-listing__feedback"></p>
 
-    <form class="projects-select__filters">
-        <div class="projects-select-filter projects-select-filter--search projects-select-filter-search">
+    <form class="projects-listing__filters">
+        <div class="projects-listing-filter projects-listing-filter--search projects-listing-filter-search">
             <input class="input js-filters-search" type="text" value="" placeholder="Search ..." />
         </div>
-        <div class="projects-select-filter">
+        <div class="projects-listing-filter">
             <select class="input js-filters-type js-filters-on-change">
                 <option value="">Type</option>
                 <?php foreach ($projectTypes as $projectType): ?>
@@ -36,13 +36,13 @@ $projectTypes = $apiRes["data"];
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="projects-select-filter">
+        <div class="projects-listing-filter">
             <input class="input js-filters-date js-filters-on-change" type="date" value="" />
         </div>
-        <div class="projects-select-filter">
-            <div class="projects-select__option styled-checkbox">
-                <label for="projects-select-filter-published" class="">
-                    <input type="checkbox" class="input checkbox js-filters-published js-filters-on-change" id="projects-select-filter-published" value="true" />
+        <div class="projects-listing-filter">
+            <div class="projects-listing__option styled-checkbox">
+                <label for="projects-listing-filter-published" class="">
+                    <input type="checkbox" class="input checkbox js-filters-published js-filters-on-change" id="projects-listing-filter-published" value="true" />
                     <span class="styled-checkbox__pseudo"></span>
                     <span class="styled-checkbox__label">Published Only?</span>
                 </label>
@@ -50,7 +50,7 @@ $projectTypes = $apiRes["data"];
         </div>
     </form>
 
-    <table class="projects-select__table table table--sticky">
+    <table class="projects-listing__table table table--sticky">
         <thead>
             <tr class="table__row">
                 <th class="table__header">Name</th>
@@ -64,7 +64,7 @@ $projectTypes = $apiRes["data"];
         <tbody></tbody>
     </table>
 
-    <ul class="pagination"></ul>
+    <ul class="projects-listing__pagination pagination"></ul>
 </div>
 
 <script type="text/template" id="js-projects-table-row">
@@ -75,12 +75,12 @@ $projectTypes = $apiRes["data"];
         <td class="table__column" data-title="Last Modified">{{ updated_at }}</td>
         <td class="table__column" data-title="Is Published?">{{ status }}</td>
         <td class="table__column table__column--right">
-            <a class="projects-select__edit-button" href="/project/edit/{{ id }}/" data-id="{{ id }}" title="Link to Edit Project Form Page" tabindex="1">
+            <a class="projects-listing__edit-button" href="/project/edit/{{ id }}/" data-id="{{ id }}" title="Link to Edit Project Form Page" tabindex="1">
                 <span class="visually-hidden">Edit</span>
                 <span class="material-symbols-outlined">edit_square</span>
             </a>
 
-            <button type="button" class="projects-select__delete-button" data-id="{{ id }}" tabindex="1">
+            <button type="button" class="projects-listing__delete-button" data-id="{{ id }}" tabindex="1">
                 <span class="visually-hidden">Delete</span>
                 <span class="material-symbols-outlined">delete</span>
             </button>

@@ -12,7 +12,8 @@ gulp.task("sass", function() {
                .pipe(sourcemaps.init())
                .pipe(sass().on("error", sass.logError))
                .pipe(sourcemaps.write("maps/"))
-               .pipe(gulp.dest(`${cssDir}/jpi/`));
+               .pipe(gulp.dest(`${cssDir}/jpi/`))
+    ;
 });
 
 // Watch SASS files For changes to compile to css

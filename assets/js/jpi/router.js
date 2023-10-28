@@ -3,6 +3,8 @@ window.jpi = window.jpi || {};
 
     "use strict";
 
+    let currentRoute;
+
     const run = function () {
         const path = (new URL(window.location)).pathname;
 
@@ -17,11 +19,22 @@ window.jpi = window.jpi || {};
                         params.push(matches[i]);
                     }
 
-                    routes[route](...params);
+                    if (currentRoute && currentRoute.beforeLeave) {
+                        currentRoute.beforeLeave(...params);
+                    }
+
+                    currentRoute = routes[route];
+
+                    currentRoute.callback(...params);
                     return;
                 }
             }
         }
+    }
+
+    const changeTo = function (path) {
+        history.pushState(null, null, path);
+        run();
     }
 
     window.addEventListener("popstate", function() {
@@ -30,5 +43,6 @@ window.jpi = window.jpi || {};
 
     return {
         run,
+        changeTo,
     };
 };

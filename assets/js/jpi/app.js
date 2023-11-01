@@ -164,15 +164,19 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
         "/": projectsRoute,
         "/projects/": projectsRoute,
         "/projects/(.+)/": projectsRoute,
-        "/project/edit/new/": function () {
-            app.showLoading();
-            app.activateLink("/project/new/");
-            projectEdit.show();
+        "/project/edit/new/": {
+            callback: function () {
+                app.showLoading();
+                app.activateLink("/project/new/");
+                projectEdit.show();
+            },
         },
-        "/project/edit/(.+)/": projectEdit.load,
-        "(.*)": function() {
-            // Fallback - redirect to projects listing
-            router.changeTo("/projects/");
+        "/project/edit/(.+)/": {callback: projectEdit.load},
+        "(.*)": {
+            callback: function() {
+                // Fallback - redirect to projects listing
+                router.changeTo("/projects/");
+            }
         },
     });
 

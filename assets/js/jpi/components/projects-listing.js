@@ -132,18 +132,18 @@ window.jpi.ProjectsListing = function() {
         app.router.changeTo("/projects/");
     });
 
-    app.helpers.delegate(window, "click", "pagination__item-link", function (event) {
+    app.helpers.delegate(window, "pagination__item-link", "click", function (event) {
         event.preventDefault();
         const page = event.target.getAttribute("data-page");
         app.router.changeTo("/projects/" + (page != 1 ? page + "/" : ""));
     });
 
-    app.helpers.delegate(window, "click", "projects-listing__edit-button", function (event) {
+    app.helpers.delegate(window, "projects-listing__edit-button", "click", function (event) {
         event.preventDefault();
         app.router.changeTo("/project/edit/" + event.target.getAttribute("data-id") + "/");
     });
 
-    app.helpers.delegate(window, "click", "projects-listing__delete-button", function (event) {
+    app.helpers.delegate(window, "projects-listing__delete-button", "click", function (event) {
         app.showLoading();
 
         const projectID = event.target.getAttribute("data-id");

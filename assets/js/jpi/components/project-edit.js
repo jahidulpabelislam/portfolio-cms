@@ -168,8 +168,8 @@ window.jpi = window.jpi || {};
         publishedCheckbox.checked = project ? (project.status === "published") : false;
         colourInput.value = project ? project.colour : "";
         dateInput.value = project ? project.date : "";
-        createdInput.innerHTML = project && project.created_at ? longDateFormat.format(new Date(project.created_at)) : "-";
-        updatedInput.innerHTML = project && project.updated_at ? longDateFormat.format(new Date(project.updated_at)) : "-";
+        createdInput.innerHTML = project && project.created_at ? app.longDateFormat.format(new Date(project.created_at)) : "-";
+        updatedInput.innerHTML = project && project.updated_at ? app.longDateFormat.format(new Date(project.updated_at)) : "-";
         nameInput.value = project ? project.name : "";
         typeInput.value = project ? project.type : "";
         urlInput.value = project ? project.url : "";
@@ -207,7 +207,7 @@ window.jpi = window.jpi || {};
     const load = function(projectID) {
         app.showLoading();
 
-        makeAPIRequest({
+        app.makeAPIRequest({
             method: "GET",
             url: "/projects/" + projectID + "/",
             onSuccess: function (response) {
@@ -335,20 +335,20 @@ window.jpi = window.jpi || {};
         tagInput.value = ""; // Reset
     });
 
-    app.helpers.delegate(window, "mouseover", "project-edit__tag-delete-button", function (event) {
+    app.helpers.delegate(window, "project-edit__tag-delete-button", "mouseover", function (event) {
         event.target.parentElement.classList.add("project-edit__tag--to-delete");
     });
 
-    app.helpers.delegate(window, "mouseout", "project-edit__tag-delete-button", function (event) {
+    app.helpers.delegate(window, "project-edit__tag-delete-button", "mouseout", function (event) {
         event.target.parentElement.classList.remove("project-edit__tag--to-delete");
     });
 
-    app.helpers.delegate(window, "click", "project-edit__tag-delete-button", function (event) {
+    app.helpers.delegate(window, "project-edit__tag-delete-button", "click", function (event) {
         event.preventDefault();
         event.target.parentElement.remove();
     });
 
-    app.helpers.delegate(window, "click", "project-edit__image-delete-button", function (event) {
+    app.helpers.delegate(window, "project-edit__image-delete-button", "click", function (event) {
         app.showLoading();
 
         app.makeAPIRequest({
@@ -367,7 +367,7 @@ window.jpi = window.jpi || {};
         });
     });
 
-    app.helpers.delegate(window, "click", "js-project-image-upload-button", function (event) {
+    app.helpers.delegate(window, "js-project-image-upload-button", "click", function (event) {
         app.showLoading();
 
         const index = event.target.getAttribute("data-index");

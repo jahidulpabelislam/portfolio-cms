@@ -158,7 +158,7 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
         beforeLeave: function () {
             projectListingContainer.classList.remove("projects-listing--active");
         },
-    }
+    };
 
     const router = app.Router({
         "/": projectsRoute,

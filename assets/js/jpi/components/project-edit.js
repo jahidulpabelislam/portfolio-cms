@@ -1,5 +1,5 @@
 window.jpi = window.jpi || {};
-;window.jpi.ProjectEdit = function() {
+window.jpi.ProjectEdit = function() {
 
     "use strict";
 
@@ -299,7 +299,7 @@ window.jpi = window.jpi || {};
             fileReader.onerror = function() {
                 finishedCount++;
                 onFileAddError("Error getting " + file.name, finishedCount === count);
-            }
+            };
             fileReader.readAsDataURL(file);
         }
     });

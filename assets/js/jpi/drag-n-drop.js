@@ -1,4 +1,4 @@
-;window.jpi = window.jpi || {};
+window.jpi = window.jpi || {};
 window.jpi.DragNDrop = function(dropZone, options) {
 
     "use strict";
@@ -23,7 +23,7 @@ window.jpi.DragNDrop = function(dropZone, options) {
                 fileReader.onerror = function() {
                     totalDroppedComplete++;
                     options.onFileAddError("Error getting " + file.name, totalDropped === totalDroppedComplete);
-                }
+                };
                 fileReader.readAsDataURL(file);
             });
         }

@@ -20,6 +20,7 @@ $nav-open-width: 200px;
         transition: opacity 0.4s ease-in-out;
     }
 }
+
 .nav--shown {
     display: flex;
     flex-direction: column;
@@ -27,14 +28,6 @@ $nav-open-width: 200px;
 
 .nav--opened {
     width: $nav-open-width;
-
-    .nav__toggle:hover {
-        border-color: get-colour(red, hover);
-
-        .nav__toggle-bar {
-            background-color: get-colour(red, hover);
-        }
-    }
 
     > * {
         opacity: 1;
@@ -75,6 +68,18 @@ $nav-open-width: 200px;
     border: solid transparent 2px;
     border-radius: 50%;
     transition: all 0.7s ease-in-out;
+
+    .nav--opened & {
+        border-color: get-colour(red, main);
+
+        &:hover {
+            border-color: get-colour(red, hover);
+
+            .nav__toggle-bar {
+                background-color: get-colour(red, hover);
+            }
+        }
+    }
 }
 
 .nav__toggle-bar {
@@ -84,14 +89,10 @@ $nav-open-width: 200px;
     background-color: $dark-colour;
     transition: all 0.7s ease-in-out;
     position: relative;
-}
 
-.nav--opened .nav__toggle {
-    border-color: get-colour(red, main);
-}
-
-.nav--opened .nav__toggle-bar {
-    background-color: get-colour(red, main);
+    .nav--opened & {
+        background-color: get-colour(red, main);
+    }
 }
 
 .nav__toggle-bar:nth-child(2) {

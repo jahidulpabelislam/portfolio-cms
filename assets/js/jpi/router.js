@@ -1,5 +1,5 @@
 window.jpi = window.jpi || {};
-;window.jpi.Router = function(routes) {
+window.jpi.Router = function(routes) {
 
     "use strict";
 
@@ -30,12 +30,12 @@ window.jpi = window.jpi || {};
                 }
             }
         }
-    }
+    };
 
     const changeTo = function (path) {
         history.pushState(null, null, path);
         run();
-    }
+    };
 
     window.addEventListener("popstate", function() {
         run();

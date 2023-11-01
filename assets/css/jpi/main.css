@@ -45,8 +45,8 @@ blockquote, q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote::before, blockquote::after,
+q::before, q::after {
   content: " ";
   content: none;
 }
@@ -139,13 +139,13 @@ strong {
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
-.clearfix:before,
-.clearfix:after {
+.clearfix::before,
+.clearfix::after {
   content: ""; /* 1 */
   display: table; /* 2 */
 }
 
-.clearfix:after {
+.clearfix::after {
   clear: both;
 }
 
@@ -502,7 +502,7 @@ label span,
   border-color: #1aad5b;
 }
 
-.styled-checkbox__pseudo:after {
+.styled-checkbox__pseudo::after {
   display: none;
   content: "✔";
   color: white;
@@ -510,7 +510,7 @@ label span,
   line-height: 30px;
 }
 
-.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
+.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo::after {
   text-align: center;
   display: block;
 }
@@ -533,7 +533,7 @@ label span,
   transition: 0.4s;
   border-radius: 34px;
 }
-.radio-toggle__toggle:before {
+.radio-toggle__toggle::before {
   position: absolute;
   content: "";
   height: 18px;
@@ -553,7 +553,7 @@ input:focus + .radio-toggle__toggle {
   box-shadow: 0 0 1px #1aad5b;
 }
 
-input:checked + .radio-toggle__toggle:before {
+input:checked + .radio-toggle__toggle::before {
   transform: translateX(18px);
 }
 
@@ -598,12 +598,6 @@ input:checked + .radio-toggle__toggle:before {
 .nav--opened {
   width: 200px;
 }
-.nav--opened .nav__toggle:hover {
-  border-color: #fa0f0f;
-}
-.nav--opened .nav__toggle:hover .nav__toggle-bar {
-  background-color: #fa0f0f;
-}
 .nav--opened > * {
   opacity: 1;
 }
@@ -642,6 +636,15 @@ input:checked + .radio-toggle__toggle:before {
   border-radius: 50%;
   transition: all 0.7s ease-in-out;
 }
+.nav--opened .nav__toggle {
+  border-color: #f12525;
+}
+.nav--opened .nav__toggle:hover {
+  border-color: #fa0f0f;
+}
+.nav--opened .nav__toggle:hover .nav__toggle-bar {
+  background-color: #fa0f0f;
+}
 
 .nav__toggle-bar {
   display: block;
@@ -651,11 +654,6 @@ input:checked + .radio-toggle__toggle:before {
   transition: all 0.7s ease-in-out;
   position: relative;
 }
-
-.nav--opened .nav__toggle {
-  border-color: #f12525;
-}
-
 .nav--opened .nav__toggle-bar {
   background-color: #f12525;
 }
@@ -760,7 +758,7 @@ input:checked + .radio-toggle__toggle:before {
   background: white;
 }
 
-.table__column[data-title]:before {
+.table__column[data-title]::before {
   content: attr(data-title) ": ";
   font-weight: bold;
 }
@@ -789,7 +787,7 @@ input:checked + .radio-toggle__toggle:before {
     display: table-cell;
     padding: 14px 20px;
   }
-  .table__column[data-title]:before {
+  .table__column[data-title]::before {
     content: none;
   }
   .table__header--right,

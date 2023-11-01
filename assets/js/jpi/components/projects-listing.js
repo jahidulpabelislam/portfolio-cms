@@ -1,4 +1,4 @@
-;window.jpi = window.jpi || {};
+window.jpi = window.jpi || {};
 window.jpi.ProjectsListing = function() {
 
     "use strict";

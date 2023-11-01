@@ -34,6 +34,7 @@ label,
     background: white;
     transition: all 0.3s ease-in-out;
 }
+
 .input--inline {
     display: inline-block;
     width: auto;
@@ -110,7 +111,7 @@ label,
     border-color: $success-colour;
 }
 
-.styled-checkbox__pseudo:after {
+.styled-checkbox__pseudo::after {
     display: none;
     content: "\2714";
     color: white;
@@ -118,7 +119,7 @@ label,
     line-height: 30px;
 }
 
-.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
+.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo::after {
     text-align: center;
     display: block;
 }
@@ -141,7 +142,7 @@ label,
     transition: .4s;
     border-radius: 34px;
 
-    &:before {
+    &::before {
         position: absolute;
         content: "";
         height: 18px;
@@ -162,7 +163,7 @@ input:focus + .radio-toggle__toggle {
     box-shadow: 0 0 1px get-colour(dark-green, main);
 }
 
-input:checked + .radio-toggle__toggle:before {
+input:checked + .radio-toggle__toggle::before {
     transform: translateX(18px);
 }
 

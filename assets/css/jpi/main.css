@@ -888,7 +888,7 @@ input:checked + .radio-toggle__toggle::before {
   display: none;
   text-align: right;
   margin: 20px 0;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
   background: #ffffff;
   border-radius: 6px;
   border: solid #e2e2e2 1px;
@@ -900,7 +900,7 @@ input:checked + .radio-toggle__toggle::before {
 
 .projects-listing__feedback {
   display: none;
-  padding: 5px;
+  margin: 20px;
   text-align: center;
 }
 
@@ -912,7 +912,7 @@ input:checked + .radio-toggle__toggle::before {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin: 0 16px 20px;
+  margin: 20px 16px 20px;
 }
 
 .projects-listing-filter {

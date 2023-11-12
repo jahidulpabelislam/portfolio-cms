@@ -87,8 +87,6 @@ window.jpi.ProjectsListing = function() {
 
         app.activateLink("/projects/");
 
-        feedbackElem.classList.remove("projects-listing__feedback--active");
-
         const data = {
             page: page,
             search: searchInput.value,

@@ -47,7 +47,7 @@ window.jpi.ProjectEdit = function() {
     const showFeedback = function (feedback, isError) {
         feedbackElem.innerHTML = feedback;
         feedbackElem.parentElement.classList.toggle("feedback--success", !isError);
-        feedbackElem.parentElement.classList.toggle("feedback--error", toggle);
+        feedbackElem.parentElement.classList.toggle("feedback--error", isError);
         feedbackElem.parentElement.classList.remove("hide");
     };
 

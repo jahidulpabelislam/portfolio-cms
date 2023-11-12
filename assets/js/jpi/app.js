@@ -170,8 +170,12 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
                 app.activateLink("/project/new/");
                 projectEdit.show();
             },
+            beforeLeave: projectEdit.beforeLeave,
         },
-        "/project/edit/(.+)/": {callback: projectEdit.load},
+        "/project/edit/(.+)/": {
+            callback: projectEdit.load,
+            beforeLeave: projectEdit.beforeLeave,
+        },
         "(.*)": {
             callback: function() {
                 // Fallback - redirect to projects listing

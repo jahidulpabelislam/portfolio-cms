@@ -476,5 +476,8 @@ window.jpi.ProjectEdit = function() {
     return {
         show,
         load,
+        beforeLeave: function () {
+            container.classList.remove("project-edit--active");
+        },
     };
 };

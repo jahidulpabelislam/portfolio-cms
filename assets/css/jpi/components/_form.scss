@@ -48,7 +48,8 @@ label,
     border-color: $dark-colour;
 }
 
-.input.invalid {
+.input.invalid,
+.tox-tinymce.invalid {
     border-color: $error-colour;
 }
 

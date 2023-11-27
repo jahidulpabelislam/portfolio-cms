@@ -58,26 +58,22 @@ window.jpi.ProjectEdit = function() {
 
         const tags = document.querySelectorAll(".js-project-edit-tag");
 
-        const isNameValid = app.helpers.checkInput(nameInput);
-        const isTypeValid = app.helpers.checkInput(typeInput);
-        const isShortDescValid = app.helpers.checkInput(shortDescInput);
-        const isLongDescValid = app.helpers.checkInput(longDescInput);
-        const isDateValid = (app.helpers.checkInput(dateInput) && /\b[\d]{4}-[\d]{2}-[\d]{2}\b/im.test(dateInput.value));
-        const isTagsValid = tags.length > 0;
+        app.helpers.checkInput(nameInput);
+        app.helpers.checkInput(typeInput);
 
-        tagInput.classList.toggle("invalid", !tagInput);
+        dateInput.classList.toggle("invalid", dateInput.value === "" || !/\b[\d]{4}-[\d]{2}-[\d]{2}\b/im.test(dateInput.value));
 
-        if (
-            !isNameValid ||
-            !isDateValid ||
-            !isTypeValid ||
-            !isTagsValid ||
-            !isLongDescValid ||
-            !isShortDescValid
-        ) {
+        tagInput.classList.toggle("invalid", tags.length === 0);
+
+        [shortDescInput, longDescInput].forEach(function (elem) {
+            tinymce.get(elem.getAttribute("id")).container.classList.toggle("invalid", elem.value === "");
+        });
+
+        const firstInvalidInput = form.querySelector(".invalid");
+
+        if (firstInvalidInput) {
             showFeedback("Fill in Required Inputs Fields.", true);
 
-            const firstInvalidInput = form.querySelector(".invalid");
             const feedbackHeight = feedbackElem.parentElement.offsetHeight;
 
             const label = document.querySelector("label[for=" + firstInvalidInput.getAttribute("id") + "]");

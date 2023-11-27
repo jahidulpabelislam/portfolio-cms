@@ -478,6 +478,10 @@ window.jpi.ProjectEdit = function() {
         load,
         beforeLeave: function () {
             container.classList.remove("project-edit--active");
+            container.querySelectorAll(".invalid").forEach(function (elem) {
+                elem.classList.remove("invalid");
+            });
+            feedbackElem.parentElement.classList.add("hide");
         },
     };
 };

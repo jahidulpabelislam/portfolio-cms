@@ -145,7 +145,7 @@ window.jpi.ProjectEdit = function() {
         tagsContainer.innerHTML +=
             '<p class="project-edit__tag"><span>' + tag +
             '</span>   <input type="hidden" class="js-project-edit-tag" name="project-tags" value="' + tag + '" />' +
-            '   <button type="button" class="btn project-edit__tag-delete-button" tab-index="1">x</button>' +
+            '   <button type="button" class="btn project-edit__tag-delete-button">x</button>' +
             '</p>';
     };
 

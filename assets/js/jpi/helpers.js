@@ -14,6 +14,7 @@ window.jpi.helpers = (function() {
             return false;
         }
 
+        elem.classList.remove("invalid");
         return true;
     };
 

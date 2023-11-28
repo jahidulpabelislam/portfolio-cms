@@ -83,8 +83,6 @@ window.jpi.ProjectsListing = function() {
 
         app.showLoading();
 
-        container.classList.remove("project-edit--active");
-
         app.activateLink("/projects/");
 
         const data = {

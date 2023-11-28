@@ -19,7 +19,7 @@ window.jpi.Router = function(routes) {
                         params.push(matches[i]);
                     }
 
-                    if (currentRoute && currentRoute.beforeLeave) {
+                    if (currentRoute && currentRoute.beforeLeave && currentRoute !== routes[route]) {
                         currentRoute.beforeLeave(...params);
                     }
 

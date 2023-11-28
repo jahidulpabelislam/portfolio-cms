@@ -27,6 +27,7 @@
 @media only screen and (min-width: $tablet-width) {
     .table {
         text-align: left;
+        background: $light-colour;
     }
 
     .table thead .table__row {

@@ -166,5 +166,8 @@ window.jpi.ProjectsListing = function() {
     return {
         load,
         showFeedback,
+        beforeLeave: function () {
+            container.classList.remove("projects-listing--active");
+        },
     };
 };

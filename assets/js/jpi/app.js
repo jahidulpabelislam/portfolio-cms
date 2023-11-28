@@ -28,8 +28,6 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
     const loginPasswordInput = loginContainer.querySelector("#password");
     const loginFeedbackElem = document.querySelector(".login__feedback");
 
-    const projectListingContainer = document.querySelector(".projects-listing");
-
     const getJwt = function() {
         if (typeof jwt == "undefined") {
             jwt = localStorage.getItem(jwtStorageKey);
@@ -155,9 +153,7 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
 
     const projectsRoute = {
         callback: projectsListing.load,
-        beforeLeave: function () {
-            projectListingContainer.classList.remove("projects-listing--active");
-        },
+        beforeLeave: projectsListing.beforeLeave,
     };
 
     const router = app.Router({

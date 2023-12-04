@@ -14,6 +14,15 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
     hour12: true,
 });
 
+// import "./tinymce/tinymce.min.js";
+import "./Sortable.min.js";
+import "./components/helpers.js";
+import "./components/drag-n-drop.js";
+import "./components/nav.js";
+import "./components/router.js";
+import "./components/projects-listing.js";
+import "./components/project-edit.js";
+
 ;(function(app) {
 
     "use strict";
@@ -176,7 +185,7 @@ window.jpi.longDateFormat = new Intl.DateTimeFormat("en-GB", {
             callback: function() {
                 // Fallback - redirect to projects listing
                 router.changeTo("/projects/");
-            }
+            },
         },
     });
 

@@ -408,7 +408,7 @@ window.jpi.ProjectEdit = function() {
         branding: false,
         menubar: false,
         browser_spellcheck: true,
-        baseURL: window.location.origin + "/assets/js/third-party/tinymce",
+        baseURL: window.location.origin + "/assets/js/tinymce/",
         plugins: "link code autoresize lists",
         width: "100%",
         max_height: 450,

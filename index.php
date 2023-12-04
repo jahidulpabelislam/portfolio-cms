@@ -63,14 +63,7 @@ $colourOptions = [
             };
         </script>
 
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/tinymce/tinymce.min.js", "1.1.0"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/third-party/Sortable.min.js", "1.1.0"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/helpers.js"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/drag-n-drop.js"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/nav.js"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/router.js"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/components/projects-listing.js"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/components/project-edit.js"); ?>" type="text/javascript"></script>
-        <script src="<?php $app::echoWithAssetVersion("/assets/js/jpi/app.js"); ?>" type="text/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/tinymce/tinymce.min.js"); ?>" type="application/javascript"></script>
+        <script src="<?php $app::echoWithAssetVersion("/assets/js/app.js"); ?>" type="module"></script>
     </body>
 </html>

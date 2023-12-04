@@ -66,7 +66,8 @@ window.jpi.ProjectEdit = function() {
         tagInput.classList.toggle("invalid", tags.length === 0);
 
         [shortDescInput, longDescInput].forEach(function (elem) {
-            tinymce.get(elem.getAttribute("id")).container.classList.toggle("invalid", elem.value === "");
+            const instance = tinymce.get(elem.getAttribute("id"));
+            instance.container.classList.toggle("invalid", instance.getContent() === "");
         });
 
         const firstInvalidInput = form.querySelector(".invalid");
@@ -97,8 +98,8 @@ window.jpi.ProjectEdit = function() {
             "github_url": githubInput.value,
             "download_url": downloadInput.value,
             "colour": colourInput.value,
-            "short_description": shortDescInput.value,
-            "long_description": longDescInput.value,
+            "short_description": tinymce.get("project-short-desc").getContent(),
+            "long_description": tinymce.get("project-long-desc").getContent(),
             "tags": [],
             "images": [],
         };
@@ -171,8 +172,6 @@ window.jpi.ProjectEdit = function() {
         urlInput.value = project ? project.url : "";
         githubInput.value = project ? project.github_url : "";
         downloadInput.value = project ? project.download_url : "";
-        shortDescInput.value = project ? project.short_description : "";
-        longDescInput.value = project ? project.long_description : "";
 
         tinymce.get("project-short-desc").setContent(project ? project.short_description : "");
         tinymce.get("project-long-desc").setContent(project ? project.long_description : "");

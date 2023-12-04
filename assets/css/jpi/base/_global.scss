@@ -3,7 +3,7 @@
 */
 
 .fixed-overlay {
-    display: flex;
+    display: none;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -11,20 +11,32 @@
     top: 0;
     z-index: -10;
     padding: 50px;
-    background: transparentize($dark-colour, 0.4);
-    text-align: center;
-    font-size: 50px;
-    line-height: 60px;
     opacity: 0;
     transition: opacity 1s ease-in-out, z-index 0s ease-in-out;
 }
 
-.fixed-overlay--loading {
+.fixed-overlay--active {
+    display: flex;
     z-index: 10;
     opacity: 1;
+}
+
+.fixed-overlay--loading {
+    font-size: 50px;
+    line-height: 60px;
+    text-align: center;
+    background: transparentize($dark-colour, 0.4);
 }
 
 .fixed-overlay__text {
     margin: auto;
     color: white;
+}
+
+/* For tablets & desktops */
+@media only screen and (min-width: $tablet-width) {
+    .fixed-overlay--loading {
+        font-size: 100px;
+        line-height: 110px;
+    }
 }

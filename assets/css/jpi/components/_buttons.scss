@@ -16,6 +16,10 @@ button,
     border-radius: 2px;
     color: white;
     background-color: $dark-colour;
+
+    .material-symbols-outlined {
+        pointer-events: none;
+    }
 }
 
 .btn:hover,
@@ -30,13 +34,13 @@ button,
 }
 
 @each $colour, $colours in $colour-schemes {
-    .btn--#{$colour} {
+    .btn--#{"" + $colour} {
         background-color: map-get($colours, main);
         color: get-colour-variant($colours, text, white);
     }
 
-    .btn--#{$colour}:hover,
-    .btn--#{$colour}:focus {
+    .btn--#{"" + $colour}:hover,
+    .btn--#{"" + $colour}:focus {
         background-color: map-get($colours, hover);
     }
 }
@@ -68,6 +72,5 @@ a.btn {
 @media only screen and (min-width: $desktop-width) {
     .btn {
         margin: 7px;
-        padding: 9px 14px;
     }
 }

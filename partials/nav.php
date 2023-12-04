@@ -1,45 +1,34 @@
-<?php
-if (!defined("ROOT")) {
-    die();
-}
-?>
-
-        <!-- The navigation used on site -->
-        <nav class="nav" ng-show="isLoggedIn">
-            <div class="container nav__container">
-                <div class="nav__header">
-                    <button type="button" class="nav__mobile-toggle">
-                        <span class="screen-reader-text">Toggle navigation</span>
-                        <span class="menu-bar menu-bar--top"></span>
-                        <span class="menu-bar menu-bar--middle"></span>
-                        <span class="menu-bar menu-bar--bottom"></span>
-                    </button>
-                </div>
-                <div class="nav__links-container">
-                    <ul class="nav__links clearfix">
-                        <li class="nav-link__item">
-                            <a class="nav-item__link js-projects" href="/projects/1/" title="Link to Projects Page" tabindex="2">
-                                <span class="screen-reader-text">Projects</span>
-                                <i class="fas fa-list"></i>
-                            </a>
-                        </li>
-                        <li class="nav-link__item">
-                            <a class="nav-item__link js-new-project" href="/project/new/" title="Link to New Project Form Page" tabindex="2">
-                                <span class="screen-reader-text">Add A Project</span>
-                                <i class="fas fa-plus"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="nav__links-container nav__links-container--left">
-                    <ul class="nav__links clearfix">
-                        <li class="nav-link__item">
-                            <a class="nav-item__link js-logout" href="/logout/" title="Link to Logout Page" tabindex="2">
-                                <span class="screen-reader-text">Logout</span>
-                                <i class="fas fa-sign-out-alt"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<nav class="nav">
+    <div class="nav__toggle-container">
+        <button type="button" class="nav__toggle">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+        </button>
+    </div>
+    <ul class="nav__links">
+        <li class="nav__item">
+            <a class="nav__link js-link-projects" href="/projects/1/" title="Link to Projects Listing" tabindex="2">
+                <span class="material-symbols-outlined">list_alt</span>
+                <span>Projects</span>
+            </a>
+        </li>
+        <li class="nav__item">
+            <a class="nav__link js-link-new-project" href="/project/new/" title="Link to Add Project" tabindex="2">
+                <span class="material-symbols-outlined">list_alt_add</span>
+                <span>Add A Project</span>
+            </a>
+        </li>
+        <li class="nav__item">
+            <a class="nav__link js-logout" href="/logout/" title="Button to Logout" tabindex="2">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Logout</span>
+            </a>
+        </li>
+    </ul>
+    <div class="nav__footer">
+        <img class="nav__logo" src="/assets/images/jpi.png" />
+        <p>&copy; Jahidul Pabel Islam 2010 - <?php echo date("Y"); ?></p>
+    </div>
+</nav>

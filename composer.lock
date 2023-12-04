@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67451250e7aca7e4c00589e2a85140aa",
+    "content-hash": "42866f69881e03db25826bc0ef03e036",
     "packages": [
         {
             "name": "jpi/utils",
@@ -12,25 +12,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jahidulpabelislam/utils.git",
-                "reference": "d261abad0f0409e0f52ea78c46ea0637d5e65506"
+                "reference": "5dd01f10244e35ee79c113b463711d1f4ffe82f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/d261abad0f0409e0f52ea78c46ea0637d5e65506",
-                "reference": "d261abad0f0409e0f52ea78c46ea0637d5e65506",
+                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/5dd01f10244e35ee79c113b463711d1f4ffe82f1",
+                "reference": "5dd01f10244e35ee79c113b463711d1f4ffe82f1",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
-                "jpi/codestyles": "^1.0.1"
+                "jpi/codestyles": "^1.0.1",
+                "phpunit/phpunit": "^9.0"
             },
             "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "JPI\\Utils\\": "src/"
+                    "JPI\\Utils\\": "src/",
+                    "JPI\\Utils\\Tests\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -54,9 +56,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jahidulpabelislam/utils/issues",
-                "source": "https://github.com/jahidulpabelislam/utils/tree/v0.4.0"
+                "source": "https://github.com/jahidulpabelislam/utils/tree/v0.9.3"
             },
-            "time": "2022-10-24T22:03:29+00:00"
+            "time": "2023-10-04T20:09:46+00:00"
         }
     ],
     "packages-dev": [],
@@ -68,8 +70,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0 || ^8.0"
+        "php": "^7.1 || ^8.0",
+        "ext-curl": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

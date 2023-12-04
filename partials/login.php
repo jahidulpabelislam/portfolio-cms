@@ -1,20 +1,18 @@
-<?php
-if (!defined("ROOT")) {
-    die();
-}
-?>
+<div class="login fixed-overlay">
+    <div class="container">
+        <form class="login__form">
+            <img class="login__logo" src="/assets/images/jpi.png" />
 
-        <!-- The login area -->
-        <div class="login">
-            <div class="container">
-                <form class="login__form" ng-submit="logIn()">
-                    <label for="username">Username</label>
-                    <input type="text" class="input" id="username" name="username" ng-model="username" placeholder="myusername" tabindex="1" oninput="jpi.helpers.checkInput(this);" required autofocus />
-                    <label for="password">Password</label>
-                    <input type="password" class="input" id="password" name="password" ng-model="password" placeholder="mypassword" tabindex="1" oninput="jpi.helpers.checkInput(this);" required />
-                    <!-- Where the feedback will go if any error -->
-                    <p class="feedback feedback--error login__feedback" ng-show="userFormFeedback">{{ userFormFeedback }}</p>
-                    <button type="submit" class="btn btn--dark-green">Log In</button>
-                </form>
+            <div class="input-group">
+                <label for="username" class="visually-hidden">Username</label>
+                <input type="text" class="input" id="username" placeholder="Username" tabindex="1" oninput="jpi.helpers.checkInput(this);" autofocus />
             </div>
-        </div>
+            <div class="input-group">
+                <label for="password" class="visually-hidden">Password</label>
+                <input type="password" class="input" id="password" placeholder="Password" tabindex="1" oninput="jpi.helpers.checkInput(this);" />
+            </div>
+            <p class="feedback feedback--error login__feedback"></p>
+            <button type="submit" class="btn btn--dark-green login__submit">Log In</button>
+        </form>
+    </div>
+</div>

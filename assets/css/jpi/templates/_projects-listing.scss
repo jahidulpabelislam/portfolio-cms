@@ -1,0 +1,105 @@
+.projects-listing {
+    display: none;
+    text-align: right;
+    margin: 20px 0;
+    padding: 0 0 20px 0;
+    background: #ffffff;
+    border-radius: 6px;
+    border: solid $light-grey 1px;
+}
+
+.projects-listing--active {
+    display: block;
+}
+
+.projects-listing__feedback {
+    display: none;
+    margin: 20px;
+    text-align: center;
+}
+
+.projects-listing__feedback--active {
+    display: block;
+}
+
+.projects-listing__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 20px 16px 20px;
+}
+
+.projects-listing-filter {
+    width: calc(50% - 8px);
+
+    label {
+        text-align: left;
+    }
+
+    .styled-checkbox label {
+        @media only screen and (min-width: $tablet-width) {
+            text-align: right;
+        }
+    }
+}
+
+.projects-listing__edit-button,
+.projects-listing__delete-button {
+    margin: 0 4px 0 0;
+    padding: 0;
+    vertical-align: middle;
+    line-height: 0;
+
+    .material-symbols-outlined {
+        pointer-events: none;
+    }
+}
+
+.projects-listing__edit-button {
+    .material-symbols-outlined {
+        color: get-colour(orange, main);
+    }
+
+    &:hover .material-symbols-outlined {
+        color: get-colour(orange, hover);
+    }
+}
+
+.projects-listing__delete-button {
+    .material-symbols-outlined {
+        color: get-colour(red, main);
+    }
+
+    &:hover .material-symbols-outlined {
+        color: get-colour(red, hover);
+    }
+}
+
+.projects-listing .pagination {
+    text-align: center;
+}
+
+.projects-listing .pagination__item:last-child .pagination__item-link {
+    margin-right: 0;
+}
+
+@media only screen and (min-width: $tablet-width) {
+    .projects-listing-filter {
+        width: auto;
+    }
+
+    .projects-listing-filter--search {
+        flex: 1;
+        text-align: left;
+        margin-left: 0;
+
+        input {
+            max-width: 200px;
+        }
+    }
+
+    .projects-listing .pagination {
+        text-align: right;
+        margin-right: 20px;
+    }
+}

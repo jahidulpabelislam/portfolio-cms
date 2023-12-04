@@ -1,16 +1,22 @@
 /* For all devices */
 .input-group {
-    margin-bottom: 10px;
-    padding: 0 2px;
+    &:not(:last-child) {
+        margin-bottom: $v-spacing;
+    }
 }
 
-label {
-    margin: 5px 0 0;
+label,
+.label {
+    margin: 0 0 2px;
     font-weight: 700;
     display: inline-block;
+
+    span {
+        font-size: 14px;
+        font-weight: 400;
+    }
 }
 
-.required,
 .notice {
     color: get-colour(red, main);
     font-weight: 700;
@@ -19,9 +25,9 @@ label {
 .input {
     font: inherit;
     padding: 6px 12px;
-    margin: 5px auto;
+    margin: 0 auto;
     width: 100%;
-    border: solid #e0e0e0 1px;
+    border: solid $light-grey 1px;
     border-radius: 2px;
     color: $dark-colour;
     outline: none;
@@ -29,38 +35,42 @@ label {
     transition: all 0.3s ease-in-out;
 }
 
+.input--inline {
+    display: inline-block;
+    width: auto;
+}
+
 .input::placeholder {
     color: $grey;
 }
 
 .input:focus {
-    box-shadow: 0 0 8px $primary-colour;
-    border-color: $primary-colour;
+    border-color: $dark-colour;
 }
 
-.input.invalid {
+.input.invalid,
+.tox-tinymce.invalid {
     border-color: $error-colour;
-}
-
-.input:focus.invalid {
-    border-color: $error-colour;
-    box-shadow: 0 0 8px transparentize($error-colour, 0.4);
 }
 
 .input.valid {
     border-color: $success-colour;
 }
 
-.input:focus.valid {
-    border-color: $success-colour;
-    box-shadow: 0 0 8px transparentize($success-colour, 0.4);
-}
-
 .styled-checkbox {
     position: relative;
-    padding-left: 32px;
-    margin: 5px 0;
-    padding-top: 2px;
+    padding-left: 42px;
+    height: 100%;
+    line-height: 34px;
+    cursor: pointer;
+
+    label {
+        margin: 0;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        line-height: 1;
+    }
 }
 
 .styled-checkbox .checkbox {
@@ -76,50 +86,91 @@ label {
 }
 
 .styled-checkbox__label {
-    margin: 0;
-    cursor: pointer;
+    font-weight: 700;
 }
 
 .styled-checkbox__pseudo {
     content: "\00a0";
     display: block;
-    width: 22px;
-    height: 22px;
+    width: 34px;
+    height: 34px;
     position: absolute;
     left: 0;
     top: 0;
     background: white;
-    border: 2px solid $grey;
+    border: 1px solid $light-grey;
     transition: all 0.3s ease-in-out;
 }
 
 .styled-checkbox .checkbox:focus + .styled-checkbox__pseudo,
 .styled-checkbox:hover .checkbox + .styled-checkbox__pseudo {
-    border-color: $primary-colour;
+    border-color: $dark-colour;
 }
 
 .styled-checkbox .checkbox:checked + .styled-checkbox__pseudo {
-    background-color: $primary-colour;
-    border-color: $primary-colour;
+    background-color: $success-colour;
+    border-color: $success-colour;
 }
 
-.styled-checkbox__pseudo:after {
+.styled-checkbox__pseudo::after {
     display: none;
     content: "\2714";
     color: white;
-    font-size: 22px;
-    line-height: 20px;
+    font-size: 20px;
+    line-height: 30px;
 }
 
-.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo:after {
+.styled-checkbox .checkbox:checked ~ .styled-checkbox__pseudo::after {
+    text-align: center;
     display: block;
+}
+
+.radio-toggle {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+}
+
+.radio-toggle__toggle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: get-colour(red, main);
+    transition: .4s;
+    border-radius: 34px;
+
+    &::before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 10px;
+        bottom: 6px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+}
+
+input:checked + .radio-toggle__toggle {
+    background-color:  get-colour(dark-green, main);
+}
+
+input:focus + .radio-toggle__toggle {
+    box-shadow: 0 0 1px get-colour(dark-green, main);
+}
+
+input:checked + .radio-toggle__toggle::before {
+    transform: translateX(18px);
 }
 
 .feedback {
     font-weight: 700;
     margin: 0;
-    display: none;
-    width: 100%;
 }
 
 .feedback--success {
@@ -128,29 +179,4 @@ label {
 
 .feedback--error {
     color: $error-colour;
-}
-
-/* Only for Tablets & Desktops */
-@media only screen and (min-width: $tablet-width) {
-    .styled-checkbox {
-        margin: 8px 0;
-        padding-top: 4px;
-    }
-
-    .styled-checkbox__pseudo {
-        width: 30px;
-        height: 30px;
-    }
-
-    .styled-checkbox__pseudo:after {
-        font-size: 28px;
-        line-height: 27px;
-    }
-}
-
-/* Only for Desktops */
-@media only screen and (min-width: $desktop-width) {
-    .input {
-        padding: 9px 14px;
-    }
 }

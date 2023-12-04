@@ -1,6 +1,7 @@
 /* For all devices */
 .pagination.pagination {
     display: block;
+    margin-top: 12px;
     padding: 0;
     list-style: none;
 }
@@ -14,18 +15,19 @@
     margin: 6px 4px;
     cursor: pointer;
     padding: 6px 12px;
-    background-color: $primary-colour;
-    border: 1px solid darken($primary-colour, 5%);
-    color: white;
+    background-color: transparent;
+    border: 1px solid $light-colour;
+    color: $dark-colour;
 }
 
 .pagination__item-link:hover {
-    background-color: darken($primary-colour, 5%);
-    border-color: darken($primary-colour, 15%);
+    background-color: $light-colour;
+    border-color: $light-grey;
 }
 
 .pagination__item-link.active,
 .pagination__item-link.active:hover {
-    background-color: $dark-colour;
-    border-color: darken($dark-colour, 2%);
+    background-color: $primary-colour;
+    border-color: $primary-colour;
+    color: white;
 }

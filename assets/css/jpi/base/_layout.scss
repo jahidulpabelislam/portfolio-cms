@@ -11,42 +11,24 @@ body {
 }
 
 .container {
-    max-width: 100%;
-    padding: 0 15px;
+    width: 100%;
+    padding: 0 20px;
     margin: auto;
-    transition: all 1s ease-in-out;
 }
 
 .main-content {
     display: flex;
-    transition: all 1s ease-in-out;
-}
+    width: 100%;
+    transition: margin-left 0.4s ease-in-out, padding-left 0.4s ease-in-out;
 
-p {
-    margin: 10px 0;
-}
-
-img {
-    vertical-align: middle;
-}
-
-.main-content ul {
-    padding-left: 20px;
-    margin: 10px 0;
-    list-style: inside;
-}
-
-.main-content li {
-    margin: 2px 0;
+    .container {
+        min-height: 100vh;
+    }
 }
 
 /* Only for Desktops */
 @media only screen and (min-width: $desktop-width) {
     .container {
-        width: 1170px;
-    }
-
-    .main-content li {
-        margin: 5px 0;
+        max-width: 1170px;
     }
 }

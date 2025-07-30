@@ -4,20 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42866f69881e03db25826bc0ef03e036",
+    "content-hash": "b7a04ecf72f293590076336b1ba102d0",
     "packages": [
         {
-            "name": "jpi/utils",
-            "version": "0.x-dev",
+            "name": "jpi/personal-core",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jahidulpabelislam/utils.git",
-                "reference": "5dd01f10244e35ee79c113b463711d1f4ffe82f1"
+                "url": "https://github.com/jahidulpabelislam/personal-core.git",
+                "reference": "367d0a97d10c879aeb4523a353b5e3008ec1f845"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/5dd01f10244e35ee79c113b463711d1f4ffe82f1",
-                "reference": "5dd01f10244e35ee79c113b463711d1f4ffe82f1",
+                "url": "https://api.github.com/repos/jahidulpabelislam/personal-core/zipball/367d0a97d10c879aeb4523a353b5e3008ec1f845",
+                "reference": "367d0a97d10c879aeb4523a353b5e3008ec1f845",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "jpi/utils": "1.x-dev",
+                "php": "^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JPI\\": "src/"
+                }
+            },
+            "description": "Personal library with reusable bits for my sites.",
+            "support": {
+                "source": "https://github.com/jahidulpabelislam/personal-core/tree/v1.7.0",
+                "issues": "https://github.com/jahidulpabelislam/personal-core/issues"
+            },
+            "time": "2025-08-03T15:15:05+00:00"
+        },
+        {
+            "name": "jpi/utils",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jahidulpabelislam/utils.git",
+                "reference": "0f961140f08a0b3b2ec1e7780b7543c1f3622029"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/0f961140f08a0b3b2ec1e7780b7543c1f3622029",
+                "reference": "0f961140f08a0b3b2ec1e7780b7543c1f3622029",
                 "shasum": ""
             },
             "require": {
@@ -31,8 +64,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "JPI\\Utils\\": "src/",
-                    "JPI\\Utils\\Tests\\": "tests/"
+                    "JPI\\Utils\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -56,15 +88,16 @@
             ],
             "support": {
                 "issues": "https://github.com/jahidulpabelislam/utils/issues",
-                "source": "https://github.com/jahidulpabelislam/utils/tree/v0.9.3"
+                "source": "https://github.com/jahidulpabelislam/utils/tree/1.x"
             },
-            "time": "2023-10-04T20:09:46+00:00"
+            "time": "2024-09-06T23:12:02+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "jpi/personal-core": 20,
         "jpi/utils": 20
     },
     "prefer-stable": false,
@@ -73,6 +106,6 @@
         "php": "^7.1 || ^8.0",
         "ext-curl": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

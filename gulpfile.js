@@ -1,24 +1,14 @@
 const gulp = require("gulp");
 
-const sass = require("gulp-sass")(require("sass-embedded"));
+const HubRegistry = require("gulp-hub");
 
-const sourcemaps = require("gulp-sourcemaps");
+let srcs = [];
 
-const assetsDir = "./assets";
-const cssDir = `${assetsDir}/css`;
+const env = process.env.NODE_ENV || "production";
+if (env !== "production") {
+    srcs.push("./vendor/jpi/personal-core/dev/gulpfile.js");
+}
 
-gulp.task("sass", function() {
-    return gulp.src(`${cssDir}/jpi/main.scss`)
-               .pipe(sourcemaps.init())
-               .pipe(sass().on("error", sass.logError))
-               .pipe(sourcemaps.write("maps/"))
-               .pipe(gulp.dest(`${cssDir}/jpi/`))
-    ;
-});
+const hub = new HubRegistry(srcs);
 
-// Watch SASS files For changes to compile to css
-gulp.task("watch", function() {
-    gulp.watch(`${cssDir}/**/*.scss`, gulp.parallel("sass"));
-});
-
-gulp.task("default", gulp.series(["sass"]));
+gulp.registry(hub);

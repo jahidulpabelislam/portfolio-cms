@@ -12,7 +12,7 @@
                 <input type="password" class="input" id="password" placeholder="Password" tabindex="1" oninput="jpi.helpers.checkInput(this);" />
             </div>
             <p class="feedback feedback--error login__feedback"></p>
-            <button type="submit" class="btn btn--dark-green login__submit">Log In</button>
+            <button type="submit" class="btn login__submit">Log In</button>
         </form>
     </div>
 </div>

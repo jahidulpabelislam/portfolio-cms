@@ -42,12 +42,14 @@
     display: block;
     margin: 0;
     font-weight: 400;
+    background-color: $success-colour;
 }
 
 .project-edit__back-button.project-edit__back-button {
     margin: 0;
     line-height: 1;
     font-size: 0;
+    background-color: $orange;
 }
 
 .project-edit__main {

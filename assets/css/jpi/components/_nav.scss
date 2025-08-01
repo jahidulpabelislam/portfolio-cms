@@ -70,13 +70,13 @@ $nav-open-width: 200px;
     transition: all 0.7s ease-in-out;
 
     .nav--opened & {
-        border-color: get-colour(red, main);
+        border-color: $red;
 
         &:hover {
-            border-color: get-colour(red, hover);
+            border-color: $red-light;
 
             .nav__toggle-bar {
-                background-color: get-colour(red, hover);
+                background-color: $red-light;
             }
         }
     }
@@ -91,7 +91,7 @@ $nav-open-width: 200px;
     position: relative;
 
     .nav--opened & {
-        background-color: get-colour(red, main);
+        background-color: $red;
     }
 }
 
@@ -153,11 +153,11 @@ $nav-open-width: 200px;
 
 .nav__link:focus,
 .nav__link:hover {
-    color: get-colour(dark-blue, main);
+    color: $primary-colour;
 }
 
 .nav__link--active.nav__link--active {
-    background-color: get-colour(dark-blue, main);
+    background-color: $primary-colour;
     color: white;
 }
 

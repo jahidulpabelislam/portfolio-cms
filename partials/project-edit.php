@@ -84,7 +84,7 @@
 
                     <div class="input-group">
                         <label for="project-download-url">Download <span>(optional)</span>:</label>
-                        <input type="text" name="project-download-url" id="project-download-url" class="input project-edit__download" placeholder="https://github.com/jahidulpabelislam/portfolio/archive/v4.zip" tabindex="1" />
+                        <input type="text" name="project-download-url" id="project-download-url" class="input project-edit__download" placeholder="https://github.com/jahidulpabelislam/personal-site/archive/v4.zip" tabindex="1" />
                     </div>
                 </div>
 

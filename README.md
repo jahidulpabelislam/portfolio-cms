@@ -8,11 +8,11 @@ I wanted a system to quickly and easily manage the projects without having to ma
 
 ## History
 
-[1.x](https://github.com/jahidulpabelislam/portfolio/tree/v2) - The original version was basic and built directly in the portfolio, this launched in 2016.
+[1.x](https://github.com/jahidulpabelislam/personal-site/tree/v2) - The original version was basic and built directly in the portfolio, this launched in 2016.
 
-[2.x](https://github.com/jahidulpabelislam/portfolio/tree/v3) - In early 2017, I discovered AngularJS so rebuilt the CMS to experiment with it, incorporating jQuery, SCSS and Bootstrap3.
+[2.x](https://github.com/jahidulpabelislam/personal-site/tree/v3) - In early 2017, I discovered AngularJS so rebuilt the CMS to experiment with it, incorporating jQuery, SCSS and Bootstrap3.
 
-[3.x](https://github.com/jahidulpabelislam/portfolio/tree/v4) - At the start of 2018, with 9 months of experience as a professional developer, I overhauled my portfolio. This included removing Bootstrap and code refactoring.
+[3.x](https://github.com/jahidulpabelislam/personal-site/tree/v4) - At the start of 2018, with 9 months of experience as a professional developer, I overhauled my portfolio. This included removing Bootstrap and code refactoring.
 
 [4.x](https://github.com/jahidulpabelislam/portfolio-cms/tree/v4.0.0) - By end of 2018 I decided to separate the portfolio, API and CMS for better maintainability and readability. I also refactored code to follow consistent standards.
 

@@ -3,22 +3,6 @@ include_once("vendor/autoload.php");
 
 $app = App::get();
 $app->addConfig();
-
-$colourOptions = [
-    "" => "Default",
-    "light-blue" => "Light Blue",
-    "dark-blue" => "Dark Blue",
-    "purple" => "Purple",
-    "pink" => "Pink",
-    "red" => "Red",
-    "orange" => "Orange",
-    "yellow" => "Yellow",
-    "light-green" => "Light Green",
-    "lime-green" => "Lime Green",
-    "dark-green" => "Dark Green",
-    "grey" => "Grey",
-    "black" => "Black",
-];
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +43,6 @@ $colourOptions = [
             window.jpi = window.jpi || {};
             window.jpi.config = {
                 jpiAPIBaseURL: "<?php echo \JPI\Utils\URL::removeTrailingSlash(JPI_API_ENDPOINT) . "/v" . JPI_API_VERSION; ?>",
-                colours: <?php echo json_encode($colourOptions); ?>,
             };
         </script>
 

@@ -1,7 +1,4 @@
 @charset "UTF-8";
-/*
-  IMPORT ALL NECESSARY CSS FILES
-*/
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -243,124 +240,22 @@ button,
   opacity: 0.65;
 }
 
-.btn--light-blue {
-  background-color: #54c6e2;
-  color: white;
-}
-
-.btn--light-blue:hover,
-.btn--light-blue:focus {
-  background-color: #53d1ec;
-}
-
-.btn--dark-blue {
+.btn--primary {
   background-color: #0375b4;
-  color: white;
 }
 
-.btn--dark-blue:hover,
-.btn--dark-blue:focus {
+.btn--primary:hover,
+.btn--primary:focus {
   background-color: #0382c3;
 }
 
-.btn--purple {
-  background-color: #82379d;
-  color: white;
-}
-
-.btn--purple:hover,
-.btn--purple:focus {
-  background-color: #9339af;
-}
-
-.btn--pink {
-  background-color: #f47ab3;
-  color: white;
-}
-
-.btn--pink:hover,
-.btn--pink:focus {
-  background-color: #ff82bf;
-}
-
-.btn--red {
+.btn--danger {
   background-color: #f12525;
-  color: white;
 }
 
-.btn--red:hover,
-.btn--red:focus {
+.btn--danger:hover,
+.btn--danger:focus {
   background-color: #fa0f0f;
-}
-
-.btn--orange {
-  background-color: #f69e00;
-  color: white;
-}
-
-.btn--orange:hover,
-.btn--orange:focus {
-  background-color: #fba300;
-}
-
-.btn--yellow {
-  background-color: #ffef38;
-  color: #333333;
-}
-
-.btn--yellow:hover,
-.btn--yellow:focus {
-  background-color: #fffd3c;
-}
-
-.btn--light-green {
-  background-color: #3dc714;
-  color: white;
-}
-
-.btn--light-green:hover,
-.btn--light-green:focus {
-  background-color: #3bcf14;
-}
-
-.btn--lime-green {
-  background-color: #b5cf16;
-  color: white;
-}
-
-.btn--lime-green:hover,
-.btn--lime-green:focus {
-  background-color: #bdd716;
-}
-
-.btn--dark-green {
-  background-color: #1aad5b;
-  color: white;
-}
-
-.btn--dark-green:hover,
-.btn--dark-green:focus {
-  background-color: #1bbe69;
-}
-
-.btn--grey {
-  background-color: #7b8676;
-  color: white;
-}
-
-.btn--grey:hover,
-.btn--grey:focus {
-  background-color: #889283;
-}
-
-.btn--black {
-  background-color: #333333;
-  color: white;
-}
-
-.btn--black:hover,
-.btn--black:focus {
-  background-color: #262626;
 }
 
 .btn--clear {
@@ -872,6 +767,7 @@ input:checked + .radio-toggle__toggle::before {
   margin: 6px 0 0;
   padding: 8px 24px;
   border-radius: 6px;
+  background-color: #1aad5b;
 }
 
 @media only screen and (min-width: 768px) {
@@ -1021,12 +917,14 @@ input:checked + .radio-toggle__toggle::before {
   display: block;
   margin: 0;
   font-weight: 400;
+  background-color: #1aad5b;
 }
 
 .project-edit__back-button.project-edit__back-button {
   margin: 0;
   line-height: 1;
   font-size: 0;
+  background-color: #f69e00;
 }
 
 .project-edit__main {

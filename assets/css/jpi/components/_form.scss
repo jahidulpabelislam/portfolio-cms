@@ -18,7 +18,7 @@ label,
 }
 
 .notice {
-    color: get-colour(red, main);
+    color: $red;
     font-weight: 700;
 }
 
@@ -139,7 +139,7 @@ label,
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: get-colour(red, main);
+    background-color: $red;
     transition: .4s;
     border-radius: 34px;
 
@@ -157,11 +157,11 @@ label,
 }
 
 input:checked + .radio-toggle__toggle {
-    background-color:  get-colour(dark-green, main);
+    background-color: $success-colour;
 }
 
 input:focus + .radio-toggle__toggle {
-    box-shadow: 0 0 1px get-colour(dark-green, main);
+    box-shadow: 0 0 1px $success-colour;
 }
 
 input:checked + .radio-toggle__toggle::before {

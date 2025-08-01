@@ -57,21 +57,21 @@
 
 .projects-listing__edit-button {
     .material-symbols-outlined {
-        color: get-colour(orange, main);
+        color: $orange;
     }
 
     &:hover .material-symbols-outlined {
-        color: get-colour(orange, hover);
+        color: $orange-light;
     }
 }
 
 .projects-listing__delete-button {
     .material-symbols-outlined {
-        color: get-colour(red, main);
+        color: $red;
     }
 
     &:hover .material-symbols-outlined {
-        color: get-colour(red, hover);
+        color: $red-light;
     }
 }
 

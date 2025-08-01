@@ -1,4 +1,11 @@
 $primary-colour: #0375b4;
+$primary-light-colour: #0382c3;
+
+$red: #f12525;
+$red-light: #fa0f0f;
+
+$orange: #f69e00;
+$orange-light: #fba300;
 
 $error-colour: #e52525;
 $success-colour: #1aad5b;
@@ -13,67 +20,3 @@ $desktop-width: 980px;
 
 $v-gutter: 18px;
 $v-spacing: 14px;
-
-$colour-schemes: (
-    light-blue: (
-        main: #54c6e2,
-        hover: #53d1ec,
-        dark: #52c2dd,
-    ),
-    dark-blue: (
-        main: #0375b4,
-        hover: #0382c3,
-        dark: #0360a0,
-    ),
-    purple: (
-        main: #82379d,
-        hover: #9339af,
-        dark: #6c3687,
-    ),
-    pink: (
-        main: #f47ab3,
-        hover: #ff82bf,
-        dark: #ff739b,
-    ),
-    red: (
-        main: #f12525,
-        hover: #fa0f0f,
-        dark: #e62525,
-    ),
-    orange: (
-        main: #f69e00,
-        hover: #fba300,
-        dark: #f77f00,
-    ),
-    yellow: (
-        main: #ffef38,
-        hover: #fffd3c,
-        dark: #f8e43b,
-        text: $dark-colour,
-    ),
-    light-green: (
-        main: #3dc714,
-        hover: #3bcf14,
-        dark: #33bb12,
-    ),
-    lime-green: (
-        main: #b5cf16,
-        hover: #bdd716,
-        dark: #b4c72f,
-    ),
-    dark-green: (
-        main: #1aad5b,
-        hover: #1bbe69,
-        dark: #1ba553,
-    ),
-    grey: (
-        main: $grey,
-        hover: lighten($grey, 5%),
-        dark: darken($grey, 10%),
-    ),
-    black: (
-        main: $dark-colour,
-        hover: darken($dark-colour, 5%),
-        dark: darken($dark-colour, 15%),
-    ),
-);

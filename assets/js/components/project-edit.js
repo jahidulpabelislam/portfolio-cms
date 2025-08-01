@@ -20,7 +20,6 @@ window.jpi.ProjectEdit = function() {
     const tabs = document.querySelectorAll(".project-edit__tabs-content");
 
     const publishedCheckbox = document.querySelector("#project-is-published");
-    const colourInput = document.querySelector("#project-colour");
     const dateInput = document.querySelector("#project-date");
     const createdInput = document.querySelector(".js-project-created-at");
     const updatedInput = document.querySelector(".js-project-updated-at");
@@ -97,7 +96,6 @@ window.jpi.ProjectEdit = function() {
             "url": urlInput.value,
             "github_url": githubInput.value,
             "download_url": downloadInput.value,
-            "colour": colourInput.value,
             "short_description": tinymce.get("project-short-desc").getContent(),
             "long_description": tinymce.get("project-long-desc").getContent(),
             "tags": [],
@@ -163,7 +161,6 @@ window.jpi.ProjectEdit = function() {
         selectedProjectID = project ? project.id : undefined;
 
         publishedCheckbox.checked = project ? (project.status === "published") : false;
-        colourInput.value = project ? project.colour : "";
         dateInput.value = project ? project.date : "";
         createdInput.innerHTML = project && project.created_at ? app.longDateFormat.format(new Date(project.created_at)) : "-";
         updatedInput.innerHTML = project && project.updated_at ? app.longDateFormat.format(new Date(project.updated_at)) : "-";
@@ -447,22 +444,10 @@ window.jpi.ProjectEdit = function() {
         ],
         link_class_list: [
             {title: "None", value: ""},
-            {title: "Project link", value: "link link--{{ colour }}"},
-            {title: "Project button", value: "button button--{{ colour }}"},
+            {title: "Project link", value: "link"},
+            {title: "Project button", value: "button"},
         ],
     };
-
-    for (const colour in app.config.colours) {
-        const colourName = app.config.colours[colour];
-        tinymceConfig.link_class_list.push({
-            title: colourName + " link",
-            value: "link link--" + colour,
-        });
-        tinymceConfig.link_class_list.push({
-            title: colourName + " button",
-            value: "button button--" + colour,
-        });
-    }
 
     ["project-short-desc", "project-long-desc"].forEach(function (tinymceId) {
         tinymce.init(Object.assign({}, tinymceConfig, {selector: "#" + tinymceId}));

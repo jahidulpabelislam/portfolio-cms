@@ -6,12 +6,12 @@
                 <button type="button" class="project-edit__hide-error">X</button>
             </p>
             <div class="project-edit__header-buttons">
-                <a class="btn btn--orange project-edit__back-button js-link-projects" href="/projects/" title="Link to Projects Page" tabindex="1">
+                <a class="btn project-edit__back-button js-link-projects" href="/projects/" title="Link to Projects Page" tabindex="1">
                     <span class="material-symbols-outlined">chevron_left</span>
                     <span class="">Back</span>
                 </a>
 
-                <button type="submit" class="btn btn--dark-green project-edit__save-button" tabindex="1">
+                <button type="submit" class="btn project-edit__save-button" tabindex="1">
                     <span>Save</span>
                 </button>
             </div>
@@ -30,7 +30,7 @@
                 <div class="project-edit__tag-input-container">
                     <label for="tag-input" class="visually-hidden">Add tags for project.</label>
                     <input type="text" class="input project-edit__tag-input" id="tag-input" placeholder="HTML5" tabindex="1" />
-                    <button type="button" class="btn btn--dark-blue project-edit__tag-add-button" id="tag-add" tabindex="1">
+                    <button type="button" class="btn btn--primary project-edit__tag-add-button" id="tag-add" tabindex="1">
                         <span class="visually-hidden">Add</span>
                         <span class="material-symbols-outlined">add</span>
                     </button>
@@ -70,17 +70,6 @@
                     <div class="input-group">
                         <label for="project-date">Date:</label>
                         <input type="date" name="project-date" id="project-date" class="input project-edit__date" placeholder="2016-01-30" tabindex="1" oninput="jpi.helpers.checkInput(this);" />
-                    </div>
-
-                    <div class="input-group">
-                        <label for="project-colour">Colour <span>(optional)</span>:</label>
-                        <select name="project-colour" id="project-colour" class="input project-edit__colour" tabindex="1">
-                            <?php
-                            foreach ($colourOptions as $value => $display) {
-                                echo "<option value='$value'>$display</option>";
-                            }
-                            ?>
-                        </select>
                     </div>
 
                     <div class="input-group">
@@ -132,7 +121,7 @@
     <li class="project-edit__image-container">
         <input type="hidden" class="js-project-edit-image" name="images[]" value="{{ id }}">
         <img class="project-edit__image" src="{{ url }}" />
-        <button type="button" class="btn btn--red project-edit__image-delete-button" data-id="{{ id }}" tabindex="1">
+        <button type="button" class="btn btn--danger project-edit__image-delete-button" data-id="{{ id }}" tabindex="1">
             <span class="material-symbols-outlined">delete</span>
         </button>
     </li>
@@ -141,7 +130,7 @@
 <script type="text/template" id="js-project-edit-image-upload-success-template">
     <li class="project-edit__image-container">
         <img src="{{ url }}" alt="{{ name }}" />
-        <button type="button" class="btn btn--dark-blue js-project-image-upload-button" data-index="{{ index }}" tabindex="1">
+        <button type="button" class="btn btn--primary js-project-image-upload-button" data-index="{{ index }}" tabindex="1">
             <span class="visually-hidden">Upload This Image</span>
             <span class="material-symbols-outlined">upload</span>
         </button>

@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Redirect all requests to main index router
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ index.php/$1
+
+# Force trailing slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(.+)/$
+RewriteRule ^(.*)$ %{REQUEST_URI}/ [R=301,L]

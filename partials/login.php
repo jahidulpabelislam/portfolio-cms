@@ -1,7 +1,7 @@
 <div class="login fixed-overlay">
     <div class="container">
         <form class="login__form">
-            <img class="login__logo" src="/assets/images/jpi.png" />
+            <img class="login__logo" src="<?php echo $app::asset("/logo.png", null, JPI_CORE_ROOT . '/assets'); ?>" />
 
             <div class="input-group">
                 <label for="username" class="visually-hidden">Username</label>

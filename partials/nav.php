@@ -28,7 +28,7 @@
         </li>
     </ul>
     <div class="nav__footer">
-        <img class="nav__logo" src="<?php echo $app::asset("/logo.png", null, JPI_CORE_ROOT . '/assets'); ?>" />
+        <img class="nav__logo" src="<?php echo $app::asset("/logo.png", null, JPI_CORE_ROOT . "/assets"); ?>" />
         <p>&copy; Jahidul Pabel Islam 2010 - <?php echo date("Y"); ?></p>
     </div>
 </nav>

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jahidulpabelislam/personal-core.git",
-                "reference": "367d0a97d10c879aeb4523a353b5e3008ec1f845"
+                "reference": "89c77668d1ad3122fd7f405c914fb3cfe047886c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jahidulpabelislam/personal-core/zipball/367d0a97d10c879aeb4523a353b5e3008ec1f845",
-                "reference": "367d0a97d10c879aeb4523a353b5e3008ec1f845",
+                "url": "https://api.github.com/repos/jahidulpabelislam/personal-core/zipball/89c77668d1ad3122fd7f405c914fb3cfe047886c",
+                "reference": "89c77668d1ad3122fd7f405c914fb3cfe047886c",
                 "shasum": ""
             },
             "require": {
@@ -34,10 +34,10 @@
             },
             "description": "Personal library with reusable bits for my sites.",
             "support": {
-                "source": "https://github.com/jahidulpabelislam/personal-core/tree/v1.7.0",
+                "source": "https://github.com/jahidulpabelislam/personal-core/tree/1.x",
                 "issues": "https://github.com/jahidulpabelislam/personal-core/issues"
             },
-            "time": "2025-08-03T15:15:05+00:00"
+            "time": "2025-08-03T20:47:16+00:00"
         },
         {
             "name": "jpi/utils",
@@ -45,12 +45,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jahidulpabelislam/utils.git",
-                "reference": "0f961140f08a0b3b2ec1e7780b7543c1f3622029"
+                "reference": "cdc95bde44efcd8cf86b24c7b4dc0cd42f042259"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/0f961140f08a0b3b2ec1e7780b7543c1f3622029",
-                "reference": "0f961140f08a0b3b2ec1e7780b7543c1f3622029",
+                "url": "https://api.github.com/repos/jahidulpabelislam/utils/zipball/cdc95bde44efcd8cf86b24c7b4dc0cd42f042259",
+                "reference": "cdc95bde44efcd8cf86b24c7b4dc0cd42f042259",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
             },
             "require-dev": {
                 "jpi/codestyles": "^1.0.1",
-                "phpunit/phpunit": "^9.0"
+                "phpunit/phpunit": "^12.0"
             },
             "default-branch": true,
             "type": "library",
@@ -90,7 +90,7 @@
                 "issues": "https://github.com/jahidulpabelislam/utils/issues",
                 "source": "https://github.com/jahidulpabelislam/utils/tree/1.x"
             },
-            "time": "2024-09-06T23:12:02+00:00"
+            "time": "2025-11-23T00:05:48+00:00"
         }
     ],
     "packages-dev": [],

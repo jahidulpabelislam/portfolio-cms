@@ -88,6 +88,7 @@ window.jpi.ProjectsListing = function() {
         const data = {
             page: page,
             search: searchInput.value,
+            include: "type,images",
         };
 
         if (typeInput.value !== "") {

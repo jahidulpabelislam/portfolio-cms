@@ -202,6 +202,7 @@ window.jpi.ProjectEdit = function() {
         app.makeAPIRequest({
             method: "GET",
             url: "/projects/" + projectID + "/",
+            data: {include: "type,images"},
             onSuccess: function (response) {
                 app.activateLink("");
                 show(response.data);

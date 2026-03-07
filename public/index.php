@@ -44,7 +44,7 @@ $app = \JPI\App::get();
         <script type="application/javascript">
             window.jpi = window.jpi || {};
             window.jpi.config = {
-                jpiAPIBaseURL: "<?php echo \JPI\Utils\URL::removeTrailingSlash($app->config()->api_endpoint) . "/v" . $app->config()->api_version; ?>",
+                jpiAPIBaseURL: "<?php echo \JPI\Utils\URL::removeTrailingSlash($app->config()->api_endpoint) ?>",
             };
         </script>
 

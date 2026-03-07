@@ -3,7 +3,7 @@ $ch = curl_init();
 curl_setopt(
     $ch,
     CURLOPT_URL,
-    \JPI\Utils\URL::removeTrailingSlash($app->config()->api_endpoint) . "/v" . $app->config()->api_version . "/project-types/"
+    \JPI\Utils\URL::removeTrailingSlash($app->config()->api_endpoint) . "/project-types/"
 );
 curl_setopt(
     $ch,
